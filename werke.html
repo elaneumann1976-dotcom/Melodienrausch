@@ -15,6 +15,14 @@
     margin: 0; padding: 0;
     box-sizing: border-box;
     cursor: none;
+    /* Blockiert das standardmäßige orange/blaue Aufblitzen beim Tippen auf Mobilgeräten */
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
+  /* Entfernt systemweit die orangefarbene oder farbige Textauswahl */
+  ::selection {
+    background-color: #000000;
+    color: #ffffff;
   }
 
   .custom-cursor {
@@ -50,6 +58,7 @@
     font-size: clamp(30px, 7.8vw, 180px);
     font-weight: 700; line-height: 0.8; letter-spacing: -2px;
     text-transform: uppercase; margin: 0; white-space: nowrap;
+    color: #000000;
   }
 
   .menu-icon {
@@ -84,20 +93,30 @@
   body.menu-open .side-menu { right: 0; }
 
   .menu-link {
-    font-family: 'Oswald', sans-serif; font-size: 32px; color: #ffffff;
+    font-family: 'Oswald', sans-serif; font-size: 32px; color: #ffffff !important;
     text-decoration: none; text-transform: uppercase; padding: 15px 20px;
     border: 1px solid transparent; transition: all 0.2s ease; display: block; cursor: none;
     border-bottom: 1px solid #222222;
+    /* Blockiert unerwünschte Rahmen oder Overlays im Browser beim Klicken */
+    outline: none !important;
+    -webkit-tap-highlight-color: transparent !important;
   }
 
-  .menu-link:hover { background-color: #ffffff; color: #000000; border-color: #ffffff; padding-left: 30px; }
+  /* Cleanes Hover- und Klick-Verhalten ohne jede Farbe */
+  .menu-link:hover, .menu-link:active, .menu-link:focus { 
+    background-color: #ffffff !important; 
+    color: #000000 !important; 
+    border-color: #ffffff !important; 
+    padding-left: 30px;
+    outline: none !important;
+  }
 </style>
 </head>
 <body>
 
   <div class="custom-cursor" id="cursor"></div>
 
-  <!-- Schwarze Menüleiste -->
+  <!-- Schwarze Menüleiste mit allen Seiten -->
   <div class="side-menu">
       <a href="ueber.html" class="menu-link">Über</a>
       <a href="werke.html" class="menu-link">Werke</a>
@@ -114,9 +133,9 @@
       </div>
     </div>
 
-    <!-- Hier steht der eigentliche Inhalt deiner Werke-Seite -->
+    <!-- Bereich für deine zukünftigen Inhalte -->
     <div style="padding: 240px 40px 40px 40px;">
-      <!-- Füge hier deine Bilder, Raster oder Texte für die Werke ein -->
+      <!-- Hier fügst du später ganz in Ruhe deine Werke ein -->
     </div>
   </div>
 
