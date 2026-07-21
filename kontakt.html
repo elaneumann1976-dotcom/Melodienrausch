@@ -1,155 +1,102 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kontakt - MELODIENRAUSCH</title>
-<link rel="preconnect" href="https://googleapis.com">
-<link rel="preconnect" href="https://gstatic.com" crossorigin>
-<link href="https://googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
-<style>
-  html, body {
-    background-color: #ffffff;
-    color: #000000;
-    font-family: Arial, Helvetica, sans-serif;
-    margin: 0; padding: 0;
-    box-sizing: border-box;
-    cursor: none;
-    /* Verhindert das standardmäßige orange/blaue Aufblitzen beim Tippen auf Mobilgeräten */
-    -webkit-tap-highlight-color: transparent !important;
-  }
-
-  /* Entfernt systemweit die orangefarbene oder farbige Textauswahl */
-  ::selection {
-    background-color: #000000;
-    color: #ffffff;
-  }
-  ::-moz-selection {
-    background-color: #000000;
-    color: #ffffff;
-  }
-
-  .custom-cursor {
-    width: 14px; height: 14px;
-    background-color: #000000;
-    position: fixed;
-    top: 0; left: 0;
-    pointer-events: none;
-    z-index: 999999 !important;
-    transform: translate(-50%, -50%) rotate(45deg);
-  }
-
-  /* Ändert die Cursor-Farbe auf weiß, wenn man über das schwarze Menü fährt */
-  body.menu-open .custom-cursor {
-    background-color: #ffffff;
-  }
-
-  .main-content {
-    height: 100vh; 
-  }
-
-  .hero-header {
-    position: fixed;
-    top: 0; left: 0; width: 100%;
-    display: flex; justify-content: space-between; align-items: flex-end;
-    padding: 30px 40px 10px 40px;
-    box-sizing: border-box;
-    z-index: 100;
-  }
-
-  .huge-title {
-    font-family: 'Oswald', sans-serif;
-    font-size: clamp(30px, 7.8vw, 180px);
-    font-weight: 700; line-height: 0.8; letter-spacing: -2px;
-    text-transform: uppercase; margin: 0; white-space: nowrap;
-    color: #000000;
-  }
-
-  .menu-icon {
-    display: flex; flex-direction: column; justify-content: space-between;
-    width: 30px; height: 16px; cursor: none; margin-bottom: 8px; z-index: 1001;
-    pointer-events: auto;
-  }
-
-  .menu-icon span {
-    display: block; width: 100%; height: 2px;
-    background-color: #000000; transition: all 0.3s ease-in-out;
-  }
-
-  /* Macht die Linien des X-Buttons weiß, wenn das Menü offen ist */
-  body.menu-open .menu-icon span {
-    background-color: #ffffff;
-  }
-
-  body.menu-open .menu-icon span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  body.menu-open .menu-icon span:nth-child(2) { opacity: 0; }
-  body.menu-open .menu-icon span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-  /* Schwarze Menüleiste */
-  .side-menu {
-    position: fixed; top: 0; right: -450px; width: 400px; height: 100vh;
-    background-color: #000000; border-left: 1px solid #111111;
-    box-sizing: border-box; padding: 120px 40px 40px 40px; z-index: 1000;
-    transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
-    display: flex; flex-direction: column; gap: 10px;
-  }
-
-  body.menu-open .side-menu { right: 0; }
-
-  .menu-link {
-    font-family: 'Oswald', sans-serif; font-size: 32px; color: #ffffff !important;
-    text-decoration: none; text-transform: uppercase; padding: 15px 20px;
-    border: 1px solid transparent; transition: all 0.2s ease; display: block; cursor: none;
-    border-bottom: 1px solid #222222;
-    /* Blockiert unerwünschte Rahmen oder Overlays im Browser beim Klicken */
-    outline: none !important;
-    -webkit-tap-highlight-color: transparent !important;
-  }
-
-  /* Cleanes Hover- und Klick-Verhalten ohne jede Farbe */
-  .menu-link:hover, .menu-link:active, .menu-link:focus { 
-    background-color: #ffffff !important; 
-    color: #000000 !important; 
-    border-color: #ffffff !important; 
-    padding-left: 30px;
-    outline: none !important;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MELODIENRAUSCH // CONTACT</title>
+  <style>
+    @import url('https://googleapis.com');
+    
+    :root { 
+      --bg: #0a0a0a; 
+      --fg: #ece7dd; 
+      --accent: #d97a3c; 
+      --muted: #222222; 
+      --text-muted: #6b6b6b;
+    }
+    
+    html, body { 
+      background-color: var(--bg) !important; 
+      color: var(--fg); 
+      font-family: "IBM Plex Mono", monospace; 
+      margin: 0; padding: 0; 
+      box-sizing: border-box; 
+      cursor: none; 
+      overflow-x: hidden; 
+      min-height: 100vh; 
+      display: flex; 
+      flex-direction: column; 
+    }
+    
+    .custom-cursor { 
+      width: 12px; height: 12px; 
+      background-color: var(--fg); 
+      position: fixed; top: 0; left: 0; 
+      pointer-events: none; 
+      z-index: 999999 !important; 
+      transform: translate(-50%, -50%) rotate(45deg); 
+      will-change: transform; 
+    }
+    
+    header { 
+      padding: 3rem 2rem; 
+      border-bottom: 1px solid var(--muted); 
+      display: flex; justify-content: space-between; align-items: flex-end; 
+    }
+    
+    header h1 { 
+      font-family: 'Oswald', sans-serif; font-size: clamp(2.5rem, 9vw, 6rem); 
+      margin: 0; letter-spacing: -0.03em; line-height: 0.85; text-transform: uppercase; 
+    }
+    
+    .nav-links-top { display: flex; gap: 3rem; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; font-family: 'Oswald', sans-serif; }
+    .nav-links-top a { color: var(--text-muted); text-decoration: none; cursor: none; }
+    .nav-links-top a:hover, .nav-links-top a.active { color: var(--fg); }
+    
+    .contact-main { max-width: 600px; padding: 6rem 2rem; box-sizing: border-box; flex: 1; }
+    .contact-main h2 { font-family: "Arial Black", sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.25em; color: var(--accent); margin: 0 0 2rem; }
+    .contact-main p { line-height: 1.7; font-size: 15px; margin-bottom: 1.5rem; }
+    
+    .mail-block { margin-top: 3.5rem; padding: 1.5rem 0; border-top: 1px solid var(--muted); border-bottom: 1px solid var(--muted); }
+    .mail-block a { color: var(--fg); text-decoration: none; font-family: "Arial Black", sans-serif; font-size: 1.15rem; transition: color 0.2s; letter-spacing: 0.02em; cursor: none; }
+    .mail-block a:hover { color: var(--accent); }
+    .bracket { color: var(--accent); margin: 0 0.6rem; font-family: "Arial Black", sans-serif; }
+    
+    footer { padding: 3rem 2rem; font-size: 0.7rem; color: var(--text-muted); border-top: 1px solid var(--muted); text-transform: uppercase; letter-spacing: 0.15em; display: flex; justify-content: space-between; }
+  </style>
 </head>
 <body>
 
   <div class="custom-cursor" id="cursor"></div>
-
-  <!-- Schwarze Menüleiste mit allen Seiten -->
-  <div class="side-menu">
-      <a href="ueber.html" class="menu-link">Über</a>
-      <a href="werke.html" class="menu-link">Werke</a>
-      <a href="register.html" class="menu-link">Register</a>
-      <a href="kontakt.html" class="menu-link">Kontakt</a>
-  </div>
-
-  <div class="main-content">
-    <!-- Header mit Titel und dem R-Zeichen -->
-    <div class="hero-header">
-      <h1 class="huge-title">MELODIENRAUSCH®</h1>
-      <div class="menu-icon" onclick="toggleMenu()">
-        <span></span><span></span><span></span>
-      </div>
+  
+  <header>
+    <h1>MELODIENRAUSCH</h1>
+    <nav class="nav-links-top">
+      <a href="index.html">Heimat</a>
+      <a href="werke.html">Werke</a>
+      <a href="ueber.html">Über</a>
+      <a href="register.html">Register</a>
+      <a href="kontakt.html" class="active">Kontakt</a>
+    </nav>
+  </header>
+  
+  <main class="contact-main">
+    <h2>Schreib mir</h2>
+    <p>Wenn dir ein Text im Kopf geblieben ist, du ein Bild an deine Wand hängen möchtest oder ein Sound-Schnipsel dich genervt hat: Schreib mir eine ganz normale Mail.</p>
+    <p>Ich lese das. Und ich antworte, sobald mein Kopf Platz dafür hat.</p>
+    <div class="mail-block">
+      <span class="bracket">[</span><a href="mailto:mail@melodienrausch.de">mail@melodienrausch.de</a><span class="bracket">]</span>
     </div>
+  </main>
+  
+  <footer>
+    <span>© 2026 Melodienrausch. All Rights Reserved.</span>
+    <span>ogcvisualz &nbsp;/&nbsp; mail@melodienrausch.de</span>
+  </footer>
 
-    <!-- Hier steht der eigentliche Inhalt deiner Kontakt-Seite -->
-    <div style="padding: 240px 40px 40px 40px;">
-      <!-- Hier kannst du dein Formular, E-Mail-Links oder Adressen einfügen -->
-    </div>
-  </div>
-
-<script>
-  const cursor = document.getElementById('cursor');
-  document.addEventListener('mousemove', (e) => {
-    cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
-  });
-
-  function toggleMenu() { document.body.classList.toggle('menu-open'); }
-</script>
+  <script>
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', (e) => { cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px) rotate(45deg)`; });
+  </script>
 </body>
 </html>
