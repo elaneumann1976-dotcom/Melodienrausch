@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MELODIENRAUSCH</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://googleapis.com">
+<link rel="preconnect" href="https://gstatic.com" crossorigin>
+<link href="https://googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
 <style>
   html, body {
     background-color: #ffffff;
@@ -27,7 +27,7 @@
     transform: translate(-50%, -50%) rotate(45deg);
   }
 
-  /* Ändert die Cursor-Farbe auf weiß, wenn man über das dunkle Menü fährt */
+  /* Ändert die Cursor-Farbe auf weiß, wenn man über das schwarze Menü fährt */
   body.menu-open .custom-cursor {
     background-color: #ffffff;
   }
@@ -77,9 +77,10 @@
   body.menu-open .menu-icon span:nth-child(2) { opacity: 0; }
   body.menu-open .menu-icon span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
+  /* Hintergrundfarbe hier komplett auf tiefes Schwarz gesetzt */
   .side-menu {
     position: fixed; top: 0; right: -450px; width: 400px; height: 100vh;
-    background-color: #111111; border-left: 1px solid #222222;
+    background-color: #000000; border-left: 1px solid #111111;
     box-sizing: border-box; padding: 120px 40px 40px 40px; z-index: 1000;
     transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
     display: flex; flex-direction: column; gap: 10px;
@@ -91,9 +92,10 @@
     font-family: 'Oswald', sans-serif; font-size: 32px; color: #ffffff;
     text-decoration: none; text-transform: uppercase; padding: 15px 20px;
     border: 1px solid transparent; transition: all 0.2s ease; display: block; cursor: none;
-    border-bottom: 1px solid #222222;
+    border-bottom: 1px solid #222222; /* Dezente Trennlinie im Menü */
   }
 
+  /* Hover-Effekt: Text wird schwarz, Hintergrund weiß */
   .menu-link:hover { background-color: #ffffff; color: #000000; border-color: #ffffff; padding-left: 30px; }
 
   .section-grid {
