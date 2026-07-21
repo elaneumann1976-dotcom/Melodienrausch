@@ -37,6 +37,7 @@
       transform: translate(-50%, -50%) rotate(45deg); 
     }
     
+    /* Fixierter Header wie auf der Startseite */
     .hero-header { 
       padding: 3rem 2rem; 
       border-bottom: 1px solid var(--muted); 
@@ -51,8 +52,10 @@
     .huge-title { 
       font-family: 'Oswald', sans-serif; font-size: clamp(30px, 7.8vw, 180px); 
       margin: 0; letter-spacing: -2px; line-height: 0.8; text-transform: uppercase; 
+      color: var(--fg);
     }
     
+    /* Die 3 Striche oben rechts */
     .menu-icon {
       display: flex; flex-direction: column; justify-content: space-between;
       width: 30px; height: 16px; cursor: none; margin-bottom: 8px; z-index: 1010;
@@ -66,6 +69,7 @@
     body.menu-open .menu-icon span:nth-child(2) { opacity: 0; }
     body.menu-open .menu-icon span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
     
+    /* Die schwarz ausfahrende Seitenleiste */
     .side-menu {
       position: fixed; top: 0; right: -450px; width: 400px; height: 100vh;
       background-color: #121212; border-left: 1px solid #222222;
@@ -86,8 +90,9 @@
       padding: 240px 40px 40px 40px; box-sizing: border-box; flex: 1; position: relative; z-index: 10;
     }
     
-    .headline-zone { grid-column: 2 / 12; margin-bottom: 2rem; }
-    .headline-zone h2 { font-family: 'Oswald', sans-serif; font-size: clamp(2rem, 5vw, 4rem); margin: 0; text-transform: uppercase; letter-spacing: -1px; }
+    .headline-zone { grid-column: 2 / 12; margin-bottom: 3rem; }
+    .headline-zone h2 { font-family: 'Oswald', sans-serif; font-size: clamp(2rem, 5vw, 4rem); margin: 0 0 1.5rem 0; text-transform: uppercase; letter-spacing: -1px; }
+    .manifest-intro { font-size: 17px; line-height: 1.6; color: var(--fg); border-left: 2px solid var(--accent); padding-left: 20px; margin-bottom: 4rem; }
     
     .hover-text-zone { font-size: 15px; line-height: 1.7; color: var(--fg); text-align: left; }
     .zone-left { grid-column: 2 / 6; }
@@ -111,7 +116,7 @@
     <a href="werke.html" class="menu-link">Werke</a>
     <a href="ueber.html" class="menu-link">Über</a>
     <a href="register.html" class="menu-link">Register</a>
-    <a href="kontakt.html" class="menu-link">Contact</a>
+    <a href="kontakt.html" class="menu-link">Kontakt</a>
   </div>
 
   <header class="hero-header" id="header-area">
@@ -122,6 +127,11 @@
   <main class="about-grid">
     <div class="headline-zone">
       <h2>WER HIER SCHREIBT.</h2>
+      <div class="hover-text-zone manifest-intro">
+        Ich male, was in meinem Kopf keinen Platz findet.<br>
+        Ich schreibe, was danach übrig bleibt.<br>
+        Und irgendwo läuft immer Musik.
+      </div>
     </div>
 
     <!-- Linke Spalte -->
@@ -198,12 +208,3 @@
 
     function toggleMenu() { document.body.classList.toggle('menu-open'); clearAllTrailImages(); }
     headerArea.addEventListener('mouseenter', () => { isOverHeader = true; clearAllTrailImages(); });
-    headerArea.addEventListener('mouseleave', () => { isOverHeader = false; });
-    textZones.forEach(zone => {
-      zone.addEventListener('mouseenter', () => { isOverText = true; });
-      zone.addEventListener('mouseleave', () => { isOverText = false; });
-    });
-    function clearAllTrailImages() { trailContainer.innerHTML = ''; }
-  </script>
-</body>
-</html>
