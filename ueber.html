@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MELODIENRAUSCH // ÜBER</title>
+  <style>
+    @import url('https://googleapis.com');
+    
+    :root { 
+      --bg: #0a0a0a; 
+      --fg: #ece7dd; 
+      --accent: #d97a3c; 
+      --muted: #444444; 
+      --text-muted: #6b6b6b;
+    }
+    
+    html, body { 
+      background-color: var(--bg) !important; 
+      color: var(--fg); 
+      font-family: "IBM Plex Mono", monospace; 
+      margin: 0; padding: 0; 
+      box-sizing: border-box; 
+      cursor: none; 
+      overflow-x: hidden; 
+      min-height: 100vh; 
+      display: flex; 
+      flex-direction: column; 
+    }
+    
+    .custom-cursor { 
+      width: 12px; height: 12px; 
+      background-color: var(--fg); 
+      position: fixed; top: 0; left: 0; 
+      pointer-events: none; 
+      z-index: 999999 !important; 
+      transform: translate(-50%, -50%) rotate(45deg); 
+      will-change: transform; 
+    }
+    
+    header { 
+      padding: 3rem 2rem; 
+      border-bottom: 1px solid var(--muted); 
+      display: flex; justify-content: space-between; align-items: flex-end; 
+      position: relative;
+      z-index: 1010; 
+    }
+    
+    header h1 { 
+      font-family: 'Oswald', sans-serif; font-size: clamp(2.5rem, 9vw, 6rem); 
+      margin: 0; letter-spacing: -0.03em; line-height: 0.85; text-transform: uppercase; 
+    }
+    
+    .nav-links-top { display: flex; gap: 3rem; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; }
+    .nav-links-top a { color: var(--text-muted); text-decoration: none; cursor: none; }
+    .nav-links-top a:hover, .nav-links-top a.active { color: var(--fg); }
+    
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 40px;
+      padding: 6rem 2rem;
+      box-sizing: border-box;
+      flex: 1;
+      position: relative;
+      z-index: 10;
+    }
+    
+    .hover-text-zone {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--fg);
+      text-align: justify;
+    }
+    
+    .zone-left { grid-column: 2 / 6; }
+    .zone-right { grid-column: 7 / 12; }
+    .zone-bottom { grid-column: 6 / 11; margin-top: 4rem; font-style: italic; }
+    
+    /* Dynamisch erzeugte Trail-Bilder */
+    .trail-image {
+      position: fixed;
+      width: 180px;
+      height: 240px;
+      background-size: cover;
+      background-position: center;
+      border: 1px solid var(--fg);
+      pointer-events: none;
+      z-index: 50;
+      transform: translate(-50%, -50%) scale(0.9);
+      opacity: 0;
+      will-change: transform, opacity;
+      filter: grayscale(100%) contrast(110%);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    
+    footer { 
+      padding: 3rem 2rem; font-size: 0.7rem; color: var(--text-muted); 
+      border-top: 1px solid var(--muted); text-transform: uppercase; 
+      letter-spacing: 0.15em; display: flex; justify-content: space-between; 
+      position: relative; z-index: 1010;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="custom-cursor" id="cursor"></div>
+  <div id="image-trail-container"></div>
+  
+  <header id="header-area">
+    <h1>MELODIENRAUSCH</h1>
+    <nav class="nav-links-top">
+      <a href="index.html">Collections</a>
+      <a href="werke.html">Werke</a>
+      <a href="ueber.html" class="active">Über</a>
+      <a href="register.html">Register</a>
+      <a href="kontakt.html">Inquired</a>
+    </nav>
+  </header>
+  
+  <main class="about-grid">
+    <div class="hover-text-zone zone-left">
+      Melodienrausch existiert an der Schnittstelle von Fragment, Sound und visuellem Objekt. Wir lehnen den schnellen Kreislauf der saisonalen Trends zugunsten einer dauerhaften Relevanz ab. Jedes Werk ist das Ergebnis einer strengen und fokussierten Eigenproduktion für diejenigen, die digitale Kunst als einen bewussten Ausdruck der Identität betrachten.
+    </div>
+    
+    <div class="hover-text-zone zone-right">
+      Unsere Praxis wurzelt in dem Glauben, dass Fragmente so dauerhaft sein sollten wie die analogen Strukturen, die wir im physischen Raum bewohnen. Indem wir uns auf monochromatische Tiefe und strukturelle Integrität konzentrieren, schaffen wir ein visuelles Archiv für den modernen multidisziplinären Denker. Das Gitter bestimmt den Fluss jeder kreativen Entscheidung, die wir treffen.
+    </div>
+    
+    <div class="hover-text-zone zone-bottom">
+      Wir machen nicht nur Kunst, wir definieren eine neue Bildsprache für den digitalen und physischen Bereich.
+    </div>
+  </main>
+  
+  <footer>
+    <span>© 2026 Melodienrausch. All Rights Reserved.</span>
+    <span>ogcvisualz &nbsp;/&nbsp; mail@melodienrausch.de</span>
+  </footer>
+
+  <script>
+    const cursor = document.getElementById('cursor');
+    const trailContainer = document.getElementById('image-trail-container');
+    const headerArea = document.getElementById('header-area');
+    const textZones = document.querySelectorAll('.hover-text-zone');
+    
+    // HIER SIND DEINE ECHTEN DATEIENDUNGEN NUN FEST HINTERLEGT!
+    const imageList = ['bild1.jpeg', 'bild2.png', 'bild3.jpg'];
+    let imageIndex = 0;
+    
+    let lastX = 0;
+    let lastY = 0;
+    let isOverHeader = false;
+    let isOverText = false;
+
+    const movementThreshold = 100;
+
+    document.addEventListener('mousemove', (e) => { 
+      cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px) rotate(45deg)`; 
+      
+      if (isOverText && !isOverHeader) {
+        const distance = Math.hypot(e.clientX - lastX, e.clientY - lastY);
+        
+        if (distance > movementThreshold) {
+          spawnTrailImage(e.clientX, e.clientY);
+          lastX = e.clientX;
+          lastY = e.clientY;
+        }
+      }
+    });
+
+    function spawnTrailImage(x, y) {
+      const img = document.createElement('div');
+      img.className = 'trail-image';
+      img.style.backgroundImage = `url('${imageList[imageIndex]}')`;
+      img.style.left = `${x}px`;
+      img.style.top = `${y}px`;
+      
+      const randomRotation = (Math.random() - 0.5) * 16;
+      img.style.transform = `translate(-50%, -50%) scale(0.9) rotate(${randomRotation}deg)`;
+      
+      trailContainer.appendChild(img);
+      
+      setTimeout(() => {
+        img.style.opacity = '1';
+        img.style.transform = `translate(-50%, -50%) scale(1) rotate(${randomRotation}deg)`;
+      }, 10);
+      
+      setTimeout(() => {
+        img.style.opacity = '0';
+        setTimeout(() => img.remove(), 200);
+      }, 700);
+      
+      imageIndex = (imageIndex + 1) % imageList.length;
+    }
+
+    headerArea.addEventListener('mouseenter', () => { isOverHeader = true; clearAllTrailImages(); });
+    headerArea.addEventListener('mouseleave', () => { isOverHeader = false; });
+
+    textZones.forEach(zone => {
+      zone.addEventListener('mouseenter', () => { isOverText = true; });
+      zone.addEventListener('mouseleave', () => { isOverText = false; });
+    });
+
+    function clearAllTrailImages() {
+      trailContainer.innerHTML = '';
+    }
+  </script>
+</body>
+</html>
