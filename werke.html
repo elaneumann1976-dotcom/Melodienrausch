@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MELODIENRAUSCH // WERKE</title>
+  <style>
+    @import url('https://googleapis.com');
+    
+    :root { 
+      --bg: #0a0a0a; 
+      --fg: #ece7dd; 
+      --accent: #d97a3c; 
+      --muted: #222222; 
+      --text-muted: #6b6b6b;
+    }
+    
+    html, body { 
+      background-color: var(--bg) !important; 
+      color: var(--fg); 
+      font-family: "IBM Plex Mono", monospace; 
+      margin: 0; padding: 0; 
+      box-sizing: border-box; 
+      cursor: none; 
+      overflow-x: hidden; 
+      min-height: 100vh; 
+      display: flex; 
+      flex-direction: column; 
+    }
+    
+    .custom-cursor { 
+      width: 12px; height: 12px; 
+      background-color: var(--fg); 
+      position: fixed; top: 0; left: 0; 
+      pointer-events: none; 
+      z-index: 999999 !important; 
+      transform: translate(-50%, -50%) rotate(45deg); 
+      will-change: transform; 
+    }
+    
+    header { 
+      padding: 3rem 2rem; 
+      border-bottom: 1px solid var(--muted); 
+      display: flex; justify-content: space-between; align-items: flex-end; 
+    }
+    
+    header h1 { 
+      font-family: 'Oswald', sans-serif; font-size: clamp(2.5rem, 9vw, 6rem); 
+      margin: 0; letter-spacing: -0.03em; line-height: 0.85; text-transform: uppercase; 
+    }
+    
+    .nav-links-top { display: flex; gap: 3rem; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; }
+    .nav-links-top a { color: var(--text-muted); text-decoration: none; cursor: none; }
+    .nav-links-top a:hover, .nav-links-top a.active { color: var(--fg); }
+    
+    /* Bereich für den 3D-Kartenstapel */
+    .stack-section {
+      padding: 6rem 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .section-title {
+      align-self: flex-start;
+      font-family: 'Oswald', sans-serif;
+      font-size: 2rem;
+      text-transform: uppercase;
+      margin-bottom: 5rem;
+    }
+    
+    /* Der 3D-Container für den Stapel */
+    .cards-stack-container {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      height: 480px;
+      margin-bottom: 6rem;
+    }
+    
+    /* Die einzelnen Karten */
+    .werk-card {
+      position: absolute;
+      width: 310px;
+      height: 410px;
+      background: #111;
+      border: 1px solid var(--muted);
+      box-shadow: 10px 10px 0px rgba(0,0,0,0.6);
+      transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    
+    /* Asymmetrische Stapelung exakt wie im Template-Screenshot */
+    .werk-card:nth-child(1) { left: 5%; top: 0px; z-index: 10; transform: rotate(-6deg); }
+    .werk-card:nth-child(2) { left: 22%; top: 15px; z-index: 9; transform: rotate(-3deg); }
+    .werk-card:nth-child(3) { left: 39%; top: 30px; z-index: 8; transform: rotate(1deg); }
+    .werk-card:nth-child(4) { left: 56%; top: 45px; z-index: 7; transform: rotate(4deg); }
+    .werk-card:nth-child(5) { left: 73%; top: 60px; z-index: 6; transform: rotate(7deg); }
+    
+    .card-bg-img {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background-size: cover; background-position: center;
+      filter: grayscale(100%) contrast(115%);
+      transition: filter 0.3s ease, transform 0.5s ease;
+      z-index: 1;
+    }
+    
+    /* Sanfter Zoom-Effekt auf das Bild beim Drüberfahren */
+    .werk-card:hover .card-bg-img { 
+      filter: grayscale(0%) contrast(100%); 
+      transform: scale(1.03);
+    }
+    
+    /* Titel-Popup (Schiebt sich beim Anklicken nach oben) */
+    .card-title-popup {
+      position: relative; z-index: 2;
+      font-family: 'Oswald', sans-serif; font-size: 1.1rem;
+      text-transform: uppercase; background: var(--bg);
+      padding: 10px 15px; border: 1px solid var(--muted);
+      transform: translateY(100px); opacity: 0;
+      transition: all 0.35s ease;
+      color: var(--fg);
+      letter-spacing: 0.05em;
+    }
+    
+    /* Der herausgeschobene Zustand nach dem Klick */
+    .werk-card.herausgeschoben {
+      z-index: 99 !important;
+      transform: translateY(-25px) rotate(0deg) scale(1.03) !important;
+      border-color: var(--fg);
+      box-shadow: 12px 12px 0px var(--accent);
+    }
+    .werk-card.herausgeschoben .card-title-popup {
+      transform: translateY(0); opacity: 1;
+    }
+    
+    footer { padding: 3rem 2rem; font-size: 0.7rem; color: var(--text-muted); border-top: 1px solid var(--muted); text-transform: uppercase; letter-spacing: 0.15em; display: flex; justify-content: space-between; }
+  </style>
+</head>
+<body>
+
+  <div class="custom-cursor" id="cursor"></div>
+  
+  <header>
+    <h1>MELODIENRAUSCH</h1>
+    <nav class="nav-links-top">
+      <a href="index.html">Collections</a>
+      <a href="werke.html" class="active">Werke</a>
+      <a href="register.html">Register</a>
+      <a href="kontakt.html">Inquired</a>
+    </nav>
+  </header>
+  
+  <section class="stack-section">
+    <div class="section-title">MELODIENRAUSCH OFF [ GRID ]</div>
+    
+    <div class="cards-stack-container">
+      <!-- Karte 1 (Nutzt dein Froschperspektiven-Profilbild) -->
+      <div class="werk-card" onclick="toggleCard(this)">
+        <div class="card-bg-img" style="background-image: url('profilbilld.png');"></div>
+        <div class="card-title-popup">Akte // Perspektive</div>
+      </div>
+      
+      <!-- Karte 2 (Placeholder-Farbe) -->
+      <div class="werk-card" onclick="toggleCard(this)">
+        <div class="card-bg-img" style="background-color: #161616;"></div>
+        <div class="card-title-popup">Projekt #002</div>
+      </div>
+      
+      <!-- Karte 3 (Placeholder-Farbe) -->
+      <div class="werk-card" onclick="toggleCard(this)">
+        <div class="card-bg-img" style="background-color: #222222;"></div>
+        <div class="card-title-popup">Projekt #003</div>
+      </div>
+      
+      <!-- Karte 4 (Placeholder-Farbe) -->
+      <div class="werk-card" onclick="toggleCard(this)">
+        <div class="card-bg-img" style="background-color: #2a2a2a;"></div>
+        <div class="card-title-popup">Projekt #004</div>
+      </div>
+
+      <!-- Karte 5 (Placeholder-Farbe) -->
+      <div class="werk-card" onclick="toggleCard(this)">
+        <div class="card-bg-img" style="background-color: #333333;"></div>
+        <div class="card-title-popup">Projekt #005</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Melodienrausch. All Rights Reserved.</span>
+    <span>ogcvisualz &nbsp;/&nbsp; mail@melodienrausch.de</span>
+  </footer>
+
+  <script>
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', (e) => { 
+      cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px) rotate(45deg)`; 
+    });
+
+    // Simple Klick-Logik: Karte schiebt sich raus und zeigt Namen, mehr passiert erst mal nicht
+    function toggleCard(element) {
+      if (element.classList.contains('herausgeschoben')) {
+        element.classList.remove('herausgeschoben');
+      } else {
+        // Alle anderen Karten erst mal einfahren lassen
+        document.querySelectorAll('.werk-card').forEach(card => card.classList.remove('herausgeschoben'));
+        // Diese Karte herausdrücken
+        element.classList.add('herausgeschoben');
+      }
+    }
+  </script>
+</body>
+</html>
