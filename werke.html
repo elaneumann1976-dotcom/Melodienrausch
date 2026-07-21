@@ -3,191 +3,113 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Werke - MELODIENRAUSCH</title>
-<link rel="preconnect" href="https://googleapis.com">
-<link rel="preconnect" href="https://gstatic.com" crossorigin>
-<link href="https://googleapis.com/css2?family=Oswald:wght@700&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+<title>MELODIENRAUSCH // WERKE — VORSCHAU</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
 <style>
-  :root { 
-    --bg: #0a0a0a; 
-    --fg: #ece7dd; 
-    --accent: #d97a3c; 
-    --muted: #1a1a1a; 
-    --text-muted: #6b6b6b;
-  }
-
   html, body {
-    background-color: var(--bg) !important;
-    color: var(--fg);
+    background-color: #ffffff;
+    color: #000000;
     font-family: Arial, Helvetica, sans-serif;
     margin: 0; padding: 0;
     box-sizing: border-box;
     cursor: none;
-    -webkit-tap-highlight-color: transparent !important;
-  }
-
-  ::selection {
-    background-color: var(--fg);
-    color: var(--bg);
+    overflow-x: hidden;
   }
 
   .custom-cursor {
     width: 14px; height: 14px;
-    background-color: var(--fg);
-    position: fixed;
-    top: 0; left: 0;
+    background-color: #000000;
+    position: fixed; top: 0; left: 0;
     pointer-events: none;
     z-index: 999999 !important;
     transform: translate(-50%, -50%) rotate(45deg);
   }
 
-  .hero-header {
-    position: fixed;
-    top: 0; left: 0; width: 100%;
+  .gallery-header {
+    position: fixed; top: 0; left: 0; width: 100%;
     display: flex; justify-content: space-between; align-items: flex-end;
-    padding: 30px 40px 10px 40px;
-    box-sizing: border-box;
-    z-index: 1000;
-    background: rgba(10, 10, 10, 0.9);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--muted);
+    padding: 30px 40px; box-sizing: border-box; z-index: 200;
+    background: rgba(255,255,255,0.92);
   }
 
   .huge-title {
     font-family: 'Oswald', sans-serif;
-    font-size: clamp(30px, 7.8vw, 180px);
+    font-size: clamp(24px, 5vw, 90px);
     font-weight: 700; line-height: 0.8; letter-spacing: -2px;
-    text-transform: uppercase; margin: 0; white-space: nowrap;
-    color: var(--fg);
+    text-transform: uppercase; margin: 0;
   }
-
-  .menu-icon {
-    display: flex; flex-direction: column; justify-content: space-between;
-    width: 30px; height: 16px; cursor: none; margin-bottom: 8px; z-index: 1010;
-    pointer-events: auto;
-  }
-
-  .menu-icon span {
-    display: block; width: 100%; height: 2px;
-    background-color: var(--fg); transition: all 0.3s ease-in-out;
-  }
-
-  body.menu-open .menu-icon span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  body.menu-open .menu-icon span:nth-child(2) { opacity: 0; }
-  body.menu-open .menu-icon span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-  .side-menu {
-    position: fixed; top: 0; right: -450px; width: 400px; height: 100vh;
-    background-color: #121212; border-left: 1px solid #222222;
-    box-sizing: border-box; padding: 120px 40px 40px 40px; z-index: 1005;
-    transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
-    display: flex; flex-direction: column; gap: 10px;
-  }
-
-  body.menu-open .side-menu { right: 0; }
-
-  .menu-link {
-    font-family: 'Oswald', sans-serif; font-size: 32px; color: var(--fg) !important;
-    text-decoration: none; text-transform: uppercase; padding: 15px 20px;
-    border: 1px solid transparent; transition: all 0.2s ease; display: block; cursor: none;
-    border-bottom: 1px solid #222222;
-    outline: none !important;
-  }
-
-  .menu-link:hover { 
-    background-color: var(--fg) !important; 
-    color: var(--bg) !important; 
-    border-color: var(--fg) !important; 
-    padding-left: 30px;
-  }
-
-  /* --- MOTION VELOCITY 3D TRACK STYLING --- */
-  .container-outer {
-    position: relative;
-    width: 100%;
-    height: 350vh; /* Bestimmt den Scroll-Weg */
-    background-color: var(--bg);
-  }
-
-  .sticky-wrapper {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100vh;
-    display: flex; flex-direction: column; justify-content: center;
-    overflow: hidden;
-    box-sizing: border-box;
-    padding-top: 120px;
-    /* Aktiviert die 3D-Tiefe für den gesamten Raum */
-    perspective: 1200px;
-  }
-
-  .track-headline {
-    font-family: 'Oswald', sans-serif;
-    font-size: clamp(40px, 6vw, 90px);
-    text-transform: uppercase;
-    letter-spacing: -1px;
-    line-height: 0.9;
-    margin: 0 0 30px 40px;
-    color: var(--fg);
-  }
-  .track-headline span {
-    color: var(--text-muted);
-    font-size: 0.4em;
-    vertical-align: super;
-    font-family: "IBM Plex Mono", monospace;
-  }
-
-  /* Der Schienenstrang transformiert sich unabhängig im 3D Raum */
-  .horizontal-track {
-    display: flex;
-    gap: 60px;
-    padding: 0 100px;
-    width: max-content;
-    will-change: transform;
-    transform-style: preserve-3d;
-    transform: translateX(0px) rotateY(0deg) skewX(0deg);
-  }
-
-  .catalog-item {
-    position: relative;
-    width: clamp(300px, 35vw, 550px);
-    height: 48vh;
-    border: 1px solid var(--muted);
-    background-color: #000;
-    flex-shrink: 0;
-    overflow: hidden;
-    /* Jedes Bild bekommt seine eigene physikalische Dynamik */
-    will-change: transform;
-    transition: transform 0.1s ease-out;
-  }
-
-  .catalog-item img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    object-position: center;
-    filter: grayscale(100%) contrast(115%);
-    transition: filter 0.4s ease, transform 0.4s ease;
-  }
-  .catalog-item:hover img {
-    filter: grayscale(0%) contrast(100%);
-    transform: scale(1.03);
-  }
-
-  .item-meta {
-    position: absolute; bottom: 20px; left: 20px; right: 20px;
-    z-index: 10;
-    font-family: 'Oswald', sans-serif;
-    text-transform: uppercase;
-    display: flex; justify-content: space-between; align-items: flex-end;
-    pointer-events: none;
-  }
-  .item-meta .title { font-size: 1.3rem; background: var(--bg); padding: 5px 12px; border: 1px solid var(--muted); color: var(--accent); }
-  .item-meta .index-num { font-family: "IBM Plex Mono", monospace; font-size: 0.85rem; color: var(--text-muted); background: var(--bg); padding: 4px 8px; border: 1px solid var(--muted); }
 
   .scroll-hint {
-    position: absolute; bottom: 40px; right: 40px;
-    font-family: "IBM Plex Mono", monospace; font-size: 0.75rem;
-    color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.2em;
+    font-family: 'Oswald', sans-serif; font-size: 13px;
+    letter-spacing: 2px; text-transform: uppercase; opacity: 0.5;
+  }
+
+  .gallery-wrap {
+    padding-top: 160px;
+    height: 400vh; /* genug Scroll-Strecke für den Effekt */
+    position: relative;
+  }
+
+  .row {
+    display: flex;
+    gap: 24px;
+    padding: 12px 0;
+    will-change: transform;
+  }
+
+  .row:nth-child(odd)  { padding-left: 6vw; }
+  .row:nth-child(even) { padding-left: -6vw; margin-left: -6vw; }
+
+  .card {
+    position: relative;
+    flex: 0 0 auto;
+    width: 320px; height: 220px;
+    background-color: #000000;
+    color: #ffffff;
+    display: flex; align-items: center; justify-content: center;
+    cursor: none;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .card:nth-child(3n+1) { background-color: #000000; }
+  .card:nth-child(3n+2) { background-color: #1a1a1a; }
+  .card:nth-child(3n)   { background-color: #2e2e2e; }
+
+  .card .num {
+    font-family: 'Oswald', sans-serif; font-weight: 700;
+    font-size: 64px; opacity: 0.85;
+  }
+
+  .card.clicked {
+    transform: scale(1.06);
+  }
+
+  /* Titel-Overlay nach Klick */
+  .title-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: #ffffff;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    z-index: 500;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.5s ease;
+  }
+  .title-overlay.active { opacity: 1; pointer-events: auto; }
+
+  .title-overlay .werk-num {
+    font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 20px;
+    letter-spacing: 4px; opacity: 0.5; margin-bottom: 20px;
+  }
+  .title-overlay h2 {
+    font-family: 'Oswald', sans-serif; font-weight: 700; text-transform: uppercase;
+    font-size: clamp(28px, 6vw, 80px); margin: 0; text-align: center; letter-spacing: -1px;
+  }
+  .title-overlay .goto-detail {
+    margin-top: 40px; font-family: 'Oswald', sans-serif; font-size: 14px;
+    letter-spacing: 2px; text-transform: uppercase; border-bottom: 1px solid #000;
+    padding-bottom: 4px; cursor: none;
   }
 </style>
 </head>
@@ -195,123 +117,103 @@
 
   <div class="custom-cursor" id="cursor"></div>
 
-  <div class="side-menu">
-      <a href="index.html" class="menu-link">Heimat</a>
-      <a href="werke.html" class="menu-link">Werke</a>
-      <a href="ueber.html" class="menu-link">Über</a>
-      <a href="register.html" class="menu-link">Register</a>
-      <a href="kontakt.html" class="menu-link">Kontakt</a>
+  <div class="gallery-header">
+    <h1 class="huge-title">WERKE®</h1>
+    <div class="scroll-hint">Scroll to surf</div>
   </div>
 
-  <div class="hero-header">
-    <h1 class="huge-title">MELODIENRAUSCH</h1>
-    <div class="menu-icon" onclick="toggleMenu()">
-      <span></span><span></span><span></span>
-    </div>
+  <div class="gallery-wrap" id="galleryWrap">
+    <!-- Reihen werden per JS erzeugt -->
   </div>
 
-  <div class="container-outer">
-    <div class="sticky-wrapper">
-      
-      <div class="track-headline">Velocity 3D<br>Collection <span>(03)</span></div>
-      
-      <div class="horizontal-track" id="horizontal-track">
-        
-        <!-- Werk 1 -->
-        <div class="catalog-item">
-          <img src="profilbilld.png" alt="Werk 1">
-          <div class="item-meta">
-            <span class="title">Akte // Froschperspektive</span>
-            <span class="index-num">#01</span>
-          </div>
-        </div>
-
-        <!-- Werk 2 -->
-        <div class="catalog-item">
-          <img src="bild1.jpeg" alt="Werk 2">
-          <div class="item-meta">
-            <span class="title">Visual Fragment</span>
-            <span class="index-num">#02</span>
-          </div>
-        </div>
-
-        <!-- Werk 3 -->
-        <div class="catalog-item">
-          <img src="bild2.png" alt="Werk 3">
-          <div class="item-meta">
-            <span class="title">Sonic Presence</span>
-            <span class="index-num">#03</span>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="scroll-hint">Scroll fast to bend 3D dimension</div>
-    </div>
+  <div class="title-overlay" id="titleOverlay">
+    <div class="werk-num" id="ovNum">#01</div>
+    <h2 id="ovTitle">Werktitel erscheint hier</h2>
+    <div class="goto-detail" onclick="closeOverlay()">Zur Werkseite →</div>
   </div>
 
 <script>
+  // ---- Platzhalter-Daten (später echte Werke + Bilder eintragen) ----
+  const werke = [];
+  for (let i = 1; i <= 16; i++) {
+    werke.push({ num: String(i).padStart(2,'0'), title: 'Werk ' + String(i).padStart(2,'0') + ' — Platzhaltertitel' });
+  }
+
+  const wrap = document.getElementById('galleryWrap');
+  const rowsCount = 4;
+  const rowEls = [];
+
+  for (let r = 0; r < rowsCount; r++) {
+    const row = document.createElement('div');
+    row.className = 'row';
+    row.style.position = 'sticky';
+    row.style.top = (160 + r * 260) + 'px';
+    for (let i = r; i < werke.length; i += rowsCount) {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.dataset.num = werke[i].num;
+      card.dataset.title = werke[i].title;
+      card.innerHTML = '<span class="num">' + werke[i].num + '</span>';
+      card.addEventListener('click', () => openOverlay(card));
+      row.appendChild(card);
+    }
+    wrap.appendChild(row);
+    rowEls.push(row);
+  }
+
+  // ---- Cursor ----
   const cursor = document.getElementById('cursor');
   document.addEventListener('mousemove', (e) => {
     cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
   });
 
-  function toggleMenu() { document.body.classList.toggle('menu-open'); }
-
-  // --- INTERTIAL VELOCITY 3D ENGINE ---
-  const track = document.getElementById('horizontal-track');
-  const items = document.querySelectorAll('.catalog-item');
-  
-  let lastScrollY = window.scrollY;
+  // ---- Scroll-Velocity → unterschiedlicher Versatz je Reihe ----
+  let lastScroll = window.scrollY;
+  let lastTime = performance.now();
   let velocity = 0;
-  let currentTargetX = 0;
-  let currentX = 0;
+  let offsets = new Array(rowsCount).fill(0);
 
-  function renderLoop() {
-    const scrollY = window.scrollY;
-    
-    // 1. Scroll-Geschwindigkeit (Velocity) berechnen
-    velocity = scrollY - lastScrollY;
-    lastScrollY = scrollY;
+  function loop(now) {
+    const dt = Math.max(now - lastTime, 1);
+    const currentScroll = window.scrollY;
+    const dy = currentScroll - lastScroll;
+    const rawVelocity = dy / dt * 16; // normalisiert auf ~60fps-Schritt
+    velocity += (rawVelocity - velocity) * 0.15; // glätten
 
-    // 2. Horizontale Ziel-Position berechnen
-    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-    const trackWidth = track.scrollWidth;
-    const maxTrackMove = trackWidth - window.innerWidth + 200;
-
-    if (maxScroll > 0) {
-      const percentage = scrollY / maxScroll;
-      currentTargetX = -(percentage * maxTrackMove);
-    }
-
-    // 3. Trägheit (Inertia) für smoothes Gleiten berechnen
-    currentX += (currentTargetX - currentX) * 0.1;
-
-    // 4. Intensität der 3D-Verzerrung anhand des Speeds berechnen
-    // Je höher der Wert, desto stärker kippt das Bild bei schnellem Scrollen
-    let skewAngle = velocity * 0.08; 
-    let rotateYAngle = velocity * 0.05;
-
-    // Grenzen setzen, damit es nicht komplett überschlägt
-    if (skewAngle > 18) skewAngle = 18;
-    if (skewAngle < -18) skewAngle = -18;
-    if (rotateYAngle > 12) rotateYAngle = 12;
-    if (rotateYAngle < -12) rotateYAngle = -12;
-
-    // 5. 3D-Matrix auf den Track anwenden (Verschiebung + Kippen + Biegen)
-    track.style.transform = `translateX(${currentX}px)`;
-    
-    // Die einzelnen Items verbiegen sich dynamisch mit dem Speed
-    items.forEach(item => {
-      item.style.transform = `skewX(${skewAngle}deg) rotateY(${rotateYAngle}deg) scaleX(${1 + Math.abs(velocity) * 0.001})`;
+    rowEls.forEach((row, i) => {
+      // ungerade Reihen laufen gegenläufig -> Parallax-Tiefe
+      const direction = i % 2 === 0 ? 1 : -1;
+      const speedFactor = 0.6 + i * 0.35; // jede Reihe unterschiedlich schnell
+      offsets[i] += velocity * speedFactor * direction * -0.4;
+      offsets[i] = Math.max(Math.min(offsets[i], 400), -400); // Grenzen
+      row.style.transform = `translateX(${offsets[i]}px)`;
     });
 
-    // Kontinuierlich abfragen
-    requestAnimationFrame(renderLoop);
+    lastScroll = currentScroll;
+    lastTime = now;
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+
+  // ---- Klick-Animation + Titel-Overlay ----
+  const overlay = document.getElementById('titleOverlay');
+  const ovNum = document.getElementById('ovNum');
+  const ovTitle = document.getElementById('ovTitle');
+
+  function openOverlay(card) {
+    card.classList.add('clicked');
+    setTimeout(() => {
+      ovNum.textContent = '#' + card.dataset.num;
+      ovTitle.textContent = card.dataset.title;
+      overlay.classList.add('active');
+    }, 350);
+    setTimeout(() => card.classList.remove('clicked'), 500);
   }
 
-  // Engine starten
-  requestAnimationFrame(renderLoop);
+  function closeOverlay() {
+    overlay.classList.remove('active');
+    // Hier später: window.location.href = 'werke.html?id=' + ovNum.textContent
+  }
 </script>
 </body>
 </html>
