@@ -6,148 +6,83 @@
 <title>MELODIENRAUSCH // ÜBER</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Oswald:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0a0a0a;
-    --fg: #ece7dd;
-    --muted: #444444;
-    --text-muted: #6b6b6b;
-  }
-
   html, body {
-    background-color: var(--bg);
-    color: var(--fg);
-    font-family: "IBM Plex Mono", monospace;
-    margin: 0; padding: 0;
-    box-sizing: border-box;
-    cursor: none;
-    overflow-x: hidden;
+    background-color: #ffffff; color: #000000;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0; padding: 0; box-sizing: border-box; cursor: none; overflow-x: hidden;
   }
-
-  /* DIE MAUS ALS RAUTE — hell auf dunklem Grund */
   .custom-cursor {
-    width: 14px; height: 14px;
-    background-color: var(--fg);
-    position: fixed;
-    top: 0; left: 0;
-    pointer-events: none;
-    z-index: 999999 !important;
-    transform: translate(-50%, -50%) rotate(45deg);
-    will-change: transform;
+    width: 14px; height: 14px; background-color: #000000;
+    position: fixed; top: 0; left: 0; pointer-events: none;
+    z-index: 999999 !important; transform: translate(-50%, -50%) rotate(45deg);
   }
-
-  .main-content {
-    opacity: 0;
-    transition: opacity 0.8s ease;
-    min-height: 100vh;
-  }
-  body.intro-done .main-content {
-    opacity: 1;
-  }
-
+  .main-content { opacity: 0; transition: opacity 0.8s ease; min-height: 100vh; }
+  body.intro-done .main-content { opacity: 1; }
   .hero-header {
-    position: fixed;
-    top: 0; left: 0; width: 100%;
+    position: fixed; top: 0; left: 0; width: 100%;
     display: flex; justify-content: space-between; align-items: flex-end;
-    padding: 30px 40px 10px 40px;
-    box-sizing: border-box;
-    z-index: 100;
-    background: rgba(10,10,10,0.9);
+    padding: 30px 40px 10px 40px; box-sizing: border-box; z-index: 100;
   }
-
   .huge-title {
     font-family: 'Oswald', sans-serif;
-    font-size: clamp(30px, 7.8vw, 180px);
-    font-weight: 700; line-height: 0.8; letter-spacing: -2px;
-    text-transform: uppercase; margin: 0; white-space: nowrap;
-    color: var(--fg);
+    font-size: clamp(30px, 7.8vw, 180px); font-weight: 700; line-height: 0.8;
+    letter-spacing: -2px; text-transform: uppercase; margin: 0; white-space: nowrap;
   }
-
   .menu-icon {
     display: flex; flex-direction: column; justify-content: space-between;
     width: 30px; height: 16px; cursor: none; margin-bottom: 8px; z-index: 1001;
     pointer-events: auto;
   }
-
-  .menu-icon span {
-    display: block; width: 100%; height: 2px;
-    background-color: var(--fg); transition: all 0.3s ease-in-out;
-  }
-
+  .menu-icon span { display: block; width: 100%; height: 2px; background-color: #000000; transition: all 0.3s ease-in-out; }
   body.menu-open .menu-icon span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   body.menu-open .menu-icon span:nth-child(2) { opacity: 0; }
   body.menu-open .menu-icon span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
   .side-menu {
     position: fixed; top: 0; right: -450px; width: 400px; height: 100vh;
-    background-color: #141414; border-left: 1px solid var(--muted);
+    background-color: #f7f7f7; border-left: 1px solid #e0e0e0;
     box-sizing: border-box; padding: 120px 40px 40px 40px; z-index: 1000;
     transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
     display: flex; flex-direction: column; gap: 10px;
   }
-
   body.menu-open .side-menu { right: 0; }
-
   .menu-link {
-    font-family: 'Oswald', sans-serif; font-size: 32px; color: var(--fg);
+    font-family: 'Oswald', sans-serif; font-size: 32px; color: #000000;
     text-decoration: none; text-transform: uppercase; padding: 15px 20px;
     border: 1px solid transparent; transition: all 0.2s ease; display: block; cursor: none;
   }
-
-  .menu-link:hover { background-color: #1e1e1e; border-color: var(--fg); padding-left: 30px; }
-  .menu-link.active { background-color: var(--fg); color: var(--bg); }
-  .menu-link.active:hover { background-color: var(--fg); color: var(--bg); padding-left: 20px; border-color: var(--fg); }
-
+  .menu-link:hover { background-color: #ffffff; border-color: #000000; padding-left: 30px; }
+  .menu-link.active { background-color: #000000; color: #ffffff; }
+  .menu-link.active:hover { background-color: #000000; color: #ffffff; padding-left: 20px; border-color: #000000; }
   .about-grid {
     display: grid; grid-template-columns: repeat(12, 1fr); gap: 40px;
-    padding: 220px 40px 40px 40px; box-sizing: border-box; align-items: start;
+    padding: 220px 40px 100px 40px; box-sizing: border-box; align-items: start;
   }
-
   .meta-block {
     grid-column: 1 / 4; font-family: 'Oswald', sans-serif; font-size: 15px;
     line-height: 1.3; text-transform: uppercase; position: relative; z-index: 101;
-    color: var(--fg);
   }
-
-  .about-text-left { grid-column: 4 / 9; font-size: 15px; line-height: 1.75; color: var(--fg); }
-
+  .about-text-left { grid-column: 4 / 9; font-size: 15px; line-height: 1.75; }
   .about-media-box {
     grid-column: 4 / 9; height: 480px; margin-top: 40px;
     background-size: cover; background-position: center;
-    border: 1px solid var(--fg);
+    border: 2px solid #000000; box-shadow: 16px 16px 0px #000000;
     filter: grayscale(100%) contrast(115%);
   }
   .about-media-box.bild1 { background-image: url('bild1.jpeg'); }
   .about-media-box.bild2 { background-image: url('bild2.jpg'); }
-
-  .about-text-right {
-    grid-column: 9 / 13; font-size: 15px; line-height: 1.75; color: var(--fg);
-    padding-top: 40px;
-  }
-
+  .about-text-right { grid-column: 9 / 13; font-size: 15px; line-height: 1.75; padding-top: 40px; }
   .about-text-center {
-    grid-column: 3 / 11; font-size: 16px; line-height: 1.8; color: var(--fg);
-    text-align: center; margin: 60px 0; font-style: italic;
+    grid-column: 3 / 11; font-size: 16px; line-height: 1.8; text-align: center;
+    margin: 60px 0; font-style: italic;
   }
-
-  .about-footer-text {
-    grid-column: 4 / 10; font-family: 'Oswald', sans-serif; font-size: 20px;
-    line-height: 1.3; text-transform: uppercase; margin-top: 20px; color: var(--fg);
-  }
-
-  /* Dynamische Hover-Trail-Bilder */
   .trail-image {
-    position: fixed;
-    width: 170px; height: 230px;
+    position: fixed; width: 170px; height: 230px;
     background-size: cover; background-position: center;
-    border: 1px solid var(--fg);
-    pointer-events: none;
-    z-index: 500;
-    transform: translate(-50%, -50%) scale(0.9);
-    opacity: 0;
-    will-change: transform, opacity;
-    filter: grayscale(100%) contrast(115%);
+    border: 2px solid #000000; pointer-events: none; z-index: 500;
+    transform: translate(-50%, -50%) scale(0.9); opacity: 0;
+    will-change: transform, opacity; filter: grayscale(100%) contrast(115%);
     transition: opacity 0.2s ease, transform 0.2s ease;
   }
 </style>
@@ -160,7 +95,6 @@
   <div class="custom-cursor" id="cursor"></div>
   <div id="image-trail-container"></div>
 
-  <!-- SIDE MENU (Über ist aktiv) -->
   <div class="side-menu">
     <a href="index.html" class="menu-link">Heimat</a>
     <a href="werke.html" class="menu-link">Werke</a>
@@ -172,9 +106,7 @@
   <div class="main-content">
     <div class="hero-header">
       <h1 class="huge-title">MELODIENRAUSCH®</h1>
-      <div class="menu-icon" onclick="toggleMenu()">
-        <span></span><span></span><span></span>
-      </div>
+      <div class="menu-icon" onclick="toggleMenu()"><span></span><span></span><span></span></div>
     </div>
 
     <div class="about-grid">
@@ -183,15 +115,12 @@
         <strong>INDEX &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3/5</strong>
       </div>
 
-      <!-- TEXTBLOCK 1 -->
       <div class="about-text-left hover-text-zone">
         <p>Ich bin Ela. Diva des ADHS. Ich geh zu schnell rein – und wunder mich dann, warum's knallt. Ich geh hoch, hab Angst vorm Fallen – und lande trotzdem. Ich bin kein Mittelmaß.</p>
       </div>
 
-      <!-- BILD 1 -->
       <div class="about-media-box bild1"></div>
 
-      <!-- TEXTBLOCK 2 (rechte Spalte neben Bild 1) -->
       <div class="about-text-right hover-text-zone">
         <p>Ich bin entweder ganz drin oder komplett raus. Gedanken rasen. Gefühle auch. Und während andere noch überlegen, bin ich schon mittendrin. Manchmal genial. Manchmal komplett daneben. Aber wenigstens echt.</p>
         <p>Mein Leben lief nicht gerade. Eher Chaos. Absturz. Aufgestanden. Krone gerichtet. Weitergegangen. Nicht, weil alles easy war. Sondern weil Aufgeben keine Option ist.</p>
@@ -199,15 +128,12 @@
         <p><strong>Ich bin Ela.<br>Und ich hinterlasse Eindruck.</strong></p>
       </div>
 
-      <!-- TEXTBLOCK 3 (zentriert) -->
       <div class="about-text-center hover-text-zone">
         <p>Ideen kommen bei mir nicht einzeln. Die kommen im Rudel. Manche bleiben nicht. Die guten schon. Und die knallen dann auch. Ich arbeite nicht nach Plan. Hab ich versucht. War langweilig. Ich geh nach Gefühl. Nach dem, was gerade zieht. Und meistens ist genau das richtig. Wenn ich drin bin, bin ich drin. So richtig. Zeit? Egal. Umgebung? Egal.</p>
       </div>
 
-      <!-- BILD 2 -->
       <div class="about-media-box bild2"></div>
 
-      <!-- TEXTBLOCK 4 (rechte Spalte neben Bild 2) -->
       <div class="about-text-right hover-text-zone">
         <p>Ich seh dann nur noch das, was entstehen will. Hyperfokus, nennt man das wohl. Ich nenn's: endlich Ruhe im Kopf. Chaos? Ist kein Problem. Ist eher mein Arbeitsmodus. Da entsteht Bewegung. Da entstehen Verbindungen, die man nicht erzwingen kann.</p>
         <p>Ich denk schnell. Ich fühl schneller. Und manchmal passt das nicht, in die Welt von anderen. Aber genau daraus kommt das, was bei mir echt ist. Ich verbinde Dinge, die eigentlich nicht zusammengehören.</p>
@@ -222,9 +148,7 @@
   document.addEventListener('mousemove', (e) => {
     cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
   });
-
   function toggleMenu() { document.body.classList.toggle('menu-open'); }
-
   window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       const intro = document.getElementById('intro-screen');
@@ -233,14 +157,11 @@
     }, 2000);
   });
 
-  // ---- Hover-Trail-Bilder über den Textzonen ----
   const trailContainer = document.getElementById('image-trail-container');
   const textZones = document.querySelectorAll('.hover-text-zone');
   const imageList = ['bild1.jpeg', 'bild2.jpg', 'bild3.jpg'];
   let imageIndex = 0;
-  let lastX = 0;
-  let lastY = 0;
-  let isOverText = false;
+  let lastX = 0, lastY = 0, isOverText = false;
   const movementThreshold = 100;
 
   document.addEventListener('mousemove', (e) => {
@@ -248,8 +169,7 @@
       const distance = Math.hypot(e.clientX - lastX, e.clientY - lastY);
       if (distance > movementThreshold) {
         spawnTrailImage(e.clientX, e.clientY);
-        lastX = e.clientX;
-        lastY = e.clientY;
+        lastX = e.clientX; lastY = e.clientY;
       }
     }
   });
@@ -258,24 +178,18 @@
     const img = document.createElement('div');
     img.className = 'trail-image';
     img.style.backgroundImage = `url('${imageList[imageIndex]}')`;
-    img.style.left = `${x}px`;
-    img.style.top = `${y}px`;
-
+    img.style.left = `${x}px`; img.style.top = `${y}px`;
     const randomRotation = (Math.random() - 0.5) * 16;
     img.style.transform = `translate(-50%, -50%) scale(0.9) rotate(${randomRotation}deg)`;
-
     trailContainer.appendChild(img);
-
     setTimeout(() => {
       img.style.opacity = '1';
       img.style.transform = `translate(-50%, -50%) scale(1) rotate(${randomRotation}deg)`;
     }, 10);
-
     setTimeout(() => {
       img.style.opacity = '0';
       setTimeout(() => img.remove(), 200);
     }, 700);
-
     imageIndex = (imageIndex + 1) % imageList.length;
   }
 
