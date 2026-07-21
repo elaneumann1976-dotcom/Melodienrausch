@@ -3,105 +3,69 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Register - MELODIENRAUSCH</title>
-<link rel="preconnect" href="https://googleapis.com">
-<link rel="preconnect" href="https://gstatic.com" crossorigin>
-<link href="https://googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
+<title>MELODIENRAUSCH // REGISTER — SCHREIBMASCHINE VORSCHAU</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
 <style>
   html, body {
-    background-color: #ffffff;
-    color: #000000;
+    background-color: #ffffff; color: #000000;
     font-family: Arial, Helvetica, sans-serif;
-    margin: 0; padding: 0;
-    box-sizing: border-box;
-    cursor: none;
-    /* Verhindert die standardmäßige orangefarbene/blaue Markierung auf Mobilgeräten */
-    -webkit-tap-highlight-color: transparent;
+    margin: 0; padding: 0; box-sizing: border-box; cursor: none;
   }
 
   .custom-cursor {
-    width: 14px; height: 14px;
-    background-color: #000000;
-    position: fixed;
-    top: 0; left: 0;
-    pointer-events: none;
-    z-index: 999999 !important;
-    transform: translate(-50%, -50%) rotate(45deg);
+    width: 14px; height: 14px; background-color: #000000;
+    position: fixed; top: 0; left: 0; pointer-events: none;
+    z-index: 999999 !important; transform: translate(-50%, -50%) rotate(45deg);
   }
 
-  /* Ändert die Cursor-Farbe auf weiß, wenn man über das schwarze Menü fährt */
-  body.menu-open .custom-cursor {
-    background-color: #ffffff;
+  .wrap { max-width: 900px; margin: 0 auto; padding: 80px 40px; }
+
+  .register-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: -2px; }
+
+  .tab-link {
+    background: transparent; color: #000000; opacity: 0.4;
+    border: 2px solid #000000; padding: 14px 22px;
+    font-family: 'Oswald', sans-serif; font-size: 14px; letter-spacing: 0.5px;
+    text-transform: uppercase; cursor: none; transition: all 0.3s ease;
+  }
+  .tab-link.active { opacity: 1; background-color: #000000; color: #ffffff; }
+
+  .register-content-box {
+    border: 2px solid #000000; padding: 48px; min-height: 320px;
+    background-color: #ffffff; cursor: text;
   }
 
-  .main-content {
-    height: 100vh; 
+  .tab-content { display: none; }
+  .tab-content.active-content { display: block; }
+
+  .tab-content h2 {
+    font-family: 'Oswald', sans-serif; font-weight: 700; font-size: clamp(22px, 3vw, 36px);
+    text-transform: uppercase; margin: 0 0 20px 0; letter-spacing: -0.5px;
   }
 
-  .hero-header {
-    position: fixed;
-    top: 0; left: 0; width: 100%;
-    display: flex; justify-content: space-between; align-items: flex-end;
-    padding: 30px 40px 10px 40px;
-    box-sizing: border-box;
-    z-index: 100;
+  .typewriter-line {
+    font-family: Arial, Helvetica, sans-serif; font-size: 15px; line-height: 1.7;
+    max-width: 640px; margin: 0 0 20px 0;
   }
-
-  .huge-title {
-    font-family: 'Oswald', sans-serif;
-    font-size: clamp(30px, 7.8vw, 180px);
-    font-weight: 700; line-height: 0.8; letter-spacing: -2px;
-    text-transform: uppercase; margin: 0; white-space: nowrap;
+  .typewriter-line .cursor-blink {
+    display: inline-block; width: 2px; height: 1em; background: #000;
+    margin-left: 2px; vertical-align: -0.15em;
+    animation: blink 0.8s step-end infinite;
   }
+  @keyframes blink { 50% { opacity: 0; } }
 
-  .menu-icon {
-    display: flex; flex-direction: column; justify-content: space-between;
-    width: 30px; height: 16px; cursor: none; margin-bottom: 8px; z-index: 1001;
-    pointer-events: auto;
+  .rest-text {
+    font-family: Arial, Helvetica, sans-serif; font-size: 15px; line-height: 1.7;
+    max-width: 640px; margin: 0; opacity: 0; transform: translateY(8px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
   }
+  .rest-text.visible { opacity: 1; transform: translateY(0); }
 
-  .menu-icon span {
-    display: block; width: 100%; height: 2px;
-    background-color: #000000; transition: all 0.3s ease-in-out;
-  }
-
-  /* Macht die Linien des X-Buttons weiß, wenn das Menü offen ist */
-  body.menu-open .menu-icon span {
-    background-color: #ffffff;
-  }
-
-  body.menu-open .menu-icon span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  body.menu-open .menu-icon span:nth-child(2) { opacity: 0; }
-  body.menu-open .menu-icon span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-  /* Schwarze Menüleiste */
-  .side-menu {
-    position: fixed; top: 0; right: -450px; width: 400px; height: 100vh;
-    background-color: #000000; border-left: 1px solid #111111;
-    box-sizing: border-box; padding: 120px 40px 40px 40px; z-index: 1000;
-    transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
-    display: flex; flex-direction: column; gap: 10px;
-  }
-
-  body.menu-open .side-menu { right: 0; }
-
-  .menu-link {
-    font-family: 'Oswald', sans-serif; font-size: 32px; color: #ffffff;
-    text-decoration: none; text-transform: uppercase; padding: 15px 20px;
-    border: 1px solid transparent; transition: all 0.2s ease; display: block; cursor: none;
-    border-bottom: 1px solid #222222;
-    /* Schützt vor ungewollten Browser-Farbüberlagerungen beim Klicken */
-    outline: none;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  /* Cleanes Hover-Verhalten: Reines Weiß/Schwarz ohne Farbeffekte */
-  .menu-link:hover, .menu-link:active, .menu-link:focus { 
-    background-color: #ffffff; 
-    color: #000000; 
-    border-color: #ffffff; 
-    padding-left: 30px;
-    outline: none;
+  .skip-hint {
+    margin-top: 24px; font-family: 'Oswald', sans-serif; font-size: 11px;
+    letter-spacing: 1px; text-transform: uppercase; opacity: 0.35;
   }
 </style>
 </head>
@@ -109,27 +73,27 @@
 
   <div class="custom-cursor" id="cursor"></div>
 
-  <!-- Schwarze Menüleiste mit allen Seiten -->
-  <div class="side-menu">
-      <a href="ueber.html" class="menu-link">Über</a>
-      <a href="werke.html" class="menu-link">Werke</a>
-      <a href="register.html" class="menu-link">Register</a>
-      <a href="kontakt.html" class="menu-link">Kontakt</a>
-  </div>
+  <div class="wrap">
+    <nav class="register-tabs">
+      <button class="tab-link active" data-target="eintrag1">#002 NICHT ICH ZU WENIG</button>
+      <button class="tab-link" data-target="eintrag2">#001 BASS &amp; STILLE</button>
+    </nav>
 
-  <div class="main-content">
-    <!-- Header mit Titel und dem R-Zeichen -->
-    <div class="hero-header">
-      <h1 class="huge-title">MELODIENRAUSCH®</h1>
-      <div class="menu-icon" onclick="toggleMenu()">
-        <span></span><span></span><span></span>
-      </div>
+    <div class="register-content-box" id="contentBox">
+      <section id="eintrag1" class="tab-content active-content">
+        <h2>#002 Nicht ich zu wenig</h2>
+        <p class="typewriter-line" data-full="Vielleicht ist es gerade einfach zu viel."><span class="typed"></span><span class="cursor-blink"></span></p>
+        <p class="rest-text">Nicht ich zu wenig. Der Tag war voll, der Kopf noch voller — und irgendwo dazwischen ist der Gedanke hängen geblieben. Ich schreib das hier nicht, weil es fertig ist. Sondern weil es gerade so ist.</p>
+      </section>
+
+      <section id="eintrag2" class="tab-content">
+        <h2>#001 Bass &amp; Stille</h2>
+        <p class="typewriter-line" data-full="Das hier ist kein Portfolio, sondern ein digitales Underground-Magazin."><span class="typed"></span><span class="cursor-blink"></span></p>
+        <p class="rest-text">Kein glattes Konzept, keine fertige Geschichte. Nur das, was gerade zieht — Bass, Stille, und alles dazwischen.</p>
+      </section>
     </div>
 
-    <!-- Hier steht der eigentliche Inhalt deiner Register-Seite -->
-    <div style="padding: 240px 40px 40px 40px;">
-      <!-- Hier kannst du deine Listen, Tabellen oder Register-Inhalte einfügen -->
-    </div>
+    <div class="skip-hint">Klick in den Kasten, um die Schreib-Animation zu überspringen</div>
   </div>
 
 <script>
@@ -138,7 +102,70 @@
     cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
   });
 
-  function toggleMenu() { document.body.classList.toggle('menu-open'); }
+  const tabs = document.querySelectorAll('.tab-link');
+  const contents = document.querySelectorAll('.tab-content');
+  const contentBox = document.getElementById('contentBox');
+
+  let currentTyping = null; // { timer, section }
+
+  function startTypewriter(section) {
+    const line = section.querySelector('.typewriter-line');
+    const typedSpan = line.querySelector('.typed');
+    const cursorBlink = line.querySelector('.cursor-blink');
+    const rest = section.querySelector('.rest-text');
+    const fullText = line.dataset.full;
+
+    typedSpan.textContent = '';
+    rest.classList.remove('visible');
+    cursorBlink.style.display = 'inline-block';
+
+    let i = 0;
+    function tick() {
+      if (i <= fullText.length) {
+        typedSpan.textContent = fullText.slice(0, i);
+        i++;
+        // leicht unregelmäßiges Tempo für natürliches Tippgefühl
+        const delay = 28 + Math.random() * 45;
+        currentTyping = { timer: setTimeout(tick, delay), section };
+      } else {
+        cursorBlink.style.display = 'none';
+        rest.classList.add('visible');
+        currentTyping = null;
+      }
+    }
+    tick();
+  }
+
+  function finishTypewriter(section) {
+    if (currentTyping && currentTyping.section === section) {
+      clearTimeout(currentTyping.timer);
+      currentTyping = null;
+    }
+    const line = section.querySelector('.typewriter-line');
+    line.querySelector('.typed').textContent = line.dataset.full;
+    line.querySelector('.cursor-blink').style.display = 'none';
+    section.querySelector('.rest-text').classList.add('visible');
+  }
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      contents.forEach(c => c.classList.remove('active-content'));
+      const target = document.getElementById(tab.dataset.target);
+      target.classList.add('active-content');
+      startTypewriter(target);
+    });
+  });
+
+  // Klick in die Box überspringt die aktuelle Animation
+  contentBox.addEventListener('click', () => {
+    const active = document.querySelector('.tab-content.active-content');
+    finishTypewriter(active);
+  });
+
+  // Ersten Eintrag beim Laden tippen
+  startTypewriter(document.getElementById('eintrag1'));
 </script>
 </body>
 </html>
