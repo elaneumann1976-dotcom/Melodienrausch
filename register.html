@@ -1,313 +1,339 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MELODIENRAUSCH // REGISTER</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
-<style>
-  html, body {
-    background-color: #ffffff; color: #000000;
-    font-family: Arial, Helvetica, sans-serif;
-    margin: 0; padding: 0; box-sizing: border-box; cursor: none; overflow-x: hidden;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stilles Archiv</title>
+    <style>
+        :root {
+            --bg-color: #0d0d0d;
+            --paper-color: #f2efe9;
+            --paper-texture: #e3ded6;
+            --ink-color: #1a1a1a;
+            --accent-rust: #8c3b26;
+            --border-color: #333333;
+        }
 
-  .custom-cursor {
-    width: 14px; height: 14px; background-color: #000000;
-    position: fixed; top: 0; left: 0; pointer-events: none;
-    z-index: 999999 !important; transform: translate(-50%, -50%) rotate(45deg);
-  }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--paper-color);
+            font-family: monospace, sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
 
-  .main-content { opacity: 0; transition: opacity 0.8s ease; min-height: 100vh; }
-  body.intro-done .main-content { opacity: 1; }
+        /* Schwebendes geschlossenes Buch in der Bildschirmmitte */
+        .floating-book-container {
+            position: absolute;
+            cursor: pointer;
+            text-align: center;
+            animation: float 4s ease-in-out infinite;
+            transition: transform 0.3s ease;
+        }
 
-  .hero-header {
-    position: fixed; top: 0; left: 0; width: 100%;
-    display: flex; justify-content: space-between; align-items: flex-end;
-    padding: 30px 40px 10px 40px; box-sizing: border-box; z-index: 300;
-    background: rgba(255,255,255,0.92);
-  }
-  .huge-title {
-    font-family: 'Oswald', sans-serif;
-    font-size: clamp(24px, 5vw, 90px); font-weight: 700; line-height: 0.8;
-    letter-spacing: -2px; text-transform: uppercase; margin: 0; white-space: nowrap;
-  }
-  .menu-icon {
-    display: flex; flex-direction: column; justify-content: space-between;
-    width: 30px; height: 16px; cursor: none; margin-bottom: 8px; z-index: 1001;
-    pointer-events: auto;
-  }
-  .menu-icon span { display: block; width: 100%; height: 2px; background-color: #000000; transition: all 0.3s ease-in-out; }
-  body.menu-open .menu-icon span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  body.menu-open .menu-icon span:nth-child(2) { opacity: 0; }
-  body.menu-open .menu-icon span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        .floating-book-container:hover {
+            transform: scale(1.05);
+        }
 
-  .side-menu {
-    position: fixed; top: 0; right: -450px; width: 400px; height: 100vh;
-    background-color: #f7f7f7; border-left: 1px solid #e0e0e0;
-    box-sizing: border-box; padding: 120px 40px 40px 40px; z-index: 1000;
-    transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
-    display: flex; flex-direction: column; gap: 10px;
-  }
-  body.menu-open .side-menu { right: 0; }
-  .menu-link {
-    font-family: 'Oswald', sans-serif; font-size: 32px; color: #000000;
-    text-decoration: none; text-transform: uppercase; padding: 15px 20px;
-    border: 1px solid transparent; transition: all 0.2s ease; display: block; cursor: none;
-  }
-  .menu-link:hover { background-color: #ffffff; border-color: #000000; padding-left: 30px; }
-  .menu-link.active { background-color: #000000; color: #ffffff; }
-  .menu-link.active:hover { background-color: #000000; color: #ffffff; padding-left: 20px; border-color: #000000; }
+        .book-cover-mockup {
+            width: 220px;
+            height: 300px;
+            background: linear-gradient(135deg, #1c1c1c, #2b2b2b);
+            border: 2px solid var(--border-color);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8), inset 0 0 15px rgba(255,255,255,0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+        }
 
-  /* ===== FLIPBOOK ===== */
-  .book-stage {
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    min-height: 100vh; padding: 160px 20px 100px 20px; box-sizing: border-box;
-    perspective: 2400px;
-  }
+        .book-cover-mockup::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: rgba(0,0,0,0.5);
+        }
 
-  .book {
-    position: relative;
-    width: min(640px, 90vw);
-    height: min(720px, 78vh);
-  }
+        .book-title {
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-bottom: 1px dashed var(--paper-color);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
 
-  .page {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background: #ffffff; border: 2px solid #000000; box-sizing: border-box;
-    padding: 50px 44px; overflow-y: auto;
-    transform-origin: left center;
-    transform-style: preserve-3d;
-    backface-visibility: hidden;
-    transition: transform 0.7s cubic-bezier(0.45, 0, 0.2, 1), box-shadow 0.7s ease;
-    box-shadow: 8px 0 20px rgba(0,0,0,0.06);
-  }
+        .book-hint {
+            font-size: 0.75rem;
+            color: #888;
+        }
 
-  .page.flipped { transform: rotateY(-165deg); box-shadow: -8px 0 20px rgba(0,0,0,0.10); }
-  .page.behind { z-index: 0; }
-  .page.front { z-index: 5; }
+        /* Das geöffnete Buch (Zwei Seiten) */
+        .open-book-modal {
+            display: none;
+            position: fixed;
+            width: 800px;
+            max-width: 90vw;
+            height: 520px;
+            background-color: var(--paper-color);
+            color: var(--ink-color);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.9);
+            border: 1px solid #c2bdb4;
+            display: none; /* Initial versteckt */
+            grid-template-columns: 1fr 1fr;
+            position: relative;
+            animation: fadeIn 0.4s ease forwards;
+        }
 
-  .page-num {
-    font-family: 'Oswald', sans-serif; font-size: 12px; letter-spacing: 2px;
-    text-transform: uppercase; opacity: 0.4; margin-bottom: 24px;
-  }
-  .page h2 {
-    font-family: 'Oswald', sans-serif; font-weight: 700; font-size: clamp(22px, 3.4vw, 32px);
-    text-transform: uppercase; margin: 0 0 24px 0; letter-spacing: -0.5px;
-  }
-  .typewriter-line { font-size: 15px; line-height: 1.7; margin: 0 0 18px 0; }
-  .typewriter-line .cursor-blink {
-    display: inline-block; width: 2px; height: 1em; background: #000;
-    margin-left: 2px; vertical-align: -0.15em; animation: blink 0.8s step-end infinite;
-  }
-  @keyframes blink { 50% { opacity: 0; } }
-  .rest-text {
-    font-size: 15px; line-height: 1.7; opacity: 0; transform: translateY(8px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-  }
-  .rest-text.visible { opacity: 1; transform: translateY(0); }
-  .rest-text p { margin: 0 0 18px 0; }
+        .open-book-modal.active {
+            display: grid;
+        }
 
-  .book-nav {
-    display: flex; align-items: center; gap: 30px; margin-top: 24px;
-    font-family: 'Oswald', sans-serif;
-  }
-  .book-nav button {
-    background: none; border: 2px solid #000; color: #000;
-    font-family: inherit; font-size: 22px; padding: 8px 20px;
-    cursor: none; letter-spacing: 2px; transition: all 0.2s ease;
-  }
-  .book-nav button:hover:not(:disabled) { background: #000; color: #fff; }
-  .book-nav button:disabled { opacity: 0.25; }
-  .book-nav .counter { font-size: 13px; letter-spacing: 1px; text-transform: uppercase; opacity: 0.6; }
+        /* Buchfalz in der Mitte */
+        .open-book-modal::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 20px;
+            background: linear-gradient(to right, rgba(0,0,0,0.08), rgba(0,0,0,0.02) 50%, rgba(0,0,0,0.08));
+            transform: translateX(-50%);
+            pointer-events: none;
+        }
 
-  .skip-hint {
-    margin-top: 14px; font-family: 'Oswald', sans-serif; font-size: 11px;
-    letter-spacing: 1px; text-transform: uppercase; opacity: 0.3;
-  }
-</style>
+        .book-page {
+            padding: 40px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        /* Linke Seite: Inhaltsverzeichnis / Titel */
+        .page-left h3 {
+            font-size: 1rem;
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--ink-color);
+            padding-bottom: 8px;
+            margin-top: 0;
+            letter-spacing: 1px;
+        }
+
+        .blog-index-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        .blog-index-list li {
+            margin-bottom: 15px;
+        }
+
+        .blog-link {
+            background: none;
+            border: none;
+            font-family: monospace, sans-serif;
+            font-size: 0.95rem;
+            color: var(--ink-color);
+            cursor: pointer;
+            text-align: left;
+            padding: 0;
+            transition: color 0.2s, padding-left 0.2s;
+        }
+
+        .blog-link:hover {
+            color: var(--accent-rust);
+            padding-left: 5px;
+        }
+
+        /* Rechte Seite: Schreibmaschinen-Ansicht & Text */
+        .page-right {
+            background-color: var(--paper-texture);
+        }
+
+        .typewriter-container {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .typewriter-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+            border-bottom: 1px solid var(--ink-color);
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        /* Schließen-Button für das Buch */
+        .close-book {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--ink-color);
+            z-index: 10;
+        }
+
+        .close-book:hover {
+            color: var(--accent-rust);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
 </head>
 <body>
 
-  <div id="intro-screen" style="position:fixed; top:0; left:0; width:100%; height:100vh; background:#000; color:#fff; display:flex; justify-content:center; align-items:center; z-index:9999999; transition:opacity 0.6s ease;">
-    <div style="font-family:'Courier New'; font-size:24px; letter-spacing:10px; text-transform:uppercase; font-weight:bold;">melodienrausch</div>
-  </div>
-  <div class="custom-cursor" id="cursor"></div>
-
-  <div class="side-menu">
-    <a href="index.html" class="menu-link">Heimat</a>
-    <a href="werke.html" class="menu-link">Werke</a>
-    <a href="ueber.html" class="menu-link">Über</a>
-    <a href="register.html" class="menu-link active">Register</a>
-    <a href="kontakt.html" class="menu-link">Kontakt</a>
-  </div>
-
-  <div class="main-content">
-    <div class="hero-header">
-      <h1 class="huge-title">MELODIENRAUSCH®</h1>
-      <div class="menu-icon" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+    <!-- 1. Der schwebende Buch-Container (Ausgangspunkt) -->
+    <div class="floating-book-container" id="floatingBook" onclick="openBook()">
+        <div class="book-cover-mockup">
+            <div class="book-title">stilleinkopf</div>
+            <div class="book-hint">[ anklicken zum öffnen ]</div>
+        </div>
     </div>
 
-    <div class="book-stage">
-      <div class="book" id="book"></div>
+    <!-- 2. Das geöffnete Flipbook (Modal) -->
+    <div class="open-book-modal" id="openBookModal">
+        <button class="close-book" onclick="closeBook()">×</button>
+        
+        <!-- Linke Seite: Inhaltsverzeichnis / Titel -->
+        <div class="book-page page-left">
+            <h3>Inhalt / Spuren</h3>
+            <ul class="blog-index-list">
+                <li>
+                    <button class="blog-link" onclick="loadPost('post1')">
+                        01. Spuren im Betonlicht
+                    </button>
+                </li>
+                <li>
+                    <button class="blog-link" onclick="loadPost('post2')">
+                        02. 890 – Blaues Echo
+                    </button>
+                </li>
+                <li>
+                    <button class="blog-link" onclick="loadPost('post3')">
+                        03. Fragmente einer Nacht
+                    </button>
+                </li>
+            </ul>
+        </div>
 
-      <div class="book-nav">
-        <button id="prevBtn" onclick="prevPage()">◂</button>
-        <span class="counter" id="counter">1 / 2</span>
-        <button id="nextBtn" onclick="nextPage()">▸</button>
-      </div>
-      <div class="skip-hint">Klick auf die Seite überspringt die Schreib-Animation · Pfeiltasten funktionieren auch</div>
+        <!-- Rechte Seite: Schreibmaschinen-Ausgabe -->
+        <div class="book-page page-right">
+            <div class="typewriter-container" id="typewriterOutput">
+                <span style="color: #666; font-style: italic;">Wähle links einen Titel aus dem Archiv...</span>
+            </div>
+        </div>
     </div>
-  </div>
 
-<script>
-  // ---- DEINE EINTRÄGE — neuen Block einfach unten anfügen ----
-  const entries = [
-    {
-      num: '002', title: 'Nicht ich zu wenig',
-      firstLine: 'Vielleicht ist es gerade einfach zu viel.',
-      rest: [
-        'Nicht ich zu wenig. Der Tag war voll, der Kopf noch voller — und irgendwo dazwischen ist der Gedanke hängen geblieben.',
-        'Ich schreib das hier nicht, weil es fertig ist. Sondern weil es gerade so ist.'
-      ]
-    },
-    {
-      num: '001', title: 'Bass & Stille',
-      firstLine: 'Das hier ist kein Portfolio, sondern ein digitales Underground-Magazin.',
-      rest: [
-        'Kein glattes Konzept, keine fertige Geschichte. Nur das, was gerade zieht — Bass, Stille, und alles dazwischen.'
-      ]
-    }
+    <script>
+        // Datenbank der Blogeinträge
+        const blogPosts = {
+            post1: {
+                title: "Spuren im Betonlicht",
+                text: "Das Licht bricht sich hart an den Kanten der alten Mauern. Ein dumpfer Beat hallt aus den Kopfhörern, während die Zeilen auf das Papier gehämmert werden...\n\nEs geht um die Suche nach dem echten Moment zwischen all den digitalen Schichten. Nichts ist poliert, alles atmet den Staub der Realität."
+            },
+            post2: {
+                title: "890 – Blaues Echo",
+                text: "Frequenzen schwingen im Raum. Eine Blaupause aus Erinnerung und kühlem Metall.\n\nWenn man genau hinhört, versteht man, dass die Stille oft lauter ist als jedes gesprochene Wort. Ein Auszug aus dem analogen Logbuch."
+            },
+            post3: {
+                title: "Fragmente einer Nacht",
+                text: "Zigarettenrauch und das Surren einer alten Schreibmaschine. Die Tasten schlagen hart auf den Bogen.\n\nManchmal muss man alles verwerfen, um den wahren Kern freizulegen. Schwarz, Weiß, Beton und Tinte."
+            }
+        };
 
-    // NEUEN EINTRAG HIER EINFÜGEN (Vorlage zum Kopieren):
-    // ,{
-    //   num: '003',
-    //   title: 'Dein Titel',
-    //   firstLine: 'Der erste Satz, der getippt wird.',
-    //   rest: [ 'Erster Absatz.', 'Zweiter Absatz, falls nötig.' ]
-    // }
-  ];
+        const floatingBook = document.getElementById('floatingBook');
+        const openBookModal = document.getElementById('openBookModal');
+        const outputContainer = document.getElementById('typewriterOutput');
+        
+        let typingTimeout;
 
-  const bookEl = document.getElementById('book');
-  let currentPage = 0;
-  let currentTyping = null;
-  const pageEls = [];
+        function openBook() {
+            floatingBook.style.display = 'none';
+            openBookModal.classList.add('active');
+        }
 
-  function buildPage(entry) {
-    const page = document.createElement('div');
-    page.className = 'page';
-    page.innerHTML = `
-      <div class="page-num">#${entry.num}</div>
-      <h2>${entry.title}</h2>
-      <p class="typewriter-line"><span class="typed"></span><span class="cursor-blink"></span></p>
-      <div class="rest-text"></div>
-    `;
-    return page;
-  }
+        function closeBook() {
+            openBookModal.classList.remove('active');
+            floatingBook.style.display = 'block';
+            clearTimeout(typingTimeout);
+        }
 
-  // alle Seiten vorbauen, gestapelt
-  entries.forEach((entry, i) => {
-    const page = buildPage(entry);
-    page.style.zIndex = entries.length - i;
-    bookEl.appendChild(page);
-    pageEls.push(page);
-  });
+        function loadPost(postId) {
+            clearTimeout(typingTimeout);
+            outputContainer.innerHTML = '';
+            
+            const post = blogPosts[postId];
+            if (!post) return;
 
-  function typeFirstLine(page, entry) {
-    const typedSpan = page.querySelector('.typed');
-    const cursorBlink = page.querySelector('.cursor-blink');
-    const rest = page.querySelector('.rest-text');
-    typedSpan.textContent = '';
-    cursorBlink.style.display = 'inline-block';
-    rest.classList.remove('visible');
-    rest.innerHTML = entry.rest.map(p => `<p>${p}</p>`).join('');
+            // Titel im Schreibmaschinenstil vorbereiten
+            const titleElem = document.createElement('div');
+            titleElem.className = 'typewriter-title';
+            outputContainer.appendChild(titleElem);
 
-    let i = 0;
-    function tick() {
-      if (i <= entry.firstLine.length) {
-        typedSpan.textContent = entry.firstLine.slice(0, i);
-        i++;
-        currentTyping = setTimeout(tick, 28 + Math.random() * 45);
-      } else {
-        cursorBlink.style.display = 'none';
-        rest.classList.add('visible');
-        currentTyping = null;
-      }
-    }
-    tick();
-  }
+            const textElem = document.createElement('div');
+            outputContainer.appendChild(textElem);
 
-  function skipTyping(page, entry) {
-    if (currentTyping) { clearTimeout(currentTyping); currentTyping = null; }
-    const typedSpan = page.querySelector('.typed');
-    const cursorBlink = page.querySelector('.cursor-blink');
-    const rest = page.querySelector('.rest-text');
-    typedSpan.textContent = entry.firstLine;
-    cursorBlink.style.display = 'none';
-    rest.classList.add('visible');
-  }
+            let titleChars = post.title.split('');
+            let textChars = post.text.split('');
+            
+            let tIdx = 0;
+            let txtIdx = 0;
 
-  function updateNav() {
-    document.getElementById('prevBtn').disabled = (currentPage === 0);
-    document.getElementById('nextBtn').disabled = (currentPage === entries.length - 1);
-    document.getElementById('counter').textContent = (currentPage + 1) + ' / ' + entries.length;
-  }
+            // Schreibmaschineneffekt für Titel
+            function typeTitle() {
+                if (tIdx < titleChars.length) {
+                    titleElem.textContent += titleChars[tIdx];
+                    tIdx++;
+                    typingTimeout = setTimeout(typeTitle, 40);
+                } else {
+                    // Zeilenumbruch nach Titel
+                    textElem.innerHTML += '<br><br>';
+                    setTimeout(typeText, 200);
+                }
+            }
 
-  function renderInitial() {
-    typeFirstLine(pageEls[0], entries[0]);
-    updateNav();
-  }
+            // Schreibmaschineneffekt für den Textkörper
+            function typeText() {
+                if (txtIdx < textChars.length) {
+                    let char = textChars[txtIdx];
+                    if (char === '\n') {
+                        textElem.innerHTML += '<br>';
+                    } else {
+                        textElem.innerHTML += char;
+                    }
+                    txtIdx++;
+                    // Leichte Variation für menschlicheres Tippen
+                    let speed = Math.random() * 30 + 20; 
+                    typingTimeout = setTimeout(typeText, speed);
+                }
+            }
 
-  function nextPage() {
-    if (currentPage >= entries.length - 1) return;
-    const page = pageEls[currentPage];
-    page.classList.add('flipped');
-    currentPage++;
-    updateNav();
-    setTimeout(() => typeFirstLine(pageEls[currentPage], entries[currentPage]), 350);
-  }
-
-  function prevPage() {
-    if (currentPage <= 0) return;
-    currentPage--;
-    pageEls[currentPage].classList.remove('flipped');
-    updateNav();
-    setTimeout(() => typeFirstLine(pageEls[currentPage], entries[currentPage]), 350);
-  }
-
-  bookEl.addEventListener('click', () => {
-    skipTyping(pageEls[currentPage], entries[currentPage]);
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight') nextPage();
-    if (e.key === 'ArrowLeft') prevPage();
-  });
-
-  // Swipe für Touch
-  let touchStartX = 0;
-  bookEl.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
-  bookEl.addEventListener('touchend', (e) => {
-    const dx = e.changedTouches[0].clientX - touchStartX;
-    if (Math.abs(dx) > 50) { dx < 0 ? nextPage() : prevPage(); }
-  });
-
-  // ---- Cursor, Intro, Menü ----
-  const cursor = document.getElementById('cursor');
-  document.addEventListener('mousemove', (e) => {
-    cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
-  });
-  function toggleMenu() { document.body.classList.toggle('menu-open'); }
-  window.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-      const intro = document.getElementById('intro-screen');
-      if (intro) { intro.style.opacity = '0'; setTimeout(() => intro.remove(), 600); }
-      document.body.classList.add('intro-done');
-    }, 2000);
-    renderInitial();
-  });
-</script>
+            typeTitle();
+        }
+    </script>
 </body>
 </html>
