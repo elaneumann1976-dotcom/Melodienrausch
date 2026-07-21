@@ -66,18 +66,29 @@
       z-index: 10;
     }
     
+    .headline-zone {
+      grid-column: 2 / 12;
+      margin-bottom: 2rem;
+    }
+    .headline-zone h2 {
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(2rem, 5vw, 4rem);
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: -1px;
+    }
+    
     .hover-text-zone {
       font-size: 15px;
       line-height: 1.7;
       color: var(--fg);
-      text-align: justify;
+      text-align: left;
     }
     
     .zone-left { grid-column: 2 / 6; }
     .zone-right { grid-column: 7 / 12; }
-    .zone-bottom { grid-column: 6 / 11; margin-top: 4rem; font-style: italic; }
+    .zone-full-width { grid-column: 2 / 11; margin: 4rem 0; padding: 2rem 0; border-top: 1px dashed var(--muted); border-bottom: 1px dashed var(--muted); }
     
-    /* Dynamisch erzeugte Trail-Bilder */
     .trail-image {
       position: fixed;
       width: 180px;
@@ -110,25 +121,45 @@
   <header id="header-area">
     <h1>MELODIENRAUSCH</h1>
     <nav class="nav-links-top">
-      <a href="index.html">Collections</a>
+      <a href="index.html">Heimat</a>
       <a href="werke.html">Werke</a>
       <a href="ueber.html" class="active">Über</a>
       <a href="register.html">Register</a>
-      <a href="kontakt.html">Inquired</a>
+      <a href="kontakt.html">Kontakt</a>
     </nav>
   </header>
   
   <main class="about-grid">
+    <div class="headline-zone">
+      <h2>WER HIER SCHREIBT.</h2>
+    </div>
+
+    <!-- Linke Spalte -->
     <div class="hover-text-zone zone-left">
-      Melodienrausch existiert an der Schnittstelle von Fragment, Sound und visuellem Objekt. Wir lehnen den schnellen Kreislauf der saisonalen Trends zugunsten einer dauerhaften Relevanz ab. Jedes Werk ist das Ergebnis einer strengen und fokussierten Eigenproduktion für diejenigen, die digitale Kunst als einen bewussten Ausdruck der Identität betrachten.
+      <p>Ich bin Ela. Diva des ADHS. Ich geh zu schnell rein – und wunder mich dann, warum’s knallt. Ich geh hoch, hab Angst vorm Fallen – und lande trotzdem. Ich bin kein Mittelmaß.</p>
+      <br><br>
+      <p>Ich bin entweder ganz drin oder komplett raus. Gedanken rasen. Gefühle auch. Und während andere noch überlegen, bin ich schon mittendrin. Manchmal genial. Manchmal komplett daneben. Aber wenigstens echt.</p>
+      <br>
+      <p>Mein Leben lief nicht gerade. Eher Chaos. Absturz. Aufgestanden. Krone gerichtet. Weitergegangen. Nicht, weil alles easy war. Sondern weil Aufgeben keine Option ist. Ich bin laut. Ich bin intensiv. Ich bin nicht gemacht für „passt schon“.</p>
+      <br>
+      <p>Ich bin Ela.<br>Und ich hinterlasse Eindruck.</p>
     </div>
     
+    <!-- Rechte Spalte -->
     <div class="hover-text-zone zone-right">
-      Unsere Praxis wurzelt in dem Glauben, dass Fragmente so dauerhaft sein sollten wie die analogen Strukturen, die wir im physischen Raum bewohnen. Indem wir uns auf monochromatische Tiefe und strukturelle Integrität konzentrieren, schaffen wir ein visuelles Archiv für den modernen multidisziplinären Denker. Das Gitter bestimmt den Fluss jeder kreativen Entscheidung, die wir treffen.
+      <p>Ich seh dann nur noch das, was entstehen will. Hyperfokus, nennt man das wohl. Ich nenn’s: endlich Ruhe im Kopf. Chaos? Ist kein Problem. Ist eher mein Arbeitsmodus.</p>
+      <br>
+      <p>Da entsteht Bewegung. Da entstehen Verbindungen, die man nicht erzwingen kann. Ich denk schnell. Ich fühl schneller. Und manchmal passt das nicht, in die Welt von anderen. Aber genau daraus kommt das, was bei mir echt ist.</p>
+      <br>
+      <p>Ich verbinde Dinge, die eigentlich nicht zusammengehören:</p>
+      <p style="color: var(--accent); font-weight: bold; font-size: 1.1rem; letter-spacing: 1px;">Gedanke. Musik. Gefühl. Bild.</p>
+      <br>
+      <p>Und plötzlich ergibt’s Sinn. Auf meine Art. Ich erklär nicht alles. Ich mach. Und wenn’s fertig ist, versteht man’s sowieso. Oder halt nicht.</p>
     </div>
     
-    <div class="hover-text-zone zone-bottom">
-      Wir machen nicht nur Kunst, wir definieren eine neue Bildsprache für den digitalen und physischen Bereich.
+    <!-- Zentrierter Mittel-Absatz -->
+    <div class="hover-text-zone zone-full-width">
+      Ideen kommen bei mir nicht einzeln. Die kommen im Rudel. Manche bleiben nicht. Die guten schon. Und die knallen dann auch. Ich arbeite nicht nach Plan. Hab ich versucht. War langweilig. Ich geh nach Gefühl. Nach dem, was gerade zieht. Und meistens ist genau das richtig. Wenn ich drin bin, bin ich drin. So richtig. Zeit? Egal. Umgebung? Egal.
     </div>
   </main>
   
@@ -143,7 +174,6 @@
     const headerArea = document.getElementById('header-area');
     const textZones = document.querySelectorAll('.hover-text-zone');
     
-    // HIER SIND DEINE ECHTEN DATEIENDUNGEN NUN FEST HINTERLEGT!
     const imageList = ['bild1.jpeg', 'bild2.png', 'bild3.jpg'];
     let imageIndex = 0;
     
@@ -207,3 +237,4 @@
   </script>
 </body>
 </html>
+
