@@ -1,240 +1,214 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MELODIENRAUSCH // STUDIO</title>
-  <style>
-    @import url('https://googleapis.com');
-    
-    :root { 
-      --bg: #0a0a0a;       
-      --fg: #ece7dd;       
-      --accent: #d97a3c;   
-      --muted: #1a1a1a;    
-      --text-muted: #6b6b6b;
-    }
-    
-    html, body { 
-      background-color: var(--bg) !important; 
-      color: var(--fg); 
-      font-family: "IBM Plex Mono", monospace; 
-      margin: 0; padding: 0; 
-      box-sizing: border-box; 
-      cursor: none; 
-      min-height: 100vh; 
-      display: flex; 
-      flex-direction: column; 
-    }
-    
-    /* Custom-Cursor (Raute) */
-    .custom-cursor { 
-      width: 12px; height: 12px; 
-      background-color: var(--fg); 
-      position: fixed; top: 0; left: 0; 
-      pointer-events: none; 
-      z-index: 999999 !important; 
-      transform: translate(-50%, -50%) rotate(45deg); 
-      will-change: transform; 
-    }
-    
-    /* Globaler Header */
-    header { 
-      padding: 3rem 2rem; 
-      border-bottom: 1px solid var(--muted); 
-      display: flex; justify-content: space-between; align-items: flex-end; 
-      position: fixed; top: 0; left: 0; width: 100%;
-      background: rgba(10, 10, 10, 0.85);
-      backdrop-filter: blur(10px);
-      z-index: 1000;
-      box-sizing: border-box;
-    }
-    
-    header h1 { 
-      font-family: 'Oswald', sans-serif;
-      font-size: clamp(2.5rem, 9vw, 6rem); 
-      margin: 0; letter-spacing: -0.03em; line-height: 0.85; 
-      text-transform: uppercase;
-      font-weight: 700;
-    }
-    
-    .nav-links-top {
-      display: flex; gap: 3rem; font-size: 0.85rem;
-      text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;
-    }
-    .nav-links-top a {
-      color: var(--text-muted); text-decoration: none; transition: color 0.2s ease; cursor: none;
-    }
-    .nav-links-top a:hover, .nav-links-top a.active { color: var(--fg); }
-    
-    /* Hauptbereich mit Scroll-Platz */
-    .scroll-container {
-      margin-top: 160px; /* Platz für den fixierten Header */
-      flex: 1;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MELODIENRAUSCH // HEIMAT</title>
+<link rel="preconnect" href="https://googleapis.com">
+<link rel="preconnect" href="https://gstatic.com" crossorigin>
+<link href="https://googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root { 
+    --bg: #0a0a0a;       /* Tiefschwarz von der Haus-Vorlage */
+    --fg: #ece7dd;       /* Rohes Off-White / Beton-Weiß */
+    --accent: #d97a3c;   /* Industrielles Orange */
+    --muted: #222222;    /* Dunkles Raster-Grau für Linien */
+    --text-muted: #6b6b6b;
+  }
 
-    /* Asymmetrisches Grid-Layout */
-    .haus-grid { 
-      display: grid; grid-template-columns: repeat(12, 1fr); gap: 40px; 
-      padding: 6rem 2rem; align-items: start; box-sizing: border-box; 
-    }
-    
-    .meta-section { grid-column: 1 / 5; font-family: 'Oswald', sans-serif; text-transform: uppercase; }
-    .sub-studio { font-size: 1.5rem; letter-spacing: 0.05em; margin-bottom: 3rem; color: var(--text-muted); }
-    .space-statement { font-family: "IBM Plex Mono", monospace; font-size: 0.85rem; text-transform: none; line-height: 1.6; color: var(--text-muted); margin-bottom: 4rem; }
-    .catalog-index { font-size: 0.9rem; letter-spacing: 0.2em; color: var(--text-muted); border-top: 1px solid var(--muted); padding-top: 1.5rem; }
-    .catalog-index strong { color: var(--fg); font-size: 1.2rem; }
-    .werk-nav { display: flex; gap: 24px; margin-top: 20px; font-size: 28px; }
-    .werk-nav button { background: none; border: none; padding: 0; font-family: inherit; color: var(--fg); cursor: none; pointer-events: auto; }
-    .werk-nav button:disabled { opacity: 0.15; }
-    
-    /* Mittlerer Block: Der massive Bildcontainer für den Scroll-Effekt */
-    .media-section { 
-      grid-column: 5 / 10; 
-      height: 580px; 
-      position: relative; 
-      border: 1px solid var(--muted); 
-      background: #000; 
-      overflow: hidden; /* Schneidet das Bild beim Zoomen sauber ab */
-    }
-    
-    .hero-img { 
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-      display: flex; align-items: center; justify-content: center; 
-      background-size: cover;
-      background-position: center 30%;
-      background-image: url('profilbilld.png'); /* Lädt dein hochgeladenes Porträt */
-      transform: scale(1); /* Start-Größe */
-      will-change: transform;
-      transition: transform 0.1s ease-out; /* Verhindert Ruckeln */
-    }
-    
-    /* Rechter Block */
-    .desc-section { grid-column: 10 / 13; font-size: 13px; line-height: 1.6; }
-    .werk-title { font-family: "Oswald", sans-serif; font-size: 24px; text-transform: uppercase; line-height: 1.05; margin-bottom: 20px; color: var(--accent); letter-spacing: -0.5px; }
-    .werk-manifest { color: var(--fg); margin-bottom: 35px; opacity: 0.85; }
-    .werk-fields { text-transform: uppercase; font-size: 11px; padding-top: 20px; border-top: 1px solid var(--muted); }
-    .werk-fields div { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--muted); }
-    .werk-fields .k { color: var(--text-muted); }
-    
-    /* Künstlicher Freiraum nach unten, um das Scrollen zu ermöglichen */
-    .scroll-spacer {
-      height: 60vh; 
-      border-top: 1px dashed var(--muted);
-      margin: 0 2rem;
-      padding: 4rem 0;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
+  html, body {
+    background-color: var(--bg) !important; /* Erzwingt dauerhaft den tiefschwarzen Hintergrund */
+    background: var(--bg) !important;
+    color: var(--fg);
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0; padding: 0;
+    box-sizing: border-box;
+    cursor: none;
+    min-height: 100vh;
+  }
 
-    footer { 
-      padding: 3rem 2rem; font-size: 0.7rem; color: var(--text-muted); border-top: 1px solid var(--muted); text-transform: uppercase; letter-spacing: 0.15em; display: flex; justify-content: space-between; background: var(--bg);
-    }
-  </style>
+  .custom-cursor {
+    width: 12px; height: 12px;
+    background-color: var(--fg);
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 999999 !important;
+    transform: translate(-50%, -50%) rotate(45deg);
+    will-change: transform;
+  }
+
+  .main-content {
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    background-color: var(--bg) !important;
+  }
+  body.intro-done .main-content {
+    opacity: 1;
+  }
+
+  /* Fixierter Header exakt wie beim Vorbild */
+  .hero-header {
+    position: fixed;
+    top: 0; left: 0; width: 100%;
+    display: flex; justify-content: space-between; align-items: flex-end;
+    padding: 3rem 2rem;
+    box-sizing: border-box;
+    z-index: 1000;
+    background: rgba(10, 10, 10, 0.95) !important; /* Dunkler Header-Hintergrund */
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--muted);
+  }
+
+  .huge-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(2.5rem, 9vw, 6rem); 
+    font-weight: 700; line-height: 0.85; letter-spacing: -3px;
+    text-transform: uppercase; margin: 0; white-space: nowrap;
+    color: var(--fg);
+  }
+
+  /* Cleane Navigation oben rechts */
+  .nav-links-top {
+    display: flex; gap: 3rem; font-size: 0.85rem;
+    text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;
+    font-family: 'Oswald', sans-serif;
+  }
+  .nav-links-top a {
+    color: var(--text-muted); text-decoration: none; transition: color 0.2s ease; cursor: none;
+  }
+  .nav-links-top a:hover, .nav-links-top a.active { color: var(--fg); }
+
+  /* 12-Spalten-Brutalismus-Grid */
+  .section-grid {
+    display: grid; grid-template-columns: repeat(12, 1fr); gap: 40px;
+    padding: 240px 2rem 4rem 2rem; align-items: start; position: relative;
+    box-sizing: border-box;
+    min-height: 100vh;
+    background-color: var(--bg) !important;
+  }
+
+  .meta-block {
+    grid-column: 1 / 5; font-family: 'Oswald', sans-serif; font-size: 15px;
+    line-height: 1.4; text-transform: uppercase; position: relative; z-index: 101;
+    color: var(--text-muted);
+  }
+  .meta-block strong { color: var(--fg); font-size: 1.1rem; letter-spacing: 0.1em; }
+
+  .media-box { 
+    grid-column: 5 / 10; 
+    height: 540px; 
+    position: relative; 
+    border: 1px solid var(--muted);
+    background: #000;
+    overflow: hidden;
+  }
+  
+  .hero-img {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url('profilbilld.png'); background-size: cover;
+    background-position: center 30%; background-repeat: no-repeat;
+    z-index: 50; transform-origin: center center; will-change: transform, width, height, position;
+    filter: grayscale(100%) contrast(110%); /* Edler Graustufen-Look */
+  }
+
+  .desc-block {
+    grid-column: 10 / 13; font-family: Arial, Helvetica, sans-serif; font-size: 13px;
+    line-height: 1.7; color: var(--fg); position: relative; z-index: 101;
+  }
+  .desc-block strong { font-family: 'Oswald', sans-serif; font-size: 1.2rem; color: var(--accent); letter-spacing: 0.05em; }
+
+  /* Spacer für den Scroll-Effekt */
+  .scroll-spacer {
+    height: 120vh;
+    border-top: 1px dashed var(--muted);
+    margin: 0 2rem;
+    padding: 4rem 0;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    background-color: var(--bg) !important;
+  }
+
+  footer { 
+    padding: 3rem 2rem; font-size: 0.7rem; color: var(--text-muted); border-top: 1px solid var(--muted); text-transform: uppercase; letter-spacing: 0.15em; display: flex; justify-content: space-between; background: var(--bg) !important;
+  }
+</style>
 </head>
 <body>
 
+  <!-- Intro Screen -->
+  <div id="intro-screen" style="position:fixed; top:0; left:0; width:100%; height:100vh; background:#000; color:#fff; display:flex; justify-content:center; align-items:center; z-index:9999999; transition:opacity 0.6s ease;">
+    <div style="font-family:'Courier New', monospace; font-size:24px; letter-spacing:10px; text-transform:uppercase; font-weight:bold;">melodienrausch</div>
+  </div>
+  
   <div class="custom-cursor" id="cursor"></div>
-  
-  <header>
-    <h1>MELODIENRAUSCH</h1>
-    <nav class="nav-links-top">
-      <a href="index.html" class="active">Collections</a>
-      <a href="register.html">Register</a>
-      <a href="kontakt.html">Inquired</a>
-    </nav>
-  </header>
-  
-  <div class="scroll-container">
-    <main class="haus-grid">
-      <div class="meta-section">
-        <div class="sub-studio">studio</div>
-        <div class="space-statement">
-          THIS IS A SPACE FOR DISCOVERY. Our practice is rooted in monochromatic depth, heavy contrast, and the power of the structural grid to dictate textile, form, and movement.
-        </div>
-        <div class="catalog-index">
-          INDEX // <strong id="werk-index">01/02</strong>
-          <div class="werk-nav">
-            <button id="prev-btn" onclick="prevWerk()">◂</button>
-            <button id="next-btn" onclick="nextWerk()">▸</button>
-          </div>
-        </div>
+
+  <div class="main-content">
+    <header class="hero-header">
+      <h1 class="huge-title">MELODIENRAUSCH</h1>
+      <nav class="nav-links-top">
+        <a href="index.html" class="active">Heimat</a>
+        <a href="werke.html">Werke</a>
+        <a href="ueber.html">Über</a>
+        <a href="register.html">Register</a>
+        <a href="kontakt.html">Kontakt</a>
+      </nav>
+    </header>
+
+    <main class="section-grid">
+      <div class="meta-block">
+        DAS IST EIN RAUM FÜR ENTDECKUNG <br><br><br><br>
+        INDEX // <strong>1/2</strong>
       </div>
-      
-      <div class="media-section">
-        <!-- Das Bild zoomt hier drin unabhängig heraus -->
-        <div class="hero-img" id="zoom-profile-image"></div>
+
+      <div class="media-box">
+        <div class="hero-img" id="zoomImage"></div>
       </div>
-      
-      <div class="desc-section">
-        <div class="werk-title" id="werk-title">-</div>
-        <div class="werk-manifest" id="werk-manifest">-</div>
-        <div class="werk-fields">
-          <div><span class="k">Type</span><span id="werk-tech">-</span></div>
-          <div><span class="k">Format</span><span id="werk-size">-</span></div>
-          <div><span class="k">Season</span><span id="werk-year">-</span></div>
-          <div><span class="k">Presence</span><span id="werk-status">-</span></div>
-        </div>
+
+      <div class="desc-block">
+        <strong>ÜBER DIE STRUKTUR</strong><br><br>
+        Ich verbinde hier Fragmente aus Kunst, Sound und rohem Text. Keine Filter. Alltagssprache, ungekürzt und echt. Keine Regeln, nur Präsenz und Material.
       </div>
     </main>
 
-    <!-- Ermöglicht dem Benutzer das Herunterscrollen für den Zoom -->
     <div class="scroll-spacer">
       [ SCROLL DOWN TO EXPLORE DIMENSION ]
     </div>
-    
+
     <footer>
       <span>© 2026 Melodienrausch. All Rights Reserved.</span>
       <span>ogcvisualz &nbsp;/&nbsp; mail@melodienrausch.de</span>
     </footer>
   </div>
-  
-  <script>
-    const werke = [
-      { num: '01', title: 'DIALOGUE BETWEEN GARMENT AND VOID', manifest: 'By prioritizing volume over traditional tailoring, each piece becomes a structural study in contemporary expression.', tech: 'Editorial Study', size: '1 / 2', year: 'Chapter 0.001', status: 'Permanent' },
-      { num: '02', title: 'URBANER FREQUENZ-KOLLAPS', manifest: 'Lines, transparency, and material contrasts define a visual language that exists between fashion, art, and performance.', tech: 'Mischtechnik', size: '100 × 100 cm', year: 'Edition 026', status: 'Available' }
-    ];
-    
-    let currentIndex = 0;
-    const cursor = document.getElementById('cursor');
-    const profileImage = document.getElementById('zoom-profile-image');
-    
-    // Custom-Cursor Steuerung
-    document.addEventListener('mousemove', (e) => { 
-      cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px) rotate(45deg)`; 
-    });
-    
-    // --- DER SCROLL-ZOOM EFFEKT ---
-    window.addEventListener('scroll', () => {
-      const scrollY = window.scrollY;
-      // Berechnet den Zoom-Faktor: Start bei 1.0, wächst langsam je weiter man scrollt up to 1.35
-      const scaleValue = 1 + (scrollY / 1500); 
-      
-      // Limitiert den maximalen Zoom, damit das Bild scharf bleibt
-      if (scaleValue <= 1.35) {
-        profileImage.style.transform = `scale(${scaleValue})`;
-      }
-    });
-    
-    function updateWerkUI() {
-      const w = werke[currentIndex];
-      document.getElementById('werk-index').innerText = `${String(currentIndex+1).padStart(2,'0')}/${String(werke.length).padStart(2,'0')}`;
-      document.getElementById('werk-title').innerText = w.title;
-      document.getElementById('werk-manifest').innerText = w.manifest;
-      document.getElementById('werk-tech').innerText = w.tech;
-      document.getElementById('werk-size').innerText = w.size;
-      document.getElementById('werk-year').innerText = w.year;
-      document.getElementById('werk-status').innerText = w.status;
-      
-      document.getElementById('prev-btn').disabled = (currentIndex === 0);
-      document.getElementById('next-btn').disabled = (currentIndex === werke.length - 1);
+
+<script>
+  const cursor = document.getElementById('cursor');
+  document.addEventListener('mousemove', (e) => {
+    cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px) rotate(45deg)`;
+  });
+
+  window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      const intro = document.getElementById('intro-screen');
+      if(intro) { intro.style.opacity = '0'; setTimeout(() => intro.remove(), 600); }
+      document.body.classList.add('intro-done');
+    }, 1500); 
+  });
+
+  // Dein präziser Zoom-Effekt beim Scrollen
+  const zoomImage = document.getElementById('zoomImage');
+  window.addEventListener('scroll', () => {
+    let scrollPos = window.scrollY;
+    if (scrollPos > 10) {
+      let zoomFaktor = 1 + (scrollPos * 0.0015); 
+      if(zoomFaktor > 1.4) zoomFaktor = 1.4; // Limitiert den maximalen Zoom
+      zoomImage.style.transform = `scale(${zoomFaktor})`;
+    } else {
+      zoomImage.style.transform = 'scale(1)';
     }
-    
-    window.addEventListener('DOMContentLoaded', updateWerkUI);
-    function nextWerk() { if(currentIndex < werke.length-1) { currentIndex++; updateWerkUI(); } }
-    function prevWerk() { if(currentIndex > 0) { currentIndex--; updateWerkUI(); } }
-  </script>
+  });
+</script>
 </body>
 </html>
