@@ -37,7 +37,6 @@
       transform: translate(-50%, -50%) rotate(45deg); 
     }
     
-    /* Fixierter Header wie auf der Startseite */
     .hero-header { 
       padding: 3rem 2rem; 
       border-bottom: 1px solid var(--muted); 
@@ -55,7 +54,6 @@
       color: var(--fg);
     }
     
-    /* Die 3 Striche oben rechts */
     .menu-icon {
       display: flex; flex-direction: column; justify-content: space-between;
       width: 30px; height: 16px; cursor: none; margin-bottom: 8px; z-index: 1010;
@@ -69,7 +67,6 @@
     body.menu-open .menu-icon span:nth-child(2) { opacity: 0; }
     body.menu-open .menu-icon span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
     
-    /* Die schwarz ausfahrende Seitenleiste */
     .side-menu {
       position: fixed; top: 0; right: -450px; width: 400px; height: 100vh;
       background-color: #121212; border-left: 1px solid #222222;
@@ -174,6 +171,7 @@
     const headerArea = document.getElementById('header-area');
     const textZones = document.querySelectorAll('.hover-text-zone');
     
+    // EXAKT DEINE BILDER HIER FESTGESTRICKT
     const imageList = ['bild1.jpeg', 'bild2.png', 'bild3.jpg'];
     let imageIndex = 0;
     let lastX = 0, lastY = 0;
@@ -208,3 +206,4 @@
 
     function toggleMenu() { document.body.classList.toggle('menu-open'); clearAllTrailImages(); }
     headerArea.addEventListener('mouseenter', () => { isOverHeader = true; clearAllTrailImages(); });
+    headerArea.addEventListener('mouseleave', () => { isOverHeader = false; });
