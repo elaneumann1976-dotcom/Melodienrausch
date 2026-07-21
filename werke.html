@@ -6,42 +6,39 @@
 <title>Werke - MELODIENRAUSCH</title>
 <link rel="preconnect" href="https://googleapis.com">
 <link rel="preconnect" href="https://gstatic.com" crossorigin>
-<link href="https://googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
+<link href="https://googleapis.com/css2?family=Oswald:wght@700&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
+  :root { 
+    --bg: #0a0a0a; 
+    --fg: #ece7dd; 
+    --accent: #d97a3c; 
+    --muted: #1a1a1a; 
+    --text-muted: #6b6b6b;
+  }
+
   html, body {
-    background-color: #ffffff;
-    color: #000000;
+    background-color: var(--bg) !important;
+    color: var(--fg);
     font-family: Arial, Helvetica, sans-serif;
     margin: 0; padding: 0;
     box-sizing: border-box;
     cursor: none;
-    /* Blockiert das standardmäßige orange/blaue Aufblitzen beim Tippen auf Mobilgeräten */
     -webkit-tap-highlight-color: transparent !important;
   }
 
-  /* Entfernt systemweit die orangefarbene oder farbige Textauswahl */
   ::selection {
-    background-color: #000000;
-    color: #ffffff;
+    background-color: var(--fg);
+    color: var(--bg);
   }
 
   .custom-cursor {
     width: 14px; height: 14px;
-    background-color: #000000;
+    background-color: var(--fg);
     position: fixed;
     top: 0; left: 0;
     pointer-events: none;
     z-index: 999999 !important;
     transform: translate(-50%, -50%) rotate(45deg);
-  }
-
-  /* Ändert die Cursor-Farbe auf weiß, wenn man über das schwarze Menü fährt */
-  body.menu-open .custom-cursor {
-    background-color: #ffffff;
-  }
-
-  .main-content {
-    height: 100vh; 
   }
 
   .hero-header {
@@ -50,7 +47,10 @@
     display: flex; justify-content: space-between; align-items: flex-end;
     padding: 30px 40px 10px 40px;
     box-sizing: border-box;
-    z-index: 100;
+    z-index: 1000;
+    background: rgba(10, 10, 10, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--muted);
   }
 
   .huge-title {
@@ -58,34 +58,28 @@
     font-size: clamp(30px, 7.8vw, 180px);
     font-weight: 700; line-height: 0.8; letter-spacing: -2px;
     text-transform: uppercase; margin: 0; white-space: nowrap;
-    color: #000000;
+    color: var(--fg);
   }
 
   .menu-icon {
     display: flex; flex-direction: column; justify-content: space-between;
-    width: 30px; height: 16px; cursor: none; margin-bottom: 8px; z-index: 1001;
+    width: 30px; height: 16px; cursor: none; margin-bottom: 8px; z-index: 1010;
     pointer-events: auto;
   }
 
   .menu-icon span {
     display: block; width: 100%; height: 2px;
-    background-color: #000000; transition: all 0.3s ease-in-out;
-  }
-
-  /* Macht die Linien des X-Buttons weiß, wenn das Menü offen ist */
-  body.menu-open .menu-icon span {
-    background-color: #ffffff;
+    background-color: var(--fg); transition: all 0.3s ease-in-out;
   }
 
   body.menu-open .menu-icon span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   body.menu-open .menu-icon span:nth-child(2) { opacity: 0; }
   body.menu-open .menu-icon span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-  /* Schwarze Menüleiste */
   .side-menu {
     position: fixed; top: 0; right: -450px; width: 400px; height: 100vh;
-    background-color: #000000; border-left: 1px solid #111111;
-    box-sizing: border-box; padding: 120px 40px 40px 40px; z-index: 1000;
+    background-color: #121212; border-left: 1px solid #222222;
+    box-sizing: border-box; padding: 120px 40px 40px 40px; z-index: 1005;
     transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
     display: flex; flex-direction: column; gap: 10px;
   }
@@ -93,22 +87,107 @@
   body.menu-open .side-menu { right: 0; }
 
   .menu-link {
-    font-family: 'Oswald', sans-serif; font-size: 32px; color: #ffffff !important;
+    font-family: 'Oswald', sans-serif; font-size: 32px; color: var(--fg) !important;
     text-decoration: none; text-transform: uppercase; padding: 15px 20px;
     border: 1px solid transparent; transition: all 0.2s ease; display: block; cursor: none;
     border-bottom: 1px solid #222222;
-    /* Blockiert unerwünschte Rahmen oder Overlays im Browser beim Klicken */
     outline: none !important;
-    -webkit-tap-highlight-color: transparent !important;
   }
 
-  /* Cleanes Hover- und Klick-Verhalten ohne jede Farbe */
-  .menu-link:hover, .menu-link:active, .menu-link:focus { 
-    background-color: #ffffff !important; 
-    color: #000000 !important; 
-    border-color: #ffffff !important; 
+  .menu-link:hover { 
+    background-color: var(--fg) !important; 
+    color: var(--bg) !important; 
+    border-color: var(--fg) !important; 
     padding-left: 30px;
-    outline: none !important;
+  }
+
+  /* --- MOTION VELOCITY 3D TRACK STYLING --- */
+  .container-outer {
+    position: relative;
+    width: 100%;
+    height: 350vh; /* Bestimmt den Scroll-Weg */
+    background-color: var(--bg);
+  }
+
+  .sticky-wrapper {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    overflow: hidden;
+    box-sizing: border-box;
+    padding-top: 120px;
+    /* Aktiviert die 3D-Tiefe für den gesamten Raum */
+    perspective: 1200px;
+  }
+
+  .track-headline {
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(40px, 6vw, 90px);
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    line-height: 0.9;
+    margin: 0 0 30px 40px;
+    color: var(--fg);
+  }
+  .track-headline span {
+    color: var(--text-muted);
+    font-size: 0.4em;
+    vertical-align: super;
+    font-family: "IBM Plex Mono", monospace;
+  }
+
+  /* Der Schienenstrang transformiert sich unabhängig im 3D Raum */
+  .horizontal-track {
+    display: flex;
+    gap: 60px;
+    padding: 0 100px;
+    width: max-content;
+    will-change: transform;
+    transform-style: preserve-3d;
+    transform: translateX(0px) rotateY(0deg) skewX(0deg);
+  }
+
+  .catalog-item {
+    position: relative;
+    width: clamp(300px, 35vw, 550px);
+    height: 48vh;
+    border: 1px solid var(--muted);
+    background-color: #000;
+    flex-shrink: 0;
+    overflow: hidden;
+    /* Jedes Bild bekommt seine eigene physikalische Dynamik */
+    will-change: transform;
+    transition: transform 0.1s ease-out;
+  }
+
+  .catalog-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: grayscale(100%) contrast(115%);
+    transition: filter 0.4s ease, transform 0.4s ease;
+  }
+  .catalog-item:hover img {
+    filter: grayscale(0%) contrast(100%);
+    transform: scale(1.03);
+  }
+
+  .item-meta {
+    position: absolute; bottom: 20px; left: 20px; right: 20px;
+    z-index: 10;
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    display: flex; justify-content: space-between; align-items: flex-end;
+    pointer-events: none;
+  }
+  .item-meta .title { font-size: 1.3rem; background: var(--bg); padding: 5px 12px; border: 1px solid var(--muted); color: var(--accent); }
+  .item-meta .index-num { font-family: "IBM Plex Mono", monospace; font-size: 0.85rem; color: var(--text-muted); background: var(--bg); padding: 4px 8px; border: 1px solid var(--muted); }
+
+  .scroll-hint {
+    position: absolute; bottom: 40px; right: 40px;
+    font-family: "IBM Plex Mono", monospace; font-size: 0.75rem;
+    color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.2em;
   }
 </style>
 </head>
@@ -116,26 +195,58 @@
 
   <div class="custom-cursor" id="cursor"></div>
 
-  <!-- Schwarze Menüleiste mit allen Seiten -->
   <div class="side-menu">
-      <a href="ueber.html" class="menu-link">Über</a>
+      <a href="index.html" class="menu-link">Heimat</a>
       <a href="werke.html" class="menu-link">Werke</a>
+      <a href="ueber.html" class="menu-link">Über</a>
       <a href="register.html" class="menu-link">Register</a>
       <a href="kontakt.html" class="menu-link">Kontakt</a>
   </div>
 
-  <div class="main-content">
-    <!-- Header mit Titel und dem R-Zeichen -->
-    <div class="hero-header">
-      <h1 class="huge-title">MELODIENRAUSCH®</h1>
-      <div class="menu-icon" onclick="toggleMenu()">
-        <span></span><span></span><span></span>
-      </div>
+  <div class="hero-header">
+    <h1 class="huge-title">MELODIENRAUSCH</h1>
+    <div class="menu-icon" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
     </div>
+  </div>
 
-    <!-- Bereich für deine zukünftigen Inhalte -->
-    <div style="padding: 240px 40px 40px 40px;">
-      <!-- Hier fügst du später ganz in Ruhe deine Werke ein -->
+  <div class="container-outer">
+    <div class="sticky-wrapper">
+      
+      <div class="track-headline">Velocity 3D<br>Collection <span>(03)</span></div>
+      
+      <div class="horizontal-track" id="horizontal-track">
+        
+        <!-- Werk 1 -->
+        <div class="catalog-item">
+          <img src="profilbilld.png" alt="Werk 1">
+          <div class="item-meta">
+            <span class="title">Akte // Froschperspektive</span>
+            <span class="index-num">#01</span>
+          </div>
+        </div>
+
+        <!-- Werk 2 -->
+        <div class="catalog-item">
+          <img src="bild1.jpeg" alt="Werk 2">
+          <div class="item-meta">
+            <span class="title">Visual Fragment</span>
+            <span class="index-num">#02</span>
+          </div>
+        </div>
+
+        <!-- Werk 3 -->
+        <div class="catalog-item">
+          <img src="bild2.png" alt="Werk 3">
+          <div class="item-meta">
+            <span class="title">Sonic Presence</span>
+            <span class="index-num">#03</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="scroll-hint">Scroll fast to bend 3D dimension</div>
     </div>
   </div>
 
@@ -146,6 +257,61 @@
   });
 
   function toggleMenu() { document.body.classList.toggle('menu-open'); }
+
+  // --- INTERTIAL VELOCITY 3D ENGINE ---
+  const track = document.getElementById('horizontal-track');
+  const items = document.querySelectorAll('.catalog-item');
+  
+  let lastScrollY = window.scrollY;
+  let velocity = 0;
+  let currentTargetX = 0;
+  let currentX = 0;
+
+  function renderLoop() {
+    const scrollY = window.scrollY;
+    
+    // 1. Scroll-Geschwindigkeit (Velocity) berechnen
+    velocity = scrollY - lastScrollY;
+    lastScrollY = scrollY;
+
+    // 2. Horizontale Ziel-Position berechnen
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    const trackWidth = track.scrollWidth;
+    const maxTrackMove = trackWidth - window.innerWidth + 200;
+
+    if (maxScroll > 0) {
+      const percentage = scrollY / maxScroll;
+      currentTargetX = -(percentage * maxTrackMove);
+    }
+
+    // 3. Trägheit (Inertia) für smoothes Gleiten berechnen
+    currentX += (currentTargetX - currentX) * 0.1;
+
+    // 4. Intensität der 3D-Verzerrung anhand des Speeds berechnen
+    // Je höher der Wert, desto stärker kippt das Bild bei schnellem Scrollen
+    let skewAngle = velocity * 0.08; 
+    let rotateYAngle = velocity * 0.05;
+
+    // Grenzen setzen, damit es nicht komplett überschlägt
+    if (skewAngle > 18) skewAngle = 18;
+    if (skewAngle < -18) skewAngle = -18;
+    if (rotateYAngle > 12) rotateYAngle = 12;
+    if (rotateYAngle < -12) rotateYAngle = -12;
+
+    // 5. 3D-Matrix auf den Track anwenden (Verschiebung + Kippen + Biegen)
+    track.style.transform = `translateX(${currentX}px)`;
+    
+    // Die einzelnen Items verbiegen sich dynamisch mit dem Speed
+    items.forEach(item => {
+      item.style.transform = `skewX(${skewAngle}deg) rotateY(${rotateYAngle}deg) scaleX(${1 + Math.abs(velocity) * 0.001})`;
+    });
+
+    // Kontinuierlich abfragen
+    requestAnimationFrame(renderLoop);
+  }
+
+  // Engine starten
+  requestAnimationFrame(renderLoop);
 </script>
 </body>
 </html>
