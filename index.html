@@ -7,34 +7,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 <style>
-  html, body {
-    background-color: #ffffff;
-    color: #000000;
-    font-family: Arial, Helvetica, sans-serif;
-    margin: 0; padding: 0;
-    box-sizing: border-box;
-    cursor: none;
-  }
-
-  .custom-cursor {
-    width: 14px; height: 14px;
-    background-color: #000000;
-    position: fixed;
-    top: 0; left: 0;
-    pointer-events: none;
-    z-index: 999999 !important;
-    transform: translate(-50%, -50%) rotate(45deg);
-  }
-
-  .main-content {
-    opacity: 0;
-    transition: opacity 0.8s ease;
-    height: 250vh; 
-  }
-  body.intro-done .main-content {
-    opacity: 1;
-  }
+  .main-content { height: 250vh; }
 
   .hero-header {
     position: fixed;
@@ -52,39 +27,6 @@
     text-transform: uppercase; margin: 0; white-space: nowrap;
   }
 
-  .menu-icon {
-    display: flex; flex-direction: column; justify-content: space-between;
-    width: 30px; height: 16px; cursor: none; margin-bottom: 8px; z-index: 1001;
-    pointer-events: auto;
-  }
-
-  .menu-icon span {
-    display: block; width: 100%; height: 2px;
-    background-color: #000000; transition: all 0.3s ease-in-out;
-  }
-
-  body.menu-open .menu-icon span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  body.menu-open .menu-icon span:nth-child(2) { opacity: 0; }
-  body.menu-open .menu-icon span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-  .side-menu {
-    position: fixed; top: 0; right: -450px; width: 400px; height: 100vh;
-    background-color: #f7f7f7; border-left: 1px solid #e0e0e0;
-    box-sizing: border-box; padding: 120px 40px 40px 40px; z-index: 1000;
-    transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
-    display: flex; flex-direction: column; gap: 10px;
-  }
-
-  body.menu-open .side-menu { right: 0; }
-
-  .menu-link {
-    font-family: 'Oswald', sans-serif; font-size: 32px; color: #000000;
-    text-decoration: none; text-transform: uppercase; padding: 15px 20px;
-    border: 1px solid transparent; transition: all 0.2s ease; display: block; cursor: none;
-  }
-
-  .menu-link:hover { background-color: #ffffff; border-color: #000000; padding-left: 30px; }
-
   .section-grid {
     display: grid; grid-template-columns: repeat(12, 1fr); gap: 40px;
     padding: 240px 40px 40px 40px; align-items: start; position: relative;
@@ -100,28 +42,41 @@
   
   .hero-img {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background-image: url('profilbilld.png'); background-size: cover;
+    background-image: url('profilbilld.jpg'); background-size: cover;
     background-position: center 15%; background-repeat: no-repeat;
     z-index: 50; transform-origin: center center; will-change: transform, width, height, position;
   }
 
   .desc-block {
     grid-column: 10 / 13; font-family: Arial, Helvetica, sans-serif; font-size: 13px;
-    line-height: 1.6; color: #000000; position: relative; z-index: 101;
+    line-height: 1.6; color: #ffffff; position: relative; z-index: 101;
   }
 </style>
 </head>
 <body>
 
-  <div id="intro-screen" style="position:fixed; top:0; left:0; width:100%; height:100vh; background:#000; color:#fff; display:flex; justify-content:center; align-items:center; z-index:9999999; transition:opacity 0.6s ease;"><div style="font-family:'Courier New'; font-size:24px; letter-spacing:10px; text-transform:uppercase; font-weight:bold;">melodienrausch</div></div>
+  <style>
+    @keyframes introFromBehind {
+      0%   { transform: scale(0.1); filter: blur(18px); opacity: 0; }
+      60%  { filter: blur(2px); opacity: 1; }
+      100% { transform: scale(1); filter: blur(0); opacity: 1; }
+    }
+    #intro-screen { perspective: 800px; }
+    #intro-screen .intro-text {
+      font-family:'Courier New'; font-size:24px; letter-spacing:10px;
+      text-transform:uppercase; font-weight:bold;
+      animation: introFromBehind 3s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+    }
+  </style>
+  <div id="intro-screen" style="position:fixed; top:0; left:0; width:100%; height:100vh; background:#000; color:#fff; display:flex; justify-content:center; align-items:center; z-index:9999999; transition:opacity 0.6s ease;"><div class="intro-text">melodienrausch</div></div>
   <div class="custom-cursor" id="cursor"></div>
 
  <!-- DIE LINKS SIND HIER ABSOLUT SICHER VERKNÜPFT -->
 <div class="side-menu">
     <a href="index.html" class="menu-link">Heimat</a>
-    <a href="werke.html" class="menu-link">Werke</a>
-    <a href="ueber.html" class="menu-link">Über</a>
-    <a href="register.html" class="menu-link">Register</a>
+    <a href="werke.html" class="menu-link">Kunst</a>
+    <a href="ueber.html" class="menu-link">Über mich</a>
+    <a href="register.html" class="menu-link">Tagebuch</a>
     <a href="kontakt.html" class="menu-link">Kontakt</a>
 </div>
 
@@ -133,20 +88,32 @@
       </div>
     </div>
 
-    <div class="section-grid">
+      <main class="section-grid">
+      <!-- Linke Spalte -->
       <div class="meta-block">
-        DAS IST EIN RAUM FÜR ENTDECKUNG <br><br><br><br>
-        <strong>INDEX &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1/2</strong>
+        <p>Ich male, was in meinem Kopf keinen Platz findet. Ich schreibe, was danach übrig bleibt. Und irgendwo läuft immer Musik.   </p>
+        <br>
       </div>
 
+      <!-- Mittlerer Bild-Kasten mit Zoom -->
       <div class="media-box">
         <div class="hero-img" id="zoomImage"></div>
       </div>
 
+      <!-- Rechte Spalte -->
       <div class="desc-block">
-        <strong>ÜBER DIE STRUKTUR</strong><br><br>
-        Ich verbinde hier Fragmente aus Kunst, Sound und rohem Text. Keine Filter. Alltagssprache, ungekürzt und echt. Keine Regeln, nur Präsenz und Material.
+         <p>Hier landet, was mich nicht loslässt. Bilder, Gedanken, Musik und das Chaos dazwischen. Nicht perfekt sortiert. Aber meins.<p>
+        <br>
       </div>
+
+      <!-- Unterer, zentrierter Absatz -->
+      <div class="full-width-block">
+      </div>
+    </main>
+
+    <div class="scroll-spacer">
+      [ SCROLL DOWN TO EXPLORE DIMENSION ]
+    </div>
     </div>
   </div>
 
@@ -163,7 +130,7 @@
       const intro = document.getElementById('intro-screen');
       if(intro) { intro.style.opacity = '0'; setTimeout(() => intro.remove(), 600); }
       document.body.classList.add('intro-done');
-    }, 2000); 
+    }, 3400); 
   });
 
   const zoomImage = document.getElementById('zoomImage');
