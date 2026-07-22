@@ -3,7 +3,6 @@
    Seiten-spezifisches (hero-header/huge-title-Varianten, Layout-Grids,
    Werke-Galerie, Buch-Bühne, Über-Cursor-Trail) bleibt lokal in der
    jeweiligen HTML-Datei. */
-
 html, body {
   background-color: #0a0a0a;
   background-image: url('grunge-texture-dark.jpg');
@@ -17,7 +16,6 @@ html, body {
   box-sizing: border-box;
   cursor: none;
 }
-
 /* Basis-Cursor-Punkt (auf ueber.html kommt zusätzlich der eigene
    Bild-Trail-Effekt dazu — .trail-image + Trail-JS bleiben dort lokal
    und werden hier NICHT angefasst) */
@@ -29,13 +27,11 @@ html, body {
   z-index: 999999 !important;
   transform: translate(-50%, -50%) rotate(45deg);
 }
-
 .main-content {
   opacity: 0;
   transition: opacity 0.8s ease;
 }
 body.intro-done .main-content { opacity: 1; }
-
 .menu-icon {
   display: flex; flex-direction: column; justify-content: space-between;
   width: 30px; height: 16px; cursor: none; margin-bottom: 8px; z-index: 1001;
@@ -48,7 +44,6 @@ body.intro-done .main-content { opacity: 1; }
 body.menu-open .menu-icon span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 body.menu-open .menu-icon span:nth-child(2) { opacity: 0; }
 body.menu-open .menu-icon span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
 .side-menu {
   position: fixed; top: 0; right: -450px; width: 400px; height: 100vh;
   background-color: #f7f7f7; border-left: 1px solid #e0e0e0;
@@ -57,7 +52,6 @@ body.menu-open .menu-icon span:nth-child(3) { transform: translateY(-7px) rotate
   display: flex; flex-direction: column; gap: 10px;
 }
 body.menu-open .side-menu { right: 0; }
-
 .menu-link {
   font-family: 'Oswald', sans-serif; font-size: 32px; color: #000000;
   text-decoration: none; text-transform: uppercase; padding: 15px 20px;
