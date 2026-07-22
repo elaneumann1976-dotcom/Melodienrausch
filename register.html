@@ -45,77 +45,163 @@
   .date { color: #888; font-weight: bold; margin-right: 15px; }
   .event { color: #fff; text-align: right; }
 
-  /* ===== Tagebuch-Seite: Flat Magazine Layout ===== */
-  .diary-wrapper {
-    background-color: transparent;
+  /* ===== 3D-Magazin-Tagebuch ===== */
+  .diary-3d-wrapper {
+    background-color: #141414;
+    background-image: radial-gradient(#252525 10%, transparent 10%);
+    background-size: 30px 30px;
     font-family: 'Helvetica Neue', Arial, sans-serif;
     margin: 0;
-    padding: 140px 20px 60px 20px;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     min-height: 100vh;
+    overflow: hidden;
+    perspective: 2000px;
   }
 
-  .diary-title {
-    font-size: 14px; text-transform: uppercase; letter-spacing: 5px;
-    margin-bottom: 30px; color: #e50914; font-weight: bold;
-  }
-
-  .book-spread {
-    display: flex; width: 1000px; max-width: 100%; height: 650px;
-    background-color: #000;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.6);
-    border: 1px solid #333;
-    position: relative; overflow: hidden;
-  }
-
-  .book-spread::before {
-    content: ''; position: absolute; left: 50%; top: 0;
-    width: 2px; height: 100%;
-    background: linear-gradient(to right, rgba(0,0,0,0.5), rgba(255,255,255,0.1), rgba(0,0,0,0.5));
-    z-index: 10;
-  }
-
-  .magazine-page {
-    width: 50%; height: 100%; background-color: #ffffff; color: #000000;
-    padding: 50px; box-sizing: border-box;
-    display: flex; flex-direction: column; justify-content: space-between;
+  .book-environment {
     position: relative;
+    width: 900px;
+    max-width: 90vw;
+    height: 580px;
+    transform: rotateX(25deg) rotateY(-10deg) rotateZ(2deg);
+    transform-style: preserve-3d;
+    box-shadow: 0 50px 100px rgba(0,0,0,0.8);
   }
 
-  .huge-header {
-    font-size: 5rem; font-weight: 900; line-height: 0.8;
-    text-transform: uppercase; letter-spacing: -3px; color: #000;
-    margin: 0 0 20px 0;
+  .book-base {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    border: 4px solid #e50914;
+    box-sizing: border-box;
   }
 
-  .pink-accent-box {
-    background-color: #e50914; color: #fff; padding: 25px;
-    font-weight: bold; text-transform: uppercase; font-size: 1.2rem;
-    letter-spacing: 1px; margin-bottom: 20px;
+  .page-3d {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    transform-origin: left center;
+    transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+    cursor: pointer;
+    z-index: 5;
   }
 
-  .vertical-text {
-    position: absolute; left: 15px; top: 50%;
-    transform: translateY(-50%) rotate(-90deg); transform-origin: left center;
-    font-size: 11px; text-transform: uppercase; letter-spacing: 3px;
-    color: #999; font-weight: bold;
+  .page-front, .page-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    padding: 40px;
+    box-sizing: border-box;
+    background: #ffffff;
+    color: #000000;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
   }
 
-  .diary-content { font-size: 15px; line-height: 1.6; color: #333; margin-bottom: auto; }
-  .diary-content strong { color: #000; font-size: 18px; display: block; margin-bottom: 10px; }
-
-  .page-footer {
-    display: flex; justify-content: space-between; align-items: center;
-    border-top: 1px solid #ddd; padding-top: 15px; font-size: 12px;
-    font-weight: bold; text-transform: uppercase; letter-spacing: 1px;
+  .page-back {
+    transform: rotateY(180deg);
+    background: #fcfcfc;
+    border-left: 1px solid #ddd;
   }
 
-  .nav-btn {
-    background: #000; color: #fff; border: none; padding: 8px 15px;
-    font-family: inherit; font-size: 11px; text-transform: uppercase;
-    cursor: none; letter-spacing: 1px; transition: background 0.2s;
+  .page-front::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 15px;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0,0,0,0.15), transparent);
   }
-  .nav-btn:hover { background: #e50914; }
+
+  .page-3d.flipped {
+    transform: rotateY(-180deg);
+  }
+
+  .static-page-left {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    background: #ededed;
+    color: #000;
+    padding: 40px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .huge-title-diary {
+    font-size: 4.5rem;
+    font-weight: 900;
+    line-height: 0.85;
+    text-transform: uppercase;
+    letter-spacing: -2px;
+    margin: 0;
+  }
+
+  .pink-badge {
+    background: #e50914;
+    color: #fff;
+    padding: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    display: inline-block;
+  }
+
+  .text-content {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #333;
+  }
+
+  .text-content strong {
+    font-size: 18px;
+    color: #000;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .page-number {
+    font-size: 12px;
+    font-weight: bold;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .hint {
+    position: absolute;
+    bottom: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #e50914;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+    animation: pulse 1.5s infinite alternate;
+  }
+
+  @keyframes pulse {
+    0% { opacity: 0.4; }
+    100% { opacity: 1; }
+  }
 
   .custom-cursor { background-color: #e50914 !important; }
 </style>
@@ -167,41 +253,46 @@
     </ul>
   </nav>
 
-  <div class="diary-wrapper">
-    <div class="diary-title">Mazing Diary // Issue 01</div>
+  <div class="diary-3d-wrapper">
+    <div class="book-environment">
+      <div class="book-base"></div>
 
-    <div class="book-spread">
-
-      <!-- LINKE SEITE -->
-      <div class="magazine-page" style="border-right: 1px solid #eee;">
-        <div class="vertical-text">Vertikal // 03</div>
-
+      <div class="static-page-left">
         <div>
-          <div class="pink-accent-box">Whats up!</div>
-          <h1 class="huge-header">MAZ<br>ING</h1>
+          <div class="pink-badge" style="background:#000;">Kapitel 02</div>
+          <h1 class="huge-title-diary" style="color:#e50914;">NEUE<br>WEGE</h1>
         </div>
-
-        <div class="page-footer">
-          <span>EDITORIAL</span>
-          <span>02</span>
-        </div>
+        <div class="page-number">Seite 01</div>
       </div>
 
-      <!-- RECHTE SEITE -->
-      <div class="magazine-page">
-        <div class="diary-content" id="diaryContent">
-          <strong id="diaryDate">Eintrag vom 23. Juli 2026</strong>
-          <span id="diaryText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sicut in magazinis vestris vidistis, hic textus planus et facillimus ad legendum est. Keine Verzerrung mehr, kein schräger Winkel – perfekt, um deine täglichen Gedanken ohne Augenschmerzen aufzuschreiben.<br><br>
-          Du kannst diesen Bereich beliebig mit deinen echten Texten füllen. Das dreispaltige oder einspaltige Raster lässt sich kinderleicht erweitern.</span>
+      <div class="page-3d" id="flipPage" onclick="turnPage()">
+
+        <div class="page-front">
+          <div>
+            <div class="pink-badge">Tagebuch Start</div>
+            <h1 class="huge-title-diary">MAZ<br>ING</h1>
+          </div>
+          <div class="text-content">
+            <strong>Klicke auf diese Seite...</strong>
+            ...um den echten 3D-Blättereffekt auszulösen! Das Buch liegt leicht schräg im Raum, behält aber ein absolut klares Raster, damit du beim Schreiben und Lesen deines Tagebuchs keine Kopfschmerzen bekommst.
+          </div>
+          <div class="page-number" style="text-align: right;">Seite 02 ▸</div>
         </div>
 
-        <div class="page-footer">
-          <button class="nav-btn" id="prevBtn" onclick="turnPage(-1)">◂ Zurück</button>
-          <span id="pageNum">03</span>
-          <button class="nav-btn" id="nextBtn" onclick="turnPage(1)">Weiter ▸</button>
+        <div class="page-back">
+          <div>
+            <h1 class="huge-title-diary" style="font-size: 3rem;">EINTRAG<br>ZWEI</h1>
+          </div>
+          <div class="text-content">
+            <strong>24. Juli 2026</strong>
+            Hier öffnet sich nahtlos der nächste Abschnitt deines Tagebuchs. Durch die 3D-Drehung fühlt es sich an wie ein echtes, schweres Magazin aus Papier. Klicke erneut, um das Buch wieder zu schließen!
+          </div>
+          <div class="page-number">◀ Zurück | Seite 03</div>
         </div>
+
       </div>
 
+      <div class="hint">Klicke auf die rechte Buchseite zum Umblättern</div>
     </div>
   </div>
 
@@ -219,44 +310,10 @@
     }, 3400);
   });
 
-  /* ===== Tagebuch-Einträge: hier neue Einträge einfach ergänzen ===== */
-  const diaryEntries = [
-    {
-      date: "Eintrag vom 23. Juli 2026",
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sicut in magazinis vestris vidistis, hic textus planus et facillimus ad legendum est. Keine Verzerrung mehr, kein schräger Winkel – perfekt, um deine täglichen Gedanken ohne Augenschmerzen aufzuschreiben.<br><br>Du kannst diesen Bereich beliebig mit deinen echten Texten füllen. Das dreispaltige oder einspaltige Raster lässt sich kinderleicht erweitern.",
-      page: "03"
-    },
-    {
-      date: "Eintrag vom 20. Juli 2026",
-      text: "Platzhalter-Eintrag Nummer zwei. Hier steht ein Beispieltext, damit du siehst, wie das Blättern zwischen zwei Doppelseiten aussieht.<br><br>Sobald du deine echten Einträge schickst, ersetze ich diesen Text 1:1.",
-      page: "05"
-    },
-    {
-      date: "Eintrag vom 15. Juli 2026",
-      text: "Platzhalter-Eintrag Nummer drei. Auch dieser Text ist nur zum Testen da – Länge und Absätze kannst du später beliebig anpassen.",
-      page: "07"
-    }
-  ];
-
-  let currentEntry = 0;
-
-  function renderEntry() {
-    const entry = diaryEntries[currentEntry];
-    document.getElementById('diaryDate').textContent = entry.date;
-    document.getElementById('diaryText').innerHTML = entry.text;
-    document.getElementById('pageNum').textContent = entry.page;
-    document.getElementById('prevBtn').style.visibility = currentEntry === 0 ? 'hidden' : 'visible';
-    document.getElementById('nextBtn').style.visibility = currentEntry === diaryEntries.length - 1 ? 'hidden' : 'visible';
+  function turnPage() {
+    const page = document.getElementById('flipPage');
+    page.classList.toggle('flipped');
   }
-
-  function turnPage(direction) {
-    const next = currentEntry + direction;
-    if (next < 0 || next >= diaryEntries.length) return;
-    currentEntry = next;
-    renderEntry();
-  }
-
-  renderEntry();
 </script>
 </body>
 </html>
