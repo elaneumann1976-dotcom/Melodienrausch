@@ -16,6 +16,48 @@ html, body {
   box-sizing: border-box;
   cursor: none;
 }
+
+/* ===== BRUTALISTISCHE SCHRIFTFAMILIEN ===== */
+/* Große Überschriften: schwer, eng und direkt */
+h1, h2, h3,
+.huge-title,
+.hero-title,
+.werk-title,
+.section-title {
+  font-family: "Arial Black", Impact, sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  color: transparent;
+  background-color: #ffffff;
+  background-image: url('grunge-print-text-effect-1.jpg');
+  background-size: 680px auto;
+  background-position: center;
+  background-repeat: repeat;
+  background-blend-mode: multiply;
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: contrast(1.22);
+}
+
+/* Fließtext bleibt bewusst schlicht und funktional */
+p,
+.body-text,
+.werk-text,
+.description {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Werkdaten, Nummern, Codes und kleine technische Angaben */
+.werk-meta,
+.work-meta,
+.werk-code,
+.archive-code,
+.code,
+.label,
+.eyebrow {
+  font-family: "Courier New", Courier, monospace;
+}
+
 /* Basis-Cursor-Punkt (auf ueber.html kommt zusätzlich der eigene
    Bild-Trail-Effekt dazu — .trail-image + Trail-JS bleiben dort lokal
    und werden hier NICHT angefasst) */
