@@ -1,366 +1,263 @@
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MELODIENRAUSCH // REGISTER</title>
+<title>MELODIENRAUSCH // TAGEBUCH</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 <style>
-  html, body {
-    background-color: #ffffff; color: #000000;
-    font-family: Arial, Helvetica, sans-serif;
-    margin: 0; padding: 0; box-sizing: border-box; cursor: none; overflow-x: hidden;
-  }
-
-  .custom-cursor {
-    width: 14px; height: 14px; background-color: #000000;
-    position: fixed; top: 0; left: 0; pointer-events: none;
-    z-index: 999999 !important; transform: translate(-50%, -50%) rotate(45deg);
-  }
-
-  .main-content { opacity: 0; transition: opacity 0.8s ease; min-height: 100vh; }
-  body.intro-done .main-content { opacity: 1; }
-
-  .hero-header {
+  /* ===== Menüleiste (gleiche Navbar wie index.html) ===== */
+  .navbar {
     position: fixed; top: 0; left: 0; width: 100%;
-    display: flex; justify-content: space-between; align-items: flex-end;
-    padding: 30px 40px 10px 40px; box-sizing: border-box; z-index: 300;
-    background: rgba(255,255,255,0.92);
+    background-color: #141414;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 15px 30px; border-bottom: 2px solid #333;
+    box-sizing: border-box; z-index: 1000;
   }
-  .huge-title {
-    font-family: 'Oswald', sans-serif;
-    font-size: clamp(24px, 5vw, 90px); font-weight: 700; line-height: 0.8;
-    letter-spacing: -2px; text-transform: uppercase; margin: 0; white-space: nowrap;
+  .nav-logo {
+    font-family: 'Oswald', sans-serif; font-weight: bold; letter-spacing: 2px;
+    color: #e50914; text-transform: uppercase;
   }
-  .menu-icon {
+  .nav-links { list-style: none; display: flex; margin: 0; padding: 0; }
+  .nav-item { position: relative; margin-left: 20px; }
+  .nav-item a {
+    color: #ffffff; text-decoration: none; font-size: 14px;
+    text-transform: uppercase; padding: 10px 15px; display: block;
+    transition: color 0.3s;
+  }
+  .nav-item a:hover { color: #e50914; }
+  .nav-item a.active { color: #e50914; }
+  .dropdown-menu {
+    display: none; position: absolute; top: 100%; right: 0;
+    background-color: #1c1c1c; min-width: 280px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.5); border: 1px solid #333;
+    z-index: 1; max-height: 400px; overflow-y: auto;
+  }
+  .nav-item:hover .dropdown-menu { display: block; }
+  .dropdown-item {
+    display: flex; justify-content: space-between; padding: 10px 15px;
+    border-bottom: 1px solid #2a2a2a; font-size: 12px;
+  }
+  .dropdown-item:last-child { border-bottom: none; background-color: #2e090b; }
+  .date { color: #888; font-weight: bold; margin-right: 15px; }
+  .event { color: #fff; text-align: right; }
+
+  /* ===== Tagebuch-Seite: Flat Magazine Layout ===== */
+  .diary-wrapper {
+    background-color: transparent;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    padding: 140px 20px 60px 20px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    min-height: 100vh;
+  }
+
+  .diary-title {
+    font-size: 14px; text-transform: uppercase; letter-spacing: 5px;
+    margin-bottom: 30px; color: #e50914; font-weight: bold;
+  }
+
+  .book-spread {
+    display: flex; width: 1000px; max-width: 100%; height: 650px;
+    background-color: #000;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+    border: 1px solid #333;
+    position: relative; overflow: hidden;
+  }
+
+  .book-spread::before {
+    content: ''; position: absolute; left: 50%; top: 0;
+    width: 2px; height: 100%;
+    background: linear-gradient(to right, rgba(0,0,0,0.5), rgba(255,255,255,0.1), rgba(0,0,0,0.5));
+    z-index: 10;
+  }
+
+  .magazine-page {
+    width: 50%; height: 100%; background-color: #ffffff; color: #000000;
+    padding: 50px; box-sizing: border-box;
     display: flex; flex-direction: column; justify-content: space-between;
-    width: 30px; height: 16px; cursor: none; margin-bottom: 8px; z-index: 1001;
-    pointer-events: auto;
-  }
-  .menu-icon span { display: block; width: 100%; height: 2px; background-color: #000000; transition: all 0.3s ease-in-out; }
-  body.menu-open .menu-icon span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  body.menu-open .menu-icon span:nth-child(2) { opacity: 0; }
-  body.menu-open .menu-icon span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-  .side-menu {
-    position: fixed; top: 0; right: -450px; width: 400px; height: 100vh;
-    background-color: #f7f7f7; border-left: 1px solid #e0e0e0;
-    box-sizing: border-box; padding: 120px 40px 40px 40px; z-index: 1000;
-    transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
-    display: flex; flex-direction: column; gap: 10px;
-  }
-  body.menu-open .side-menu { right: 0; }
-  .menu-link {
-    font-family: 'Oswald', sans-serif; font-size: 32px; color: #000000;
-    text-decoration: none; text-transform: uppercase; padding: 15px 20px;
-    border: 1px solid transparent; transition: all 0.2s ease; display: block; cursor: none;
-  }
-  .menu-link:hover { background-color: #ffffff; border-color: #000000; padding-left: 30px; }
-  .menu-link.active { background-color: #000000; color: #ffffff; }
-  .menu-link.active:hover { background-color: #000000; color: #ffffff; padding-left: 20px; border-color: #000000; }
-
-  /* ===== BUCH-B\u00dcHNE ===== */
-  .book-stage {
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    min-height: 100vh; padding: 160px 20px 100px 20px; box-sizing: border-box;
-    perspective: 2800px;
-  }
-
-  .book-outer {
     position: relative;
-    width: min(920px, 94vw);
-    height: min(640px, 72vh);
-    background: #000000;
-    padding: 16px;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.25), 0 4px 10px rgba(0,0,0,0.15);
-    border-radius: 2px;
   }
 
-  .book-inner {
-    position: relative; width: 100%; height: 100%;
-    display: flex; background: #fdfdfb;
+  .huge-header {
+    font-size: 5rem; font-weight: 900; line-height: 0.8;
+    text-transform: uppercase; letter-spacing: -3px; color: #000;
+    margin: 0 0 20px 0;
   }
 
-  .book-spine {
-    position: absolute; top: 0; left: 50%; width: 40px; height: 100%;
-    transform: translateX(-50%);
-    background: linear-gradient(to right,
-      rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.05) 20%,
-      rgba(0,0,0,0.02) 50%,
-      rgba(0,0,0,0.05) 80%, rgba(0,0,0,0.18) 100%);
-    z-index: 50; pointer-events: none;
+  .pink-accent-box {
+    background-color: #e50914; color: #fff; padding: 25px;
+    font-weight: bold; text-transform: uppercase; font-size: 1.2rem;
+    letter-spacing: 1px; margin-bottom: 20px;
   }
 
-  .page-left, .page-right-stack {
-    width: 50%; height: 100%; position: relative; overflow: hidden;
+  .vertical-text {
+    position: absolute; left: 15px; top: 50%;
+    transform: translateY(-50%) rotate(-90deg); transform-origin: left center;
+    font-size: 11px; text-transform: uppercase; letter-spacing: 3px;
+    color: #999; font-weight: bold;
   }
 
-  .page-left {
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    padding: 40px; box-sizing: border-box; border-right: 1px solid rgba(0,0,0,0.06);
-  }
-  .page-left .index-big {
-    font-family: 'Oswald', sans-serif; font-weight: 700; opacity: 0.08;
-    font-size: clamp(80px, 14vw, 220px); line-height: 1; letter-spacing: -6px;
-  }
-  .page-left .index-label {
-    font-family: 'Oswald', sans-serif; font-size: 12px; letter-spacing: 3px;
-    text-transform: uppercase; opacity: 0.35; margin-top: -20px;
+  .diary-content { font-size: 15px; line-height: 1.6; color: #333; margin-bottom: auto; }
+  .diary-content strong { color: #000; font-size: 18px; display: block; margin-bottom: 10px; }
+
+  .page-footer {
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid #ddd; padding-top: 15px; font-size: 12px;
+    font-weight: bold; text-transform: uppercase; letter-spacing: 1px;
   }
 
-  .page {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    box-sizing: border-box; transform-style: preserve-3d;
-    transform-origin: left center;
-    transition: transform 0.85s cubic-bezier(0.45, 0, 0.2, 1);
+  .nav-btn {
+    background: #000; color: #fff; border: none; padding: 8px 15px;
+    font-family: inherit; font-size: 11px; text-transform: uppercase;
+    cursor: none; letter-spacing: 1px; transition: background 0.2s;
   }
-  .page.flipped { transform: rotateY(-178deg); }
+  .nav-btn:hover { background: #e50914; }
 
-  .page-face {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    backface-visibility: hidden; box-sizing: border-box;
-    padding: 44px 40px; overflow-y: auto; background: #fdfdfb;
-  }
-  .page-face.back {
-    transform: rotateY(180deg);
-    background: #f7f6f2;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .page-face.back .watermark {
-    font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 13px;
-    letter-spacing: 4px; text-transform: uppercase; opacity: 0.15;
-    writing-mode: vertical-rl;
-  }
-
-  .page-curl-shadow {
-    position: absolute; top: 0; right: 0; width: 60px; height: 100%;
-    background: linear-gradient(to left, rgba(0,0,0,0.12), transparent);
-    opacity: 0; transition: opacity 0.85s ease; pointer-events: none;
-  }
-  .page.flipped .page-curl-shadow { opacity: 1; }
-
-  .page-num { font-family: 'Oswald', sans-serif; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.4; margin-bottom: 22px; }
-  .page-face h2 { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: clamp(20px, 2.6vw, 28px); text-transform: uppercase; margin: 0 0 22px 0; letter-spacing: -0.5px; }
-  .typewriter-line { font-size: 14px; line-height: 1.7; margin: 0 0 16px 0; }
-  .typewriter-line .cursor-blink {
-    display: inline-block; width: 2px; height: 1em; background: #000;
-    margin-left: 2px; vertical-align: -0.15em; animation: blink 0.8s step-end infinite;
-  }
-  @keyframes blink { 50% { opacity: 0; } }
-  .rest-text { font-size: 14px; line-height: 1.7; opacity: 0; transform: translateY(8px); transition: opacity 0.5s ease, transform 0.5s ease; }
-  .rest-text.visible { opacity: 1; transform: translateY(0); }
-  .rest-text p { margin: 0 0 16px 0; }
-
-  .book-nav { display: flex; align-items: center; gap: 30px; margin-top: 26px; font-family: 'Oswald', sans-serif; }
-  .book-nav button {
-    background: none; border: 2px solid #000; color: #000;
-    font-family: inherit; font-size: 22px; padding: 8px 20px;
-    cursor: none; letter-spacing: 2px; transition: all 0.2s ease;
-  }
-  .book-nav button:hover:not(:disabled) { background: #000; color: #fff; }
-  .book-nav button:disabled { opacity: 0.25; }
-  .book-nav .counter { font-size: 13px; letter-spacing: 1px; text-transform: uppercase; opacity: 0.6; }
-
-  .skip-hint { margin-top: 14px; font-family: 'Oswald', sans-serif; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; opacity: 0.3; }
-
-  @media (max-width: 640px) {
-    .page-left { display: none; }
-    .page-right-stack { width: 100%; }
-    .book-spine { display: none; }
-  }
+  .custom-cursor { background-color: #e50914 !important; }
 </style>
 </head>
 <body>
 
-  <div id="intro-screen" style="position:fixed; top:0; left:0; width:100%; height:100vh; background:#000; color:#fff; display:flex; justify-content:center; align-items:center; z-index:9999999; transition:opacity 0.6s ease;">
-    <div style="font-family:'Courier New'; font-size:24px; letter-spacing:10px; text-transform:uppercase; font-weight:bold;">melodienrausch</div>
-  </div>
+  <style>
+    @keyframes introFromBehind {
+      0%   { transform: scale(0.1); filter: blur(18px); opacity: 0; }
+      60%  { filter: blur(2px); opacity: 1; }
+      100% { transform: scale(1); filter: blur(0); opacity: 1; }
+    }
+    #intro-screen { perspective: 800px; }
+    #intro-screen .intro-text {
+      font-family:'Courier New'; font-size:24px; letter-spacing:10px;
+      text-transform:uppercase; font-weight:bold;
+      animation: introFromBehind 3s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+    }
+  </style>
+  <div id="intro-screen" style="position:fixed; top:0; left:0; width:100%; height:100vh; background:#000; color:#fff; display:flex; justify-content:center; align-items:center; z-index:9999999; transition:opacity 0.6s ease;"><div class="intro-text">melodienrausch</div></div>
   <div class="custom-cursor" id="cursor"></div>
 
-  <div class="side-menu">
-    <a href="index.html" class="menu-link">Heimat</a>
-    <a href="werke.html" class="menu-link">Werke</a>
-    <a href="ueber.html" class="menu-link">Über</a>
-    <a href="register.html" class="menu-link active">Register</a>
-    <a href="kontakt.html" class="menu-link">Kontakt</a>
-  </div>
+  <!-- Menüleiste -->
+  <nav class="navbar">
+    <div class="nav-logo">MELODIENRAUSCH®</div>
+    <ul class="nav-links">
+      <li class="nav-item"><a href="index.html">Heimat</a></li>
+      <li class="nav-item">
+        <a href="werke.html">Kunst ▼</a>
+        <div class="dropdown-menu">
+          <div class="dropdown-item"><span class="date">5/12</span><span class="event">CONCEPT PHOTO #1</span></div>
+          <div class="dropdown-item"><span class="date">5/15</span><span class="event">CONCEPT PHOTO #2</span></div>
+          <div class="dropdown-item"><span class="date">5/16</span><span class="event">CONCEPT PHOTO #3</span></div>
+          <div class="dropdown-item"><span class="date">5/17</span><span class="event">STORY FILM #1</span></div>
+          <div class="dropdown-item"><span class="date">5/18</span><span class="event">STORY FILM #2</span></div>
+          <div class="dropdown-item"><span class="date">5/19</span><span class="event">STORY FILM #3</span></div>
+          <div class="dropdown-item"><span class="date">5/20</span><span class="event">STORY FILM #4</span></div>
+          <div class="dropdown-item"><span class="date">5/22</span><span class="event">TRACKLIST & PREVIEW</span></div>
+          <div class="dropdown-item"><span class="date">5/23</span><span class="event">M/V TEASER #1</span></div>
+          <div class="dropdown-item"><span class="date">5/24</span><span class="event">SPECIAL VIDEO TEASER</span></div>
+          <div class="dropdown-item"><span class="date">5/25</span><span class="event">M/V TEASER #2</span></div>
+          <div class="dropdown-item"><span class="date">5/26</span><span class="event">CHOREOGRAPHY SPOILER</span></div>
+          <div class="dropdown-item"><span class="date">5/29</span><span class="event">ALBUM & M/V RELEASE</span></div>
+        </div>
+      </li>
+      <li class="nav-item"><a href="ueber.html">Über mich</a></li>
+      <li class="nav-item"><a href="register.html" class="active">Tagebuch</a></li>
+      <li class="nav-item"><a href="kontakt.html">Kontakt</a></li>
+    </ul>
+  </nav>
 
-  <div class="main-content">
-    <div class="hero-header">
-      <h1 class="huge-title">MELODIENRAUSCH®</h1>
-      <div class="menu-icon" onclick="toggleMenu()"><span></span><span></span><span></span></div>
-    </div>
+  <div class="diary-wrapper">
+    <div class="diary-title">Mazing Diary // Issue 01</div>
 
-    <div class="book-stage">
-      <div class="book-outer">
-        <div class="book-inner">
-          <div class="page-left">
-            <div class="index-big" id="leftIndexBig">#01</div>
-            <div class="index-label">Register — Melodienrausch</div>
-          </div>
-          <div class="page-right-stack" id="book"></div>
-          <div class="book-spine"></div>
+    <div class="book-spread">
+
+      <!-- LINKE SEITE -->
+      <div class="magazine-page" style="border-right: 1px solid #eee;">
+        <div class="vertical-text">Vertikal // 03</div>
+
+        <div>
+          <div class="pink-accent-box">Whats up!</div>
+          <h1 class="huge-header">MAZ<br>ING</h1>
+        </div>
+
+        <div class="page-footer">
+          <span>EDITORIAL</span>
+          <span>02</span>
         </div>
       </div>
 
-      <div class="book-nav">
-        <button id="prevBtn" onclick="prevPage()">◂</button>
-        <span class="counter" id="counter">1 / 2</span>
-        <button id="nextBtn" onclick="nextPage()">▸</button>
+      <!-- RECHTE SEITE -->
+      <div class="magazine-page">
+        <div class="diary-content" id="diaryContent">
+          <strong id="diaryDate">Eintrag vom 23. Juli 2026</strong>
+          <span id="diaryText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sicut in magazinis vestris vidistis, hic textus planus et facillimus ad legendum est. Keine Verzerrung mehr, kein schräger Winkel – perfekt, um deine täglichen Gedanken ohne Augenschmerzen aufzuschreiben.<br><br>
+          Du kannst diesen Bereich beliebig mit deinen echten Texten füllen. Das dreispaltige oder einspaltige Raster lässt sich kinderleicht erweitern.</span>
+        </div>
+
+        <div class="page-footer">
+          <button class="nav-btn" id="prevBtn" onclick="turnPage(-1)">◂ Zurück</button>
+          <span id="pageNum">03</span>
+          <button class="nav-btn" id="nextBtn" onclick="turnPage(1)">Weiter ▸</button>
+        </div>
       </div>
-      <div class="skip-hint">Klick auf die Seite überspringt die Schreib-Animation · Pfeiltasten funktionieren auch</div>
+
     </div>
   </div>
 
 <script>
-  // ---- DEINE EINTRÄGE — neuen Block einfach unten anfügen ----
-  const entries = [
-    {
-      num: '002', title: 'Nicht ich zu wenig',
-      firstLine: 'Vielleicht ist es gerade einfach zu viel.',
-      rest: [
-        'Nicht ich zu wenig. Der Tag war voll, der Kopf noch voller — und irgendwo dazwischen ist der Gedanke hängen geblieben.',
-        'Ich schreib das hier nicht, weil es fertig ist. Sondern weil es gerade so ist.'
-      ]
-    },
-    {
-      num: '001', title: 'Bass & Stille',
-      firstLine: 'Das hier ist kein Portfolio, sondern ein digitales Underground-Magazin.',
-      rest: [
-        'Kein glattes Konzept, keine fertige Geschichte. Nur das, was gerade zieht — Bass, Stille, und alles dazwischen.'
-      ]
-    }
-
-    // NEUEN EINTRAG HIER EINFÜGEN (Vorlage zum Kopieren):
-    // ,{
-    //   num: '003',
-    //   title: 'Dein Titel',
-    //   firstLine: 'Der erste Satz, der getippt wird.',
-    //   rest: [ 'Erster Absatz.', 'Zweiter Absatz, falls nötig.' ]
-    // }
-  ];
-
-  const bookEl = document.getElementById('book');
-  const leftIndexBig = document.getElementById('leftIndexBig');
-  let currentPage = 0;
-  let currentTyping = null;
-  const pageEls = [];
-
-  function buildPage(entry) {
-    const page = document.createElement('div');
-    page.className = 'page';
-    page.innerHTML = `
-      <div class="page-face front">
-        <div class="page-num">#${entry.num}</div>
-        <h2>${entry.title}</h2>
-        <p class="typewriter-line"><span class="typed"></span><span class="cursor-blink"></span></p>
-        <div class="rest-text"></div>
-      </div>
-      <div class="page-face back">
-        <div class="watermark">MELODIENRAUSCH</div>
-      </div>
-      <div class="page-curl-shadow"></div>
-    `;
-    return page;
-  }
-
-  entries.forEach((entry, i) => {
-    const page = buildPage(entry);
-    page.style.zIndex = entries.length - i;
-    bookEl.appendChild(page);
-    pageEls.push(page);
-  });
-
-  function typeFirstLine(page, entry) {
-    const typedSpan = page.querySelector('.typed');
-    const cursorBlink = page.querySelector('.cursor-blink');
-    const rest = page.querySelector('.rest-text');
-    typedSpan.textContent = '';
-    cursorBlink.style.display = 'inline-block';
-    rest.classList.remove('visible');
-    rest.innerHTML = entry.rest.map(p => `<p>${p}</p>`).join('');
-
-    let i = 0;
-    function tick() {
-      if (i <= entry.firstLine.length) {
-        typedSpan.textContent = entry.firstLine.slice(0, i);
-        i++;
-        currentTyping = setTimeout(tick, 28 + Math.random() * 45);
-      } else {
-        cursorBlink.style.display = 'none';
-        rest.classList.add('visible');
-        currentTyping = null;
-      }
-    }
-    tick();
-  }
-
-  function skipTyping(page, entry) {
-    if (currentTyping) { clearTimeout(currentTyping); currentTyping = null; }
-    page.querySelector('.typed').textContent = entry.firstLine;
-    page.querySelector('.cursor-blink').style.display = 'none';
-    page.querySelector('.rest-text').classList.add('visible');
-  }
-
-  function updateNav() {
-    document.getElementById('prevBtn').disabled = (currentPage === 0);
-    document.getElementById('nextBtn').disabled = (currentPage === entries.length - 1);
-    document.getElementById('counter').textContent = (currentPage + 1) + ' / ' + entries.length;
-    leftIndexBig.textContent = '#' + entries[currentPage].num;
-  }
-
-  function renderInitial() {
-    typeFirstLine(pageEls[0], entries[0]);
-    updateNav();
-  }
-
-  function nextPage() {
-    if (currentPage >= entries.length - 1) return;
-    pageEls[currentPage].classList.add('flipped');
-    currentPage++;
-    updateNav();
-    setTimeout(() => typeFirstLine(pageEls[currentPage], entries[currentPage]), 400);
-  }
-
-  function prevPage() {
-    if (currentPage <= 0) return;
-    currentPage--;
-    pageEls[currentPage].classList.remove('flipped');
-    updateNav();
-    setTimeout(() => typeFirstLine(pageEls[currentPage], entries[currentPage]), 400);
-  }
-
-  bookEl.addEventListener('click', () => {
-    skipTyping(pageEls[currentPage], entries[currentPage]);
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight') nextPage();
-    if (e.key === 'ArrowLeft') prevPage();
-  });
-
-  let touchStartX = 0;
-  bookEl.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
-  bookEl.addEventListener('touchend', (e) => {
-    const dx = e.changedTouches[0].clientX - touchStartX;
-    if (Math.abs(dx) > 50) { dx < 0 ? nextPage() : prevPage(); }
-  });
-
   const cursor = document.getElementById('cursor');
   document.addEventListener('mousemove', (e) => {
     cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
   });
-  function toggleMenu() { document.body.classList.toggle('menu-open'); }
+
   window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       const intro = document.getElementById('intro-screen');
-      if (intro) { intro.style.opacity = '0'; setTimeout(() => intro.remove(), 600); }
+      if(intro) { intro.style.opacity = '0'; setTimeout(() => intro.remove(), 600); }
       document.body.classList.add('intro-done');
-    }, 2000);
-    renderInitial();
+    }, 3400);
   });
+
+  /* ===== Tagebuch-Einträge: hier neue Einträge einfach ergänzen ===== */
+  const diaryEntries = [
+    {
+      date: "Eintrag vom 23. Juli 2026",
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sicut in magazinis vestris vidistis, hic textus planus et facillimus ad legendum est. Keine Verzerrung mehr, kein schräger Winkel – perfekt, um deine täglichen Gedanken ohne Augenschmerzen aufzuschreiben.<br><br>Du kannst diesen Bereich beliebig mit deinen echten Texten füllen. Das dreispaltige oder einspaltige Raster lässt sich kinderleicht erweitern.",
+      page: "03"
+    },
+    {
+      date: "Eintrag vom 20. Juli 2026",
+      text: "Platzhalter-Eintrag Nummer zwei. Hier steht ein Beispieltext, damit du siehst, wie das Blättern zwischen zwei Doppelseiten aussieht.<br><br>Sobald du deine echten Einträge schickst, ersetze ich diesen Text 1:1.",
+      page: "05"
+    },
+    {
+      date: "Eintrag vom 15. Juli 2026",
+      text: "Platzhalter-Eintrag Nummer drei. Auch dieser Text ist nur zum Testen da – Länge und Absätze kannst du später beliebig anpassen.",
+      page: "07"
+    }
+  ];
+
+  let currentEntry = 0;
+
+  function renderEntry() {
+    const entry = diaryEntries[currentEntry];
+    document.getElementById('diaryDate').textContent = entry.date;
+    document.getElementById('diaryText').innerHTML = entry.text;
+    document.getElementById('pageNum').textContent = entry.page;
+    document.getElementById('prevBtn').style.visibility = currentEntry === 0 ? 'hidden' : 'visible';
+    document.getElementById('nextBtn').style.visibility = currentEntry === diaryEntries.length - 1 ? 'hidden' : 'visible';
+  }
+
+  function turnPage(direction) {
+    const next = currentEntry + direction;
+    if (next < 0 || next >= diaryEntries.length) return;
+    currentEntry = next;
+    renderEntry();
+  }
+
+  renderEntry();
 </script>
 </body>
 </html>
