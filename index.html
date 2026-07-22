@@ -11,29 +11,99 @@
 <style>
   .main-content { height: 250vh; }
 
-  /* ===== Menüleiste als durchgehende Treppen-Silhouette (kein Lückenabstand) ===== */
-  .side-menu {
-    align-items: flex-start;
-    gap: 0;
-    padding-top: 60px;
+  /* ===== Neue Menüleiste (Dropdown-Navbar) ===== */
+  .navbar {
+    position: fixed; top: 0; left: 0; width: 100%;
+    background-color: #141414;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    border-bottom: 2px solid #333;
+    box-sizing: border-box;
+    z-index: 1000;
   }
-  .side-menu .menu-link {
-    display: inline-block;
-    background-color: #ffffff;
-    padding: 16px 24px;
+
+  .nav-logo {
+    font-family: 'Oswald', sans-serif;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #e50914;
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    list-style: none;
+    display: flex;
     margin: 0;
-    width: auto;
+    padding: 0;
   }
-  .side-menu a:nth-child(1) { margin-left: 0; }
-  .side-menu a:nth-child(2) { margin-left: 50px; }
-  .side-menu a:nth-child(3) { margin-left: 100px; }
-  .side-menu a:nth-child(4) { margin-left: 150px; }
-  .side-menu a:nth-child(5) { margin-left: 200px; }
+
+  .nav-item {
+    position: relative;
+    margin-left: 20px;
+  }
+
+  .nav-item a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+    text-transform: uppercase;
+    padding: 10px 15px;
+    display: block;
+    transition: color 0.3s;
+  }
+
+  .nav-item a:hover {
+    color: #e50914;
+  }
+
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #1c1c1c;
+    min-width: 280px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.5);
+    border: 1px solid #333;
+    z-index: 1;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  .nav-item:hover .dropdown-menu {
+    display: block;
+  }
+
+  .dropdown-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    border-bottom: 1px solid #2a2a2a;
+    font-size: 12px;
+  }
+
+  .dropdown-item:last-child {
+    border-bottom: none;
+    background-color: #2e090b;
+  }
+
+  .date {
+    color: #888;
+    font-weight: bold;
+    margin-right: 15px;
+  }
+
+  .event {
+    color: #fff;
+    text-align: right;
+  }
 
   .hero-header {
     position: fixed;
-    top: 0; left: 0; width: 100%;
-    display: flex; justify-content: space-between; align-items: flex-end;
+    top: 62px; left: 0; width: 100%;
+    display: flex; justify-content: flex-start; align-items: flex-end;
     padding: 30px 40px 10px 40px;
     box-sizing: border-box;
     z-index: 100;
@@ -48,7 +118,7 @@
 
   .section-grid {
     display: grid; grid-template-columns: repeat(12, 1fr); gap: 40px;
-    padding: 240px 40px 40px 40px; align-items: start; position: relative;
+    padding: 300px 40px 40px 40px; align-items: start; position: relative;
     height: 100vh; box-sizing: border-box;
   }
 
@@ -71,18 +141,13 @@
     line-height: 1.6; color: #ffffff; position: relative; z-index: 101;
   }
 
-  /* ===== TEST: nur index.html — Schrift/Cursor/Menü-Striche Schwarz ===== */
-  /* Hintergrund bleibt dunkel (#0a0a0a aus style.css) — diese Overrides
-     gelten NICHT für die anderen 4 Seiten, style.css bleibt unangetastet. */
+  /* ===== Schrift/Cursor schwarz (Hintergrund bleibt dunkel) ===== */
   body,
   .huge-title,
   .meta-block,
-  .desc-block,
-  .menu-link { color: #000000; }
+  .desc-block { color: #000000; }
 
   .custom-cursor { background-color: #000000 !important; }
-
-  .menu-icon span { background-color: #000000 !important; }
 </style>
 </head>
 <body>
@@ -103,21 +168,41 @@
   <div id="intro-screen" style="position:fixed; top:0; left:0; width:100%; height:100vh; background:#000; color:#fff; display:flex; justify-content:center; align-items:center; z-index:9999999; transition:opacity 0.6s ease;"><div class="intro-text">melodienrausch</div></div>
   <div class="custom-cursor" id="cursor"></div>
 
- <!-- DIE LINKS SIND HIER ABSOLUT SICHER VERKNÜPFT -->
-<div class="side-menu">
-    <a href="index.html" class="menu-link">Heimat</a>
-    <a href="werke.html" class="menu-link">Kunst</a>
-    <a href="ueber.html" class="menu-link">Über mich</a>
-    <a href="register.html" class="menu-link">Tagebuch</a>
-    <a href="kontakt.html" class="menu-link">Kontakt</a>
-</div>
+  <!-- Neue Menüleiste -->
+  <nav class="navbar">
+    <div class="nav-logo">MELODIENRAUSCH®</div>
+
+    <ul class="nav-links">
+      <li class="nav-item"><a href="index.html">Heimat</a></li>
+
+      <li class="nav-item">
+        <a href="werke.html">Kunst ▼</a>
+        <div class="dropdown-menu">
+          <div class="dropdown-item"><span class="date">5/12</span><span class="event">CONCEPT PHOTO #1</span></div>
+          <div class="dropdown-item"><span class="date">5/15</span><span class="event">CONCEPT PHOTO #2</span></div>
+          <div class="dropdown-item"><span class="date">5/16</span><span class="event">CONCEPT PHOTO #3</span></div>
+          <div class="dropdown-item"><span class="date">5/17</span><span class="event">STORY FILM #1</span></div>
+          <div class="dropdown-item"><span class="date">5/18</span><span class="event">STORY FILM #2</span></div>
+          <div class="dropdown-item"><span class="date">5/19</span><span class="event">STORY FILM #3</span></div>
+          <div class="dropdown-item"><span class="date">5/20</span><span class="event">STORY FILM #4</span></div>
+          <div class="dropdown-item"><span class="date">5/22</span><span class="event">TRACKLIST & PREVIEW</span></div>
+          <div class="dropdown-item"><span class="date">5/23</span><span class="event">M/V TEASER #1</span></div>
+          <div class="dropdown-item"><span class="date">5/24</span><span class="event">SPECIAL VIDEO TEASER</span></div>
+          <div class="dropdown-item"><span class="date">5/25</span><span class="event">M/V TEASER #2</span></div>
+          <div class="dropdown-item"><span class="date">5/26</span><span class="event">CHOREOGRAPHY SPOILER</span></div>
+          <div class="dropdown-item"><span class="date">5/29</span><span class="event">ALBUM & M/V RELEASE</span></div>
+        </div>
+      </li>
+
+      <li class="nav-item"><a href="ueber.html">Über mich</a></li>
+      <li class="nav-item"><a href="register.html">Tagebuch</a></li>
+      <li class="nav-item"><a href="kontakt.html">Kontakt</a></li>
+    </ul>
+  </nav>
 
   <div class="main-content">
     <div class="hero-header">
       <h1 class="huge-title">MELODIENRAUSCH®</h1>
-      <div class="menu-icon" onclick="toggleMenu()">
-        <span></span><span></span><span></span>
-      </div>
     </div>
 
       <main class="section-grid">
@@ -154,8 +239,6 @@
   document.addEventListener('mousemove', (e) => {
     cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
   });
-
-  function toggleMenu() { document.body.classList.toggle('menu-open'); }
 
   window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
