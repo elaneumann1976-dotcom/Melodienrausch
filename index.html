@@ -11,11 +11,29 @@
 <style>
   .main-content { height: 250vh; }
 
-  /* ===== Menüleiste als Treppenstufen-Kästen (wie Referenzbild) ===== */
+  /* ===== Menüleiste als Treppenstufen-Kästen (standardmäßig versteckt) ===== */
   .side-menu {
+    position: fixed;
+    top: 100px;
+    left: 40px;
+    display: flex;
+    flex-direction: column;
     align-items: flex-start;
     gap: 0;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
   }
+
+  /* Wenn das Menü geöffnet ist (.menu-open am Body) */
+  body.menu-open .side-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
   .side-menu .menu-link {
     display: inline-block;
     background-color: #ffffff;
@@ -23,12 +41,23 @@
     padding: 10px 24px;
     margin: 0 0 18px 0;
     width: fit-content;
+    text-decoration: none;
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    transform: translateY(-10px);
+    transition: transform 0.4s ease;
   }
+
+  /* Treppenstufen-Versatz */
   .side-menu a:nth-child(1) { margin-left: 0; }
   .side-menu a:nth-child(2) { margin-left: 40px; }
   .side-menu a:nth-child(3) { margin-left: 80px; }
   .side-menu a:nth-child(4) { margin-left: 120px; }
   .side-menu a:nth-child(5) { margin-left: 160px; }
+
+  body.menu-open .side-menu .menu-link {
+    transform: translateY(0);
+  }
 
   .hero-header {
     position: fixed;
@@ -37,6 +66,10 @@
     padding: 30px 40px 10px 40px;
     box-sizing: border-box;
     z-index: 100;
+  }
+
+  .menu-icon {
+    cursor: pointer;
   }
 
   .huge-title {
@@ -72,8 +105,6 @@
   }
 
   /* ===== TEST: nur index.html — Schrift/Cursor/Menü-Striche Schwarz ===== */
-  /* Hintergrund bleibt dunkel (#0a0a0a aus style.css) — diese Overrides
-     gelten NICHT für die anderen 4 Seiten, style.css bleibt unangetastet. */
   body,
   .huge-title,
   .meta-block,
@@ -82,7 +113,7 @@
 
   .custom-cursor { background-color: #000000 !important; }
 
-  .menu-icon span { background-color: #000000 !important; }
+  .menu-icon span { background-color: #000000 !important; display: block; width: 30px; height: 3px; margin: 6px 0; transition: 0.3s; }
 </style>
 </head>
 <body>
@@ -103,14 +134,14 @@
   <div id="intro-screen" style="position:fixed; top:0; left:0; width:100%; height:100vh; background:#000; color:#fff; display:flex; justify-content:center; align-items:center; z-index:9999999; transition:opacity 0.6s ease;"><div class="intro-text">melodienrausch</div></div>
   <div class="custom-cursor" id="cursor"></div>
 
- <!-- DIE LINKS SIND HIER ABSOLUT SICHER VERKNÜPFT -->
-<div class="side-menu">
+  <!-- DIE LINKS ALS TREPPENSTUFEN-MENÜ -->
+  <div class="side-menu">
     <a href="index.html" class="menu-link">Heimat</a>
     <a href="werke.html" class="menu-link">Kunst</a>
     <a href="ueber.html" class="menu-link">Über mich</a>
     <a href="register.html" class="menu-link">Tagebuch</a>
     <a href="kontakt.html" class="menu-link">Kontakt</a>
-</div>
+  </div>
 
   <div class="main-content">
     <div class="hero-header">
@@ -155,7 +186,9 @@
     cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
   });
 
-  function toggleMenu() { document.body.classList.toggle('menu-open'); }
+  function toggleMenu() { 
+    document.body.classList.toggle('menu-open'); 
+  }
 
   window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
