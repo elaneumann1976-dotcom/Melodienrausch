@@ -23,27 +23,26 @@
     letter-spacing: -2px; text-transform: uppercase; margin: 0; white-space: nowrap;
   }
 
+  /* ===== Fließtext zweispaltig, gleichmäßig verteilt (kein Leerraum) ===== */
   .about-grid {
     display: grid; grid-template-columns: repeat(12, 1fr); gap: 40px;
     padding: 220px 40px 100px 40px; box-sizing: border-box; align-items: start;
   }
   .meta-block {
-    grid-column: 1 / 4; font-family: 'Oswald', sans-serif; font-size: 15px;
+    grid-column: 1 / 4;
+    font-family: 'Oswald', sans-serif; font-size: 15px;
     line-height: 1.3; text-transform: uppercase; position: relative; z-index: 101;
   }
-  .about-text-left { grid-column: 4 / 9; font-size: 15px; line-height: 1.75; }
-  .about-media-box {
-    grid-column: 4 / 9; height: 480px; margin-top: 40px;
-    background-size: cover; background-position: center;
-    border: 2px solid #ffffff; box-shadow: 16px 16px 0px #ffffff;
-    filter: grayscale(100%) contrast(115%);
+  .about-text-flow {
+    grid-column: 4 / 13;
+    columns: 2;
+    column-gap: 60px;
+    font-size: 15px; line-height: 1.75;
   }
-  .about-media-box.bild1 { background-image: url('bild1_Fotogenic.jpg'); }
-  .about-media-box.bild2 { background-image: url('bild2_Fotogenic.jpg'); }
-  .about-text-right { grid-column: 9 / 13; font-size: 15px; line-height: 1.75; padding-top: 40px; }
-  .about-text-center {
-    grid-column: 3 / 11; font-size: 16px; line-height: 1.8; text-align: center;
-    margin: 60px 0; font-style: italic;
+  .about-text-flow p { margin: 0 0 22px 0; break-inside: avoid; }
+  .about-text-flow .center-quote {
+    font-style: italic; font-size: 16px; line-height: 1.8;
+    text-align: center; margin: 10px 0 32px 0;
   }
   .trail-image {
     position: fixed; width: 170px; height: 230px;
@@ -53,6 +52,17 @@
     will-change: transform, opacity; filter: grayscale(100%) contrast(115%);
     transition: opacity 0.2s ease, transform 0.2s ease;
   }
+
+  /* ===== Schrift/Cursor/Menü-Striche schwarz (Hintergrund bleibt dunkel) ===== */
+  body,
+  .huge-title,
+  .meta-block,
+  .about-text-flow,
+  .menu-link { color: #000000; }
+
+  .custom-cursor { background-color: #000000 !important; }
+
+  .menu-icon span { background-color: #000000 !important; }
 </style>
 </head>
 <body>
@@ -96,22 +106,13 @@
         <strong>INDEX &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3/5</strong>
       </div>
 
-      <div class="about-text-left hover-text-zone">
+      <div class="about-text-flow hover-text-zone">
         <p>Ich bin Ela. Diva des ADHS. Ich geh zu schnell rein – und wunder mich dann, warum's knallt. Ich geh hoch, hab Angst vorm Fallen – und lande trotzdem. Ich bin kein Mittelmaß.</p>
-      </div>
-
-      <div class="about-text-right hover-text-zone">
         <p>Ich bin entweder ganz drin oder komplett raus. Gedanken rasen. Gefühle auch. Und während andere noch überlegen, bin ich schon mittendrin. Manchmal genial. Manchmal komplett daneben. Aber wenigstens echt.</p>
         <p>Mein Leben lief nicht gerade. Eher Chaos. Absturz. Aufgestanden. Krone gerichtet. Weitergegangen. Nicht, weil alles easy war. Sondern weil Aufgeben keine Option ist.</p>
         <p>Ich bin laut. Ich bin intensiv. Ich bin nicht gemacht für „passt schon".</p>
         <p><strong>Ich bin Ela.<br>Und ich hinterlasse Eindruck.</strong></p>
-      </div>
-
-      <div class="about-text-center hover-text-zone">
-        <p>Ideen kommen bei mir nicht einzeln. Die kommen im Rudel. Manche bleiben nicht. Die guten schon. Und die knallen dann auch. Ich arbeite nicht nach Plan. Hab ich versucht. War langweilig. Ich geh nach Gefühl. Nach dem, was gerade zieht. Und meistens ist genau das richtig. Wenn ich drin bin, bin ich drin. So richtig. Zeit? Egal. Umgebung? Egal.</p>
-      </div>
-
-      <div class="about-text-right hover-text-zone">
+        <p class="center-quote">Ideen kommen bei mir nicht einzeln. Die kommen im Rudel. Manche bleiben nicht. Die guten schon. Und die knallen dann auch. Ich arbeite nicht nach Plan. Hab ich versucht. War langweilig. Ich geh nach Gefühl. Nach dem, was gerade zieht. Und meistens ist genau das richtig. Wenn ich drin bin, bin ich drin. So richtig. Zeit? Egal. Umgebung? Egal.</p>
         <p>Ich seh dann nur noch das, was entstehen will. Hyperfokus, nennt man das wohl. Ich nenn's: endlich Ruhe im Kopf. Chaos? Ist kein Problem. Ist eher mein Arbeitsmodus. Da entsteht Bewegung. Da entstehen Verbindungen, die man nicht erzwingen kann.</p>
         <p>Ich denk schnell. Ich fühl schneller. Und manchmal passt das nicht, in die Welt von anderen. Aber genau daraus kommt das, was bei mir echt ist. Ich verbinde Dinge, die eigentlich nicht zusammengehören.</p>
         <p>Gedanke.<br>Musik.<br>Gefühl.<br>Bild.</p>
