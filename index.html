@@ -51,6 +51,19 @@
     grid-column: 10 / 13; font-family: Arial, Helvetica, sans-serif; font-size: 13px;
     line-height: 1.6; color: #ffffff; position: relative; z-index: 101;
   }
+
+  /* ===== TEST: nur index.html — Schrift/Cursor/Menü-Striche Schwarz ===== */
+  /* Hintergrund bleibt dunkel (#0a0a0a aus style.css) — diese Overrides
+     gelten NICHT für die anderen 4 Seiten, style.css bleibt unangetastet. */
+  body,
+  .huge-title,
+  .meta-block,
+  .desc-block,
+  .menu-link { color: #000000; }
+
+  .custom-cursor { background-color: #000000 !important; }
+
+  .menu-icon span { background-color: #000000 !important; }
 </style>
 </head>
 <body>
