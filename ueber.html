@@ -7,19 +7,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 <style>
-  html, body {
-    background-color: #ffffff; color: #000000;
-    font-family: Arial, Helvetica, sans-serif;
-    margin: 0; padding: 0; box-sizing: border-box; cursor: none; overflow-x: hidden;
-  }
-  .custom-cursor {
-    width: 14px; height: 14px; background-color: #000000;
-    position: fixed; top: 0; left: 0; pointer-events: none;
-    z-index: 999999 !important; transform: translate(-50%, -50%) rotate(45deg);
-  }
-  .main-content { opacity: 0; transition: opacity 0.8s ease; min-height: 100vh; }
-  body.intro-done .main-content { opacity: 1; }
+  html, body { overflow-x: hidden; }
+  .main-content { min-height: 100vh; }
+
   .hero-header {
     position: fixed; top: 0; left: 0; width: 100%;
     display: flex; justify-content: space-between; align-items: flex-end;
@@ -30,31 +22,7 @@
     font-size: clamp(30px, 7.8vw, 180px); font-weight: 700; line-height: 0.8;
     letter-spacing: -2px; text-transform: uppercase; margin: 0; white-space: nowrap;
   }
-  .menu-icon {
-    display: flex; flex-direction: column; justify-content: space-between;
-    width: 30px; height: 16px; cursor: none; margin-bottom: 8px; z-index: 1001;
-    pointer-events: auto;
-  }
-  .menu-icon span { display: block; width: 100%; height: 2px; background-color: #000000; transition: all 0.3s ease-in-out; }
-  body.menu-open .menu-icon span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  body.menu-open .menu-icon span:nth-child(2) { opacity: 0; }
-  body.menu-open .menu-icon span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-  .side-menu {
-    position: fixed; top: 0; right: -450px; width: 400px; height: 100vh;
-    background-color: #f7f7f7; border-left: 1px solid #e0e0e0;
-    box-sizing: border-box; padding: 120px 40px 40px 40px; z-index: 1000;
-    transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
-    display: flex; flex-direction: column; gap: 10px;
-  }
-  body.menu-open .side-menu { right: 0; }
-  .menu-link {
-    font-family: 'Oswald', sans-serif; font-size: 32px; color: #000000;
-    text-decoration: none; text-transform: uppercase; padding: 15px 20px;
-    border: 1px solid transparent; transition: all 0.2s ease; display: block; cursor: none;
-  }
-  .menu-link:hover { background-color: #ffffff; border-color: #000000; padding-left: 30px; }
-  .menu-link.active { background-color: #000000; color: #ffffff; }
-  .menu-link.active:hover { background-color: #000000; color: #ffffff; padding-left: 20px; border-color: #000000; }
+
   .about-grid {
     display: grid; grid-template-columns: repeat(12, 1fr); gap: 40px;
     padding: 220px 40px 100px 40px; box-sizing: border-box; align-items: start;
@@ -67,11 +35,11 @@
   .about-media-box {
     grid-column: 4 / 9; height: 480px; margin-top: 40px;
     background-size: cover; background-position: center;
-    border: 2px solid #000000; box-shadow: 16px 16px 0px #000000;
+    border: 2px solid #ffffff; box-shadow: 16px 16px 0px #ffffff;
     filter: grayscale(100%) contrast(115%);
   }
-  .about-media-box.bild1 { background-image: url('bild1.jpeg'); }
-  .about-media-box.bild2 { background-image: url('bild2.jpg'); }
+  .about-media-box.bild1 { background-image: url('bild1_Fotogenic.jpg'); }
+  .about-media-box.bild2 { background-image: url('bild2_Fotogenic.jpg'); }
   .about-text-right { grid-column: 9 / 13; font-size: 15px; line-height: 1.75; padding-top: 40px; }
   .about-text-center {
     grid-column: 3 / 11; font-size: 16px; line-height: 1.8; text-align: center;
@@ -80,7 +48,7 @@
   .trail-image {
     position: fixed; width: 170px; height: 230px;
     background-size: cover; background-position: center;
-    border: 2px solid #000000; pointer-events: none; z-index: 500;
+    border: 2px solid #ffffff; pointer-events: none; z-index: 500;
     transform: translate(-50%, -50%) scale(0.9); opacity: 0;
     will-change: transform, opacity; filter: grayscale(100%) contrast(115%);
     transition: opacity 0.2s ease, transform 0.2s ease;
@@ -89,17 +57,30 @@
 </head>
 <body>
 
+  <style>
+    @keyframes introFromBehind {
+      0%   { transform: scale(0.1); filter: blur(18px); opacity: 0; }
+      60%  { filter: blur(2px); opacity: 1; }
+      100% { transform: scale(1); filter: blur(0); opacity: 1; }
+    }
+    #intro-screen { perspective: 800px; }
+    #intro-screen .intro-text {
+      font-family:'Courier New'; font-size:24px; letter-spacing:10px;
+      text-transform:uppercase; font-weight:bold;
+      animation: introFromBehind 3s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+    }
+  </style>
   <div id="intro-screen" style="position:fixed; top:0; left:0; width:100%; height:100vh; background:#000; color:#fff; display:flex; justify-content:center; align-items:center; z-index:9999999; transition:opacity 0.6s ease;">
-    <div style="font-family:'Courier New'; font-size:24px; letter-spacing:10px; text-transform:uppercase; font-weight:bold;">melodienrausch</div>
+    <div class="intro-text">melodienrausch</div>
   </div>
   <div class="custom-cursor" id="cursor"></div>
   <div id="image-trail-container"></div>
 
   <div class="side-menu">
     <a href="index.html" class="menu-link">Heimat</a>
-    <a href="werke.html" class="menu-link">Werke</a>
-    <a href="ueber.html" class="menu-link active">Über</a>
-    <a href="register.html" class="menu-link">Register</a>
+    <a href="werke.html" class="menu-link">Kunst</a>
+    <a href="ueber.html" class="menu-link active">Über mich</a>
+    <a href="register.html" class="menu-link">Tagebuch</a>
     <a href="kontakt.html" class="menu-link">Kontakt</a>
   </div>
 
@@ -119,8 +100,6 @@
         <p>Ich bin Ela. Diva des ADHS. Ich geh zu schnell rein – und wunder mich dann, warum's knallt. Ich geh hoch, hab Angst vorm Fallen – und lande trotzdem. Ich bin kein Mittelmaß.</p>
       </div>
 
-      <div class="about-media-box bild1"></div>
-
       <div class="about-text-right hover-text-zone">
         <p>Ich bin entweder ganz drin oder komplett raus. Gedanken rasen. Gefühle auch. Und während andere noch überlegen, bin ich schon mittendrin. Manchmal genial. Manchmal komplett daneben. Aber wenigstens echt.</p>
         <p>Mein Leben lief nicht gerade. Eher Chaos. Absturz. Aufgestanden. Krone gerichtet. Weitergegangen. Nicht, weil alles easy war. Sondern weil Aufgeben keine Option ist.</p>
@@ -131,8 +110,6 @@
       <div class="about-text-center hover-text-zone">
         <p>Ideen kommen bei mir nicht einzeln. Die kommen im Rudel. Manche bleiben nicht. Die guten schon. Und die knallen dann auch. Ich arbeite nicht nach Plan. Hab ich versucht. War langweilig. Ich geh nach Gefühl. Nach dem, was gerade zieht. Und meistens ist genau das richtig. Wenn ich drin bin, bin ich drin. So richtig. Zeit? Egal. Umgebung? Egal.</p>
       </div>
-
-      <div class="about-media-box bild2"></div>
 
       <div class="about-text-right hover-text-zone">
         <p>Ich seh dann nur noch das, was entstehen will. Hyperfokus, nennt man das wohl. Ich nenn's: endlich Ruhe im Kopf. Chaos? Ist kein Problem. Ist eher mein Arbeitsmodus. Da entsteht Bewegung. Da entstehen Verbindungen, die man nicht erzwingen kann.</p>
@@ -154,12 +131,12 @@
       const intro = document.getElementById('intro-screen');
       if(intro) { intro.style.opacity = '0'; setTimeout(() => intro.remove(), 600); }
       document.body.classList.add('intro-done');
-    }, 2000);
+    }, 3400);
   });
 
   const trailContainer = document.getElementById('image-trail-container');
   const textZones = document.querySelectorAll('.hover-text-zone');
-  const imageList = ['bild1.jpeg', 'bild2.jpg', 'bild3.jpg'];
+  const imageList = ['bild1_Fotogenic.jpg', 'bild2_Fotogenic.jpg', 'bild3_Fotogenic.jpg'];
   let imageIndex = 0;
   let lastX = 0, lastY = 0, isOverText = false;
   const movementThreshold = 100;
