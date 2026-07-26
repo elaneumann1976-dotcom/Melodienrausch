@@ -46,7 +46,7 @@
   .hero-img {
     position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
     background-image: url('profilbilld_Fotogenic.jpg'); background-size: cover;
-    background-position: center 88%; background-repeat: no-repeat;
+    background-position: center 100%; background-repeat: no-repeat;
     filter: grayscale(1) contrast(1.08);
     z-index: 50; transform-origin: center center;
     will-change: transform, width, height, position, background-position, background-size;
@@ -169,6 +169,13 @@
   <script src="https://w.soundcloud.com/player/api.js"></script>
 
 <script>
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  window.scrollTo(0, 0);
+  window.addEventListener('pageshow', () => {
+    window.scrollTo(0, 0);
+    if (typeof updateHeroScroll === 'function') updateHeroScroll();
+  });
+
   const cursor = document.getElementById('cursor');
   document.addEventListener('mousemove', (e) => {
     cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
@@ -240,7 +247,7 @@
     const scrollPos = window.scrollY;
     const travel = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
     const progress = Math.min(1, Math.max(0, scrollPos / travel));
-    const imageY = 88 - (progress * 88);
+    const imageY = 100 - (progress * 100);
     const zoomFactor = 1;
 
     zoomImage.style.position = 'fixed';
