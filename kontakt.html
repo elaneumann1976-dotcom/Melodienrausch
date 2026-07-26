@@ -56,6 +56,7 @@
     stroke-linejoin: round;
   }
   .scribble-item path.sc-alt { stroke: #c00000; stroke-width: 2.2; }
+  .scribble-item path.sc-heavy { stroke-width: 7; }
   @keyframes introFromBehind {
     0%   { transform: scale(0.1); filter: blur(18px); opacity: 0; }
     60%  { filter: blur(2px); opacity: 1; }
@@ -152,6 +153,7 @@
       const rotate = (cfg.rotate !== undefined) ? cfg.rotate : (Math.random() * 24 - 12);
       const scale = (cfg.scale !== undefined) ? cfg.scale : (0.8 + Math.random() * 0.4);
       wrap.style.transform = 'rotate(' + rotate + 'deg) scale(' + scale + ')';
+      wrap.style.opacity = (cfg.opacity !== undefined) ? cfg.opacity : 1;
 
       wrap.innerHTML = svgMarkup;
       layer.appendChild(wrap);
@@ -182,13 +184,13 @@
 
   /* ===== Seite 2: mittelgroße Notizen / Pfeile ===== */
   const scribblesPage2 = [
-    { top: '10%', left: '5%',  width: '170px', src: 'assets/scribbles/art.svg', delay: 150, rotate: -7, scale: 1 },
-    { top: '14%', left: '83%', width: '58px',  src: 'assets/scribbles/me-question.svg', delay: 1450, rotate: 5, scale: 1 },
-    { top: '36%', left: '69%', width: '95px',  src: 'assets/scribbles/broken-heart.svg', delay: 2700, rotate: 9, scale: 1 },
-    { top: '50%', left: '6%',  width: '50px',  src: 'assets/scribbles/question.svg', delay: 3900, rotate: -8, scale: 1 },
-    { top: '58%', left: '72%', width: '130px', src: 'assets/scribbles/curved-arrow.svg', delay: 4750, rotate: -12, scale: 1 },
-    { top: '78%', left: '12%', width: '150px', src: 'assets/scribbles/scratch-bars.svg', delay: 6000, rotate: -3, scale: 1, pathDuration: 0.35 },
-    { top: '30%', left: '35%', width: '135px', src: 'assets/scribbles/crossout.svg', delay: 7200, rotate: -5, scale: 1, pathDuration: 0.4 }
+    { top: '8%',  left: '5%',  width: '170px', src: 'assets/scribbles/art.svg', delay: 150, rotate: -7, scale: 1 },
+    { top: '13%', left: '85%', width: '52px',  src: 'assets/scribbles/me-question.svg', delay: 1500, rotate: 5, scale: 1 },
+    { top: '25%', left: '69%', width: '135px', src: 'assets/scribbles/weird-head.svg', delay: 2850, rotate: 7, scale: 1 },
+    { top: '52%', left: '4%',  width: '105px', src: 'assets/scribbles/spiral-eye.svg', delay: 4400, rotate: -8, scale: 1 },
+    { top: '64%', left: '22%', width: '90px',  src: 'assets/scribbles/flower-tangle.svg', delay: 5600, rotate: -4, scale: 1 },
+    { top: '67%', left: '56%', width: '180px', src: 'assets/scribbles/stacked-faces.svg', delay: 7000, rotate: 5, scale: 1 },
+    { top: '31%', left: '38%', width: '155px', src: 'assets/scribbles/scribble-cloud.svg', delay: 8600, rotate: -6, scale: 1, opacity: 0.58 }
   ];
 </script>
 </body>
