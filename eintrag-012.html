@@ -129,6 +129,11 @@
     cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
   });
   function toggleMenu() { document.body.classList.toggle('menu-open'); }
+
+  // Diese Seite hat kein Intro (nur die 5 Hauptseiten haben das) — Inhalt
+  // sofort sichtbar machen, sonst bleibt .main-content dauerhaft bei opacity:0
+  // (siehe style.css: body.intro-done .main-content { opacity: 1; })
+  document.body.classList.add('intro-done');
 </script>
 </body>
 </html>
