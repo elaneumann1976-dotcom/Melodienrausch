@@ -255,7 +255,6 @@ body:has(.entry-grid) .entry-main {
   border-top: 3px solid #151515;
   border-bottom: 1px solid rgba(0,0,0,.55);
   transform: rotate(.25deg);
-  overflow: hidden;
 }
 
 body:has(.entry-grid) .entry-main::before {
@@ -274,7 +273,7 @@ body:has(.entry-grid) .entry-main::before {
 body:has(.entry-grid) .entry-main::after {
   content: "";
   position: absolute;
-  inset: -4%;
+  inset: 0;
   z-index: 0;
   pointer-events: none;
   background:
