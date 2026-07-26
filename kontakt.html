@@ -45,18 +45,23 @@
   }
   .mail-block a:hover { text-decoration: underline; }
   .desc-block { grid-column: 10 / 13; font-family: Arial, Helvetica, sans-serif; font-size: 13px; line-height: 1.6; position: relative; z-index: 101; }
-  .scribble-layer { position: absolute; inset: 0; overflow: visible; pointer-events: none; z-index: 102; }
-  .scribble-item { position: absolute; pointer-events: none; }
-  .scribble-item svg { overflow: visible; display: block; }
-  .scribble-item path {
-    fill: none;
-    stroke: #a30000;
-    stroke-width: 2.6;
-    stroke-linecap: round;
-    stroke-linejoin: round;
+  .contact-collage-layer {
+    position: absolute; inset: 0; overflow: hidden;
+    pointer-events: none; z-index: 102;
   }
-  .scribble-item path.sc-alt { stroke: #c00000; stroke-width: 2.2; }
-  .scribble-item path.sc-heavy { stroke-width: 7; }
+  .contact-collage-strip {
+    position: absolute; inset: 0;
+    background: url('assets/scribbles/generated/contact-collage-v2.webp') center / 100% 100% no-repeat;
+    opacity: 0;
+    clip-path: inset(var(--top) 100% var(--bottom) 0);
+  }
+  body.intro-done .contact-collage-strip {
+    animation: contactCollageRowReveal 1.15s steps(10, end) var(--delay) forwards;
+  }
+  @keyframes contactCollageRowReveal {
+    0% { opacity: 1; clip-path: inset(var(--top) 100% var(--bottom) 0); }
+    100% { opacity: 0.92; clip-path: inset(var(--top) 0 var(--bottom) 0); }
+  }
   @keyframes introFromBehind {
     0%   { transform: scale(0.1); filter: blur(18px); opacity: 0; }
     60%  { filter: blur(2px); opacity: 1; }
@@ -92,7 +97,16 @@
     </div>
 
     <div class="section-grid" id="doodleTarget">
-      <div class="scribble-layer" id="scribbleLayer"></div>
+      <div class="contact-collage-layer" aria-hidden="true">
+        <span class="contact-collage-strip" style="--top:0%;--bottom:87.5%;--delay:.2s"></span>
+        <span class="contact-collage-strip" style="--top:12.5%;--bottom:75%;--delay:1.15s"></span>
+        <span class="contact-collage-strip" style="--top:25%;--bottom:62.5%;--delay:2.1s"></span>
+        <span class="contact-collage-strip" style="--top:37.5%;--bottom:50%;--delay:3.05s"></span>
+        <span class="contact-collage-strip" style="--top:50%;--bottom:37.5%;--delay:4s"></span>
+        <span class="contact-collage-strip" style="--top:62.5%;--bottom:25%;--delay:4.95s"></span>
+        <span class="contact-collage-strip" style="--top:75%;--bottom:12.5%;--delay:5.9s"></span>
+        <span class="contact-collage-strip" style="--top:87.5%;--bottom:0%;--delay:6.85s"></span>
+      </div>
       <div class="meta-block">
         KONTAKT <br><br><br><br>
         <strong>INDEX &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5/5</strong>
@@ -123,75 +137,9 @@
       const intro = document.getElementById('intro-screen');
       if(intro) { intro.style.opacity = '0'; setTimeout(() => intro.remove(), 600); }
       document.body.classList.add('intro-done');
-      initScribbles('scribbleLayer', scribblesPage2);
     }, 3400);
   });
 
-  /* ===== Handschrift-Scribbles: Engine (lädt fertige SVG-Dateien per fetch, zeichnet keine eigenen) ===== */
-  async function initScribbles(layerId, items) {
-    const layer = document.getElementById(layerId);
-    if (!layer) return;
-
-    const loadedItems = await Promise.all(items.map(async (cfg) => {
-      try {
-        const res = await fetch(cfg.src);
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        return { cfg, svgMarkup: await res.text() };
-      } catch (err) {
-        console.warn('Scribble konnte nicht geladen werden:', cfg.src, err);
-        return null;
-      }
-    }));
-
-    loadedItems.filter(Boolean).forEach(({ cfg, svgMarkup }) => {
-      const wrap = document.createElement('div');
-      wrap.className = 'scribble-item';
-      wrap.style.top = cfg.top;
-      wrap.style.left = cfg.left;
-      if (cfg.width) wrap.style.width = cfg.width;
-
-      const rotate = (cfg.rotate !== undefined) ? cfg.rotate : (Math.random() * 24 - 12);
-      const scale = (cfg.scale !== undefined) ? cfg.scale : (0.8 + Math.random() * 0.4);
-      wrap.style.transform = 'rotate(' + rotate + 'deg) scale(' + scale + ')';
-      wrap.style.opacity = (cfg.opacity !== undefined) ? cfg.opacity : 1;
-
-      wrap.innerHTML = svgMarkup;
-      layer.appendChild(wrap);
-
-      const paths = Array.from(wrap.querySelectorAll('path'));
-      const pathDuration = cfg.pathDuration || 0.5;
-      const pathGap = cfg.pathGap || 70;
-
-      paths.forEach((path) => {
-        const len = path.getTotalLength();
-        path.style.strokeDasharray = len;
-        path.style.strokeDashoffset = len;
-        path.style.transition = 'none';
-      });
-
-      setTimeout(() => {
-        paths.forEach((path, pathIndex) => {
-          setTimeout(() => {
-            path.style.transition = 'stroke-dashoffset ' + pathDuration + 's linear';
-            requestAnimationFrame(() => {
-              path.style.strokeDashoffset = '0';
-            });
-          }, pathIndex * (pathDuration * 1000 + pathGap));
-        });
-      }, cfg.delay || 0);
-    });
-  }
-
-  /* ===== Seite 2: mittelgroße Notizen / Pfeile ===== */
-  const scribblesPage2 = [
-    { top: '8%',  left: '5%',  width: '170px', src: 'assets/scribbles/art.svg', delay: 150, rotate: -7, scale: 1 },
-    { top: '13%', left: '85%', width: '52px',  src: 'assets/scribbles/me-question.svg', delay: 1500, rotate: 5, scale: 1 },
-    { top: '25%', left: '69%', width: '135px', src: 'assets/scribbles/weird-head.svg', delay: 2850, rotate: 7, scale: 1 },
-    { top: '52%', left: '4%',  width: '105px', src: 'assets/scribbles/spiral-eye.svg', delay: 4400, rotate: -8, scale: 1 },
-    { top: '64%', left: '22%', width: '90px',  src: 'assets/scribbles/flower-tangle.svg', delay: 5600, rotate: -4, scale: 1 },
-    { top: '67%', left: '56%', width: '180px', src: 'assets/scribbles/stacked-faces.svg', delay: 7000, rotate: 5, scale: 1 },
-    { top: '31%', left: '38%', width: '155px', src: 'assets/scribbles/scribble-cloud.svg', delay: 8600, rotate: -6, scale: 1, opacity: 0.58 }
-  ];
 </script>
 </body>
 </html>
