@@ -221,6 +221,24 @@
     justify-content: space-between;
   }
 
+  .read-entry {
+    display: inline-block;
+    margin: 14px 0 0;
+    padding: 7px 10px;
+    border: 0;
+    background: #171512;
+    color: #f2eee5;
+    font: 700 10px/1 "Courier New", monospace;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transform: rotate(-.5deg);
+  }
+
+  .read-entry:hover {
+    background: #e50914;
+  }
+
   #sc-hidden-player {
     position: absolute;
     top: -9999px;
@@ -304,6 +322,7 @@
               <img class="entry-thumb" id="left-thumb" alt="">
               <h1 class="huge-title-diary" id="left-title" style="color:#e50914;"></h1>
               <div class="text-content" id="left-teaser"></div>
+                <button class="read-entry" id="left-read" type="button">Eintrag lesen →</button>
             </div>
             <div class="page-number" style="display:flex; justify-content:space-between;">
               <span id="left-prev" class="page-number clickable" style="border-top:none;" onclick="event.stopPropagation(); turnPage(-1);">◀ Zurück</span>
@@ -321,6 +340,7 @@
                 <img class="entry-thumb" id="front-thumb" alt="">
                 <h1 class="huge-title-diary" id="front-title"></h1>
                 <div class="text-content" id="front-teaser"></div>
+                <button class="read-entry" id="front-read" type="button">Eintrag lesen →</button>
               </div>
               <div class="page-number" style="display:flex; justify-content:space-between;">
                 <span id="front-prev" class="page-number clickable" style="border-top:none;" onclick="event.stopPropagation(); turnPage(-1);">◀ Zurück</span>
@@ -336,6 +356,7 @@
                 <img class="entry-thumb" id="back-thumb" alt="">
                 <h1 class="huge-title-diary" id="back-title"></h1>
                 <div class="text-content" id="back-teaser"></div>
+                <button class="read-entry" id="back-read" type="button">Eintrag lesen →</button>
               </div>
               <div class="page-number" style="display:flex; justify-content:space-between;">
                 <span id="back-prev" class="page-number clickable" style="border-top:none;" onclick="event.stopPropagation(); turnPage(-1);">◀ Zurück</span>
@@ -491,10 +512,14 @@
       thumbEl.classList.remove('has-image'); thumbEl.src = '';
       if (pageNrEl) pageNrEl.textContent = '';
       container.onclick = null;
+      const readButton = document.getElementById(prefix + '-read');
+      if (readButton) readButton.style.display = 'none';
       container.style.cursor = 'default';
       return;
     }
     container.style.cursor = 'pointer';
+    const activeReadButton = document.getElementById(prefix + '-read');
+    if (activeReadButton) activeReadButton.style.display = 'inline-block';
     dateEl.textContent = entry.number;
     titleEl.textContent = entry.title;
     teaserEl.textContent = entry.teaser;
@@ -502,9 +527,16 @@
     if (entry.thumb) { thumbEl.src = entry.thumb; thumbEl.classList.add('has-image'); }
     else { thumbEl.classList.remove('has-image'); thumbEl.src = ''; }
 
-    container.onclick = (e) => {
-      if (e.target.closest('.book-nav')) return;
+    const readButton = document.getElementById(prefix + '-read');
+    readButton.onclick = (event) => {
+      event.stopPropagation();
       openDiaryEntry(entry.url);
+    };
+
+    // Das Blatt selbst bleibt ein Blatt: rechts vorwärts, links zurück.
+    container.onclick = (event) => {
+      if (event.target.closest('.read-entry, .page-number.clickable')) return;
+      turnPage(prefix === 'left' ? -1 : 1);
     };
   }
 
