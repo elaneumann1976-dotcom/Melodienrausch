@@ -160,12 +160,23 @@
   // Der Track soll GENAU EINMAL starten, sobald der Zoom-Effekt auf dem
   // Hero-Bild ca. 20-30% seiner Gesamt-Animation erreicht hat.
   let scWidget = null;       // SoundCloud-Widget-Objekt, sobald bereit
+  let widgetReady = false;   // wird true, sobald der Player intern startklar ist
+  let pendingPlay = false;   // merkt sich: "sollte eigentlich schon laufen"
   let soundStarted = false;  // Sperre: verhindert einen zweiten Start
 
   window.addEventListener('load', () => {
     const scIframe = document.getElementById('sc-hidden-player');
     if (window.SC && scIframe) {
       scWidget = SC.Widget(scIframe);
+      // Wichtig: play() darf erst NACH dem READY-Event aufgerufen werden,
+      // sonst verpufft der Befehl wirkungslos (kein Fehler, einfach kein Ton).
+      scWidget.bind(SC.Widget.Events.READY, () => {
+        widgetReady = true;
+        if (pendingPlay) {
+          soundStarted = true;
+          scWidget.play();
+        }
+      });
     }
   });
 
@@ -173,9 +184,14 @@
   // aufgerufen, damit der erste Scroll des Besuchers selbst als die vom
   // Browser geforderte Nutzer-Interaktion zählt (Autoplay-Sperren umgehen).
   function startSoundOnce() {
-    if (soundStarted || !scWidget) return;
-    soundStarted = true;
-    scWidget.play();
+    if (soundStarted) return;
+    if (widgetReady) {
+      soundStarted = true;
+      scWidget.play();
+    } else {
+      // Player ist noch nicht bereit: merken und sobald READY feuert, sofort abspielen
+      pendingPlay = true;
+    }
   }
 
   const zoomImage = document.getElementById('zoomImage');
