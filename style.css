@@ -182,15 +182,12 @@ body:has(.entry-grid) .entry-grid::before {
   left: -100vw;
   right: -100vw;
   pointer-events: none;
-  background-color: #e7e2d7;
-  background-image:
-    linear-gradient(rgba(255,255,255,.16), rgba(255,255,255,.16)),
-    url('grunge-texture-dark.jpg');
-  background-size: auto, cover;
+  background-image: url('grunge-texture-dark.jpg');
+  background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  filter: grayscale(1) invert(1) contrast(1.28);
-  opacity: .38;
+  filter: grayscale(1) invert(1) contrast(1.18);
+  opacity: .2;
   mix-blend-mode: multiply;
 }
 
