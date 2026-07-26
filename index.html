@@ -218,11 +218,10 @@
     if (soundStarted) return;
     if (!widgetReady) { pendingPlay = true; updateDebug(); return; }
     soundStarted = true;
-    // Track soll nicht am Anfang starten, sondern ab Minute 5 (der Einstieg
-    // davor ist zu ruhig/langweilig) — Zeitangabe in Millisekunden.
-    scWidget.seekTo(5 * 60 * 1000);
+    // Track startet bei 3:20 (statt 0:00) — Zeitangabe in Millisekunden.
+    scWidget.seekTo((3 * 60 + 20) * 1000);
     // Lautstärke startet bei 0 und blendet sanft hoch, statt abrupt voll
-    // einzusetzen ("soll ruhig reinkommen").
+    // einzusetzen ("soll ruhig reinkommen, nicht gleich losbrüllen").
     scWidget.setVolume(0);
     scWidget.play();
     fadeVolumeIn();
