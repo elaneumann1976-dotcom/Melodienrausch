@@ -72,7 +72,7 @@
 
   .home-collage-layer {
     position: absolute; inset: 0; overflow: hidden;
-    pointer-events: none; z-index: 102;
+    pointer-events: none; z-index: 90;
   }
   .home-collage-strip {
     position: absolute; inset: 0;
@@ -247,7 +247,7 @@
       const right = (1 - rowProgress) * 100;
       const top = index * 12.5;
       const bottom = 100 - ((index + 1) * 12.5);
-      row.style.opacity = rowProgress > 0 ? '0.92' : '0';
+      row.style.opacity = rowProgress > 0 ? '0.56' : '0';
       row.style.clipPath = `inset(${top}% ${right}% ${bottom}% 0)`;
     });
   }
