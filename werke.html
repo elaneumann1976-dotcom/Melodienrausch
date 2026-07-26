@@ -275,7 +275,7 @@ Underground-Magazin."</div>
           <div class="werk-description" id="werk-description"></div>
           <div class="werk-sound" id="werk-sound-wrap" style="display:none;">
             <div class="werk-sound-label" id="werk-sound-label"></div>
-            <iframe id="werk-sound-frame" width="100%" height="120" frameborder="no" scrolling="no"></iframe>
+            <iframe id="werk-sound-frame" width="100%" height="120" frameborder="no" scrolling="no" allow="autoplay; encrypted-media"></iframe>
           </div>
           <div class="werk-fields">
             <div><span 
@@ -405,8 +405,8 @@ id="werk-year">2026</span></div>
     const soundLabel = document.getElementById('werk-sound-label');
     const soundFrame = document.getElementById('werk-sound-frame');
     if (w.trackId) {
-      soundLabel.textContent = 'Sound' + (w.sound ? ': ' + w.sound : '');
-      soundFrame.src = 'https://w.soundcloud.com/player/?url=https%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F' + w.trackId + '&color=%23ffffff&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&visual=false';
+      soundLabel.textContent = 'Sound – startet automatisch' + (w.sound ? ': ' + w.sound : '');
+      soundFrame.src = 'https://w.soundcloud.com/player/?url=https%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F' + w.trackId + '&color=%23ffffff&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&visual=false';
       soundWrap.style.display = 'block';
     } else {
       soundLabel.textContent = '';
@@ -479,6 +479,7 @@ showWerk(currentWerk + 1); }
   }
 
   function showGallery() {
+    document.getElementById('werk-sound-frame').src = '';
     const dv = document.getElementById('detailView');
     dv.classList.remove('visible');
     setTimeout(() => {
