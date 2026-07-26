@@ -41,15 +41,15 @@
     color: #000000;
   }
 
-  .media-box { grid-column: 4 / 10; height: 520px; position: relative; }
+  .media-box { grid-column: 4 / 10; height: 620px; position: relative; }
 
   .hero-img {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background-image: url('profilbilld_Fotogenic.jpg'); background-size: cover;
-    background-position: center 88%; background-repeat: no-repeat;
+    background-image: url('profilbilld_Fotogenic.jpg'); background-size: contain;
+    background-position: center bottom; background-repeat: no-repeat;
     filter: grayscale(1) contrast(1.08);
     z-index: 50; transform-origin: center center;
-    will-change: transform, width, height, position, background-position;
+    will-change: transform, width, height, position, background-position, background-size;
   }
 
   .desc-block {
@@ -90,10 +90,6 @@
     animation: introFromBehind 3s cubic-bezier(0.19, 1, 0.22, 1) forwards;
   }
 
-  /* ===== Unsichtbarer SoundCloud-Player =====
-     Kein sichtbarer Player, kein Play-Button. Das iFrame liegt
-     außerhalb des sichtbaren Bereichs (1px groß, transparent,
-     nicht klickbar) und wird ausschließlich per JS gesteuert. */
   #sc-hidden-player {
     position: absolute;
     top: -9999px; left: -9999px;
@@ -123,7 +119,7 @@
       <div class="menu-icon" onclick="toggleMenu()"><span></span><span></span><span></span></div>
     </div>
 
-      <main class="section-grid">
+    <main class="section-grid">
       <div class="home-collage-layer" aria-hidden="true">
         <span class="home-collage-strip" style="--top:0%;--bottom:87.5%;--delay:.2s"></span>
         <span class="home-collage-strip" style="--top:12.5%;--bottom:75%;--delay:1.15s"></span>
@@ -134,40 +130,31 @@
         <span class="home-collage-strip" style="--top:75%;--bottom:12.5%;--delay:5.9s"></span>
         <span class="home-collage-strip" style="--top:87.5%;--bottom:0%;--delay:6.85s"></span>
       </div>
-      <!-- Linke Spalte -->
+
       <div class="meta-block">
-        <p>Ich male, was in meinem Kopf keinen Platz findet. Ich schreibe, was danach übrig bleibt. Und irgendwo läuft immer Musik.   </p>
+        <p>Ich male, was in meinem Kopf keinen Platz findet. Ich schreibe, was danach übrig bleibt. Und irgendwo läuft immer Musik.</p>
         <br>
       </div>
 
-      <!-- Mittlerer Bild-Kasten mit Zoom -->
       <div class="media-box">
         <div class="hero-img" id="zoomImage"></div>
       </div>
 
-      <!-- Rechte Spalte -->
       <div class="meta-block">
-         <p>Hier landet, was mich nicht loslässt. Bilder, Gedanken, Musik und das Chaos dazwischen. Nicht perfekt sortiert. Aber meins.<p>
+        <p>Hier landet, was mich nicht loslässt. Bilder, Gedanken, Musik und das Chaos dazwischen. Nicht perfekt sortiert. Aber meins.</p>
         <br>
       </div>
 
-      <!-- Unterer, zentrierter Absatz -->
-      <div class="full-width-block">
-      </div>
+      <div class="full-width-block"></div>
     </main>
 
     <div class="scroll-spacer"></div>
-    </div>
   </div>
 
-  <!-- ===== Unsichtbarer SoundCloud-Player =====
-       Vorhandenes SoundCloud-Embed, aber komplett unsichtbar und ohne Bedienelemente.
-       auto_play=false, weil der Start ausschließlich per Scroll-Trigger unten erfolgt. -->
   <iframe id="sc-hidden-player"
     scrolling="no" frameborder="no" allow="autoplay; encrypted-media"
-    src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2331433277&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false">
+    src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2331433277&color=%23000000&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false">
   </iframe>
-  <!-- SoundCloud Widget API: wird gebraucht, um den unsichtbaren Player per JS zu starten -->
   <script src="https://w.soundcloud.com/player/api.js"></script>
 
 <script>
@@ -185,54 +172,35 @@
     }, 3400);
   });
 
-
-
-  // ===== Sound-Einstieg (vereinfacht) =====
-  // Musik startet beim ersten Klick/Tippen irgendwo auf der Seite — kein
-  // Zusammenhang mehr mit dem Scrollen/Zoom-Effekt.
-  let scWidget = null;       // SoundCloud-Widget-Objekt, sobald bereit
-  let widgetReady = false;   // wird true, sobald der Player intern startklar ist
-  let pendingPlay = false;   // merkt sich: "sollte eigentlich schon laufen"
-  let soundStarted = false;  // Sperre: verhindert einen zweiten Start
+  let scWidget = null;
+  let widgetReady = false;
+  let pendingPlay = false;
+  let soundStarted = false;
 
   window.addEventListener('load', () => {
     const scIframe = document.getElementById('sc-hidden-player');
     if (window.SC && scIframe) {
       scWidget = SC.Widget(scIframe);
-      // Wichtig: play() darf erst NACH dem READY-Event aufgerufen werden,
-      // sonst verpufft der Befehl wirkungslos (kein Fehler, einfach kein Ton).
       scWidget.bind(SC.Widget.Events.READY, () => {
         widgetReady = true;
-        if (pendingPlay) {
-          tryPlay();
-        }
+        if (pendingPlay) tryPlay();
       });
-    } else {
-      console.warn('SoundCloud-Widget-API (window.SC) oder iFrame nicht gefunden.');
     }
   });
 
   function tryPlay() {
     if (soundStarted) return;
     if (!widgetReady) { pendingPlay = true; return; }
-    soundStarted = true; // Sperre SOFORT setzen, damit kein zweiter Aufruf dazwischenfunkt
-
-    const START_MS = 2021000; // 33:41 in Millisekunden
-
-    // Erst an die gewünschte Stelle springen...
+    soundStarted = true;
+    const START_MS = 2021000;
     scWidget.seekTo(START_MS);
-    scWidget.setVolume(10); // startet bei 10%, nicht bei 0 oder voller Lautstärke
-
-    // ...und ERST NACH einer kurzen Pause abspielen. Ohne diese Pause kann
-    // SoundCloud den play()-Befehl manchmal noch auf Position 0:00 ausführen,
-    // weil seekTo() intern noch nicht fertig verarbeitet ist.
+    scWidget.setVolume(10);
     setTimeout(() => {
       scWidget.play();
       fadeVolumeIn();
     }, 200);
   }
 
-  // Blendet die Lautstärke über 5 Sekunden kontinuierlich von 10% auf 100% hoch.
   function fadeVolumeIn() {
     const startVol = 10;
     const endVol = 100;
@@ -251,11 +219,8 @@
     }, stepMs);
   }
 
-  // Erster Klick/Tipp irgendwo auf der Seite startet die Musik einmalig.
   ['pointerdown', 'touchstart', 'keydown'].forEach(evt => {
-    document.addEventListener(evt, () => {
-      tryPlay();
-    }, { once: true, passive: true });
+    document.addEventListener(evt, tryPlay, { once: true, passive: true });
   });
 
   const zoomImage = document.getElementById('zoomImage');
@@ -267,14 +232,14 @@
     const imageY = 88 - (progress * 73);
     const zoomFactor = 1 + (progress * 0.55);
 
-    zoomImage.style.backgroundPosition = `center ${imageY}%`;
-
-    if (scrollPos > 10) {
+    if (scrollPos > 80) {
       zoomImage.style.position = 'fixed';
       zoomImage.style.top = '0';
       zoomImage.style.left = '0';
       zoomImage.style.width = '100vw';
       zoomImage.style.height = '100vh';
+      zoomImage.style.backgroundSize = 'cover';
+      zoomImage.style.backgroundPosition = `center ${imageY}%`;
       zoomImage.style.transform = `scale(${zoomFactor})`;
     } else {
       zoomImage.style.position = 'absolute';
@@ -282,6 +247,8 @@
       zoomImage.style.left = '0';
       zoomImage.style.width = '100%';
       zoomImage.style.height = '100%';
+      zoomImage.style.backgroundSize = 'contain';
+      zoomImage.style.backgroundPosition = 'center bottom';
       zoomImage.style.transform = 'scale(1)';
     }
   }
