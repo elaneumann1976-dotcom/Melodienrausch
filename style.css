@@ -238,15 +238,24 @@ body:has(.entry-grid) .back-link {
 body:has(.entry-grid) .entry-main {
   max-width: 650px;
   padding: 34px 42px 54px;
-  background:
-    linear-gradient(92deg, transparent 0 96%, rgba(0,0,0,.045) 100%),
-    rgba(244,240,231,.72);
+  background-color: #eee9df;
+  background-image:
+    linear-gradient(116deg, transparent 0 37%, rgba(64,50,32,.13) 38%, rgba(255,255,255,.38) 39%, transparent 41%),
+    linear-gradient(24deg, transparent 0 56%, rgba(73,57,37,.1) 57%, rgba(255,255,255,.3) 58%, transparent 60%),
+    radial-gradient(ellipse at 18% 24%, rgba(255,255,255,.5) 0, transparent 34%),
+    radial-gradient(ellipse at 78% 72%, rgba(54,43,29,.1) 0, transparent 42%),
+    url('grunge-texture-dark.jpg');
+  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, cover;
+  background-position: center;
+  background-blend-mode: multiply, screen, screen, multiply, screen;
   box-shadow:
     -12px 0 0 rgba(0,0,0,.035),
-    8px 12px 0 rgba(0,0,0,.055);
+    8px 12px 0 rgba(0,0,0,.075),
+    inset 0 0 34px rgba(61,47,30,.12);
   border-top: 3px solid #151515;
   border-bottom: 1px solid rgba(0,0,0,.55);
   transform: rotate(.25deg);
+  overflow: hidden;
 }
 
 body:has(.entry-grid) .entry-main::before {
@@ -260,6 +269,26 @@ body:has(.entry-grid) .entry-main::before {
   background: rgba(20,20,20,.16);
   transform: rotate(-2.4deg);
   mix-blend-mode: multiply;
+}
+
+body:has(.entry-grid) .entry-main::after {
+  content: "";
+  position: absolute;
+  inset: -4%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(73deg, transparent 0 17%, rgba(69,53,34,.11) 18%, rgba(255,255,255,.32) 18.6%, transparent 20%),
+    linear-gradient(151deg, transparent 0 33%, rgba(69,53,34,.09) 34%, rgba(255,255,255,.25) 34.8%, transparent 36%),
+    linear-gradient(12deg, transparent 0 69%, rgba(65,50,31,.08) 70%, rgba(255,255,255,.22) 70.8%, transparent 72%),
+    radial-gradient(ellipse at 48% 45%, transparent 0 30%, rgba(72,55,34,.08) 31%, transparent 33%);
+  opacity: .9;
+  mix-blend-mode: multiply;
+}
+
+body:has(.entry-grid) .entry-main > * {
+  position: relative;
+  z-index: 1;
 }
 
 body:has(.entry-grid) .entry-headline {
