@@ -45,7 +45,7 @@
   }
   .mail-block a:hover { text-decoration: underline; }
   .desc-block { grid-column: 10 / 13; font-family: Arial, Helvetica, sans-serif; font-size: 13px; line-height: 1.6; position: relative; z-index: 101; }
-  .scribble-layer { position: absolute; inset: 0; overflow: visible; pointer-events: none; z-index: 60; }
+  .scribble-layer { position: absolute; inset: 0; overflow: visible; pointer-events: none; z-index: 102; }
   .scribble-item { position: absolute; pointer-events: none; }
   .scribble-item svg { overflow: visible; display: block; }
   .scribble-item path {
@@ -182,14 +182,13 @@
 
   /* ===== Seite 2: mittelgroße Notizen / Pfeile ===== */
   const scribblesPage2 = [
-    { top: '10%', left: '5%',  width: '90px',  src: 'assets/scribbles/no.svg', delay: 150 },
-    { top: '10%', left: '18%', width: '90px',  src: 'assets/scribbles/no.svg', delay: 1250 },
-    { top: '10%', left: '31%', width: '90px',  src: 'assets/scribbles/no.svg', delay: 2350 },
-    { top: '32%', left: '64%', width: '180px', src: 'assets/scribbles/drama.svg', delay: 3500, pathDuration: 0.42 },
-    { top: '30%', left: '62%', width: '200px', src: 'assets/scribbles/circle.svg', delay: 6100, pathDuration: 0.8 },
-    { top: '58%', left: '10%', width: '140px', src: 'assets/scribbles/underline.svg', delay: 7100 },
-    { top: '72%', left: '55%', width: '150px', src: 'assets/scribbles/underline.svg', delay: 8250 },
-    { top: '18%', left: '80%', width: '110px', src: 'assets/scribbles/arrow-02.svg', delay: 9400 }
+    { top: '10%', left: '5%',  width: '170px', src: 'assets/scribbles/art.svg', delay: 150, rotate: -7, scale: 1 },
+    { top: '14%', left: '83%', width: '58px',  src: 'assets/scribbles/me-question.svg', delay: 1450, rotate: 5, scale: 1 },
+    { top: '36%', left: '69%', width: '95px',  src: 'assets/scribbles/broken-heart.svg', delay: 2700, rotate: 9, scale: 1 },
+    { top: '50%', left: '6%',  width: '50px',  src: 'assets/scribbles/question.svg', delay: 3900, rotate: -8, scale: 1 },
+    { top: '58%', left: '72%', width: '130px', src: 'assets/scribbles/curved-arrow.svg', delay: 4750, rotate: -12, scale: 1 },
+    { top: '78%', left: '12%', width: '150px', src: 'assets/scribbles/scratch-bars.svg', delay: 6000, rotate: -3, scale: 1, pathDuration: 0.35 },
+    { top: '30%', left: '35%', width: '135px', src: 'assets/scribbles/crossout.svg', delay: 7200, rotate: -5, scale: 1, pathDuration: 0.4 }
   ];
 </script>
 </body>
