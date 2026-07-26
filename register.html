@@ -1,75 +1,380 @@
-  <!-- Das neue Tagebuch-Gerüst mit Foto und der Live-Linie -->
-  <div class="diary-3d-wrapper">
-    <div class="book-environment">
-      <div class="book-base"></div>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MELODIENRAUSCH // TAGEBUCH</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Shadows+Into+Light&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  html, body { overflow-x: hidden; }
+  .hero-header {
+    position: fixed; top: 0; left: 0; width: 100%;
+    display: flex; justify-content: space-between; align-items: flex-end;
+    padding: 30px 40px 10px 40px; box-sizing: border-box; z-index: 100;
+  }
+  .huge-title {
+    font-family: 'Oswald', sans-serif; color: #ffffff;
+    font-size: clamp(30px, 7.8vw, 180px); font-weight: 700; line-height: 0.8;
+    letter-spacing: -2px; text-transform: uppercase; margin: 0; white-space: nowrap;
+  }
 
-      <!-- LINKE SEITE (Statisch im Hintergrund) -->
-      <div class="static-page-left" id="page-left-static">
-        <div class="content-layer">
-          <div>
-            <div class="pink-badge" style="background:#000;">Kapitel 01</div>
-            <h1 class="huge-title-diary" style="color:#e50914;">A CITY<br>TRANSFORMED</h1>
-          </div>
-          <div class="page-number">Seite 01</div>
-        </div>
-      </div>
+  /* ===== 3D-Magazin-Tagebuch ===== */
+  .diary-3d-wrapper {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+    perspective: 2000px;
+  }
 
-      <!-- DIE BEWEGLICHE 3D-SEITE -->
-      <div class="page-3d" id="flipPage" onclick="turnPage()">
-        
-        <!-- VORDERSEITE (Rechts beim Start) -->
-        <div class="page-front" id="page-r-front">
+  .book-environment {
+    position: relative;
+    width: 900px;
+    max-width: 90vw;
+    height: 580px;
+    transform: rotateX(25deg) rotateY(-10deg) rotateZ(2deg);
+    transform-style: preserve-3d;
+    box-shadow: 0 50px 100px rgba(0,0,0,0.8);
+  }
+
+  .book-base {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    border: 4px solid #e50914;
+    box-sizing: border-box;
+  }
+
+  .page-3d {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    transform-origin: left center;
+    transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+    cursor: pointer;
+    z-index: 5;
+  }
+
+  .page-front, .page-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    padding: 40px;
+    box-sizing: border-box;
+    background: #ffffff;
+    color: #000000;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
+  }
+
+  .page-back {
+    transform: rotateY(180deg);
+    background: #fcfcfc;
+    border-left: 1px solid #ddd;
+  }
+
+  .page-front::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 15px;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0,0,0,0.15), transparent);
+  }
+
+  .page-3d.flipped {
+    transform: rotateY(-180deg);
+  }
+
+  .static-page-left {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    background: #ededed;
+    color: #000;
+    padding: 40px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .huge-title-diary {
+    font-size: 4.5rem;
+    font-weight: 900;
+    line-height: 0.85;
+    text-transform: uppercase;
+    letter-spacing: -2px;
+    margin: 0;
+  }
+
+  .pink-badge {
+    background: #e50914;
+    color: #fff;
+    padding: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    display: inline-block;
+  }
+
+  .text-content {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #333;
+  }
+
+  .text-content strong {
+    font-size: 18px;
+    color: #000;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .page-number {
+    font-size: 12px;
+    font-weight: bold;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .hint {
+    position: absolute;
+    bottom: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #e50914;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+    animation: pulse 1.5s infinite alternate;
+  }
+
+  @keyframes pulse {
+    0% { opacity: 0.4; }
+    100% { opacity: 1; }
+  }
+
+  /* ===== Live-Kritzel-Notizen (schreiben sich beim Umblättern ein) ===== */
+  .content-layer {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    pointer-events: none;
+  }
+  .content-layer * { pointer-events: auto; }
+
+  .doodle {
+    position: absolute;
+    font-family: "Shadows Into Light", cursive;
+    color: rgba(0, 0, 0, 0.3);
+    user-select: none;
+    pointer-events: none;
+    z-index: 1;
+    line-height: 0.9;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0;
+    opacity: 0;
+    font-size: 22px;
+  }
+
+  .animate-draw {
+    animation: typeDoodle 2.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+
+  @keyframes typeDoodle {
+    0%   { width: 0; opacity: 0; }
+    5%   { opacity: 1; }
+    100% { width: 100%; opacity: 1; }
+  }
+
+  .doodle-bold { font-weight: 900; text-transform: uppercase; letter-spacing: -1px; }
+  .doodle-strike { text-decoration: line-through; text-decoration-thickness: 3px; }
+  .doodle-circle {
+    border: 2px solid transparent;
+    border-radius: 50% 40% 60% 45%;
+    padding: 5px 15px;
+    transform: scale(1.1);
+    animation: drawCircle 1.2s ease-out 1.5s forwards;
+  }
+  @keyframes drawCircle {
+    100% { border-color: rgba(0, 0, 0, 0.3); }
+  }
+</style>
+</head>
+<body>
+
+  <div id="intro-screen" style="position:fixed; top:0; left:0; width:100%; height:100vh; background:#000; color:#fff; display:flex; justify-content:center; align-items:center; z-index:9999999; transition:opacity 0.6s ease;">
+    <div style="font-family:'Courier New'; font-size:24px; letter-spacing:10px; text-transform:uppercase; font-weight:bold;">melodienrausch</div>
+  </div>
+  <div class="custom-cursor" id="cursor"></div>
+
+  <div class="side-menu">
+    <a href="index.html" class="menu-link">Heimat</a>
+    <a href="werke.html" class="menu-link">Werke</a>
+    <a href="ueber.html" class="menu-link">Über</a>
+    <a href="register.html" class="menu-link active">Register</a>
+    <a href="kontakt.html" class="menu-link">Kontakt</a>
+  </div>
+
+  <div class="main-content">
+    <div class="hero-header">
+      <h1 class="huge-title">MELODIENRAUSCH®</h1>
+      <div class="menu-icon" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+    </div>
+
+    <div class="diary-3d-wrapper">
+      <div class="book-environment">
+        <div class="book-base"></div>
+
+        <div class="static-page-left" id="page-left-static">
           <div class="content-layer">
             <div>
-              <div class="pink-badge">BY WORDS</div>
-              <h1 class="huge-title-diary">MELODIEN<br>RAUSCH</h1>
+              <div class="pink-badge" style="background:#000;">Kapitel 02</div>
+              <h1 class="huge-title-diary" style="color:#e50914;">NEUE<br>WEGE</h1>
             </div>
-            
-            <!-- DIE ANIMIERTE STIFT-LINIE AUS DEINEM BILD -->
-            <div class="sketch-line-container">
-              <svg class="sketch-line-svg" viewBox="0 0 400 100">
-                <!-- Ein unperfekter, handgezeichneter Pfad -->
-                <path class="sketch-path" d="M 10,50 Q 100,30 200,60 T 390,40" />
-              </svg>
-            </div>
-
-            <!-- DAS SCHWARZ-WEIß-FOTO DIREKT UNTER DER LINIE -->
-            <div class="diary-photo-box">
-              <img src="profilbilld.png" alt="Tagebuch Bild" class="diary-bw-photo">
-            </div>
-
-            <div class="text-content" style="margin-top: 15px;">
-              <strong>Eintrag 01</strong>
-              Die Linie zieht sich quer über das Blatt und verbindet die Worte direkt mit dem Bild. Genau wie auf dem Festival-Plakat.
-            </div>
-            <div class="page-number" style="text-align: right;">Seite 02 ▸</div>
+            <div class="page-number">Seite 01</div>
           </div>
         </div>
 
-        <!-- RÜCKSEITE (Wird nach Umblättern links sichtbar) -->
-        <div class="page-back" id="page-l-back">
-          <div class="content-layer">
-            <div>
-              <h1 class="huge-title-diary" style="font-size: 3rem;">POESIE<br>AM RAND</h1>
-            </div>
-            
-            <!-- Auch auf der Rückseite zieht sich eine Linie live auf -->
-            <div class="sketch-line-container">
-              <svg class="sketch-line-svg" viewBox="0 0 400 100">
-                <path class="sketch-path" d="M 10,30 Q 150,70 250,20 T 390,60" />
-              </svg>
-            </div>
+        <div class="page-3d" id="flipPage" onclick="turnPage()">
 
-            <div class="text-content">
-              <strong>Nächster Eintrag...</strong>
-              Das Zusammenspiel aus rohen Strichen und deinen Fotos gibt dem Melodienrausch-Tagebuch einen extremen künstlerischen Charakter.
+          <div class="page-front" id="page-r-front">
+            <div class="content-layer">
+              <div>
+                <div class="pink-badge">Tagebuch Start</div>
+                <h1 class="huge-title-diary">MAZ<br>ING</h1>
+              </div>
+              <div class="text-content">
+                <strong>Klicke auf diese Seite...</strong>
+                ...um den echten 3D-Blättereffekt auszulösen! Das Buch liegt leicht schräg im Raum, behält aber ein absolut klares Raster, damit du beim Schreiben und Lesen deines Tagebuchs keine Kopfschmerzen bekommst.
+              </div>
+              <div class="page-number" style="text-align: right;">Seite 02 ▸</div>
             </div>
-            <div class="page-number">◀ Zurück | Seite 03</div>
           </div>
+
+          <div class="page-back" id="page-l-back">
+            <div class="content-layer">
+              <div>
+                <h1 class="huge-title-diary" style="font-size: 3rem;">EINTRAG<br>ZWEI</h1>
+              </div>
+              <div class="text-content">
+                <strong>24. Juli 2026</strong>
+                Hier öffnet sich nahtlos der nächste Abschnitt deines Tagebuchs. Durch die 3D-Drehung fühlt es sich an wie ein echtes, schweres Magazin aus Papier. Klicke erneut, um das Buch wieder zu schließen!
+              </div>
+              <div class="page-number">◀ Zurück | Seite 03</div>
+            </div>
+          </div>
+
         </div>
 
+        <div class="hint">Klicke auf die rechte Buchseite zum Umblättern</div>
       </div>
-
-      <div class="hint">Klicke auf die rechte Seite zum Umblättern</div>
     </div>
   </div>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  document.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
+  });
+  function toggleMenu() { document.body.classList.toggle('menu-open'); }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      const intro = document.getElementById('intro-screen');
+      if(intro) { intro.style.opacity = '0'; setTimeout(() => intro.remove(), 600); }
+      document.body.classList.add('intro-done');
+    }, 2000);
+  });
+
+  function turnPage() {
+    const page = document.getElementById('flipPage');
+    page.classList.toggle('flipped');
+    const isFlipped = page.classList.contains('flipped');
+    setTimeout(() => {
+      if (isFlipped) {
+        generateDoodles(document.getElementById('page-l-back'), 5, true);
+      } else {
+        generateDoodles(document.getElementById('page-r-front'), 5, true);
+      }
+    }, 600);
+  }
+
+  /* ===== Kritzel-Notizen: Pool + Erzeugung ===== */
+  const doodlePool = [
+    { text: "LOVE", type: "bold" },
+    { text: "HATE", type: "bold" },
+    { text: "DRAMA", type: "circle" },
+    { text: "ME?", type: "normal" },
+    { text: "No No No", type: "normal" },
+    { text: "I can't relate", type: "normal" },
+    { text: "negative days", type: "normal" },
+    { text: "IN MY LIFE", type: "bold" },
+    { text: "💔", type: "normal" },
+    { text: "🕒", type: "normal" },
+    { text: "!!!", type: "bold" }
+  ];
+
+  function generateDoodles(pageElement, count, triggerAnimation = false) {
+    if (!pageElement) return;
+    pageElement.querySelectorAll('.doodle').forEach(d => d.remove());
+
+    for (let i = 0; i < count; i++) {
+      const doodle = document.createElement('div');
+      doodle.classList.add('doodle');
+
+      const item = doodlePool[Math.floor(Math.random() * doodlePool.length)];
+      doodle.innerText = item.text;
+
+      if (item.type === 'bold') doodle.classList.add('doodle-bold');
+      if (item.type === 'strike') doodle.classList.add('doodle-strike');
+      if (item.type === 'circle') doodle.classList.add('doodle-circle');
+
+      const top = 10 + Math.random() * 70;
+      const left = 5 + Math.random() * 60;
+      doodle.style.top = top + '%';
+      doodle.style.left = left + '%';
+      doodle.style.transform = `rotate(${(Math.random() - 0.5) * 12}deg)`;
+
+      pageElement.appendChild(doodle);
+
+      if (triggerAnimation) {
+        const delay = i * 150;
+        setTimeout(() => doodle.classList.add('animate-draw'), delay);
+      }
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    generateDoodles(document.getElementById('page-left-static'), 3, true);
+    generateDoodles(document.getElementById('page-r-front'), 4, true);
+  });
+</script>
+</body>
+</html>
