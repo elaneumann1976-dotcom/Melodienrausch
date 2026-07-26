@@ -325,11 +325,13 @@
   // (siehe style.css: body.intro-done .main-content { opacity: 1; })
   document.body.classList.add('intro-done');
 
-  // Fedele x Ora Curated — Tagebuch startet bei 55:00.
+  // Fedele x Ora Curated — Tagebuch setzt direkt bei 55:00 ein.
   let scWidget = null;
   let widgetReady = false;
   let pendingPlay = false;
+  let startAttempted = false;
   let soundStarted = false;
+  let fadeStarted = false;
 
   window.addEventListener('load', () => {
     const scIframe = document.getElementById('sc-hidden-player');
@@ -337,34 +339,44 @@
       scWidget = SC.Widget(scIframe);
       scWidget.bind(SC.Widget.Events.READY, () => {
         widgetReady = true;
-        if (pendingPlay) startDiarySound();
+        startDiarySound();
+      });
+      scWidget.bind(SC.Widget.Events.PLAY, () => {
+        soundStarted = true;
+        fadeDiarySound();
       });
     }
   });
 
-  function startDiarySound() {
+  function startDiarySound(force = false) {
     if (soundStarted) return;
     if (!widgetReady) {
       pendingPlay = true;
       return;
     }
-    soundStarted = true;
+    if (startAttempted && !force) return;
+    pendingPlay = false;
+    startAttempted = true;
     const START_MS = 3300000; // 55:00
     scWidget.seekTo(START_MS);
     scWidget.setVolume(10);
-    setTimeout(() => {
-      scWidget.play();
-      let volume = 10;
-      const fade = setInterval(() => {
-        volume = Math.min(volume + 1.8, 100);
-        scWidget.setVolume(volume);
-        if (volume >= 100) clearInterval(fade);
-      }, 100);
-    }, 200);
+    setTimeout(() => scWidget.play(), 250);
   }
 
+  function fadeDiarySound() {
+    if (fadeStarted) return;
+    fadeStarted = true;
+    let volume = 10;
+    const fade = setInterval(() => {
+      volume = Math.min(volume + 1.8, 100);
+      scWidget.setVolume(volume);
+      if (volume >= 100) clearInterval(fade);
+    }, 100);
+  }
+
+  // Falls der Browser Autoplay abweist, startet die erste Berührung zuverlässig.
   ['pointerdown', 'touchstart', 'keydown'].forEach((eventName) => {
-    document.addEventListener(eventName, startDiarySound, { once: true, passive: true });
+    document.addEventListener(eventName, () => startDiarySound(true), { once: true, passive: true });
   });
 
   window.addEventListener('DOMContentLoaded', () => {
