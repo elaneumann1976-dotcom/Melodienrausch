@@ -498,11 +498,12 @@ body.diary-entry.layout-c .entry-headline {
 }
 
 body.diary-entry.layout-c .entry-headline::after {
-  content: "weiter.";
-  display: table;
-  margin: 8px 18px 0 auto;
-  font: 400 clamp(28px, 3vw, 39px)/1 "Shadows Into Light", cursive;
-  border-bottom: 2px solid #151515;
+  content: "";
+  display: block;
+  width: 42%;
+  height: 3px;
+  margin: 12px 18px 0 auto;
+  background: #151515;
   transform: rotate(-2deg);
 }
 
