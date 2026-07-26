@@ -1,19 +1,25 @@
-<!DOCTYPE html>
+<!DOCTYPE
+ html>
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, 
+initial-scale=1.0">
 <title>MELODIENRAUSCH // WERKE</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" 
+crossorigin>
+<link 
+href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap"
+ rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <style>
   html, body { overflow-x: hidden; }
 
   .hero-header {
     position: fixed; top: 0; left: 0; width: 100%;
-    display: flex; justify-content: space-between; align-items: flex-end;
+    display: flex; justify-content: space-between; align-items: 
+flex-end;
     padding: 30px 40px 10px 40px; box-sizing: border-box;
     z-index: 300;
     background: rgba(10,10,10,0.92);
@@ -38,7 +44,8 @@
     position: relative;
   }
 
-  .row { display: flex; gap: 24px; padding: 12px 0; will-change: transform; }
+  .row { display: flex; gap: 24px; padding: 12px 0; will-change: 
+transform; }
   .row:nth-child(odd)  { padding-left: 6vw; }
   .row:nth-child(even) { padding-left: 0; margin-left: -6vw; }
 
@@ -47,52 +54,85 @@
     width: 320px; height: 220px;
     background-color: #000000; color: #ffffff; border: 1px solid #ffffff;
     display: flex; align-items: center; justify-content: center;
-    cursor: none; overflow: hidden; background-size: cover; background-position: center;
+    cursor: none; overflow: hidden;
     transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   }
   .card.clicked { transform: scale(1.06); }
-  .card .num { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 64px; opacity: 0.85; }
 
-  .title-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: #0a0a0a; color: #ffffff;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    z-index: 900; opacity: 0; pointer-events: none;
-    transition: opacity 0.5s ease;
+  .card-bg {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%; object-fit: cover;
+    opacity: 0; transform: scale(1.08);
+    filter: grayscale(100%) contrast(1.2) brightness(0.45);
+    transition: opacity 900ms ease, transform 1200ms cubic-bezier(0.16, 1, 0.3, 1), filter 1100ms ease;
+    z-index: 1;
   }
-  .title-overlay.active { opacity: 1; pointer-events: auto; }
-  .title-overlay .werk-num { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 20px; letter-spacing: 4px; opacity: 0.5; margin-bottom: 20px; }
-  .title-overlay h2 { font-family: 'Oswald', sans-serif; font-weight: 700; text-transform: uppercase; font-size: clamp(28px, 6vw, 80px); margin: 0; text-align: center; letter-spacing: -1px; }
-  .title-overlay .goto-detail {
-    margin-top: 40px; font-family: 'Oswald', sans-serif; font-size: 14px;
-    letter-spacing: 2px; text-transform: uppercase; border-bottom: 1px solid #fff;
-    padding-bottom: 4px; cursor: none;
+  .card:hover .card-bg { opacity: 1; transform: scale(1); filter: grayscale(15%) contrast(1.05) brightness(0.85); }
+
+  .card::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0) 55%);
+    opacity: 0; transition: opacity 0.9s ease; z-index: 2; pointer-events: none;
   }
+  .card:hover::before { opacity: 1; }
+
+  .card .num {
+    font-family: 'Oswald', sans-serif; font-weight: 700;
+    font-size: 64px; opacity: 0.85; position: relative; z-index: 3;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease;
+  }
+  .card:hover .num { transform: translateY(-18px) scale(0.72); opacity: 0.6; }
+
+  .card-title {
+    position: absolute; left: 20px; bottom: 16px; right: 20px; z-index: 3;
+    font-family: 'Oswald', sans-serif; font-size: 14px; letter-spacing: 1px;
+    text-transform: uppercase; opacity: 0; transform: translateY(10px);
+    transition: opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s;
+  }
+  .card:hover .card-title { opacity: 1; transform: translateY(0); }
+
+  /* Handy: kein echtes Hover verfügbar, deshalb Bild/Titel dezent immer sichtbar */
+  @media (hover: none) {
+    .card-bg { opacity: 0.55; transform: scale(1); filter: grayscale(35%) contrast(1.1) brightness(0.6); }
+    .card::before { opacity: 1; }
+    .card .num { transform: translateY(-16px) scale(0.78); opacity: 0.7; }
+    .card-title { opacity: 1; transform: translateY(0); }
+  }
+
 
   /* ===== DETAIL-ANSICHT (bestehende Einzelwerk-Seite) ===== */
-  .detail-view { display: none; }
+  .detail-view { display: none; opacity: 0; transition: opacity 0.7s ease; }
   .detail-view.active { display: block; }
+  .detail-view.visible { opacity: 1; }
 
   .back-to-gallery {
-    grid-column: 1 / 4; font-family: 'Oswald', sans-serif; font-size: 13px;
+    grid-column: 1 / 4; font-family: 'Oswald', sans-serif; font-size: 
+13px;
     letter-spacing: 1px; text-transform: uppercase; cursor: none;
-    border-bottom: 1px solid #fff; display: inline-block; padding-bottom: 3px;
+    border-bottom: 1px solid #fff; display: inline-block; 
+padding-bottom: 3px;
     margin-top: 20px;
   }
 
   .section-grid {
     display: grid; grid-template-columns: repeat(12, 1fr); gap: 40px;
-    padding: 240px 40px 40px 40px; align-items: start; position: relative;
+    padding: 240px 40px 40px 40px; align-items: start; position: 
+relative;
     min-height: 100vh; box-sizing: border-box;
   }
 
   .meta-block {
-    grid-column: 1 / 4; font-family: 'Oswald', sans-serif; font-size: 15px;
-    line-height: 1.3; text-transform: uppercase; position: relative; z-index: 101;
+    grid-column: 1 / 4; font-family: 'Oswald', sans-serif; font-size: 
+15px;
+    line-height: 1.3; text-transform: uppercase; position: relative; 
+z-index: 101;
   }
 
-  .werk-nav { display: flex; gap: 24px; margin-top: 24px; font-family: 'Oswald', sans-serif; font-size: 22px; }
-  .werk-nav button { background: none; border: none; padding: 0; font-family: inherit; font-size: inherit; color: #ffffff; cursor: none; letter-spacing: 2px; pointer-events: auto; }
+  .werk-nav { display: flex; gap: 24px; margin-top: 24px; font-family: 
+'Oswald', sans-serif; font-size: 22px; }
+  .werk-nav button { background: none; border: none; padding: 0; 
+font-family: inherit; font-size: inherit; color: #ffffff; cursor: none; 
+letter-spacing: 2px; pointer-events: auto; }
   .werk-nav button:disabled { opacity: 0.25; }
   .werk-nav .divider { opacity: 0.35; }
 
@@ -100,21 +140,44 @@
 
   .hero-img {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background-color: #000000; background-size: cover; background-position: center 15%; background-repeat: no-repeat;
-    z-index: 50; display: flex; align-items: center; justify-content: center; overflow: hidden;
+    background-color: #000000; background-size: cover; 
+background-position: center 15%; background-repeat: no-repeat;
+    z-index: 50; display: flex; align-items: center; justify-content: 
+center; overflow: hidden;
   }
 
   .werk-num-big {
     font-family: 'Oswald', sans-serif; font-weight: 700; color: #ffffff;
-    font-size: clamp(120px, 22vw, 380px); line-height: 0.8; letter-spacing: -8px;
+    font-size: clamp(120px, 22vw, 380px); line-height: 0.8; 
+letter-spacing: -8px;
     opacity: 0.9; pointer-events: none;
   }
 
-  .desc-block { grid-column: 10 / 13; font-family: Arial, Helvetica, sans-serif; font-size: 13px; line-height: 1.6; color: #ffffff; position: relative; z-index: 101; }
-  .werk-title { font-family: 'Oswald', sans-serif; font-size: 22px; font-weight: 700; text-transform: uppercase; line-height: 1.05; letter-spacing: -0.5px; margin-bottom: 20px; }
-  .werk-manifest { font-style: italic; margin-bottom: 20px; opacity: 0.85; }
-  .werk-fields { font-family: 'Oswald', sans-serif; font-size: 13px; text-transform: uppercase; line-height: 1.7; padding-top: 16px; border-top: 1px solid #ffffff; }
-  .werk-fields div { display: flex; justify-content: space-between; gap: 20px; }
+  .hero-img-multi {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    display: flex; gap: 6px; z-index: 50;
+  }
+  .hero-img-multi img {
+    flex: 1 1 0; width: 100%; height: 100%; object-fit: cover;
+  }
+
+  .desc-block { grid-column: 10 / 13; font-family: Arial, Helvetica, 
+sans-serif; font-size: 13px; line-height: 1.6; color: #ffffff; position:
+ relative; z-index: 101; }
+  .werk-title { font-family: 'Oswald', sans-serif; font-size: 22px; 
+font-weight: 700; text-transform: uppercase; line-height: 1.05; 
+letter-spacing: -0.5px; margin-bottom: 20px; }
+  .werk-manifest { font-style: italic; margin-bottom: 20px; opacity: 
+0.85; }
+  .werk-description { font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 1.65; margin-bottom: 20px; opacity: 0.9; }
+  .werk-sound { margin-bottom: 24px; }
+  .werk-sound-label { font-family: 'Oswald', sans-serif; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.6; margin-bottom: 8px; }
+  .werk-sound iframe { border: none; filter: invert(1) grayscale(0.6) contrast(1.1); }
+  .werk-fields { font-family: 'Oswald', sans-serif; font-size: 13px; 
+text-transform: uppercase; line-height: 1.7; padding-top: 16px; 
+border-top: 1px solid #ffffff; }
+  .werk-fields div { display: flex; justify-content: space-between; gap:
+ 20px; }
   .werk-fields .k { opacity: 0.55; }
 </style>
 </head>
@@ -130,10 +193,14 @@
     #intro-screen .intro-text {
       font-family:'Courier New'; font-size:24px; letter-spacing:10px;
       text-transform:uppercase; font-weight:bold;
-      animation: introFromBehind 3s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+      animation: introFromBehind 3s cubic-bezier(0.19, 1, 0.22, 1) 
+forwards;
     }
   </style>
-  <div id="intro-screen" style="position:fixed; top:0; left:0; width:100%; height:100vh; background:#000; color:#fff; display:flex; justify-content:center; align-items:center; z-index:9999999; transition:opacity 0.6s ease;">
+  <div id="intro-screen" style="position:fixed; top:0; left:0; 
+width:100%; height:100vh; background:#000; color:#fff; display:flex; 
+justify-content:center; align-items:center; z-index:9999999; 
+transition:opacity 0.6s ease;">
     <div class="intro-text">melodienrausch</div>
   </div>
   <div class="custom-cursor" id="cursor"></div>
@@ -151,7 +218,8 @@
     <div class="hero-header">
       <h1 class="huge-title">MELODIENRAUSCH®</h1>
       <div class="menu-icon" onclick="toggleMenu()">
-        <span></span><span></span><span></span>
+        
+<span></span><span></span><span></span>
       </div>
     </div>
 
@@ -165,12 +233,17 @@
       <div class="section-grid">
         <div class="meta-block">
           WERKKATALOG <br><br>
-          <a class="back-to-gallery" onclick="showGallery()">← Zur Galerie</a><br><br>
-          <strong>INDEX &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span id="werk-index">01/30</span></strong>
+          <a class="back-to-gallery" onclick="showGallery()">← Zur
+ Galerie</a><br><br>
+          <strong>INDEX 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <span id="werk-index">01/30</span></strong>
           <div class="werk-nav">
-            <button id="prev-btn" onclick="prevWerk()" aria-label="Vorheriges Werk">◂</button>
+            <button id="prev-btn" onclick="prevWerk()" 
+aria-label="Vorheriges Werk">◂</button>
             <span class="divider">·</span>
-            <button id="next-btn" onclick="nextWerk()" aria-label="Nächstes Werk">▸</button>
+            <button id="next-btn" onclick="nextWerk()" 
+aria-label="Nächstes Werk">▸</button>
           </div>
         </div>
 
@@ -178,81 +251,203 @@
           <div class="hero-img" id="zoomImage">
             <span class="werk-num-big" id="werk-num-big">01</span>
           </div>
+          <div class="hero-img-multi" id="zoomImageMulti" style="display:none;"></div>
         </div>
 
         <div class="desc-block">
-          <div class="werk-title" id="werk-title">Wenn der Bass die Stille im Kopf überdröhnt</div>
-          <div class="werk-manifest" id="werk-manifest">„Das hier ist kein Portfolio, sondern ein digitales Underground-Magazin."</div>
+          <div class="werk-title" id="werk-title">Wenn der Bass 
+die Stille im Kopf überdröhnt</div>
+          <div class="werk-manifest" id="werk-manifest">„Das hier 
+ist kein Portfolio, sondern ein digitales 
+Underground-Magazin."</div>
+          <div class="werk-description" id="werk-description"></div>
+          <div class="werk-sound" id="werk-sound-wrap" style="display:none;">
+            <div class="werk-sound-label" id="werk-sound-label"></div>
+            <iframe id="werk-sound-frame" width="100%" height="120" frameborder="no" scrolling="no"></iframe>
+          </div>
           <div class="werk-fields">
-            <div><span class="k">Technik</span><span id="werk-tech">Mischtechnik auf Papier</span></div>
-            <div><span class="k">Format</span><span id="werk-size">60 × 80 cm</span></div>
-            <div><span class="k">Jahr</span><span id="werk-year">2026</span></div>
-            <div><span class="k">Status</span><span id="werk-status">Verfügbar</span></div>
+            <div><span 
+class="k">Technik</span><span id="werk-tech">Mischtechnik
+ auf Papier</span></div>
+            <div><span class="k">Format</span><span
+ id="werk-size">60 × 80 cm</span></div>
+            <div><span class="k">Jahr</span><span 
+id="werk-year">2026</span></div>
+            <div><span class="k">Status</span><span
+ id="werk-status">Verfügbar</span></div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- TITEL-OVERLAY nach Klick in der Galerie -->
-  <div class="title-overlay" id="titleOverlay">
-    <div class="werk-num" id="ovNum">#01</div>
-    <h2 id="ovTitle">Werktitel erscheint hier</h2>
-    <div class="goto-detail" onclick="goToDetailFromOverlay()">Zur Werkseite →</div>
-  </div>
-
 <script>
   // ---- Werk-Katalog (nur #01 mit echten Daten, Rest Platzhalter) ----
   const werke = [
     {
-      num: '01', title: 'Wenn der Bass die Stille im Kopf überdröhnt',
-      manifest: 'Das hier ist kein Portfolio, sondern ein digitales Underground-Magazin.',
-      tech: 'Mischtechnik auf Papier', size: '60 × 80 cm', year: '2026', status: 'Verfügbar',
-      img: 'werk01.jpg'
+      num: '07', title: 'Unearthed Place',
+      description: '„Unearthed Place“ erinnert mich an etwas, das man in sich findet, ohne bewusst danach gesucht zu haben. Die rostigen und blauen Schichten wirken wie alte Haut – getragen, verwittert, aber voller Geschichten. Nichts daran ist glatt, und genau das fühlt sich ehrlich an. Die eingravierte Zahl taucht auf wie eine Erinnerung, die man fast vergessen hätte, die aber plötzlich wieder da ist. In den freigelegten Spuren spüre ich Zeit, Abrieb, etwas Verletzliches, das trotzdem bleibt. Und der Soundtrack passt, weil manche Orte in einem nur leise sprechen – mehr als Gefühl als Gedanke, wie etwas, das wieder ans Licht will.',
+      manifest: 'Jede Oberfläche trägt eine Geschichte, auch wenn niemand sie mehr lesen kann.',
+      sound: 'Ammenmärchen (intro remix by Dynamit Harry)', trackId: '116847902',
+      tech: 'Acryl und Strukturpaste auf Leinwand, mehrschichtiger Farbauftrag, Lasurtechnik und partielle Freilegung der unteren Farbschichten.',
+      size: '60 x 80 cm', year: null, status: 'Offen',
+      img: 'bilder/unearthed-place.jpg'
+    },
+    {
+      num: '08', title: 'Spuren und Wege',
+      description: '„Spuren und Wege“ ist mein Bild für dieses Unterwegssein in mir selbst. Das Ocker und Türkis fühlen sich an wie zwei Stimmungen, zwischen denen ich oft hin- und herschwinge. Die Linien und Fragmente sind für mich Gedanken, die auftauchen, sich überschneiden, wieder verschwinden. Ein leiser Prozess, aber voller Bewegung. Der Soundtrack passt, weil Musik mir oft zeigt, wo ich gerade stehe – manchmal klar, manchmal diffus, aber immer echt.',
+      manifest: 'Jeder Weg hinterlässt Spuren, auch die unsichtbaren.',
+      sound: 'Depeche Mode - Only When I Lose Myself (Lexicon Avenue Remix)', trackId: '1265840854',
+      tech: 'Acryl und Strukturpaste auf Leinwand, Schichtmalerei, Spachtel- und Wischtechnik',
+      size: '40 x 50 cm', year: null, status: 'Offen',
+      img: 'bilder/spuren-und-wege.jpg'
+    },
+    {
+      num: '09', title: 'Silent Core',
+      description: 'In „Silent Core“ spüre ich einen konzentrierten Moment, in dem innen Ruhe bleibt, auch wenn außen alles laut wird. Das rote Quadrat fühlt sich für mich wie ein klarer Kern an – direkt, unverrückt, ohne Ablenkung. Rundherum nimmt das Schwarz alles Unnötige auf und lässt nur das Wesentliche stehen. So entsteht eine stille Spannung, die eher atmet als erklärt. Und der Soundtrack passt, weil manche inneren Zentren nicht in Worten sprechen – sie pulsieren einfach.',
+      manifest: 'Im Zentrum der Stille liegt die größte Kraft.',
+      sound: 'Azari & III - Hungry For The Power (Jamie Jones Ridge Street Remix)', trackId: '14554141',
+      tech: 'Acryl auf Leinwand, Strukturauftrag, monochrome Flächenmalerei',
+      size: '70 x 50 cm', year: null, status: 'Offen',
+      img: 'bilder/silent-core.jpg'
+    },
+    {
+      num: '10', title: 'Spuren in Beton',
+      description: '„Spuren im Betonlicht“ lässt Erinnerung und Stadtgeräusche flüchtig verschmelzen. Neon blau wirkt wie ein kalter Atemzug. Rosa wie restliche Wärme, während die „23“ als fixer Gedanke auftaucht. Abnutzungen zeigen das leise Leben des Vergessenen – eine Erinnerung, die nicht klar wird, sondern nur im eigenen Licht glimmt.',
+      manifest: 'Die Zeit schreibt ihre eigenen Geschichten in jede Oberfläche.',
+      sound: 'Tone Depth Feat. Johannes Brecht & Fetsum - Free (HOSH Edit) (Preview)', trackId: '493315446',
+      tech: 'Acryl, Strukturpaste und Transferdruck auf Leinwand, Schichtaufbau mit Spachtel-, Schleif- und Lasurtechniken.',
+      size: '70 x 100 cm', year: null, status: 'Offen',
+      img: 'bilder/spuren-in-beton.jpg'
+    },
+    {
+      num: '11', title: 'Symmetrie der Stille',
+      description: '„Symmetrie der Stille“ ist mein Versuch, Ordnung sichtbar zu machen, ohne so zu tun, als wäre innen wirklich alles ordentlich. Klare Formen, viel Ruhe, Grau, Weiß, Schatten – und trotzdem liegt in allem eine leichte Spannung. Genau diese Art von Stille kenne ich: nicht leer, nicht friedlich, eher kontrolliert. Der verlinkte Soundtrack setzt darunter den Puls, den man im Bild erst auf den zweiten Blick merkt.',
+      manifest: 'Ordnung ist die Maske des Chaos.',
+      sound: 'Calvin Harris vs Rüfüs Du Sol - Sweet Nothing vs Innerbloom (VIP MIX)', trackId: '2029530928',
+      tech: 'Acryl und Strukturtechniken auf Leinwand',
+      size: '100 x 70 cm', year: 2024, status: 'Offen',
+      img: 'bilder/symmetrie-der-stille.jpg'
+    },
+    {
+      num: '12', title: 'Gelbes Echo',
+      description: '„Gelbes Echo“ ist mein Bild für das Aufbrechen von Licht in einer stillen, schweren Umgebung. Das leuchtende Gelb fühlt sich für mich an wie ein warmer Widerhall – ein Impuls, der durch Grau und Geschichte dringt. Da ist Klarheit drin, aber auch Trotz. Die beiden Flächen erinnern mich daran, dass selbst in der Stille etwas in Bewegung bleibt. Der Soundtrack gehört dazu, weil manche Helligkeit nicht sichtbar beginnt – sie klingt zuerst.',
+      manifest: 'Ein letzter Rest Trotz im Grau.',
+      sound: 'Kris Davis - Fallout', trackId: '739696288',
+      tech: 'Acryl-Mischtechnik auf Leinwand',
+      size: '80 x 60 cm', year: null, status: 'Offen',
+      img: 'bilder/gelbes-echo.jpg'
+    },
+    {
+      num: '13', title: 'Fragmentierte Einheit',
+      description: '„Fragmentierte Einheit“ visualisiert das Gefühl, innerlich zu zerfallen und dennoch zusammenzuhalten. Drei Segmente zeigen unterschiedliche Zustände, die getrennt und doch verbunden bleiben. Während das zentrale Rot den unermüdlichen Herzschlag verkörpert, halten Linien die Brüche zusammen. Der Soundtrack gibt dem Unausgesprochenen in den rauen Hintergründen einen Takt – ein Echo, das weiterlebt.',
+      manifest: 'Zersplittert, aber im Kern unbesiegbar.',
+      sound: 'deadmau5 - xyz', trackId: '1288852933',
+      tech: 'Mixed Media auf Leinwand',
+      size: '70 x 50 cm, 50 x40 cm, 20 x 60 cm (dreiteilig)', year: null, status: 'Offen',
+      images: ['bilder/fragmentierte-einheit-1.jpg', 'bilder/fragmentierte-einheit-2.jpg', 'bilder/fragmentierte-einheit-3.jpg']
+    },
+    {
+      num: '14', title: 'Linie im Blau',
+      description: 'Linie im Blau erzählt von Orientierung inmitten von Bewegung. Kräftige Blautöne treffen auf dunkle Flächen und werden von einer goldenen Linie durchzogen, die beide Bildteile miteinander verbindet. Das Werk handelt von Fokus, Richtung und der Fähigkeit, einen eigenen Weg sichtbar zu machen.',
+      manifest: 'Manchmal genügt eine Linie, um die Richtung zu ändern.',
+      sound: 'Leo Kane - Epic (Original Mix)', trackId: '81184764',
+      tech: 'Acryl, Strukturpaste und Pigmentfarbe auf Leinwand, Spachteltechnik, gestische Linienführung und mehrschichtiger Farbauftrag.',
+      size: '50 x 70, 30 x 70 cm', year: null, status: 'Offen',
+      img: 'https://framerusercontent.com/images/4Oryp3PhkgZdCB4HHnqhCtH9w.png'
+    },
+    {
+      num: '15', title: 'Unter Strom',
+      description: 'Das Blau frisst sich rein. Nicht ruhig, nicht weich – eher wie ein Druck, der von außen kommt. Und das Dunkle hält dagegen. Rau, schwer, fast stumm. Für mich ist das dieser Moment, wenn innen alles arbeitet, aber nach außen nichts passiert. Nur Spannung. Die bleibt.',
+      manifest: 'Blaues Licht. Hochspannung. Kein Zurück.',
+      sound: 'Fedele - Zommerfest 25', trackId: '2168070657',
+      tech: 'Acryl und Strukturpaste auf Leinwand, Spachteltechnik, Reliefstruktur, mehrschichtiger Farbauftrag mit metallisch-pigmentierten Akzenten.',
+      size: '80 x 80 cm', year: null, status: 'Offen',
+      img: 'https://framerusercontent.com/images/lTa25kKGnBbx1aRxzQEiCIYQFc.png'
+    },
+    {
+      num: '16', title: 'Drei Tore ins Licht',
+      description: '„Drei Tore ins Licht“ ist mein Bild über Veränderung — über Dunkelheit, alte Muster und den Moment, in dem man merkt, dass es so nicht weitergehen kann. Die Farben und Strukturen erzählen von Reibung, Hoffnung und dem langsamen Weg in mehr Klarheit. Nicht linear, nicht sauber, aber echt. Der verlinkte Soundtrack gehört dazu, weil manche Stimmungen erst in Musik zu Ende erzählt werden.',
+      manifest: 'Der Moment, in dem die Klarheit siegt.',
+      sound: 'Bunte Bummler - Lightsammon mantao', trackId: '176031491',
+      tech: 'Acryl, Strukturpaste und Lasuren auf Leinwand. Mehrschichtiger Farbauftrag mit partiellen Schleif- und Freilegungstechniken. Triptychon (dreiteilig).',
+      size: '3 x 30 x 90 cm', year: null, status: 'Offen',
+      images: ['bilder/drei-tore-ins-licht-1.jpg', 'bilder/drei-tore-ins-licht-2.jpg', 'bilder/drei-tore-ins-licht-3.jpg']
     }
   ];
-  for (let i = 2; i <= 30; i++) {
-    werke.push({
-      num: String(i).padStart(2, '0'),
-      title: 'Werk in Vorbereitung',
-      manifest: 'Platzhalter — wird durch echten Katalogeintrag ersetzt.',
-      tech: '—', size: '—', year: '—', status: 'In Arbeit', img: null
-    });
-  }
 
   let currentWerk = 0;
 
   function showWerk(i) {
     const w = werke[i];
-    document.getElementById('werk-index').textContent = w.num + '/30';
+    document.getElementById('werk-index').textContent = (i + 1) + '/' + werke.length;
     document.getElementById('werk-num-big').textContent = w.num;
     document.getElementById('werk-title').textContent = w.title;
     document.getElementById('werk-manifest').textContent = '„' + w.manifest + '"';
+
+    const descEl = document.getElementById('werk-description');
+    if (w.description) { descEl.textContent = w.description; descEl.style.display = 'block'; }
+    else { descEl.textContent = ''; descEl.style.display = 'none'; }
+
+    const soundWrap = document.getElementById('werk-sound-wrap');
+    const soundLabel = document.getElementById('werk-sound-label');
+    const soundFrame = document.getElementById('werk-sound-frame');
+    if (w.trackId) {
+      soundLabel.textContent = 'Sound' + (w.sound ? ': ' + w.sound : '');
+      soundFrame.src = 'https://w.soundcloud.com/player/?url=https%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F' + w.trackId + '&color=%23ffffff&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&visual=false';
+      soundWrap.style.display = 'block';
+    } else {
+      soundLabel.textContent = '';
+      soundFrame.src = '';
+      soundWrap.style.display = 'none';
+    }
+
     document.getElementById('werk-tech').textContent = w.tech;
     document.getElementById('werk-size').textContent = w.size;
-    document.getElementById('werk-year').textContent = w.year;
+    const yearRow = document.getElementById('werk-year').closest('div');
+    if (w.year) { document.getElementById('werk-year').textContent = w.year; yearRow.style.display = 'flex'; }
+    else { yearRow.style.display = 'none'; }
     document.getElementById('werk-status').textContent = w.status;
 
     const img = document.getElementById('zoomImage');
+    const imgMulti = document.getElementById('zoomImageMulti');
     const numEl = document.getElementById('werk-num-big');
-    if (w.img) {
+    if (w.images && w.images.length) {
+      img.style.display = 'none';
+      imgMulti.style.display = 'flex';
+      imgMulti.innerHTML = '';
+      w.images.forEach((src) => {
+        const el = document.createElement('img');
+        el.src = src;
+        el.alt = w.title;
+        imgMulti.appendChild(el);
+      });
+    } else if (w.img) {
+      img.style.display = 'flex';
+      imgMulti.style.display = 'none';
       img.style.backgroundImage = "url('" + w.img + "')";
       numEl.style.display = 'none';
     } else {
+      img.style.display = 'flex';
+      imgMulti.style.display = 'none';
       img.style.backgroundImage = 'none';
       numEl.style.display = 'block';
     }
 
     document.getElementById('prev-btn').disabled = (i === 0);
-    document.getElementById('next-btn').disabled = (i === werke.length - 1);
+    document.getElementById('next-btn').disabled = (i === werke.length -
+ 1);
     currentWerk = i;
   }
 
-  function prevWerk() { if (currentWerk > 0) showWerk(currentWerk - 1); }
-  function nextWerk() { if (currentWerk < werke.length - 1) showWerk(currentWerk + 1); }
+  function prevWerk() { if (currentWerk > 0) showWerk(currentWerk - 
+1); }
+  function nextWerk() { if (currentWerk < werke.length - 1) 
+showWerk(currentWerk + 1); }
 
   document.addEventListener('keydown', (e) => {
-    if (document.getElementById('detailView').classList.contains('active')) {
+    if 
+(document.getElementById('detailView').classList.contains('active')) {
       if (e.key === 'ArrowLeft') prevWerk();
       if (e.key === 'ArrowRight') nextWerk();
     }
@@ -262,13 +457,22 @@
   function showDetail(index) {
     showWerk(index);
     document.getElementById('galleryView').style.display = 'none';
-    document.getElementById('detailView').classList.add('active');
+    const dv = document.getElementById('detailView');
+    dv.classList.add('active');
+    dv.classList.remove('visible');
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => { dv.classList.add('visible'); });
+    });
     window.scrollTo(0, 0);
   }
 
   function showGallery() {
-    document.getElementById('detailView').classList.remove('active');
-    document.getElementById('galleryView').style.display = 'block';
+    const dv = document.getElementById('detailView');
+    dv.classList.remove('visible');
+    setTimeout(() => {
+      dv.classList.remove('active');
+      document.getElementById('galleryView').style.display = 'block';
+    }, 400);
     window.scrollTo(0, 0);
   }
 
@@ -286,12 +490,24 @@
       const card = document.createElement('div');
       card.className = 'card';
       card.dataset.index = i;
-      if (werke[i].img) {
-        card.style.backgroundImage = "url('" + werke[i].img + "')";
-      } else {
-        card.innerHTML = '<span class="num">' + werke[i].num + '</span>';
+      const thumbImg = werke[i].img || (werke[i].images && werke[i].images[0]);
+      if (thumbImg) {
+        const bg = document.createElement('img');
+        bg.className = 'card-bg';
+        bg.src = thumbImg;
+        bg.alt = werke[i].title;
+        bg.loading = 'lazy';
+        card.appendChild(bg);
       }
-      card.addEventListener('click', () => openOverlay(card, i));
+      const numSpan = document.createElement('span');
+      numSpan.className = 'num';
+      numSpan.textContent = werke[i].num;
+      card.appendChild(numSpan);
+      const titleSpan = document.createElement('span');
+      titleSpan.className = 'card-title';
+      titleSpan.textContent = werke[i].title;
+      card.appendChild(titleSpan);
+      card.addEventListener('click', () => openWerk(card, i));
       row.appendChild(card);
     }
     wrap.appendChild(row);
@@ -301,7 +517,8 @@
   // ---- Cursor ----
   const cursor = document.getElementById('cursor');
   document.addEventListener('mousemove', (e) => {
-    cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
+    cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY +
+ 'px';
   });
 
   function toggleMenu() { document.body.classList.toggle('menu-open'); }
@@ -309,7 +526,8 @@
   window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       const intro = document.getElementById('intro-screen');
-      if (intro) { intro.style.opacity = '0'; setTimeout(() => intro.remove(), 600); }
+      if (intro) { intro.style.opacity = '0'; setTimeout(() => 
+intro.remove(), 600); }
       document.body.classList.add('intro-done');
     }, 3400);
   });
@@ -341,26 +559,11 @@
   }
   requestAnimationFrame(loop);
 
-  // ---- Klick-Animation + Titel-Overlay ----
-  const overlay = document.getElementById('titleOverlay');
-  const ovNum = document.getElementById('ovNum');
-  const ovTitle = document.getElementById('ovTitle');
-  let pendingIndex = 0;
-
-  function openOverlay(card, index) {
-    pendingIndex = index;
+  // ---- Klick auf Kachel: direkt zur Werkseite, mit kurzer Klick-Animation ----
+  function openWerk(card, index) {
     card.classList.add('clicked');
-    setTimeout(() => {
-      ovNum.textContent = '#' + werke[index].num;
-      ovTitle.textContent = werke[index].title;
-      overlay.classList.add('active');
-    }, 350);
     setTimeout(() => card.classList.remove('clicked'), 500);
-  }
-
-  function goToDetailFromOverlay() {
-    overlay.classList.remove('active');
-    showDetail(pendingIndex);
+    setTimeout(() => showDetail(index), 180);
   }
 </script>
 </body>
