@@ -125,9 +125,7 @@
       </div>
     </main>
 
-    <div class="scroll-spacer">
-      [ SCROLL DOWN TO EXPLORE DIMENSION ]
-    </div>
+    <div class="scroll-spacer"></div>
     </div>
   </div>
 
@@ -140,9 +138,6 @@
   </iframe>
   <!-- SoundCloud Widget API: wird gebraucht, um den unsichtbaren Player per JS zu starten -->
   <script src="https://w.soundcloud.com/player/api.js"></script>
-
-  <!-- ===== TEMPORÄRE DEBUG-ANZEIGE (nur zum Testen, danach wieder entfernen) ===== -->
-  <div id="sound-debug" style="position:fixed; bottom:10px; left:10px; z-index:999999; background:#fff; color:#000; font-family:monospace; font-size:12px; padding:8px 10px; border:1px solid #000; line-height:1.5; max-width:260px;"></div>
 
 <script>
   const cursor = document.getElementById('cursor');
@@ -167,17 +162,6 @@
   let pendingPlay = false;   // merkt sich: "sollte eigentlich schon laufen"
   let soundStarted = false;  // Sperre: verhindert einen zweiten Start
 
-  // TEMPORÄR: schreibt den aktuellen Status in die Debug-Box unten links
-  function updateDebug() {
-    const el = document.getElementById('sound-debug');
-    if (!el) return;
-    el.innerHTML =
-      'SC-Objekt vorhanden: ' + (scWidget ? 'ja' : 'NEIN') + '<br>' +
-      'Player bereit (READY): ' + (widgetReady ? 'ja' : 'nein') + '<br>' +
-      'Klick erkannt: ' + (soundStarted || pendingPlay ? 'ja' : 'nein') + '<br>' +
-      'Play aufgerufen: ' + (soundStarted ? 'ja' : 'nein');
-  }
-
   window.addEventListener('load', () => {
     const scIframe = document.getElementById('sc-hidden-player');
     if (window.SC && scIframe) {
@@ -186,7 +170,6 @@
       // sonst verpufft der Befehl wirkungslos (kein Fehler, einfach kein Ton).
       scWidget.bind(SC.Widget.Events.READY, () => {
         widgetReady = true;
-        updateDebug();
         if (pendingPlay) {
           tryPlay();
         }
@@ -194,12 +177,11 @@
     } else {
       console.warn('SoundCloud-Widget-API (window.SC) oder iFrame nicht gefunden.');
     }
-    updateDebug();
   });
 
   function tryPlay() {
     if (soundStarted) return;
-    if (!widgetReady) { pendingPlay = true; updateDebug(); return; }
+    if (!widgetReady) { pendingPlay = true; return; }
     soundStarted = true; // Sperre SOFORT setzen, damit kein zweiter Aufruf dazwischenfunkt
 
     const START_MS = 200000; // 3:20 in Millisekunden
@@ -214,10 +196,7 @@
     setTimeout(() => {
       scWidget.play();
       fadeVolumeIn();
-      updateDebug();
     }, 200);
-
-    updateDebug();
   }
 
   // Blendet die Lautstärke über 5 Sekunden kontinuierlich von 10% auf 100% hoch.
