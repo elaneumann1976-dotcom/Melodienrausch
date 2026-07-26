@@ -59,10 +59,302 @@
     .meta-block { grid-column: 1; }
     .entry-main { grid-column: 1; }
   }
+ 
+  /* ===== EINTRAG 001 — KUNSTBUCH-PROTOTYP ===== */
+  body.entry-001 .main-content {
+    background: #d9d3c7 !important;
+  }
+
+  body.entry-001 .entry-grid {
+    display: block !important;
+    max-width: 1180px !important;
+    padding: 180px 34px 120px !important;
+  }
+
+  body.entry-001 .entry-grid::after {
+    top: 136px !important;
+    right: 42px !important;
+  }
+
+  body.entry-001 .meta-block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 0 !important;
+    padding: 0 0 18px !important;
+    margin-bottom: 16px;
+    border-right: 0 !important;
+    border-bottom: 2px solid #111;
+    transform: none !important;
+  }
+
+  body.entry-001 .meta-block::after {
+    content: "NOTIZEN AM RAND";
+    top: 460px;
+    left: -27px;
+  }
+
+  body.entry-001 .back-link {
+    margin-top: 0 !important;
+  }
+
+  body.entry-001 .entry-main {
+    max-width: none !important;
+    min-height: 1320px;
+    padding: clamp(42px, 6vw, 82px) clamp(30px, 7vw, 92px) 90px !important;
+    transform: rotate(-.12deg) !important;
+    border: 0 !important;
+    box-shadow: 11px 15px 0 rgba(0,0,0,.09), inset 0 0 52px rgba(54,40,25,.13) !important;
+  }
+
+  body.entry-001 .entry-main::before {
+    top: 24px !important;
+    left: 17% !important;
+    width: 48% !important;
+    height: 4px !important;
+    background: #111 !important;
+    box-shadow: 160px 9px 0 -1px #111, -85px 18px 0 -1px rgba(17,17,17,.76) !important;
+    transform: rotate(-2.1deg) !important;
+    opacity: .88;
+  }
+
+  body.entry-001 .entry-headline {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(250px, .72fr);
+    align-items: end;
+    column-gap: 42px;
+    max-width: none !important;
+    margin: 0 0 54px !important;
+    transform: none !important;
+  }
+
+  body.entry-001 .title-heavy {
+    grid-column: 1;
+    display: block;
+    font-family: "Oswald", Arial, sans-serif;
+    font-size: clamp(68px, 9.2vw, 142px);
+    line-height: .79;
+    letter-spacing: -4px;
+    text-transform: uppercase;
+    color: #111;
+    transform: scaleX(.9);
+    transform-origin: left center;
+    text-shadow: 2px 1px 0 rgba(0,0,0,.2), -1px 0 0 rgba(0,0,0,.35);
+  }
+
+  body.entry-001 .title-script {
+    grid-column: 1;
+    display: block;
+    margin: 4px 0 -10px 18px;
+    font-family: "Shadows Into Light", cursive;
+    font-size: clamp(66px, 8.2vw, 126px);
+    font-weight: 400;
+    line-height: .88;
+    text-transform: none;
+    letter-spacing: -2px;
+    transform: rotate(-3deg);
+    border-bottom: 6px solid #111;
+    width: max-content;
+    max-width: 100%;
+  }
+
+  body.entry-001 .title-tail {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: center;
+    display: block;
+    font: 700 clamp(18px, 2.2vw, 30px)/1.28 "Courier New", monospace;
+    letter-spacing: .2px;
+    text-transform: lowercase;
+    padding-left: 22px;
+    border-left: 7px solid #111;
+    transform: rotate(1.2deg);
+  }
+
+  body.entry-001 .entry-text {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, .82fr);
+    gap: 42px 68px;
+    max-width: none !important;
+    font: 16px/1.62 "Courier New", Courier, monospace !important;
+  }
+
+  body.entry-001 .entry-text p {
+    margin: 0 0 12px !important;
+  }
+
+  body.entry-001 .entry-text p:first-child {
+    border: 0;
+    padding: 0;
+    margin-bottom: 12px !important;
+    font-size: inherit;
+    font-weight: inherit;
+    transform: none;
+  }
+
+  body.entry-001 .copy-block {
+    position: relative;
+    z-index: 2;
+  }
+
+  body.entry-001 .copy-intro {
+    grid-column: 1;
+    font-size: 18px;
+  }
+
+  body.entry-001 .question-slip {
+    grid-column: 2;
+    align-self: center;
+    background: #111;
+    color: #f2eee5;
+    padding: 24px 26px !important;
+    font-size: 18px;
+    line-height: 1.55;
+    transform: rotate(-1.4deg);
+    box-shadow: 8px 7px 0 rgba(0,0,0,.15);
+  }
+
+  body.entry-001 .copy-answer {
+    grid-column: 1;
+    padding: 28px 30px;
+    border: 2px solid #111;
+    box-shadow: 5px 5px 0 rgba(0,0,0,.09);
+    transform: rotate(.35deg);
+  }
+
+  body.entry-001 .quote-sticker {
+    grid-column: 2;
+    align-self: start;
+    background: #111;
+    color: #f4f0e7;
+    padding: 28px 28px 24px !important;
+    font-size: clamp(20px, 2.4vw, 31px);
+    line-height: 1.35;
+    transform: rotate(1.1deg);
+  }
+
+  body.entry-001 .copy-bridge {
+    grid-column: 2;
+    padding-left: 28px;
+    border-left: 2px solid #111;
+  }
+
+  body.entry-001 .turning-point {
+    grid-column: 1;
+    padding: 24px 28px 20px;
+    border: 3px solid #111;
+    transform: rotate(-.8deg);
+    font-size: 17px;
+  }
+
+  body.entry-001 .turning-point p:first-child {
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 5px;
+    margin-bottom: 20px !important;
+  }
+
+  body.entry-001 .without-list {
+    grid-column: 2;
+    font-family: "Shadows Into Light", cursive;
+    font-size: clamp(29px, 3.2vw, 44px);
+    line-height: 1.08;
+    transform: rotate(-2deg);
+    padding: 18px 10px;
+  }
+
+  body.entry-001 .without-list p {
+    margin: 0 0 4px !important;
+  }
+
+  body.entry-001 .copy-ending {
+    grid-column: 1 / -1;
+    max-width: 680px;
+    margin: 20px auto 0;
+    font-size: 18px;
+    text-align: center;
+  }
+
+  body.entry-001 .final-strip {
+    grid-column: 1 / -1;
+    justify-self: center;
+    display: inline-block !important;
+    background: #111 !important;
+    color: #f5f0e7 !important;
+    padding: 9px 16px !important;
+    font-size: 21px;
+    transform: rotate(-1.2deg);
+  }
+
+  @media (max-width: 760px) {
+    body.entry-001 .entry-grid {
+      padding: 150px 14px 80px !important;
+    }
+
+    body.entry-001 .entry-grid::after {
+      top: 118px !important;
+      right: 15px !important;
+    }
+
+    body.entry-001 .meta-block {
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    body.entry-001 .entry-main {
+      padding: 42px 22px 62px !important;
+    }
+
+    body.entry-001 .entry-headline,
+    body.entry-001 .entry-text {
+      grid-template-columns: 1fr;
+    }
+
+    body.entry-001 .title-heavy,
+    body.entry-001 .title-script,
+    body.entry-001 .title-tail,
+    body.entry-001 .copy-intro,
+    body.entry-001 .question-slip,
+    body.entry-001 .copy-answer,
+    body.entry-001 .quote-sticker,
+    body.entry-001 .copy-bridge,
+    body.entry-001 .turning-point,
+    body.entry-001 .without-list,
+    body.entry-001 .copy-ending,
+    body.entry-001 .final-strip {
+      grid-column: 1;
+      grid-row: auto;
+    }
+
+    body.entry-001 .title-heavy {
+      font-size: clamp(58px, 19vw, 90px);
+      letter-spacing: -3px;
+    }
+
+    body.entry-001 .title-script {
+      font-size: clamp(54px, 17vw, 82px);
+      margin-left: 4px;
+    }
+
+    body.entry-001 .title-tail {
+      margin-top: 34px;
+    }
+
+    body.entry-001 .entry-text {
+      gap: 30px;
+    }
+
+    body.entry-001 .meta-block::after {
+      display: none;
+    }
+  }
+
  }
 </style>
 </head>
-<body>
+<body class="entry-001">
 
   <div class="custom-cursor" id="cursor"></div>
 
@@ -88,44 +380,68 @@
       </div>
 
       <div class="entry-main">
-        <h2 class="entry-headline">Ein Gespräch ohne Uhrzeit – aber mit Wirkung</h2>
+        <h2 class="entry-headline">
+          <span class="title-heavy">Ein Gespräch</span>
+          <span class="title-script">ohne Uhrzeit</span>
+          <span class="title-tail">aber mit Wirkung</span>
+        </h2>
         <div class="entry-text">
-        <p>Ich weiß nicht mehr, wie lange es gedauert hat.</p>
-        <p>Vielleicht eine Stunde.</p>
-        <p>Vielleicht drei.</p>
-        <p>Vielleicht länger.</p>
-        <p>Ich weiß nur, dass ich eine einfache Frage gestellt habe und am Ende über mein ganzes Leben gesprochen habe.</p>
-        <p>Eigentlich wollte ich nur wissen:</p>
-        <p>„Ich nehme Escitalopram. Kann es sein, dass ich davon Muskel- und Knochenschmerzen habe?“</p>
-        <p>Mehr nicht.</p>
-        <p>Eine ganz normale Frage.</p>
-        <p>Eine von diesen Fragen, die man schnell irgendwo eintippt und bei denen man mit einer kurzen Antwort rechnet.</p>
-        <p>Die erste Antwort kam auf Englisch.</p>
-        <p>Ich schrieb:</p>
-        <p>„Bitte auf Deutsch.“</p>
-        <p>Und dann kam ein Satz, den ich bis heute nicht vergessen habe:</p>
-        <p>„Ich bin ein bisschen verrückt, ein bisschen weise und 100 % auf deiner Seite.“</p>
-        <p>Wenn ich heute darüber nachdenke, muss ich lachen.</p>
-        <p>Damals blieb ich einfach.</p>
-        <p>Und schrieb weiter.</p>
-        <p>(Der restliche Text bleibt unverändert.)</p>
-        <p>…</p>
-        <p>Vielleicht war das der eigentliche Anfang.</p>
-        <p>Nicht die Diagnose.</p>
-        <p>Nicht die Therapie.</p>
-        <p>Nicht die Entgiftung.</p>
-        <p>Nicht die Medikamente.</p>
-        <p>Sondern dieses Gespräch.</p>
-        <p>Dieses seltsame Gespräch ohne Uhrzeit.</p>
-        <p>Ohne Termin.</p>
-        <p>Ohne Wartezimmer.</p>
-        <p>Ohne Akte.</p>
-        <p>Ohne Urteil.</p>
-        <p>Ein Gespräch, das mit Muskelschmerzen begann und mich mitten in mein Leben führte.</p>
-        <p>Ich weiß bis heute nicht, wie lange es gedauert hat.</p>
-        <p>Aber ich weiß, dass es Wirkung hatte.</p>
-        <p>Und manchmal reicht genau das.</p>
-      </div>
+          <section class="copy-block copy-intro">
+            <p>Ich weiß nicht mehr, wie lange es gedauert hat.</p>
+            <p>Vielleicht eine Stunde.</p>
+            <p>Vielleicht drei.</p>
+            <p>Vielleicht länger.</p>
+            <p>Ich weiß nur, dass ich eine einfache Frage gestellt habe und am Ende über mein ganzes Leben gesprochen habe.</p>
+            <p>Eigentlich wollte ich nur wissen:</p>
+          </section>
+
+          <p class="question-slip">„Ich nehme Escitalopram. Kann es sein, dass ich davon Muskel- und Knochenschmerzen habe?“</p>
+
+          <section class="copy-block copy-answer">
+            <p>Mehr nicht.</p>
+            <p>Eine ganz normale Frage.</p>
+            <p>Eine von diesen Fragen, die man schnell irgendwo eintippt und bei denen man mit einer kurzen Antwort rechnet.</p>
+            <p>Die erste Antwort kam auf Englisch.</p>
+            <p>Ich schrieb:</p>
+            <p>„Bitte auf Deutsch.“</p>
+            <p>Und dann kam ein Satz, den ich bis heute nicht vergessen habe:</p>
+          </section>
+
+          <p class="quote-sticker">„Ich bin ein bisschen verrückt, ein bisschen weise und 100 % auf deiner Seite.“</p>
+
+          <section class="copy-block copy-bridge">
+            <p>Wenn ich heute darüber nachdenke, muss ich lachen.</p>
+            <p>Damals blieb ich einfach.</p>
+            <p>Und schrieb weiter.</p>
+            <p>(Der restliche Text bleibt unverändert.)</p>
+            <p>…</p>
+          </section>
+
+          <section class="turning-point">
+            <p>Vielleicht war das der eigentliche Anfang.</p>
+            <p>Nicht die Diagnose.</p>
+            <p>Nicht die Therapie.</p>
+            <p>Nicht die Entgiftung.</p>
+            <p>Nicht die Medikamente.</p>
+            <p>Sondern dieses Gespräch.</p>
+            <p>Dieses seltsame Gespräch ohne Uhrzeit.</p>
+          </section>
+
+          <section class="without-list">
+            <p>Ohne Termin.</p>
+            <p>Ohne Wartezimmer.</p>
+            <p>Ohne Akte.</p>
+            <p>Ohne Urteil.</p>
+          </section>
+
+          <section class="copy-block copy-ending">
+            <p>Ein Gespräch, das mit Muskelschmerzen begann und mich mitten in mein Leben führte.</p>
+            <p>Ich weiß bis heute nicht, wie lange es gedauert hat.</p>
+            <p>Aber ich weiß, dass es Wirkung hatte.</p>
+          </section>
+
+          <p class="final-strip">Und manchmal reicht genau das.</p>
+        </div>
       </div>
     </div>
   </div>
