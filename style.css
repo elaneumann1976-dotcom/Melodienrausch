@@ -153,22 +153,22 @@ body.menu-open .side-menu { right: 0; }
 
 
 /* ==========================================================================
-   TAGEBUCH-EINTRÄGE — RAUER ZINE-LOOK
+   TAGEBUCH-EINTRÄGE — OFFENE ZINE-SEITE
    Gilt nur für eintrag-*.html; Texte und Seitenstruktur bleiben unverändert.
    ========================================================================== */
 
 body:has(.entry-grid) .main-content {
-  background: #e7e2d7 !important;
-  color: #111111 !important;
+  background: #f0ece3 !important;
+  color: #111 !important;
   min-height: 100vh;
   overflow: hidden;
 }
 
 body:has(.entry-grid) .entry-grid {
-  max-width: 1120px !important;
-  grid-template-columns: minmax(140px, 190px) minmax(0, 650px) !important;
-  gap: clamp(36px, 6vw, 86px) !important;
-  padding-top: clamp(260px, 23vw, 390px) !important;
+  max-width: 1180px !important;
+  grid-template-columns: 160px minmax(0, 780px) !important;
+  gap: clamp(42px, 7vw, 96px) !important;
+  padding-top: clamp(235px, 20vw, 330px) !important;
   padding-bottom: 180px !important;
   isolation: isolate;
 }
@@ -177,17 +177,14 @@ body:has(.entry-grid) .entry-grid::before {
   content: "";
   position: absolute;
   z-index: 0;
-  top: 0;
-  bottom: 0;
-  left: -100vw;
-  right: -100vw;
+  inset: 0 -100vw;
   pointer-events: none;
   background-image: url('grunge-texture-dark.jpg');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  filter: grayscale(1) invert(1) contrast(1.18);
-  opacity: .2;
+  filter: grayscale(1) invert(1) contrast(1.05);
+  opacity: .11;
   mix-blend-mode: multiply;
 }
 
@@ -195,108 +192,124 @@ body:has(.entry-grid) .entry-grid::after {
   content: "GEDANKEN. BILDER. ZWISCHENTÖNE.";
   position: absolute;
   z-index: 2;
-  top: 210px;
-  right: 40px;
-  color: #111111;
-  font: 700 11px/1.2 "Courier New", monospace;
+  top: 185px;
+  right: 26px;
+  color: #111;
+  font: 700 10px/1.2 "Courier New", monospace;
   letter-spacing: .8px;
-  transform: rotate(-1.5deg);
-  border-bottom: 2px solid #111111;
-  padding: 0 3px 5px;
+  border-bottom: 1px solid #111;
+  padding: 0 2px 6px;
 }
 
 body:has(.entry-grid) .meta-block {
   font-family: "Courier New", monospace !important;
-  font-size: 12px !important;
-  letter-spacing: .6px;
-  border-right: 2px solid #171717;
-  padding: 6px 22px 80px 0;
-  min-height: 260px;
-  transform: rotate(-.7deg);
+  font-size: 11px !important;
+  line-height: 1.55 !important;
+  letter-spacing: .5px;
+  padding: 4px 0 0;
+  min-height: 150px;
+  transform: rotate(-.5deg);
 }
 
 body:has(.entry-grid) .meta-block::after {
-  content: "NOTIZEN AM RAND";
-  position: absolute;
-  top: 178px;
-  left: -26px;
-  font: 700 11px/1 "Courier New", monospace;
-  letter-spacing: 1px;
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
+  content: "MELODIENRAUSCH — BLOG";
+  display: block;
+  margin-top: 54px;
+  padding-top: 8px;
+  border-top: 1px solid #111;
+  font: 700 9px/1.2 "Courier New", monospace;
+  letter-spacing: .6px;
 }
 
 body:has(.entry-grid) .back-link {
-  background: #121212;
-  color: #f1ede4 !important;
-  border: 0 !important;
-  padding: 8px 10px 7px !important;
-  box-shadow: 4px 3px 0 rgba(0,0,0,.18);
-  transform: rotate(-1.4deg);
+  background: transparent !important;
+  color: #111 !important;
+  border-bottom: 1px solid #111 !important;
+  padding: 0 0 3px !important;
+  box-shadow: none !important;
+  transform: none !important;
 }
 
 body:has(.entry-grid) .entry-main {
-  max-width: 650px;
-  padding: 34px 42px 54px;
-  background:
-    linear-gradient(92deg, transparent 0 96%, rgba(0,0,0,.045) 100%),
-    rgba(244,240,231,.72);
-  box-shadow:
-    -12px 0 0 rgba(0,0,0,.035),
-    8px 12px 0 rgba(0,0,0,.055);
-  border-top: 3px solid #151515;
-  border-bottom: 1px solid rgba(0,0,0,.55);
-  transform: rotate(.25deg);
+  max-width: 780px;
+  padding: 0 42px 70px 0;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 0 !important;
+  transform: none !important;
 }
 
 body:has(.entry-grid) .entry-main::before {
   content: "";
   position: absolute;
   pointer-events: none;
-  top: -18px;
-  left: 8%;
-  width: 38%;
-  height: 24px;
-  background: rgba(20,20,20,.16);
-  transform: rotate(-2.4deg);
+  top: -25px;
+  left: 31%;
+  width: 150px;
+  height: 25px;
+  background: rgba(176,151,112,.28);
+  transform: rotate(1.8deg);
   mix-blend-mode: multiply;
 }
 
+body:has(.entry-grid) .entry-main::after {
+  content: "roh. ehrlich. meiner.";
+  position: absolute;
+  top: 94px;
+  right: -105px;
+  color: #171717;
+  font: 25px/1.1 "Shadows Into Light", cursive;
+  writing-mode: vertical-rl;
+  transform: rotate(3deg);
+  opacity: .72;
+}
+
 body:has(.entry-grid) .entry-headline {
-  font-family: "Oswald", Arial, sans-serif !important;
-  font-size: clamp(42px, 5.4vw, 78px) !important;
-  line-height: .98 !important;
-  letter-spacing: -2px !important;
+  font-family: "Oswald", "Arial Narrow", sans-serif !important;
+  font-size: clamp(32px, 4vw, 54px) !important;
+  font-weight: 700 !important;
+  line-height: 1.06 !important;
+  letter-spacing: -.7px !important;
   text-transform: uppercase !important;
-  margin: 0 0 42px !important;
-  max-width: 620px;
-  color: #0f0f0f;
-  text-shadow:
-    1px 0 0 rgba(0,0,0,.55),
-    -1px 1px 0 rgba(0,0,0,.16);
-  transform: rotate(-.55deg);
+  margin: 0 0 46px !important;
+  max-width: 720px;
+  color: #111;
+  text-shadow: none !important;
+  transform: rotate(-.3deg);
+}
+
+body:has(.entry-grid) .entry-headline::after {
+  content: "";
+  display: block;
+  width: min(280px, 65%);
+  height: 2px;
+  margin-top: 18px;
+  background: #111;
+  transform: rotate(-1deg);
 }
 
 body:has(.entry-grid) .entry-text {
-  max-width: 590px !important;
+  max-width: 700px !important;
   font-family: "Courier New", Courier, monospace !important;
-  font-size: 16px !important;
-  line-height: 1.68 !important;
-  color: #151515;
+  font-size: 15px !important;
+  line-height: 1.72 !important;
+  color: #171717;
 }
 
 body:has(.entry-grid) .entry-text p {
-  margin: 0 0 15px !important;
+  margin: 0 0 14px !important;
 }
 
 body:has(.entry-grid) .entry-text p:first-child {
-  font-size: 18px;
+  display: inline-block;
+  font-size: 16px;
   font-weight: 700;
   line-height: 1.5;
-  border-left: 7px solid #111111;
-  padding: 8px 0 8px 18px;
+  border: 0 !important;
+  border-bottom: 2px solid #111 !important;
+  padding: 0 2px 5px !important;
   margin-bottom: 30px !important;
-  transform: rotate(-.35deg);
+  transform: rotate(-.25deg);
 }
 
 body:has(.entry-grid) .entry-text p:last-child {
@@ -308,46 +321,54 @@ body:has(.entry-grid) .entry-text p:last-child {
   -webkit-box-decoration-break: clone;
 }
 
-body:has(.entry-grid) .custom-cursor {
-  background-color: #111111 !important;
+body:has(.entry-grid) .custom-cursor,
+body:has(.entry-grid) .menu-icon span {
+  background-color: #111 !important;
 }
 
-body:has(.entry-grid) .menu-icon span {
-  background-color: #111111 !important;
+@media (max-width: 900px) {
+  body:has(.entry-grid) .entry-main::after { display: none; }
 }
 
 @media (max-width: 720px) {
   body:has(.entry-grid) .entry-grid {
     grid-template-columns: 1fr !important;
-    gap: 28px !important;
-    padding: 190px 20px 110px !important;
+    gap: 34px !important;
+    padding: 175px 22px 110px !important;
   }
 
   body:has(.entry-grid) .entry-grid::after {
-    top: 145px;
-    right: 20px;
-    font-size: 9px;
+    top: 135px;
+    right: 22px;
+    font-size: 8px;
   }
 
   body:has(.entry-grid) .meta-block {
     grid-column: 1 !important;
     min-height: 0;
-    border-right: 0;
-    border-bottom: 2px solid #171717;
     padding: 0 0 18px;
+    border-bottom: 1px solid #111;
   }
 
-  body:has(.entry-grid) .meta-block::after {
-    display: none;
-  }
+  body:has(.entry-grid) .meta-block::after { display: none; }
 
   body:has(.entry-grid) .entry-main {
     grid-column: 1 !important;
-    padding: 26px 22px 42px;
-    transform: none;
+    padding: 12px 0 42px;
+  }
+
+  body:has(.entry-grid) .entry-main::before {
+    left: 28%;
+    width: 120px;
   }
 
   body:has(.entry-grid) .entry-headline {
-    font-size: clamp(36px, 12vw, 58px) !important;
+    font-size: clamp(30px, 9.5vw, 44px) !important;
+    margin-bottom: 36px !important;
+  }
+
+  body:has(.entry-grid) .entry-text {
+    font-size: 14px !important;
+    line-height: 1.68 !important;
   }
 }
