@@ -47,7 +47,7 @@
   .trail-image {
     position: fixed; width: 170px; height: 230px;
     background-size: cover; background-position: center;
-    border: 2px solid #ffffff; pointer-events: none; z-index: 500;
+    border: 2px solid #b3131b; pointer-events: none; z-index: 500;
     transform: translate(-50%, -50%) scale(0.9); opacity: 0;
     will-change: transform, opacity; filter: grayscale(100%) contrast(115%);
     transition: opacity 0.2s ease, transform 0.2s ease;
@@ -63,6 +63,17 @@
   .custom-cursor { background-color: #000000 !important; }
 
   .menu-icon span { background-color: #000000 !important; }
+
+  #sc-hidden-player {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
 </style>
 </head>
 <body>
@@ -121,6 +132,12 @@
     </div>
   </div>
 
+  <iframe id="sc-hidden-player"
+    scrolling="no" frameborder="no" allow="autoplay; encrypted-media"
+    src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2331433277&color=%23b3131b&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false">
+  </iframe>
+  <script src="https://w.soundcloud.com/player/api.js"></script>
+
 <script>
   const cursor = document.getElementById('cursor');
   document.addEventListener('mousemove', (e) => {
@@ -133,6 +150,50 @@
       if(intro) { intro.style.opacity = '0'; setTimeout(() => intro.remove(), 600); }
       document.body.classList.add('intro-done');
     }, 3400);
+  });
+
+  let scWidget = null;
+  let widgetReady = false;
+  let pendingPlay = false;
+  let soundStarted = false;
+
+  window.addEventListener('load', () => {
+    const scIframe = document.getElementById('sc-hidden-player');
+    if (window.SC && scIframe) {
+      scWidget = SC.Widget(scIframe);
+      scWidget.bind(SC.Widget.Events.READY, () => {
+        widgetReady = true;
+        if (pendingPlay) tryPlay();
+      });
+    }
+  });
+
+  function tryPlay() {
+    if (soundStarted) return;
+    if (!widgetReady) { pendingPlay = true; return; }
+    soundStarted = true;
+    scWidget.seekTo(2160000);
+    scWidget.setVolume(10);
+    setTimeout(() => {
+      scWidget.play();
+      fadeVolumeIn();
+    }, 200);
+  }
+
+  function fadeVolumeIn() {
+    let current = 10;
+    const fadeInterval = setInterval(() => {
+      current += 1.8;
+      if (current >= 100) {
+        current = 100;
+        clearInterval(fadeInterval);
+      }
+      scWidget.setVolume(current);
+    }, 100);
+  }
+
+  ['pointerdown', 'touchstart', 'keydown'].forEach(evt => {
+    document.addEventListener(evt, tryPlay, { once: true, passive: true });
   });
 
   const trailContainer = document.getElementById('image-trail-container');
