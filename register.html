@@ -283,64 +283,25 @@
 
   /* ===== Tagebuch-Einträge: HIER echte Einträge eintragen/ersetzen ===== */
   const diaryEntries = [
-    { title: 'Ein Gespräch ohne Uhrzeit – aber mit Wirkung', teaser: 'Ich weiß nicht mehr, wie lange es gedauert hat. Ich weiß nur, dass ich eine einfache Frage gestellt habe und am Ende über mein ganzes Leben gesprochen habe.', thumb: '', url: 'eintrag-001.html' },
-    { title: 'Untertitel', teaser: 'Ich saß da. Leer. Kaputt. Kündigung im Kopf, Chaos im Bauch und Angst überall. Dann fing ich an zu reden.', thumb: '', url: 'eintrag-003.html' },
-    { title: 'Zu viel. Und genau richtig.', teaser: 'Ich kenne dieses Gefühl gut: Ich bin zu viel. Zu laut. Zu intensiv. Zu emotional.', thumb: '', url: 'eintrag-004.html' },
-    { title: 'Ich denk, ich bin komplett drüber.', teaser: 'Ich hatte wieder so einen Moment. Ein Gedanke kommt rein, das Gefühl schießt hoch und plötzlich bin ich komplett drin.', thumb: '', url: 'eintrag-005.html' },
-    { title: 'Untertitel fürs Chaos', teaser: 'Manchmal trifft mich ein Gedanke wie ein Blitz. Plötzlich vibriert alles. Ich könnte gerade alles verändern.', thumb: '', url: 'eintrag-006.html' },
-    { title: 'Die Muster, die ich selbst nicht gesehen habe', teaser: 'Ich dachte lange, ich kenne mich ziemlich gut. Offenbar nicht.', thumb: '', url: 'eintrag-007.html' },
-    { title: 'Es ging vielleicht nie um die Droge', teaser: 'Manchmal dauert eine Erkenntnis fast fünfzig Jahre. Ich dachte immer, ich müsste verstehen, warum ich konsumiert habe.', thumb: '', url: 'eintrag-008.html' },
-    { title: 'Rücken an Rücken', teaser: 'Dieses Bild sagt wahrscheinlich mehr über mich als viele Worte. Links die Version von mir, die jahrelang versucht hat, irgendwie durchzukommen.', thumb: '', url: 'eintrag-009.html' },
-    { title: 'Nach den Tabletten ist es still', teaser: 'Ich hab angefangen mit der Medikation. Und ganz ehrlich? Ich hab was komplett anderes erwartet.', thumb: '', url: 'eintrag-010.html' },
-    { title: 'Wie bin ich eigentlich auf dieser Schiene gelandet?', teaser: 'Heute saß ich bei meiner Therapeutin. Und plötzlich saß ich da und dachte: Wie bin ich eigentlich auf dieser Schiene gelandet?', thumb: '', url: 'eintrag-011.html' },
-    { title: '22 Wochen', teaser: 'Reha bewilligt. 22 Wochen. Eigentlich müsste ich mich freuen. Stattdessen sitze ich da und denke nur: Scheiße.', thumb: '', url: 'eintrag-012.html' },
-    { title: 'Angst vor dem nächsten Schritt', teaser: 'Heute kam der Anruf. Am 11. August geht’s in die Reha. Komischerweise war das Erste, was ich gespürt habe, nicht Erleichterung, sondern Angst.', thumb: '', url: 'eintrag-013.html' },
-    { title: 'Warum ich mich schuldig fühle – obwohl nichts passiert ist', teaser: 'Heute ist so ein Tag. Ich wache auf und habe sofort dieses Gefühl: Ich habe irgendwas falsch gemacht.', thumb: '', url: 'eintrag-014.html' },
-    { title: 'Kommunikation.', teaser: 'Eigentlich ein ganz normales Wort. Bei mir reicht manchmal schon ein fehlender Satz und innen ist sofort wieder alles da.', thumb: '', url: 'eintrag-015.html' },
-    { title: 'Ich dachte, ich hätte das längst hinter mir.', teaser: 'Heute habe ich gemerkt, dass man erwachsen und reflektiert sein kann. Und trotzdem steht plötzlich wieder dieses kleine Mädchen mitten in der Küche.', thumb: '', url: 'eintrag-016.html' },
-    { title: 'Eigentlich war ich schon weiter', teaser: 'Manchmal merke ich erst Tage später, dass ich eigentlich schon weiter war.', thumb: '', url: 'eintrag-017.html' },
-    { title: 'Ich geh zu schnell rein – und wundere mich dann, warum’s knallt', teaser: 'Bei mir macht es Klick und ich bin drin. Verbindung. Gefühl. Tiefe. Alles auf einmal.', thumb: '', url: 'eintrag-018.html' },
-    { title: 'Mein Kopf macht, was er immer macht.', teaser: 'Sobald etwas Neues passiert, spielt er jede mögliche Katastrophe einmal komplett durch.', thumb: '', url: 'eintrag-019.html' },
-    { title: 'Warum ist das immer so?', teaser: 'Heute ist wieder so ein Tag. Kein besonderer Auslöser. Und trotzdem fühlt sich alles schwer an.', thumb: '', url: 'eintrag-020.html' },
-    { title: 'Nachtrag – ein paar Stunden später', teaser: '', thumb: '', url: 'eintrag-021.html' },
-    { title: 'Ich hab alles erledigt und fühl mich trotzdem traurig', teaser: '', thumb: '', url: 'eintrag-022.html' },
-    { title: 'Ich funktioniere – nur halt nicht jeden Tag gleich', teaser: '', thumb: '', url: 'eintrag-023.html' },
-    { title: 'Vier Tage. Mehr brauchte es nicht.', teaser: '', thumb: '', url: 'eintrag-024.html' },
-    { title: 'Nicht faul. Nur müde vom Kämpfen.', teaser: '', thumb: '', url: 'eintrag-025.html' },
-    { title: 'Manchmal baut das Gehirn aus Erschöpfung ganze Gebirge.', teaser: '', thumb: '', url: 'eintrag-026.html' },
-    { title: 'Ich komme mir ein bisschen blöd vor', teaser: '', thumb: '', url: 'eintrag-027.html' },
-    { title: 'Ich soll funktionieren – und denk mir nur: ich will gerade einfach bleiben', teaser: '', thumb: '', url: 'eintrag-028.html' },
-    { title: 'Ich bin einfach müde – und diesmal ist das kein Problem', teaser: '', thumb: '', url: 'eintrag-029.html' },
-    { title: 'Ich brauche keine Kontrolle. Ich brauche Richtung.', teaser: '', thumb: '', url: 'eintrag-030.html' },
-    { title: 'Ich hab aufgehört zu hoffen – und plötzlich wird’s ruhig', teaser: '', thumb: '', url: 'eintrag-031.html' },
-    { title: 'Sie fährt einfach los', teaser: '', thumb: '', url: 'eintrag-032.html' },
-    { title: 'Morgen fliege ich das erste Mal', teaser: '', thumb: '', url: 'eintrag-033.html' },
-    { title: 'Donnerstag Nacht. Und ich fliege einfach.', teaser: '', thumb: '', url: 'eintrag-034.html' },
-    { title: 'Manchmal braucht mein Gehirn keine Musik', teaser: '', thumb: '', url: 'eintrag-035.html' },
-    { title: 'Der letzte Urlaubstag', teaser: '', thumb: '', url: 'eintrag-036.html' },
-    { title: 'Die Nacht, die ich eigentlich gar nicht geplant hatte', teaser: '', thumb: '', url: 'eintrag-037.html' },
-    { title: 'Auf dem Festival habe ich kein einziges Foto gemacht.', teaser: '', thumb: '', url: 'eintrag-038.html' },
-    { title: 'Menschen, die nur für einen Moment bleiben', teaser: '', thumb: '', url: 'eintrag-039.html' },
-    { title: 'Manchmal trifft man sich selbst in einem anderen Menschen', teaser: '', thumb: '', url: 'eintrag-040.html' },
-    { title: 'Die Formulare, vor denen ich jahrelang weggelaufen bin', teaser: '', thumb: '', url: 'eintrag-041.html' },
-    { title: 'Warum Musik für mich kein Hintergrund ist', teaser: '', thumb: '', url: 'eintrag-042.html' },
-    { title: 'Ich such den richtigen Track – und verliere mich fast dabei', teaser: '', thumb: '', url: 'eintrag-043.html' },
-    { title: 'ich geh komplett rein – und mein Kopf so: „Wart ab, gleich knallt’s“', teaser: '', thumb: '', url: 'eintrag-044.html' },
-    { title: 'Puh.', teaser: '', thumb: '', url: 'eintrag-045.html' },
-    { title: 'Vor dem Dom', teaser: '', thumb: '', url: 'eintrag-046.html' },
-    { title: 'Manche Lieder erzählen dir, dass du noch lebst', teaser: '', thumb: '', url: 'eintrag-047.html' },
-    { title: 'Die besten Tracks lassen Platz', teaser: '', thumb: '', url: 'eintrag-048.html' },
-    { title: 'Als der Bass noch von Weitem kam.', teaser: '', thumb: '', url: 'eintrag-049.html' },
-    { title: 'Mir ist heute etwas aufgefallen.', teaser: '', thumb: '', url: 'eintrag-050.html' },
-    { title: 'Ich bin nicht zu viel – ich bin nur nicht für mittelmaß gemacht', teaser: '', thumb: '', url: 'eintrag-051.html' },
-    { title: 'Nachhall', teaser: '', thumb: '', url: 'eintrag-052.html' },
-    { title: 'Erst alles scheiße – und dann plötzlich Kunst', teaser: '', thumb: '', url: 'eintrag-053.html' },
-    { title: 'Vielleicht genau deswegen gut', teaser: '', thumb: '', url: 'eintrag-054.html' },
-    { title: 'Alles will einen Namen.', teaser: '', thumb: '', url: 'eintrag-055.html' },
-    { title: 'Nicht perfekt. Sondern endlich echt.', teaser: '', thumb: '', url: 'eintrag-056.html' },
-    { title: 'Aus einer Idee wurde ein Ort', teaser: '', thumb: '', url: 'eintrag-057.html' },
-    { title: 'Wenn aus Ideen Millimeter werden', teaser: '', thumb: '', url: 'eintrag-058.html' },
-    { title: 'Was würde ich bereuen?', teaser: '', thumb: '', url: 'eintrag-059.html' },
+    { number: '001', title: 'Ein Gespräch ohne Uhrzeit – aber mit Wirkung', teaser: 'Ich weiß nicht mehr, wie lange es gedauert hat. Ich weiß nur, dass ich eine einfache Frage gestellt habe und am Ende über mein ganzes Leben gesprochen habe.', thumb: '', url: 'eintrag-001.html' },
+    { number: '003', title: 'Untertitel', teaser: 'Ich saß da. Leer. Kaputt. Kündigung im Kopf, Chaos im Bauch und Angst überall. Dann fing ich an zu reden.', thumb: '', url: 'eintrag-003.html' },
+    { number: '004', title: 'Zu viel. Und genau richtig.', teaser: 'Ich kenne dieses Gefühl gut: Ich bin zu viel. Zu laut. Zu intensiv. Zu emotional.', thumb: '', url: 'eintrag-004.html' },
+    { number: '005', title: 'Ich denk, ich bin komplett drüber.', teaser: 'Ich hatte wieder so einen Moment. Ein Gedanke kommt rein, das Gefühl schießt hoch und plötzlich bin ich komplett drin.', thumb: '', url: 'eintrag-005.html' },
+    { number: '006', title: 'Untertitel fürs Chaos', teaser: 'Manchmal trifft mich ein Gedanke wie ein Blitz. Plötzlich vibriert alles. Ich könnte gerade alles verändern.', thumb: '', url: 'eintrag-006.html' },
+    { number: '007', title: 'Die Muster, die ich selbst nicht gesehen habe', teaser: 'Ich dachte lange, ich kenne mich ziemlich gut. Offenbar nicht.', thumb: '', url: 'eintrag-007.html' },
+    { number: '008', title: 'Es ging vielleicht nie um die Droge', teaser: 'Manchmal dauert eine Erkenntnis fast fünfzig Jahre. Ich dachte immer, ich müsste verstehen, warum ich konsumiert habe.', thumb: '', url: 'eintrag-008.html' },
+    { number: '009', title: 'Rücken an Rücken', teaser: 'Dieses Bild sagt wahrscheinlich mehr über mich als viele Worte. Links die Version von mir, die jahrelang versucht hat, irgendwie durchzukommen.', thumb: '', url: 'eintrag-009.html' },
+    { number: '010', title: 'Nach den Tabletten ist es still', teaser: 'Ich hab angefangen mit der Medikation. Und ganz ehrlich? Ich hab was komplett anderes erwartet.', thumb: '', url: 'eintrag-010.html' },
+    { number: '011', title: 'Wie bin ich eigentlich auf dieser Schiene gelandet?', teaser: 'Heute saß ich bei meiner Therapeutin. Und plötzlich saß ich da und dachte: Wie bin ich eigentlich auf dieser Schiene gelandet?', thumb: '', url: 'eintrag-011.html' },
+    { number: '012', title: '22 Wochen', teaser: 'Reha bewilligt. 22 Wochen. Eigentlich müsste ich mich freuen. Stattdessen sitze ich da und denke nur: Scheiße.', thumb: '', url: 'eintrag-012.html' },
+    { number: '013', title: 'Angst vor dem nächsten Schritt', teaser: 'Heute kam der Anruf. Am 11. August geht’s in die Reha. Komischerweise war das Erste, was ich gespürt habe, nicht Erleichterung, sondern Angst.', thumb: '', url: 'eintrag-013.html' },
+    { number: '014', title: 'Warum ich mich schuldig fühle – obwohl nichts passiert ist', teaser: 'Heute ist so ein Tag. Ich wache auf und habe sofort dieses Gefühl: Ich habe irgendwas falsch gemacht.', thumb: '', url: 'eintrag-014.html' },
+    { number: '015', title: 'Kommunikation.', teaser: 'Eigentlich ein ganz normales Wort. Bei mir reicht manchmal schon ein fehlender Satz und innen ist sofort wieder alles da.', thumb: '', url: 'eintrag-015.html' },
+    { number: '016', title: 'Ich dachte, ich hätte das längst hinter mir.', teaser: 'Heute habe ich gemerkt, dass man erwachsen und reflektiert sein kann. Und trotzdem steht plötzlich wieder dieses kleine Mädchen mitten in der Küche.', thumb: '', url: 'eintrag-016.html' },
+    { number: '017', title: 'Eigentlich war ich schon weiter', teaser: 'Manchmal merke ich erst Tage später, dass ich eigentlich schon weiter war.', thumb: '', url: 'eintrag-017.html' },
+    { number: '018', title: 'Ich geh zu schnell rein – und wundere mich dann, warum’s knallt', teaser: 'Bei mir macht es Klick und ich bin drin. Verbindung. Gefühl. Tiefe. Alles auf einmal.', thumb: '', url: 'eintrag-018.html' },
+    { number: '019', title: 'Mein Kopf macht, was er immer macht.', teaser: 'Sobald etwas Neues passiert, spielt er jede mögliche Katastrophe einmal komplett durch.', thumb: '', url: 'eintrag-019.html' },
+    { number: '020', title: 'Warum ist das immer so?', teaser: 'Heute ist wieder so ein Tag. Kein besonderer Auslöser. Und trotzdem fühlt sich alles schwer an.', thumb: '', url: 'eintrag-020.html' },
   ];
 
   let rightIndex = 1;
@@ -363,10 +324,10 @@
       return;
     }
     container.style.cursor = 'pointer';
-    dateEl.textContent = String(index + 1).padStart(3, '0');
+    dateEl.textContent = entry.number;
     titleEl.textContent = entry.title;
     teaserEl.textContent = entry.teaser;
-    if (pageNrEl) pageNrEl.textContent = String(index + 1).padStart(2, '0');
+    if (pageNrEl) pageNrEl.textContent = entry.number;
     if (entry.thumb) { thumbEl.src = entry.thumb; thumbEl.classList.add('has-image'); }
     else { thumbEl.classList.remove('has-image'); thumbEl.src = ''; }
 
