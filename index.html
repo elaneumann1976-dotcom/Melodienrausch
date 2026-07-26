@@ -68,6 +68,19 @@
     text-transform:uppercase; font-weight:bold;
     animation: introFromBehind 3s cubic-bezier(0.19, 1, 0.22, 1) forwards;
   }
+
+  /* ===== Unsichtbarer SoundCloud-Player =====
+     Kein sichtbarer Player, kein Play-Button. Das iFrame liegt
+     außerhalb des sichtbaren Bereichs (1px groß, transparent,
+     nicht klickbar) und wird ausschließlich per JS gesteuert. */
+  #sc-hidden-player {
+    position: absolute;
+    top: -9999px; left: -9999px;
+    width: 1px; height: 1px;
+    opacity: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
 </style>
 </head>
 <body>
@@ -118,6 +131,16 @@
     </div>
   </div>
 
+  <!-- ===== Unsichtbarer SoundCloud-Player =====
+       Vorhandenes SoundCloud-Embed, aber komplett unsichtbar und ohne Bedienelemente.
+       auto_play=false, weil der Start ausschließlich per Scroll-Trigger unten erfolgt. -->
+  <iframe id="sc-hidden-player"
+    scrolling="no" frameborder="no" allow="autoplay; encrypted-media"
+    src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A467970348&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false">
+  </iframe>
+  <!-- SoundCloud Widget API: wird gebraucht, um den unsichtbaren Player per JS zu starten -->
+  <script src="https://w.soundcloud.com/player/api.js"></script>
+
 <script>
   const cursor = document.getElementById('cursor');
   document.addEventListener('mousemove', (e) => {
@@ -133,6 +156,28 @@
     }, 3400);
   });
 
+  // ===== Cineastischer Sound-Einstieg (neu ergänzt) =====
+  // Der Track soll GENAU EINMAL starten, sobald der Zoom-Effekt auf dem
+  // Hero-Bild ca. 20-30% seiner Gesamt-Animation erreicht hat.
+  let scWidget = null;       // SoundCloud-Widget-Objekt, sobald bereit
+  let soundStarted = false;  // Sperre: verhindert einen zweiten Start
+
+  window.addEventListener('load', () => {
+    const scIframe = document.getElementById('sc-hidden-player');
+    if (window.SC && scIframe) {
+      scWidget = SC.Widget(scIframe);
+    }
+  });
+
+  // Startet den Track einmalig. Wird direkt aus dem Scroll-Handler heraus
+  // aufgerufen, damit der erste Scroll des Besuchers selbst als die vom
+  // Browser geforderte Nutzer-Interaktion zählt (Autoplay-Sperren umgehen).
+  function startSoundOnce() {
+    if (soundStarted || !scWidget) return;
+    soundStarted = true;
+    scWidget.play();
+  }
+
   const zoomImage = document.getElementById('zoomImage');
   window.addEventListener('scroll', () => {
     let scrollPos = window.scrollY;
@@ -140,6 +185,14 @@
       zoomImage.style.position = 'fixed'; zoomImage.style.top = '0'; zoomImage.style.left = '0'; zoomImage.style.width = '100vw'; zoomImage.style.height = '100vh';
       let zoomFaktor = 1 + (scrollPos * 0.002); if(zoomFaktor > 2.2) zoomFaktor = 2.2;
       zoomImage.style.transform = `scale(${zoomFaktor})`;
+
+      // ===== Sound-Trigger (neu ergänzt) =====
+      // zoomProgress: 0 = Zoom-Start, 1 = maximale Zoom-Stufe (2.2) erreicht.
+      // Bei ca. 20-30% der Zoom-Animation (hier: 25%) wird der Track einmalig gestartet.
+      let zoomProgress = (zoomFaktor - 1) / (2.2 - 1);
+      if (zoomProgress >= 0.25 && !soundStarted) {
+        startSoundOnce();
+      }
     } else {
       zoomImage.style.position = 'absolute'; zoomImage.style.width = '100%'; zoomImage.style.height = '100%'; zoomImage.style.transform = 'scale(1)';
     }
