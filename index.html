@@ -9,107 +9,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <style>
+  html, body { overflow-x: hidden; }
   .main-content { height: 250vh; }
-
-  /* ===== Neue Menüleiste (Dropdown-Navbar) ===== */
-  .navbar {
-    position: fixed; top: 0; left: 0; width: 100%;
-    background-color: #141414;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 30px;
-    border-bottom: 2px solid #333;
-    box-sizing: border-box;
-    z-index: 1000;
-  }
-
-  .nav-logo {
-    font-family: 'Oswald', sans-serif;
-    font-weight: bold;
-    letter-spacing: 2px;
-    color: #e50914;
-    text-transform: uppercase;
-  }
-
-  .nav-links {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-  }
-
-  .nav-item {
-    position: relative;
-    margin-left: 20px;
-  }
-
-  .nav-item a {
-    color: #ffffff;
-    text-decoration: none;
-    font-size: 14px;
-    text-transform: uppercase;
-    padding: 10px 15px;
-    display: block;
-    transition: color 0.3s;
-  }
-
-  .nav-item a:hover {
-    color: #e50914;
-  }
-
-  .dropdown-menu {
-    display: none;
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background-color: #1c1c1c;
-    min-width: 280px;
-    box-shadow: 0px 8px 16px rgba(0,0,0,0.5);
-    border: 1px solid #333;
-    z-index: 1;
-    max-height: 400px;
-    overflow-y: auto;
-  }
-
-  .nav-item:hover .dropdown-menu {
-    display: block;
-  }
-
-  .dropdown-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 15px;
-    border-bottom: 1px solid #2a2a2a;
-    font-size: 12px;
-  }
-
-  .dropdown-item:last-child {
-    border-bottom: none;
-    background-color: #2e090b;
-  }
-
-  .date {
-    color: #888;
-    font-weight: bold;
-    margin-right: 15px;
-  }
-
-  .event {
-    color: #fff;
-    text-align: right;
-  }
 
   .hero-header {
     position: fixed;
-    top: 62px; left: 0; width: 100%;
-    display: flex; justify-content: flex-start; align-items: flex-end;
+    top: 0; left: 0; width: 100%;
+    display: flex; justify-content: space-between; align-items: flex-end;
     padding: 30px 40px 10px 40px;
     box-sizing: border-box;
     z-index: 100;
   }
 
   .huge-title {
+    color: #000000;
     font-family: 'Oswald', sans-serif;
     font-size: clamp(30px, 7.8vw, 180px);
     font-weight: 700; line-height: 0.8; letter-spacing: -2px;
@@ -118,17 +31,18 @@
 
   .section-grid {
     display: grid; grid-template-columns: repeat(12, 1fr); gap: 40px;
-    padding: 300px 40px 40px 40px; align-items: start; position: relative;
+    padding: 240px 40px 40px 40px; align-items: start; position: relative;
     height: 100vh; box-sizing: border-box;
   }
 
   .meta-block {
     grid-column: 1 / 4; font-family: 'Oswald', sans-serif; font-size: 15px;
     line-height: 1.3; text-transform: uppercase; position: relative; z-index: 101;
+    color: #000000;
   }
 
   .media-box { grid-column: 4 / 10; height: 520px; position: relative; }
-  
+
   .hero-img {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
     background-image: url('profilbilld.png'); background-size: cover;
@@ -138,71 +52,41 @@
 
   .desc-block {
     grid-column: 10 / 13; font-family: Arial, Helvetica, sans-serif; font-size: 13px;
-    line-height: 1.6; color: #ffffff; position: relative; z-index: 101;
+    line-height: 1.6; color: #000000; position: relative; z-index: 101;
   }
 
-  /* ===== Schrift/Cursor schwarz (Hintergrund bleibt dunkel) ===== */
-  body,
-  .huge-title,
-  .meta-block,
-  .desc-block { color: #000000; }
-
   .custom-cursor { background-color: #000000 !important; }
+
+  @keyframes introFromBehind {
+    0%   { transform: scale(0.1); filter: blur(18px); opacity: 0; }
+    60%  { filter: blur(2px); opacity: 1; }
+    100% { transform: scale(1); filter: blur(0); opacity: 1; }
+  }
+  #intro-screen { perspective: 800px; }
+  #intro-screen .intro-text {
+    font-family:'Courier New'; font-size:24px; letter-spacing:10px;
+    text-transform:uppercase; font-weight:bold;
+    animation: introFromBehind 3s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  }
 </style>
 </head>
 <body>
 
-  <style>
-    @keyframes introFromBehind {
-      0%   { transform: scale(0.1); filter: blur(18px); opacity: 0; }
-      60%  { filter: blur(2px); opacity: 1; }
-      100% { transform: scale(1); filter: blur(0); opacity: 1; }
-    }
-    #intro-screen { perspective: 800px; }
-    #intro-screen .intro-text {
-      font-family:'Courier New'; font-size:24px; letter-spacing:10px;
-      text-transform:uppercase; font-weight:bold;
-      animation: introFromBehind 3s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-    }
-  </style>
   <div id="intro-screen" style="position:fixed; top:0; left:0; width:100%; height:100vh; background:#000; color:#fff; display:flex; justify-content:center; align-items:center; z-index:9999999; transition:opacity 0.6s ease;"><div class="intro-text">melodienrausch</div></div>
   <div class="custom-cursor" id="cursor"></div>
 
-  <!-- Neue Menüleiste -->
-  <nav class="navbar">
-    <div class="nav-logo">MELODIENRAUSCH®</div>
-
-    <ul class="nav-links">
-      <li class="nav-item"><a href="index.html">Heimat</a></li>
-
-      <li class="nav-item">
-        <a href="werke.html">Kunst ▼</a>
-        <div class="dropdown-menu">
-          <div class="dropdown-item"><span class="date">5/12</span><span class="event">CONCEPT PHOTO #1</span></div>
-          <div class="dropdown-item"><span class="date">5/15</span><span class="event">CONCEPT PHOTO #2</span></div>
-          <div class="dropdown-item"><span class="date">5/16</span><span class="event">CONCEPT PHOTO #3</span></div>
-          <div class="dropdown-item"><span class="date">5/17</span><span class="event">STORY FILM #1</span></div>
-          <div class="dropdown-item"><span class="date">5/18</span><span class="event">STORY FILM #2</span></div>
-          <div class="dropdown-item"><span class="date">5/19</span><span class="event">STORY FILM #3</span></div>
-          <div class="dropdown-item"><span class="date">5/20</span><span class="event">STORY FILM #4</span></div>
-          <div class="dropdown-item"><span class="date">5/22</span><span class="event">TRACKLIST & PREVIEW</span></div>
-          <div class="dropdown-item"><span class="date">5/23</span><span class="event">M/V TEASER #1</span></div>
-          <div class="dropdown-item"><span class="date">5/24</span><span class="event">SPECIAL VIDEO TEASER</span></div>
-          <div class="dropdown-item"><span class="date">5/25</span><span class="event">M/V TEASER #2</span></div>
-          <div class="dropdown-item"><span class="date">5/26</span><span class="event">CHOREOGRAPHY SPOILER</span></div>
-          <div class="dropdown-item"><span class="date">5/29</span><span class="event">ALBUM & M/V RELEASE</span></div>
-        </div>
-      </li>
-
-      <li class="nav-item"><a href="ueber.html">Über mich</a></li>
-      <li class="nav-item"><a href="register.html">Tagebuch</a></li>
-      <li class="nav-item"><a href="kontakt.html">Kontakt</a></li>
-    </ul>
-  </nav>
+  <div class="side-menu">
+    <a href="index.html" class="menu-link active">Heimat</a>
+    <a href="werke.html" class="menu-link">Werke</a>
+    <a href="ueber.html" class="menu-link">Über</a>
+    <a href="register.html" class="menu-link">Register</a>
+    <a href="kontakt.html" class="menu-link">Kontakt</a>
+  </div>
 
   <div class="main-content">
     <div class="hero-header">
       <h1 class="huge-title">MELODIENRAUSCH®</h1>
+      <div class="menu-icon" onclick="toggleMenu()"><span></span><span></span><span></span></div>
     </div>
 
       <main class="section-grid">
@@ -239,13 +123,14 @@
   document.addEventListener('mousemove', (e) => {
     cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
   });
+  function toggleMenu() { document.body.classList.toggle('menu-open'); }
 
   window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       const intro = document.getElementById('intro-screen');
       if(intro) { intro.style.opacity = '0'; setTimeout(() => intro.remove(), 600); }
       document.body.classList.add('intro-done');
-    }, 3400); 
+    }, 3400);
   });
 
   const zoomImage = document.getElementById('zoomImage');
@@ -253,7 +138,7 @@
     let scrollPos = window.scrollY;
     if (scrollPos > 10) {
       zoomImage.style.position = 'fixed'; zoomImage.style.top = '0'; zoomImage.style.left = '0'; zoomImage.style.width = '100vw'; zoomImage.style.height = '100vh';
-      let zoomFaktor = 1 + (scrollPos * 0.002); if(zoomFaktor > 2.2) zoomFaktor = 2.2; 
+      let zoomFaktor = 1 + (scrollPos * 0.002); if(zoomFaktor > 2.2) zoomFaktor = 2.2;
       zoomImage.style.transform = `scale(${zoomFaktor})`;
     } else {
       zoomImage.style.position = 'absolute'; zoomImage.style.width = '100%'; zoomImage.style.height = '100%'; zoomImage.style.transform = 'scale(1)';
