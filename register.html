@@ -231,6 +231,48 @@
     pointer-events: none;
     overflow: hidden;
   }
+
+  .entry-reader {
+    position: fixed;
+    inset: 0;
+    z-index: 1000000;
+    background: #0a0a0a;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .35s ease, visibility .35s ease;
+  }
+
+  .entry-reader.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .entry-reader iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: #0a0a0a;
+  }
+
+  .entry-reader-close {
+    position: fixed;
+    top: 18px;
+    right: 22px;
+    z-index: 1000001;
+    border: 1px solid rgba(255,255,255,.65);
+    background: rgba(10,10,10,.88);
+    color: #fff;
+    padding: 10px 14px;
+    font: 700 12px/1 'Courier New', monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  body.entry-open {
+    overflow: hidden;
+  }
 </style>
 </head>
 <body>
@@ -305,6 +347,11 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="entry-reader" id="entry-reader" aria-hidden="true">
+    <button class="entry-reader-close" type="button" onclick="closeDiaryEntry()">Zurück zum Buch ×</button>
+    <iframe id="entry-reader-frame" title="Tagebucheintrag"></iframe>
   </div>
 
   <iframe id="sc-hidden-player"
@@ -409,6 +456,28 @@
   let rightIndex = 1;
   let animating = false;
 
+  function openDiaryEntry(url) {
+    const reader = document.getElementById('entry-reader');
+    const frame = document.getElementById('entry-reader-frame');
+    frame.src = url;
+    reader.classList.add('open');
+    reader.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('entry-open');
+  }
+
+  function closeDiaryEntry() {
+    const reader = document.getElementById('entry-reader');
+    const frame = document.getElementById('entry-reader-frame');
+    reader.classList.remove('open');
+    reader.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('entry-open');
+    setTimeout(() => { frame.src = 'about:blank'; }, 350);
+  }
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeDiaryEntry();
+  });
+
   function fillEntry(prefix, entry, index) {
     const dateEl = document.getElementById(prefix + '-date');
     const titleEl = document.getElementById(prefix + '-title');
@@ -435,7 +504,7 @@
 
     container.onclick = (e) => {
       if (e.target.closest('.book-nav')) return;
-      window.location.href = entry.url;
+      openDiaryEntry(entry.url);
     };
   }
 
