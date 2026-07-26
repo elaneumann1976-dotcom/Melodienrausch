@@ -181,9 +181,26 @@ letter-spacing: -0.5px; margin-bottom: 20px; }
   .werk-manifest { font-style: italic; margin-bottom: 20px; opacity: 
 0.85; }
   .werk-description { font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 1.65; margin-bottom: 20px; opacity: 0.9; }
-  .werk-sound { margin-bottom: 24px; }
-  .werk-sound-label { font-family: 'Oswald', sans-serif; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.6; margin-bottom: 8px; }
-  .werk-sound iframe { border: none; filter: invert(1) grayscale(0.6) contrast(1.1); }
+  .werk-sound {
+    margin: 18px 0 0;
+    padding-top: 14px;
+    border-top: 1px solid rgba(0, 0, 0, 0.35);
+  }
+  .werk-sound-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.55;
+    margin-bottom: 6px;
+  }
+  .werk-sound iframe {
+    display: block;
+    height: 64px;
+    border: none;
+    filter: grayscale(1) contrast(1.08);
+    opacity: 0.84;
+  }
   .werk-fields { font-family: 'Oswald', sans-serif; font-size: 13px; 
 text-transform: uppercase; line-height: 1.7; padding-top: 16px; 
 border-top: 1px solid #000000; }
@@ -273,10 +290,6 @@ die Stille im Kopf überdröhnt</div>
 ist kein Portfolio, sondern ein digitales 
 Underground-Magazin."</div>
           <div class="werk-description" id="werk-description"></div>
-          <div class="werk-sound" id="werk-sound-wrap" style="display:none;">
-            <div class="werk-sound-label" id="werk-sound-label"></div>
-            <iframe id="werk-sound-frame" width="100%" height="120" frameborder="no" scrolling="no" allow="autoplay; encrypted-media"></iframe>
-          </div>
           <div class="werk-fields">
             <div><span 
 class="k">Technik</span><span id="werk-tech">Mischtechnik
@@ -287,6 +300,10 @@ class="k">Technik</span><span id="werk-tech">Mischtechnik
 id="werk-year">2026</span></div>
             <div><span class="k">Status</span><span
  id="werk-status">Verfügbar</span></div>
+          </div>
+          <div class="werk-sound" id="werk-sound-wrap" style="display:none;">
+            <div class="werk-sound-label" id="werk-sound-label"></div>
+            <iframe id="werk-sound-frame" width="100%" height="64" frameborder="no" scrolling="no" allow="autoplay; encrypted-media"></iframe>
           </div>
         </div>
       </div>
@@ -406,7 +423,7 @@ id="werk-year">2026</span></div>
     const soundFrame = document.getElementById('werk-sound-frame');
     if (w.trackId) {
       soundLabel.textContent = 'Sound – startet automatisch' + (w.sound ? ': ' + w.sound : '');
-      soundFrame.src = 'https://w.soundcloud.com/player/?url=https%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F' + w.trackId + '&color=%23ffffff&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&visual=false';
+      soundFrame.src = 'https://w.soundcloud.com/player/?url=https%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F' + w.trackId + '&color=%23ffffff&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_playcount=false&show_artwork=false&show_reposts=false&visual=false';
       soundWrap.style.display = 'block';
     } else {
       soundLabel.textContent = '';
