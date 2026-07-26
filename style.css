@@ -379,3 +379,164 @@ body:has(.entry-grid) .menu-icon span {
     font-size: clamp(32px, 10vw, 46px) !important;
   }
 }
+
+
+/* ===== INDIVIDUELLE TAGEBUCH-KOMPOSITIONEN =====
+   Drei ruhige Varianten auf derselben sichtbaren Papiergröße. */
+body.diary-entry .hero-header {
+  display: none !important;
+}
+
+body.diary-entry .entry-grid {
+  padding-top: 64px !important;
+}
+
+body.diary-entry .entry-grid::after {
+  top: 22px !important;
+}
+
+body.diary-entry .entry-main {
+  min-height: 0;
+  padding: 46px 48px 72px !important;
+  box-shadow:
+    8px 11px 0 rgba(0,0,0,.07),
+    inset 0 0 38px rgba(54,40,25,.1) !important;
+}
+
+body.diary-entry .entry-headline {
+  max-width: 540px;
+  margin-bottom: 42px !important;
+}
+
+body.diary-entry .entry-text {
+  font-size: 16px !important;
+  line-height: 1.68 !important;
+}
+
+body.diary-entry .entry-text p:first-child {
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  border-left: 0;
+  padding: 0;
+  margin-bottom: 15px !important;
+  transform: none;
+}
+
+body.diary-entry .entry-text p:last-child {
+  display: table;
+  margin: 30px auto 0 !important;
+  font-size: 17px;
+}
+
+/* A — klare Zine-Spalte, ein kleiner schwarzer Gedanke */
+body.diary-entry.layout-a .entry-main {
+  transform: rotate(.08deg);
+}
+
+body.diary-entry.layout-a .entry-headline {
+  font-family: "Oswald", Arial, sans-serif !important;
+  font-size: clamp(32px, 3.5vw, 44px) !important;
+  line-height: 1.02 !important;
+  letter-spacing: -.45px !important;
+  text-transform: uppercase !important;
+  transform: rotate(-.25deg);
+}
+
+body.diary-entry.layout-a .entry-text > p:nth-child(2) {
+  display: table;
+  max-width: 390px;
+  margin: 24px 0 30px auto !important;
+  padding: 10px 13px !important;
+  background: #151515;
+  color: #f4f0e7;
+  transform: rotate(-.6deg);
+}
+
+/* B — leiser Schreibmaschinen-Titel, seitlicher Rhythmus */
+body.diary-entry.layout-b .entry-main {
+  transform: rotate(-.12deg);
+}
+
+body.diary-entry.layout-b .entry-headline {
+  max-width: 500px;
+  margin-left: auto !important;
+  font-family: "Courier New", Courier, monospace !important;
+  font-size: clamp(25px, 2.7vw, 35px) !important;
+  line-height: 1.25 !important;
+  letter-spacing: .2px !important;
+  text-transform: none !important;
+  padding-left: 18px;
+  border-left: 5px solid #151515;
+  transform: rotate(.35deg);
+}
+
+body.diary-entry.layout-b .entry-text {
+  max-width: 510px !important;
+}
+
+body.diary-entry.layout-b .entry-text > p:nth-child(4) {
+  margin: 28px 0 32px 34px !important;
+  padding-left: 16px;
+  border-left: 2px solid #151515;
+  font-weight: 700;
+}
+
+/* C — handschriftlicher Akzent, mehr freie Fläche */
+body.diary-entry.layout-c .entry-main {
+  transform: rotate(.16deg);
+}
+
+body.diary-entry.layout-c .entry-headline {
+  font-family: "Oswald", Arial, sans-serif !important;
+  font-size: clamp(30px, 3.2vw, 41px) !important;
+  line-height: 1.08 !important;
+  letter-spacing: -.25px !important;
+  text-transform: none !important;
+  max-width: 480px;
+  transform: rotate(-.45deg);
+}
+
+body.diary-entry.layout-c .entry-headline::after {
+  content: "weiter.";
+  display: table;
+  margin: 8px 18px 0 auto;
+  font: 400 clamp(28px, 3vw, 39px)/1 "Shadows Into Light", cursive;
+  border-bottom: 2px solid #151515;
+  transform: rotate(-2deg);
+}
+
+body.diary-entry.layout-c .entry-text {
+  max-width: 500px !important;
+  margin-left: auto;
+}
+
+body.diary-entry.layout-c .entry-text > p:nth-child(3) {
+  width: fit-content;
+  max-width: 380px;
+  margin: 26px auto 32px 0 !important;
+  font-family: "Shadows Into Light", cursive;
+  font-size: 27px;
+  line-height: 1.15;
+  transform: rotate(-1.2deg);
+}
+
+@media (max-width: 720px) {
+  body.diary-entry .entry-grid {
+    padding-top: 42px !important;
+  }
+
+  body.diary-entry .entry-grid::after {
+    top: 17px !important;
+  }
+
+  body.diary-entry .entry-main {
+    padding: 38px 23px 58px !important;
+  }
+
+  body.diary-entry.layout-a .entry-headline,
+  body.diary-entry.layout-b .entry-headline,
+  body.diary-entry.layout-c .entry-headline {
+    font-size: clamp(27px, 8.4vw, 38px) !important;
+  }
+}
