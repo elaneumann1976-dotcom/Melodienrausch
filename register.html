@@ -428,3 +428,38 @@
   }
 
   function turnPage(direction) {
+    if (animating) return;
+    const page = document.getElementById('flipPage');
+
+    if (direction > 0) {
+      if (rightIndex + 1 >= diaryEntries.length) return;
+      const nextIndex = rightIndex + 1;
+      animating = true;
+
+      fillEntry('back', diaryEntries[nextIndex], nextIndex);
+      page.classList.add('flipped');
+
+      setTimeout(() => {
+        page.classList.add('no-transition');
+        page.classList.remove('flipped');
+        void page.offsetWidth;
+        fillEntry('front', diaryEntries[nextIndex], nextIndex);
+        page.classList.remove('no-transition');
+        animating = false;
+      }, 1200);
+
+      rightIndex = nextIndex;
+      fillEntry('left', diaryEntries[rightIndex - 1], rightIndex - 1);
+      updateNav();
+    } else {
+      if (rightIndex - 1 < 1) return;
+      rightIndex -= 1;
+      fillEntry('front', diaryEntries[rightIndex], rightIndex);
+      fillEntry('left', diaryEntries[rightIndex - 1], rightIndex - 1);
+      updateNav();
+    }
+  }
+</script>
+
+</body>
+</html>
