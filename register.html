@@ -49,9 +49,10 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    background: transparent;
-    border: 4px solid #e50914;
+    background: #171512;
+    border: 9px solid #171512;
     box-sizing: border-box;
+    box-shadow: 8px 10px 0 rgba(0,0,0,.34), 0 0 0 1px rgba(255,255,255,.08);
   }
 
   .page-3d {
@@ -74,18 +75,25 @@
     backface-visibility: hidden;
     padding: 40px;
     box-sizing: border-box;
-    background: #ffffff;
-    color: #000000;
+    background-color: #f0ece3;
+    background-image:
+      linear-gradient(rgba(255,255,255,.2), rgba(60,45,25,.055)),
+      url('grunge-texture-dark.jpg');
+    background-size: cover;
+    background-blend-mode: screen;
+    color: #171512;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
+    box-shadow:
+      inset 0 0 42px rgba(49,38,22,.15),
+      inset 0 0 0 1px rgba(20,18,14,.16);
   }
 
   .page-back {
     transform: rotateY(180deg);
-    background: #fcfcfc;
-    border-left: 1px solid #ddd;
+    background-color: #e7e1d5;
+    border-left: 1px solid rgba(30,25,18,.28);
   }
 
   .page-front::after {
@@ -93,9 +101,9 @@
     position: absolute;
     left: 0;
     top: 0;
-    width: 15px;
+    width: 30px;
     height: 100%;
-    background: linear-gradient(to right, rgba(0,0,0,0.15), transparent);
+    background: linear-gradient(to right, rgba(0,0,0,.3), rgba(0,0,0,.07) 45%, transparent);
   }
 
   .page-3d.flipped {
@@ -112,14 +120,33 @@
     top: 0;
     width: 50%;
     height: 100%;
-    background: #ededed;
-    color: #000;
+    background-color: #eee9df;
+    background-image:
+      linear-gradient(rgba(255,255,255,.18), rgba(60,45,25,.05)),
+      url('grunge-texture-dark.jpg');
+    background-size: cover;
+    background-blend-mode: screen;
+    color: #171512;
     padding: 40px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     cursor: pointer;
+    box-shadow:
+      inset -30px 0 34px -25px rgba(25,20,14,.5),
+      inset 0 0 42px rgba(49,38,22,.13),
+      inset 0 0 0 1px rgba(20,18,14,.16);
+  }
+
+  .static-page-left::before {
+    content: 'MELODIENRAUSCH — KUNST-TAGEBUCH';
+    position: absolute;
+    top: 17px;
+    left: 40px;
+    font: 700 9px/1 'Courier New', monospace;
+    letter-spacing: .08em;
+    opacity: .62;
   }
 
   .entry-thumb {
@@ -137,28 +164,32 @@
 
   .huge-title-diary {
     font-size: clamp(1rem, 1.6vw, 1.3rem);
-    font-weight: 900;
-    line-height: 1.2;
+    font-family: 'Oswald', 'Arial Narrow', sans-serif;
+    font-weight: 700;
+    line-height: 1.08;
     text-transform: uppercase;
-    letter-spacing: -1px;
-    margin: 0 0 12px 0;
+    letter-spacing: -.35px;
+    margin: 0 0 18px 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #171512;
   }
 
   .pink-badge {
-    background: #e50914;
-    color: #fff;
-    padding: 15px;
-    font-weight: bold;
+    background: #171512;
+    color: #f2eee5;
+    padding: 9px 13px 8px;
+    font-weight: 700;
     text-transform: uppercase;
-    font-size: 1rem;
-    margin-bottom: 20px;
+    font: 700 .82rem/1 'Courier New', monospace;
+    margin: 0 0 24px -6px;
     display: inline-block;
+    transform: rotate(-1.4deg);
+    box-shadow: 4px 3px 0 rgba(229,9,20,.72);
   }
 
   .text-content {
-    font-size: 14px;
-    line-height: 1.6;
-    color: #333;
+    font: 13px/1.65 'Courier New', Courier, monospace;
+    color: #211f1b;
   }
 
   .text-content strong {
@@ -171,7 +202,7 @@
   .page-number {
     font-size: 12px;
     font-weight: bold;
-    border-top: 1px solid #ddd;
+    border-top: 1px solid #171512;
     padding-top: 10px;
     text-transform: uppercase;
     letter-spacing: 1px;
