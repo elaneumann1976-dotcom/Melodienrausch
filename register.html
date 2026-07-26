@@ -220,6 +220,17 @@
     flex-direction: column;
     justify-content: space-between;
   }
+
+  #sc-hidden-player {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
 </style>
 </head>
 <body>
@@ -296,6 +307,12 @@
     </div>
   </div>
 
+  <iframe id="sc-hidden-player"
+    scrolling="no" frameborder="no" allow="autoplay; encrypted-media"
+    src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2331433277&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false">
+  </iframe>
+  <script src="https://w.soundcloud.com/player/api.js"></script>
+
 <script>
   const cursor = document.getElementById('cursor');
   document.addEventListener('mousemove', (e) => {
@@ -307,6 +324,48 @@
   // sofort sichtbar machen, sonst bleibt .main-content dauerhaft bei opacity:0
   // (siehe style.css: body.intro-done .main-content { opacity: 1; })
   document.body.classList.add('intro-done');
+
+  // Fedele x Ora Curated — Tagebuch startet bei 55:00.
+  let scWidget = null;
+  let widgetReady = false;
+  let pendingPlay = false;
+  let soundStarted = false;
+
+  window.addEventListener('load', () => {
+    const scIframe = document.getElementById('sc-hidden-player');
+    if (window.SC && scIframe) {
+      scWidget = SC.Widget(scIframe);
+      scWidget.bind(SC.Widget.Events.READY, () => {
+        widgetReady = true;
+        if (pendingPlay) startDiarySound();
+      });
+    }
+  });
+
+  function startDiarySound() {
+    if (soundStarted) return;
+    if (!widgetReady) {
+      pendingPlay = true;
+      return;
+    }
+    soundStarted = true;
+    const START_MS = 3300000; // 55:00
+    scWidget.seekTo(START_MS);
+    scWidget.setVolume(10);
+    setTimeout(() => {
+      scWidget.play();
+      let volume = 10;
+      const fade = setInterval(() => {
+        volume = Math.min(volume + 1.8, 100);
+        scWidget.setVolume(volume);
+        if (volume >= 100) clearInterval(fade);
+      }, 100);
+    }, 200);
+  }
+
+  ['pointerdown', 'touchstart', 'keydown'].forEach((eventName) => {
+    document.addEventListener(eventName, startDiarySound, { once: true, passive: true });
+  });
 
   window.addEventListener('DOMContentLoaded', () => {
     initBook();
