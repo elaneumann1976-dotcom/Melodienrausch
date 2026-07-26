@@ -115,15 +115,29 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    cursor: pointer;
   }
 
+  .entry-thumb {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    margin-bottom: 16px;
+    border: 1px solid #ddd;
+    display: none;
+  }
+  .entry-thumb.has-image { display: block; }
+
+  .page-number.clickable { cursor: pointer; }
+  .page-number.clickable:hover { color: #e50914; }
+
   .huge-title-diary {
-    font-size: 4.5rem;
+    font-size: clamp(1.6rem, 2.6vw, 2.4rem);
     font-weight: 900;
-    line-height: 0.85;
+    line-height: 1.05;
     text-transform: uppercase;
-    letter-spacing: -2px;
-    margin: 0;
+    letter-spacing: -1px;
+    margin: 0 0 12px 0;
   }
 
   .pink-badge {
@@ -157,19 +171,6 @@
     padding-top: 10px;
     text-transform: uppercase;
     letter-spacing: 1px;
-  }
-
-  .hint {
-    position: absolute;
-    bottom: -50px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #e50914;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-weight: bold;
-    animation: pulse 1.5s infinite alternate;
   }
 
   @keyframes pulse {
@@ -226,41 +227,42 @@
         <div class="static-page-left" id="page-left-static">
           <div class="content-layer">
             <div>
-              <div class="pink-badge" style="background:#000;"></div>
-              <h1 class="huge-title-diary" style="color:#e50914;"></h1>
+              <div class="pink-badge" id="left-date"></div>
+              <img class="entry-thumb" id="left-thumb" alt="">
+              <h1 class="huge-title-diary" id="left-title" style="color:#e50914;"></h1>
+              <div class="text-content" id="left-teaser"></div>
             </div>
-            <div class="page-number">Seite 01</div>
+            <div class="page-number" id="left-page-num">Seite 01</div>
           </div>
         </div>
 
-        <div class="page-3d" id="flipPage" onclick="turnPage()">
+        <div class="page-3d" id="flipPage">
 
           <div class="page-front" id="page-r-front">
             <div class="content-layer">
               <div>
-                <div class="pink-badge"></div>
-                <h1 class="huge-title-diary"></h1>
+                <div class="pink-badge" id="front-date"></div>
+                <img class="entry-thumb" id="front-thumb" alt="">
+                <h1 class="huge-title-diary" id="front-title"></h1>
+                <div class="text-content" id="front-teaser"></div>
               </div>
-              <div class="text-content">
-              </div>
-              <div class="page-number" style="text-align: right;">Seite 02 ▸</div>
+              <div class="page-number" id="front-page-num" style="text-align: right;" onclick="event.stopPropagation(); turnPage(1);">Seite 02 ▸</div>
             </div>
           </div>
 
           <div class="page-back" id="page-l-back">
             <div class="content-layer">
               <div>
-                <h1 class="huge-title-diary" style="font-size: 3rem;"></h1>
+                <div class="pink-badge" id="back-date"></div>
+                <img class="entry-thumb" id="back-thumb" alt="">
+                <h1 class="huge-title-diary" id="back-title"></h1>
+                <div class="text-content" id="back-teaser"></div>
               </div>
-              <div class="text-content">
-              </div>
-              <div class="page-number">◀ Zurück | Seite 03</div>
+              <div class="page-number" id="back-page-num" onclick="event.stopPropagation(); turnPage(-1);">◀ Zurück | Seite 03</div>
             </div>
           </div>
 
         </div>
-
-        <div class="hint">Klicke auf die rechte Buchseite zum Umblättern</div>
       </div>
     </div>
   </div>
@@ -278,11 +280,80 @@
       if(intro) { intro.style.opacity = '0'; setTimeout(() => intro.remove(), 600); }
       document.body.classList.add('intro-done');
     }, 3400);
+    renderSpread(0);
   });
 
-  function turnPage() {
+  /* ===== Tagebuch-Einträge: HIER echte Einträge eintragen/ersetzen ===== */
+  const diaryEntries = [
+    { title: "WENN DER BASS", teaser: "Kurzer Teaser-Text für den ersten Eintrag, ein bis drei Sätze, die neugierig machen sollen.", thumb: "", url: "eintrag-01.html" },
+    { title: "STILLE NÄCHTE", teaser: "Kurzer Teaser-Text für den zweiten Eintrag.", thumb: "", url: "eintrag-02.html" },
+    { title: "NEUE WEGE", teaser: "Kurzer Teaser-Text für den dritten Eintrag.", thumb: "", url: "eintrag-03.html" },
+    { title: "ROHE SPUREN", teaser: "Kurzer Teaser-Text für den vierten Eintrag.", thumb: "", url: "eintrag-04.html" }
+  ];
+
+  let spreadStart = 0;
+
+  function fillEntry(prefix, entry, index) {
+    const dateEl = document.getElementById(prefix + '-date');
+    const titleEl = document.getElementById(prefix + '-title');
+    const teaserEl = document.getElementById(prefix + '-teaser');
+    const thumbEl = document.getElementById(prefix + '-thumb');
+    const container = thumbEl.closest('.page-front, .page-back, .static-page-left');
+
+    if (!entry) {
+      dateEl.textContent = ''; titleEl.textContent = ''; teaserEl.textContent = '';
+      thumbEl.classList.remove('has-image'); thumbEl.src = '';
+      container.onclick = null;
+      container.style.cursor = 'default';
+      return;
+    }
+    container.style.cursor = 'pointer';
+    dateEl.textContent = String(index + 1).padStart(3, '0');
+    titleEl.textContent = entry.title;
+    teaserEl.textContent = entry.teaser;
+    if (entry.thumb) { thumbEl.src = entry.thumb; thumbEl.classList.add('has-image'); }
+    else { thumbEl.classList.remove('has-image'); thumbEl.src = ''; }
+
+    container.onclick = (e) => {
+      if (e.target.closest('.book-nav')) return;
+      window.location.href = entry.url;
+    };
+  }
+
+  function renderSpread(start) {
+    spreadStart = start;
+    fillEntry('left', diaryEntries[start], start);
+    fillEntry('front', diaryEntries[start + 1], start + 1);
+    fillEntry('back', diaryEntries[start + 2], start + 2);
+
+    const hasPrev = start > 0;
+    const hasNext = start + 2 < diaryEntries.length;
+    const frontNum = document.getElementById('front-page-num');
+    const backNum = document.getElementById('back-page-num');
+    frontNum.style.visibility = hasNext ? 'visible' : 'hidden';
+    frontNum.classList.toggle('clickable', hasNext);
+    backNum.style.visibility = hasPrev ? 'visible' : 'hidden';
+    backNum.classList.toggle('clickable', hasPrev);
+  }
+
+  function turnPage(direction) {
     const page = document.getElementById('flipPage');
-    page.classList.toggle('flipped');
+    if (direction > 0) {
+      if (spreadStart + 2 >= diaryEntries.length) return;
+      page.style.transition = 'transform 1.2s cubic-bezier(0.4, 0, 0.2, 1)';
+      page.classList.add('flipped');
+      page.addEventListener('transitionend', function handler() {
+        page.removeEventListener('transitionend', handler);
+        page.style.transition = 'none';
+        page.classList.remove('flipped');
+        void page.offsetWidth;
+        page.style.transition = 'transform 1.2s cubic-bezier(0.4, 0, 0.2, 1)';
+        renderSpread(spreadStart + 2);
+      }, { once: true });
+    } else {
+      if (spreadStart <= 0) return;
+      renderSpread(spreadStart - 2);
+    }
   }
 </script>
 </body>
