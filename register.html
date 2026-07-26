@@ -25,7 +25,8 @@
   .diary-3d-wrapper {
     font-family: 'Helvetica Neue', Arial, sans-serif;
     margin: 0;
-    padding: 0;
+    padding: 200px 0 60px 0;
+    box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -176,55 +177,14 @@
     100% { opacity: 1; }
   }
 
-  /* ===== Live-Kritzel-Notizen (schreiben sich beim Umblättern ein) ===== */
   .content-layer {
     position: relative;
-    z-index: 2;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    pointer-events: none;
-  }
-  .content-layer * { pointer-events: auto; }
-
-  .doodle {
-    position: absolute;
-    font-family: "Shadows Into Light", cursive;
-    color: rgba(0, 0, 0, 0.3);
-    user-select: none;
-    pointer-events: none;
-    z-index: 1;
-    line-height: 0.9;
-    white-space: nowrap;
-    overflow: hidden;
-    width: 0;
-    opacity: 0;
-    font-size: 22px;
   }
 
-  .animate-draw {
-    animation: typeDoodle 2.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-  }
-
-  @keyframes typeDoodle {
-    0%   { width: 0; opacity: 0; }
-    5%   { opacity: 1; }
-    100% { width: 100%; opacity: 1; }
-  }
-
-  .doodle-bold { font-weight: 900; text-transform: uppercase; letter-spacing: -1px; }
-  .doodle-strike { text-decoration: line-through; text-decoration-thickness: 3px; }
-  .doodle-circle {
-    border: 2px solid transparent;
-    border-radius: 50% 40% 60% 45%;
-    padding: 5px 15px;
-    transform: scale(1.1);
-    animation: drawCircle 1.2s ease-out 1.5s forwards;
-  }
-  @keyframes drawCircle {
-    100% { border-color: rgba(0, 0, 0, 0.3); }
-  }
   @keyframes introFromBehind {
     0%   { transform: scale(0.1); filter: blur(18px); opacity: 0; }
     60%  { filter: blur(2px); opacity: 1; }
@@ -266,8 +226,8 @@
         <div class="static-page-left" id="page-left-static">
           <div class="content-layer">
             <div>
-              <div class="pink-badge" style="background:#000;">Kapitel 02</div>
-              <h1 class="huge-title-diary" style="color:#e50914;">NEUE<br>WEGE</h1>
+              <div class="pink-badge" style="background:#000;"></div>
+              <h1 class="huge-title-diary" style="color:#e50914;"></h1>
             </div>
             <div class="page-number">Seite 01</div>
           </div>
@@ -278,12 +238,10 @@
           <div class="page-front" id="page-r-front">
             <div class="content-layer">
               <div>
-                <div class="pink-badge">Tagebuch Start</div>
-                <h1 class="huge-title-diary">MAZ<br>ING</h1>
+                <div class="pink-badge"></div>
+                <h1 class="huge-title-diary"></h1>
               </div>
               <div class="text-content">
-                <strong>Klicke auf diese Seite...</strong>
-                ...um den echten 3D-Blättereffekt auszulösen! Das Buch liegt leicht schräg im Raum, behält aber ein absolut klares Raster, damit du beim Schreiben und Lesen deines Tagebuchs keine Kopfschmerzen bekommst.
               </div>
               <div class="page-number" style="text-align: right;">Seite 02 ▸</div>
             </div>
@@ -292,11 +250,9 @@
           <div class="page-back" id="page-l-back">
             <div class="content-layer">
               <div>
-                <h1 class="huge-title-diary" style="font-size: 3rem;">EINTRAG<br>ZWEI</h1>
+                <h1 class="huge-title-diary" style="font-size: 3rem;"></h1>
               </div>
               <div class="text-content">
-                <strong>24. Juli 2026</strong>
-                Hier öffnet sich nahtlos der nächste Abschnitt deines Tagebuchs. Durch die 3D-Drehung fühlt es sich an wie ein echtes, schweres Magazin aus Papier. Klicke erneut, um das Buch wieder zu schließen!
               </div>
               <div class="page-number">◀ Zurück | Seite 03</div>
             </div>
@@ -327,65 +283,7 @@
   function turnPage() {
     const page = document.getElementById('flipPage');
     page.classList.toggle('flipped');
-    const isFlipped = page.classList.contains('flipped');
-    setTimeout(() => {
-      if (isFlipped) {
-        generateDoodles(document.getElementById('page-l-back'), 5, true);
-      } else {
-        generateDoodles(document.getElementById('page-r-front'), 5, true);
-      }
-    }, 600);
   }
-
-  /* ===== Kritzel-Notizen: Pool + Erzeugung ===== */
-  const doodlePool = [
-    { text: "LOVE", type: "bold" },
-    { text: "HATE", type: "bold" },
-    { text: "DRAMA", type: "circle" },
-    { text: "ME?", type: "normal" },
-    { text: "No No No", type: "normal" },
-    { text: "I can't relate", type: "normal" },
-    { text: "negative days", type: "normal" },
-    { text: "IN MY LIFE", type: "bold" },
-    { text: "💔", type: "normal" },
-    { text: "🕒", type: "normal" },
-    { text: "!!!", type: "bold" }
-  ];
-
-  function generateDoodles(pageElement, count, triggerAnimation = false) {
-    if (!pageElement) return;
-    pageElement.querySelectorAll('.doodle').forEach(d => d.remove());
-
-    for (let i = 0; i < count; i++) {
-      const doodle = document.createElement('div');
-      doodle.classList.add('doodle');
-
-      const item = doodlePool[Math.floor(Math.random() * doodlePool.length)];
-      doodle.innerText = item.text;
-
-      if (item.type === 'bold') doodle.classList.add('doodle-bold');
-      if (item.type === 'strike') doodle.classList.add('doodle-strike');
-      if (item.type === 'circle') doodle.classList.add('doodle-circle');
-
-      const top = 10 + Math.random() * 70;
-      const left = 5 + Math.random() * 60;
-      doodle.style.top = top + '%';
-      doodle.style.left = left + '%';
-      doodle.style.transform = `rotate(${(Math.random() - 0.5) * 12}deg)`;
-
-      pageElement.appendChild(doodle);
-
-      if (triggerAnimation) {
-        const delay = i * 150;
-        setTimeout(() => doodle.classList.add('animate-draw'), delay);
-      }
-    }
-  }
-
-  window.addEventListener('DOMContentLoaded', () => {
-    generateDoodles(document.getElementById('page-left-static'), 3, true);
-    generateDoodles(document.getElementById('page-r-front'), 4, true);
-  });
 </script>
 </body>
 </html>
