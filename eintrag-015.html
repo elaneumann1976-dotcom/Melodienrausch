@@ -65,30 +65,16 @@
     .entry-main { grid-column: 1; }
   }
 
-  @keyframes introFromBehind {
-    0%   { transform: scale(0.1); filter: blur(18px); opacity: 0; }
-    60%  { filter: blur(2px); opacity: 1; }
-    100% { transform: scale(1); filter: blur(0); opacity: 1; }
-  }
   .entry-headline.typing::after {
     content: '|';
     margin-left: 2px;
     animation: twBlink 0.8s steps(1) infinite;
   }
   @keyframes twBlink { 50% { opacity: 0; } }
-  #intro-screen { perspective: 800px; }
-  #intro-screen .intro-text {
-    font-family:'Courier New'; font-size:24px; letter-spacing:10px;
-    text-transform:uppercase; font-weight:bold;
-    animation: introFromBehind 3s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-  }
 </style>
 </head>
 <body>
 
-  <div id="intro-screen" style="position:fixed; top:0; left:0; width:100%; height:100vh; background:#000; color:#fff; display:flex; justify-content:center; align-items:center; z-index:9999999; transition:opacity 0.6s ease;">
-    <div class="intro-text">melodienrausch</div>
-  </div>
   <div class="custom-cursor" id="cursor"></div>
 
   <div class="side-menu">
@@ -129,14 +115,9 @@
   const ENTRY_PARAGRAPHS = ["Kommunikation.", "Eigentlich ein ganz normales Wort.", "Bei mir reicht manchmal schon ein fehlender Satz und innen ist sofort wieder alles da.", "Alle wissen Bescheid.", "Nur ich nicht.", "Alle gehören dazu.", "Ich stehe daneben.", "In der Arbeit ging es um Abläufe. Wer wem was gesagt hatte. Nichts, woraus man ein komplettes Familiendrama bauen müsste.", "Mein Kopf nahm die Herausforderung trotzdem an.", "Dann kam der Satz:", "„Hast du dich wieder beruhigt?“", "Vielleicht war er nicht einmal böse gemeint.", "Bei mir kam aber etwas ganz anderes an:", "Stell dich nicht so an.", "Du bist schon wieder zu viel.", "Deine Gefühle sind unbequem.", "In dem Moment reagiere ich nicht nur auf die Person vor mir. Da reden alte Stimmen mit, die mit dieser Küche überhaupt nichts zu tun haben.", "Das merke ich inzwischen schneller.", "Früher wäre ich direkt in die Beweisführung gegangen. Wort für Wort. Satz für Satz. Bis niemand mehr wusste, worum es eigentlich ging.", "Heute kann ich manchmal kurz stoppen.", "Nicht immer und nicht besonders elegant.", "Aber ich merke: Das hier ist größer als die Situation.", "Der Satz hat eine alte Stelle getroffen.", "Deshalb tut er weh.", "Ich muss mich dafür nicht schämen. Aber ich muss auch nicht jedes Mal einen ganzen Gerichtssaal eröffnen.", "Manchmal reicht es, zu sagen:", "Das hat mich getroffen.", "Mehr Kommunikation wäre dann eigentlich gar nicht nötig."];
 
   window.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-      const intro = document.getElementById('intro-screen');
-      if(intro) { intro.style.opacity = '0'; setTimeout(() => intro.remove(), 600); }
-      document.body.classList.add('intro-done');
-      typeWriter(document.getElementById('tw-title'), 38, () => {
-        typeParagraphs(document.getElementById('entry-body'), ENTRY_PARAGRAPHS, 14, 350);
-      });
-    }, 3400);
+    typeWriter(document.getElementById('tw-title'), 38, () => {
+      typeParagraphs(document.getElementById('entry-body'), ENTRY_PARAGRAPHS, 14, 350);
+    });
   });
 
   function typeWriter(el, speed, onDone) {

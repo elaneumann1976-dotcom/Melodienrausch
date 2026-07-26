@@ -65,30 +65,16 @@
     .entry-main { grid-column: 1; }
   }
 
-  @keyframes introFromBehind {
-    0%   { transform: scale(0.1); filter: blur(18px); opacity: 0; }
-    60%  { filter: blur(2px); opacity: 1; }
-    100% { transform: scale(1); filter: blur(0); opacity: 1; }
-  }
   .entry-headline.typing::after {
     content: '|';
     margin-left: 2px;
     animation: twBlink 0.8s steps(1) infinite;
   }
   @keyframes twBlink { 50% { opacity: 0; } }
-  #intro-screen { perspective: 800px; }
-  #intro-screen .intro-text {
-    font-family:'Courier New'; font-size:24px; letter-spacing:10px;
-    text-transform:uppercase; font-weight:bold;
-    animation: introFromBehind 3s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-  }
 </style>
 </head>
 <body>
 
-  <div id="intro-screen" style="position:fixed; top:0; left:0; width:100%; height:100vh; background:#000; color:#fff; display:flex; justify-content:center; align-items:center; z-index:9999999; transition:opacity 0.6s ease;">
-    <div class="intro-text">melodienrausch</div>
-  </div>
   <div class="custom-cursor" id="cursor"></div>
 
   <div class="side-menu">
@@ -129,14 +115,9 @@
   const ENTRY_PARAGRAPHS = ["Heute saß ich bei meiner Therapeutin.", "Eigentlich dachte ich, wir reden wie immer über die Reha. Termine, Anträge, Wartezeiten. Dieser ganze Papierkram, der inzwischen gefühlt ein eigenes Hobby ist.", "Dann sagte sie, dass sie nicht versteht, warum ich für fünf Monate in eine Entwöhnungstherapie soll.", "Nicht weil sie gegen eine Reha ist.", "Sie fragt sich, ob diese Reha überhaupt noch zu meiner heutigen Situation passt.", "Und plötzlich saß ich da und dachte: Ja. Wie bin ich eigentlich auf dieser Schiene gelandet?", "Entgiftung. Anträge. Gutachten. Empfehlungen.", "Man macht einen Schritt nach dem anderen und vertraut darauf, dass die Leute schon wissen werden, was richtig ist.", "Bis jemand fragt: Passt dieser Weg überhaupt noch zu dir?", "Wenn ich ehrlich bin, rede ich seit Monaten kaum noch über Drogen.", "Ich rede über ADHS. Erschöpfung. Beziehungen. Überforderung.", "Darüber, wer ich eigentlich bin, wenn das Chaos im Kopf langsam leiser wird.", "Ich rede darüber, wie ich wieder leben kann.", "Natürlich brauche ich Hilfe.", "Aber vielleicht eine andere als die, die vor Monaten geplant wurde.", "Das Verrückte ist: Man verändert sich langsam und läuft trotzdem auf dem alten Weg weiter, weil man ihn eben einmal eingeschlagen hat.", "Bis jemand kurz die Musik stoppt und fragt, ob das hier überhaupt noch der richtige Track ist.", "Ich habe darauf noch keine Antwort.", "Aber die Frage ist jetzt da.", "Und sie geht nicht mehr weg."];
 
   window.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-      const intro = document.getElementById('intro-screen');
-      if(intro) { intro.style.opacity = '0'; setTimeout(() => intro.remove(), 600); }
-      document.body.classList.add('intro-done');
-      typeWriter(document.getElementById('tw-title'), 38, () => {
-        typeParagraphs(document.getElementById('entry-body'), ENTRY_PARAGRAPHS, 14, 350);
-      });
-    }, 3400);
+    typeWriter(document.getElementById('tw-title'), 38, () => {
+      typeParagraphs(document.getElementById('entry-body'), ENTRY_PARAGRAPHS, 14, 350);
+    });
   });
 
   function typeWriter(el, speed, onDone) {

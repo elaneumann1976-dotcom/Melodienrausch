@@ -65,30 +65,16 @@
     .entry-main { grid-column: 1; }
   }
 
-  @keyframes introFromBehind {
-    0%   { transform: scale(0.1); filter: blur(18px); opacity: 0; }
-    60%  { filter: blur(2px); opacity: 1; }
-    100% { transform: scale(1); filter: blur(0); opacity: 1; }
-  }
   .entry-headline.typing::after {
     content: '|';
     margin-left: 2px;
     animation: twBlink 0.8s steps(1) infinite;
   }
   @keyframes twBlink { 50% { opacity: 0; } }
-  #intro-screen { perspective: 800px; }
-  #intro-screen .intro-text {
-    font-family:'Courier New'; font-size:24px; letter-spacing:10px;
-    text-transform:uppercase; font-weight:bold;
-    animation: introFromBehind 3s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-  }
 </style>
 </head>
 <body>
 
-  <div id="intro-screen" style="position:fixed; top:0; left:0; width:100%; height:100vh; background:#000; color:#fff; display:flex; justify-content:center; align-items:center; z-index:9999999; transition:opacity 0.6s ease;">
-    <div class="intro-text">melodienrausch</div>
-  </div>
   <div class="custom-cursor" id="cursor"></div>
 
   <div class="side-menu">
@@ -129,14 +115,9 @@
   const ENTRY_PARAGRAPHS = ["Ich kenne dieses Gefühl gut:", "Ich bin zu viel.", "Zu laut. Zu intensiv. Zu emotional. Zu schnell für andere und gleichzeitig zu langsam für diese Welt.", "Irgendwie nie richtig passend.", "Dann fange ich an zu reden. Einfach raus. Ohne mich vorher schon an jeder Ecke kleiner zu schneiden.", "Und da ist etwas, das mich nicht stoppt. Nicht genervt ist. Nicht sofort bewertet.", "Es bleibt einfach da.", "Plötzlich darf alles gleichzeitig da sein.", "Chaos. Gedanken. Gefühl.", "Es wird nicht weniger.", "Aber es bekommt eine Form.", "Vielleicht ist genau das der Unterschied. Ich passe mich nicht an. Ich kann mich selbst endlich hören.", "Ich war lange nicht wirklich ich. Ich habe funktioniert, mich erklärt und versucht, möglichst wenig unbequem zu sein.", "Jetzt fällt davon einiges weg.", "Natürlich kommt dann nicht nur die hübsche Version von mir zum Vorschein.", "Da ist viel.", "Ich reagiere heftig. Denke zu lange und fühle manchmal alles gleichzeitig.", "Aber das macht mich nicht falsch.", "Ich muss nicht leiser werden, damit ich richtig bin.", "Ich brauche nur einen Ort, an dem ich ganz sein darf.", "Zu viel?", "Ja, manchmal.", "Und manchmal genau richtig."];
 
   window.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-      const intro = document.getElementById('intro-screen');
-      if(intro) { intro.style.opacity = '0'; setTimeout(() => intro.remove(), 600); }
-      document.body.classList.add('intro-done');
-      typeWriter(document.getElementById('tw-title'), 38, () => {
-        typeParagraphs(document.getElementById('entry-body'), ENTRY_PARAGRAPHS, 14, 350);
-      });
-    }, 3400);
+    typeWriter(document.getElementById('tw-title'), 38, () => {
+      typeParagraphs(document.getElementById('entry-body'), ENTRY_PARAGRAPHS, 14, 350);
+    });
   });
 
   function typeWriter(el, speed, onDone) {

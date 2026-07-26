@@ -65,30 +65,16 @@
     .entry-main { grid-column: 1; }
   }
 
-  @keyframes introFromBehind {
-    0%   { transform: scale(0.1); filter: blur(18px); opacity: 0; }
-    60%  { filter: blur(2px); opacity: 1; }
-    100% { transform: scale(1); filter: blur(0); opacity: 1; }
-  }
   .entry-headline.typing::after {
     content: '|';
     margin-left: 2px;
     animation: twBlink 0.8s steps(1) infinite;
   }
   @keyframes twBlink { 50% { opacity: 0; } }
-  #intro-screen { perspective: 800px; }
-  #intro-screen .intro-text {
-    font-family:'Courier New'; font-size:24px; letter-spacing:10px;
-    text-transform:uppercase; font-weight:bold;
-    animation: introFromBehind 3s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-  }
 </style>
 </head>
 <body>
 
-  <div id="intro-screen" style="position:fixed; top:0; left:0; width:100%; height:100vh; background:#000; color:#fff; display:flex; justify-content:center; align-items:center; z-index:9999999; transition:opacity 0.6s ease;">
-    <div class="intro-text">melodienrausch</div>
-  </div>
   <div class="custom-cursor" id="cursor"></div>
 
   <div class="side-menu">
@@ -129,14 +115,9 @@
   const ENTRY_PARAGRAPHS = ["Reha bewilligt.", "22 Wochen.", "Eigentlich müsste ich mich freuen.", "Habe ich doch gewollt. Habe ich doch beantragt. Habe ich doch monatelang dafür gekämpft.", "STATTDESSEN:", "Ich sitze da und denke nur:", "Scheiße.", "22 Wochen.", "Mein Kopf hat sofort angefangen zu rechnen.", "Geld. Hund. Wohnung. Formulare. Zuzahlung. Krankengeld. Lucy.", "Alles gleichzeitig.", "Als hätte jemand zehn Radios angeschaltet und alle laufen auf verschiedenen Frequenzen.", "Das Verrückte ist:", "Ich habe keine Angst vor der Reha.", "ICH HABE ANGST VOR DER GRÖSSE DAVON.", "22 Wochen klingen nicht wie Zeit.", "22 Wochen klingen wie ein ganz anderes Leben.", "Vielleicht ist genau das der Punkt.", "Vielleicht muss ich heute noch gar nicht wissen, wie ich 22 Wochen schaffe.", "Vielleicht reicht es, zu wissen, wie ich morgen schaffe.", "Die Briefe liegen noch da.", "Die Formulare auch.", "ABER HEUTE NICHT MEHR.", "Heute bin ich einfach nur eine Frau,", "die gerade aus dem Urlaub zurückgekommen ist", "und festgestellt hat,", "dass das Leben in ihrer Abwesenheit beschlossen hat,", "weiterzulaufen."];
 
   window.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-      const intro = document.getElementById('intro-screen');
-      if(intro) { intro.style.opacity = '0'; setTimeout(() => intro.remove(), 600); }
-      document.body.classList.add('intro-done');
-      typeWriter(document.getElementById('tw-title'), 38, () => {
-        typeParagraphs(document.getElementById('entry-body'), ENTRY_PARAGRAPHS, 14, 350);
-      });
-    }, 3400);
+    typeWriter(document.getElementById('tw-title'), 38, () => {
+      typeParagraphs(document.getElementById('entry-body'), ENTRY_PARAGRAPHS, 14, 350);
+    });
   });
 
   function typeWriter(el, speed, onDone) {

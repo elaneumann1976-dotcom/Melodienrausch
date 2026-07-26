@@ -65,30 +65,16 @@
     .entry-main { grid-column: 1; }
   }
 
-  @keyframes introFromBehind {
-    0%   { transform: scale(0.1); filter: blur(18px); opacity: 0; }
-    60%  { filter: blur(2px); opacity: 1; }
-    100% { transform: scale(1); filter: blur(0); opacity: 1; }
-  }
   .entry-headline.typing::after {
     content: '|';
     margin-left: 2px;
     animation: twBlink 0.8s steps(1) infinite;
   }
   @keyframes twBlink { 50% { opacity: 0; } }
-  #intro-screen { perspective: 800px; }
-  #intro-screen .intro-text {
-    font-family:'Courier New'; font-size:24px; letter-spacing:10px;
-    text-transform:uppercase; font-weight:bold;
-    animation: introFromBehind 3s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-  }
 </style>
 </head>
 <body>
 
-  <div id="intro-screen" style="position:fixed; top:0; left:0; width:100%; height:100vh; background:#000; color:#fff; display:flex; justify-content:center; align-items:center; z-index:9999999; transition:opacity 0.6s ease;">
-    <div class="intro-text">melodienrausch</div>
-  </div>
   <div class="custom-cursor" id="cursor"></div>
 
   <div class="side-menu">
@@ -129,14 +115,9 @@
   const ENTRY_PARAGRAPHS = ["Warum ist das immer so?", "Heute ist wieder so ein Tag.", "Kein besonderer Auslöser.", "Kein Drama.", "Kein Weltuntergang.", "Und trotzdem fühlt sich alles schwer an.", "Das Verrückte ist, dass ich diese Tage mittlerweile kenne.", "Früher dachte ich immer, das Tief bedeutet, dass wieder alles zusammenbricht.", "Heute weiß ich eigentlich, dass das nicht stimmt.", "Trotzdem nervt es.", "Weil ich mich gerade erst wieder besser gefühlt habe.", "Weil ich gerade erst wieder das Gefühl hatte, dass etwas vorwärtsgeht.", "Und dann sitze ich da und denke:", "Warum schon wieder?", "Vielleicht liegt das Problem gar nicht darin, dass die Tiefs kommen.", "Vielleicht liegt das Problem darin, dass ich immer noch glaube, sie dürften nicht kommen.", "Als müsste Entwicklung bedeuten, dass man irgendwann nur noch gute Tage hat.", "Dabei ist das wahrscheinlich Quatsch.", "Ich bin kein fertiges Projekt.", "Kein Vorher-Nachher-Bild.", "Kein Motivationsspruch.", "Ich bin ein Mensch, der gerade sein Leben neu sortiert.", "Und manchmal fühlt sich das mutig an.", "Und manchmal fühlt es sich einfach nur anstrengend an.", "Heute ist eher anstrengend.", "Was ich aber festgestellt habe:", "Die Tiefs sind nicht mehr dieselben wie früher.", "Früher konnte mich so ein Loch für Tage verschlucken.", "Drei Tage. Vier Tage. Manchmal länger.", "Dann hing ich darin fest und wusste nicht, wie ich wieder rauskommen soll.", "Heute falle ich zwar immer noch hinein.", "Aber ich finde schneller wieder den Ausgang.", "Ich erkenne früher, was gerade passiert.", "Ich glaube nicht mehr jedes Mal, dass jetzt alles verloren ist.", "Ich kann mich selbst wieder einsammeln.", "Nicht sofort.", "Nicht perfekt.", "Aber deutlich schneller als früher.", "Vielleicht ist genau das Fortschritt.", "Nicht, dass die Tiefs verschwinden.", "Sondern dass sie nicht mehr das letzte Wort haben.", "Und vielleicht reicht diese Erkenntnis für heute schon aus."];
 
   window.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-      const intro = document.getElementById('intro-screen');
-      if(intro) { intro.style.opacity = '0'; setTimeout(() => intro.remove(), 600); }
-      document.body.classList.add('intro-done');
-      typeWriter(document.getElementById('tw-title'), 38, () => {
-        typeParagraphs(document.getElementById('entry-body'), ENTRY_PARAGRAPHS, 14, 350);
-      });
-    }, 3400);
+    typeWriter(document.getElementById('tw-title'), 38, () => {
+      typeParagraphs(document.getElementById('entry-body'), ENTRY_PARAGRAPHS, 14, 350);
+    });
   });
 
   function typeWriter(el, speed, onDone) {

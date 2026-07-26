@@ -65,30 +65,16 @@
     .entry-main { grid-column: 1; }
   }
 
-  @keyframes introFromBehind {
-    0%   { transform: scale(0.1); filter: blur(18px); opacity: 0; }
-    60%  { filter: blur(2px); opacity: 1; }
-    100% { transform: scale(1); filter: blur(0); opacity: 1; }
-  }
   .entry-headline.typing::after {
     content: '|';
     margin-left: 2px;
     animation: twBlink 0.8s steps(1) infinite;
   }
   @keyframes twBlink { 50% { opacity: 0; } }
-  #intro-screen { perspective: 800px; }
-  #intro-screen .intro-text {
-    font-family:'Courier New'; font-size:24px; letter-spacing:10px;
-    text-transform:uppercase; font-weight:bold;
-    animation: introFromBehind 3s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-  }
 </style>
 </head>
 <body>
 
-  <div id="intro-screen" style="position:fixed; top:0; left:0; width:100%; height:100vh; background:#000; color:#fff; display:flex; justify-content:center; align-items:center; z-index:9999999; transition:opacity 0.6s ease;">
-    <div class="intro-text">melodienrausch</div>
-  </div>
   <div class="custom-cursor" id="cursor"></div>
 
   <div class="side-menu">
@@ -129,14 +115,9 @@
   const ENTRY_PARAGRAPHS = ["Dieses Bild sagt wahrscheinlich mehr über mich als viele Worte.", "Links die Version von mir, die jahrelang versucht hat, irgendwie durchzukommen.", "Immer unter Strom.", "Immer auf der Suche nach dem nächsten Moment, der den Kopf kurz leiser macht.", "Rechts die Version, die heute hier sitzt.", "Nicht perfekt.", "Nicht angekommen.", "Aber bewusster.", "Manchmal werde ich gefragt, ob ich mein altes Ich vermisse.", "Nein.", "Ich vermisse höchstens die Unbeschwertheit, nach der ich damals gesucht habe.", "Der Weg dorthin war nur nicht der richtige.", "Das Schöne ist:", "Ich kämpfe heute nicht mehr gegen mein früheres Ich.", "Es gehört zu mir.", "Ohne diese Frau gäbe es die andere nicht.", "Sie hat Fehler gemacht.", "Sie hat Entscheidungen getroffen, die ich heute anders treffen würde.", "Sie war verzweifelt.", "Sie war laut.", "Sie war müde.", "Aber sie hat nie aufgehört, weiterzugehen.", "Heute stehen wir Rücken an Rücken.", "Nicht als Gegner.", "Sondern als zwei Kapitel derselben Geschichte.", "Ich muss meine Vergangenheit nicht ausradieren, um stolz auf meine Gegenwart zu sein.", "Sie darf bleiben.", "Als Erinnerung.", "Als Warnung.", "Und auch als Beweis dafür, dass Menschen sich verändern können."];
 
   window.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-      const intro = document.getElementById('intro-screen');
-      if(intro) { intro.style.opacity = '0'; setTimeout(() => intro.remove(), 600); }
-      document.body.classList.add('intro-done');
-      typeWriter(document.getElementById('tw-title'), 38, () => {
-        typeParagraphs(document.getElementById('entry-body'), ENTRY_PARAGRAPHS, 14, 350);
-      });
-    }, 3400);
+    typeWriter(document.getElementById('tw-title'), 38, () => {
+      typeParagraphs(document.getElementById('entry-body'), ENTRY_PARAGRAPHS, 14, 350);
+    });
   });
 
   function typeWriter(el, speed, onDone) {

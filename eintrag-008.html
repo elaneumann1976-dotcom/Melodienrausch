@@ -65,30 +65,16 @@
     .entry-main { grid-column: 1; }
   }
 
-  @keyframes introFromBehind {
-    0%   { transform: scale(0.1); filter: blur(18px); opacity: 0; }
-    60%  { filter: blur(2px); opacity: 1; }
-    100% { transform: scale(1); filter: blur(0); opacity: 1; }
-  }
   .entry-headline.typing::after {
     content: '|';
     margin-left: 2px;
     animation: twBlink 0.8s steps(1) infinite;
   }
   @keyframes twBlink { 50% { opacity: 0; } }
-  #intro-screen { perspective: 800px; }
-  #intro-screen .intro-text {
-    font-family:'Courier New'; font-size:24px; letter-spacing:10px;
-    text-transform:uppercase; font-weight:bold;
-    animation: introFromBehind 3s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-  }
 </style>
 </head>
 <body>
 
-  <div id="intro-screen" style="position:fixed; top:0; left:0; width:100%; height:100vh; background:#000; color:#fff; display:flex; justify-content:center; align-items:center; z-index:9999999; transition:opacity 0.6s ease;">
-    <div class="intro-text">melodienrausch</div>
-  </div>
   <div class="custom-cursor" id="cursor"></div>
 
   <div class="side-menu">
@@ -129,14 +115,9 @@
   const ENTRY_PARAGRAPHS = ["Manchmal dauert eine Erkenntnis fast fünfzig Jahre.", "Ich dachte immer, ich müsste verstehen, warum ich konsumiert habe.", "Warum Alkohol. Warum Crystal. Warum ich immer wieder an denselben Punkten gelandet bin.", "Ich habe Antworten in Therapien, Gesprächen, Entgiftungen und Diagnosen gesucht.", "Heute Abend wollte ich eigentlich nur mein Motivationsschreiben für die Reha machen.", "Stattdessen traf mich etwas ganz anderes.", "Vielleicht ging es nie nur um die Droge.", "Vielleicht ging es darum, was sie mir möglich gemacht hat.", "Als Jugendliche hatte ich Angst vor dem Leben. Mit 16 zog ich von zu Hause aus. Ich war überfordert, unsicher und oft allein mit Dingen, die andere scheinbar einfach konnten.", "Freunde finden. Erwachsen werden. Sich zurechtfinden.", "Leben.", "Ich hatte immer das Gefühl, dass alle einen Plan bekommen hatten.", "Nur ich nicht.", "Später wollte ich beim Konsum nicht nur berauscht sein.", "Ich wollte mich sicherer fühlen. Mich entspannen. Aufhören, ständig gegen alles anzukämpfen.", "Dieses Muster zieht sich durch mein Leben.", "Nicht nur bei Drogen.", "Ich habe immer nach Halt gesucht. Nach einem Menschen, einer Gemeinschaft, einem Ort, an dem ich nicht allein bin.", "Vielleicht liebe ich deshalb die Technoszene bis heute.", "Nicht wegen der Drogen.", "Wegen der Menschen, der Musik und dieser seltsamen Momente, in denen Fremde für ein paar Stunden zu einer kleinen Familie werden.", "Ich habe so lange nur auf die Droge geschaut.", "Fast nie auf das Bedürfnis dahinter.", "Die eigentliche Frage ist vielleicht nicht mehr, warum ich konsumiert habe.", "Sondern was ich mein ganzes Leben gesucht habe."];
 
   window.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-      const intro = document.getElementById('intro-screen');
-      if(intro) { intro.style.opacity = '0'; setTimeout(() => intro.remove(), 600); }
-      document.body.classList.add('intro-done');
-      typeWriter(document.getElementById('tw-title'), 38, () => {
-        typeParagraphs(document.getElementById('entry-body'), ENTRY_PARAGRAPHS, 14, 350);
-      });
-    }, 3400);
+    typeWriter(document.getElementById('tw-title'), 38, () => {
+      typeParagraphs(document.getElementById('entry-body'), ENTRY_PARAGRAPHS, 14, 350);
+    });
   });
 
   function typeWriter(el, speed, onDone) {

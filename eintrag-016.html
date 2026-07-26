@@ -65,30 +65,16 @@
     .entry-main { grid-column: 1; }
   }
 
-  @keyframes introFromBehind {
-    0%   { transform: scale(0.1); filter: blur(18px); opacity: 0; }
-    60%  { filter: blur(2px); opacity: 1; }
-    100% { transform: scale(1); filter: blur(0); opacity: 1; }
-  }
   .entry-headline.typing::after {
     content: '|';
     margin-left: 2px;
     animation: twBlink 0.8s steps(1) infinite;
   }
   @keyframes twBlink { 50% { opacity: 0; } }
-  #intro-screen { perspective: 800px; }
-  #intro-screen .intro-text {
-    font-family:'Courier New'; font-size:24px; letter-spacing:10px;
-    text-transform:uppercase; font-weight:bold;
-    animation: introFromBehind 3s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-  }
 </style>
 </head>
 <body>
 
-  <div id="intro-screen" style="position:fixed; top:0; left:0; width:100%; height:100vh; background:#000; color:#fff; display:flex; justify-content:center; align-items:center; z-index:9999999; transition:opacity 0.6s ease;">
-    <div class="intro-text">melodienrausch</div>
-  </div>
   <div class="custom-cursor" id="cursor"></div>
 
   <div class="side-menu">
@@ -129,14 +115,9 @@
   const ENTRY_PARAGRAPHS = ["Heute habe ich gemerkt, dass man erwachsen und reflektiert sein kann.", "Man kann Therapie machen. Wissen, woher alte Wunden kommen. Alles schon hundertmal verstanden haben.", "Und trotzdem steht plötzlich wieder dieses kleine Mädchen mitten in der Küche.", "In der Arbeit ging es eigentlich um etwas Banales.", "Abläufe. Kommunikation. Wer was gesagt oder nicht gesagt hat.", "Also nichts, woraus man innerlich gleich ein komplettes Familiendrama bauen müsste.", "Mein Kopf sah das anders.", "Ich hatte wieder dieses Gefühl, außen vor zu sein. Nicht informiert. Nicht gesehen. Nicht ernst genommen.", "Alle wissen Bescheid.", "Nur ich nicht.", "Dann kam der Satz:", "„Hast du dich wieder beruhigt?“", "Vielleicht war er gar nicht böse gemeint.", "Aber in mir ging sofort etwas zu.", "Weil ich nicht nur diesen Satz gehört habe.", "Ich hörte: Stell dich nicht so an.", "Du bist schon wieder zu viel.", "Mach deine Gefühle kleiner, dann sind sie für uns angenehmer.", "Und plötzlich wusste ich nicht mehr, ob ich gerade auf Carmen reagiere, auf Marina, auf die Arbeit oder auf Stimmen, die mit dieser Küche gar nichts zu tun haben.", "Das ist das Anstrengende.", "Heute passiert etwas Kleines und innen antwortet ein ganz altes System.", "Ich hasse das manchmal.", "Weil ich sofort denke: Nicht schon wieder. Nicht wegen so etwas. Nicht mit fast fünfzig. Nicht in einer Küche.", "Aber es ging eben nicht nur um die Küche.", "Ich hatte mein Leben lang oft das Gefühl, mich erst erklären zu müssen, bevor mich überhaupt jemand hört. Als müsste ich beweisen, dass ich nicht übertreibe.", "Diesmal bin ich nicht komplett in den Kampf gegangen.", "Keine Beweisführung wie vor Gericht. Zumindest nicht ganz.", "Ich habe gemerkt: Das ist gerade größer als die Situation.", "Leichter wurde es dadurch nicht. Aber verständlicher.", "Vielleicht war ich nicht einfach empfindlich.", "Vielleicht hat jemand aus Versehen auf eine alte Stelle gedrückt.", "Das darf mich treffen, auch wenn es für andere klein aussieht.", "Ich bin heute eine andere.", "Aber die alte Stelle ist trotzdem noch da.", "Und sie will nicht schon wieder übergangen werden."];
 
   window.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-      const intro = document.getElementById('intro-screen');
-      if(intro) { intro.style.opacity = '0'; setTimeout(() => intro.remove(), 600); }
-      document.body.classList.add('intro-done');
-      typeWriter(document.getElementById('tw-title'), 38, () => {
-        typeParagraphs(document.getElementById('entry-body'), ENTRY_PARAGRAPHS, 14, 350);
-      });
-    }, 3400);
+    typeWriter(document.getElementById('tw-title'), 38, () => {
+      typeParagraphs(document.getElementById('entry-body'), ENTRY_PARAGRAPHS, 14, 350);
+    });
   });
 
   function typeWriter(el, speed, onDone) {
