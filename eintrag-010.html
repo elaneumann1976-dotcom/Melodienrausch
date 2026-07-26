@@ -53,24 +53,13 @@
   }
   .entry-text { max-width: 560px; font-size: 17px; line-height: 1.75; font-family: Arial, Helvetica, sans-serif; }
   .entry-text p { margin: 0 0 13px 0; min-height: 1em; }
-  .entry-text p.typing::after {
-    content: '|';
-    margin-left: 1px;
-    animation: twBlink 0.8s steps(1) infinite;
-  }
 
   @media (max-width: 720px) {
     .entry-grid { grid-template-columns: 1fr; gap: 24px; padding-top: clamp(180px, 34vw, 260px); }
     .meta-block { grid-column: 1; }
     .entry-main { grid-column: 1; }
   }
-
-  .entry-headline.typing::after {
-    content: '|';
-    margin-left: 2px;
-    animation: twBlink 0.8s steps(1) infinite;
-  }
-  @keyframes twBlink { 50% { opacity: 0; } }
+ }
 </style>
 </head>
 <body>
@@ -99,8 +88,52 @@
       </div>
 
       <div class="entry-main">
-        <h2 class="entry-headline" id="tw-title" data-text="Nach den Tabletten ist es still"></h2>
-        <div class="entry-text" id="entry-body"></div>
+        <h2 class="entry-headline">Nach den Tabletten ist es still</h2>
+        <div class="entry-text">
+        <p>(und ich trau dem Frieden noch nicht)</p>
+        <p>Ich hab angefangen mit der Medikation.</p>
+        <p>Und ganz ehrlich? Ich hab was komplett anderes erwartet.</p>
+        <p>Irgendwas Krasses. So ein „BÄM, jetzt funktioniert dein Leben“.</p>
+        <p>Kam nicht.</p>
+        <p>Was kam, war… Ruhe.</p>
+        <p>So eine leise, ungewohnte Ruhe.Nicht leer. Nicht tot.</p>
+        <p>Einfach: Mein Kopf brüllt nicht mehr die ganze Zeit.</p>
+        <p>Und ich sitz da und denk mir: Okay… war’s das jetzt?</p>
+        <p>Ich merk plötzlich Dinge, die vorher untergegangen sind:</p>
+        <p>ich kann einen Gedanken zu Ende denken.</p>
+        <p>ich spring nicht mehr bei jedem Reiz sofort weg.</p>
+        <p>ich fühl… ohne direkt überflutet zu werden.</p>
+        <p>Und das ist so ungewohnt, dass ich’s fast schon wieder hinterfrage.</p>
+        <p>Weil früher war ich:</p>
+        <p>Chaos. Extrem. Alles oder nichts.</p>
+        <p>Und jetzt?</p>
+        <p>Jetzt ist da so ein Zwischenraum. Und ich hab nie gelernt, was man da macht.</p>
+        <p>Ganz ehrlich, ein Teil von mir misstraut dem Ganzen.</p>
+        <p>So nach dem Motto: „Das kann doch nicht echt sein. Gleich kippt’s wieder.“</p>
+        <p>Weil ich mein Leben lang nur kannte:</p>
+        <p>zu viel</p>
+        <p>zu schnell</p>
+        <p>zu intensiv</p>
+        <p>Die Musik fühlt sich auch anders an.</p>
+        <p>Nicht mehr wie ein Rausch, sondern wie… Verbindung.</p>
+        <p>Ich hör Tracks und bleib bei mir.</p>
+        <p>Nicht komplett weg. Nicht komplett verloren.</p>
+        <p>Und dann kommt dieser Gedanke:</p>
+        <p>Hab ich mich mein ganzes Leben einfach nur selbst reguliert?</p>
+        <p>Mit Chaos. Mit Konsum. Mit allem?</p>
+        <p>Ich weiß noch nicht, ob ich das alles gut finde.</p>
+        <p>Echt nicht.</p>
+        <p>Weil ein Teil von mir hängt noch an diesem Extrem. Dieses „alles fühlen oder gar nichts“.</p>
+        <p>Aber gleichzeitig… will ich das Chaos auch nicht zurück.</p>
+        <p>Gerade ist es so ein komischer Zustand:</p>
+        <p>ruhiger</p>
+        <p>klarer</p>
+        <p>aber auch unsicher</p>
+        <p>Wie neu laufen lernen, nur dass du vorher dein ganzes Leben gerannt bist.</p>
+        <p>Ich geh Schritt für Schritt.</p>
+        <p>Ohne Plan. Ohne Garantie.</p>
+        <p>Aber zum ersten Mal hab ich das Gefühl, dass ich nicht gegen mich arbeite.</p>
+      </div>
       </div>
     </div>
   </div>
@@ -111,56 +144,6 @@
     cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
   });
   function toggleMenu() { document.body.classList.toggle('menu-open'); }
-
-  const ENTRY_PARAGRAPHS = ["(und ich trau dem Frieden noch nicht)", "Ich hab angefangen mit der Medikation.", "Und ganz ehrlich? Ich hab was komplett anderes erwartet.", "Irgendwas Krasses. So ein „BÄM, jetzt funktioniert dein Leben“.", "Kam nicht.", "Was kam, war… Ruhe.", "So eine leise, ungewohnte Ruhe.Nicht leer. Nicht tot.", "Einfach: Mein Kopf brüllt nicht mehr die ganze Zeit.", "Und ich sitz da und denk mir: Okay… war’s das jetzt?", "Ich merk plötzlich Dinge, die vorher untergegangen sind:", "ich kann einen Gedanken zu Ende denken.", "ich spring nicht mehr bei jedem Reiz sofort weg.", "ich fühl… ohne direkt überflutet zu werden.", "Und das ist so ungewohnt, dass ich’s fast schon wieder hinterfrage.", "Weil früher war ich:", "Chaos. Extrem. Alles oder nichts.", "Und jetzt?", "Jetzt ist da so ein Zwischenraum. Und ich hab nie gelernt, was man da macht.", "Ganz ehrlich, ein Teil von mir misstraut dem Ganzen.", "So nach dem Motto: „Das kann doch nicht echt sein. Gleich kippt’s wieder.“", "Weil ich mein Leben lang nur kannte:", "zu viel", "zu schnell", "zu intensiv", "Die Musik fühlt sich auch anders an.", "Nicht mehr wie ein Rausch, sondern wie… Verbindung.", "Ich hör Tracks und bleib bei mir.", "Nicht komplett weg. Nicht komplett verloren.", "Und dann kommt dieser Gedanke:", "Hab ich mich mein ganzes Leben einfach nur selbst reguliert?", "Mit Chaos. Mit Konsum. Mit allem?", "Ich weiß noch nicht, ob ich das alles gut finde.", "Echt nicht.", "Weil ein Teil von mir hängt noch an diesem Extrem. Dieses „alles fühlen oder gar nichts“.", "Aber gleichzeitig… will ich das Chaos auch nicht zurück.", "Gerade ist es so ein komischer Zustand:", "ruhiger", "klarer", "aber auch unsicher", "Wie neu laufen lernen, nur dass du vorher dein ganzes Leben gerannt bist.", "Ich geh Schritt für Schritt.", "Ohne Plan. Ohne Garantie.", "Aber zum ersten Mal hab ich das Gefühl, dass ich nicht gegen mich arbeite."];
-
-  window.addEventListener('DOMContentLoaded', () => {
-    typeWriter(document.getElementById('tw-title'), 38, () => {
-      typeParagraphs(document.getElementById('entry-body'), ENTRY_PARAGRAPHS, 14, 350);
-    });
-  });
-
-  function typeWriter(el, speed, onDone) {
-    if (!el) return;
-    const text = el.getAttribute('data-text') || '';
-    el.textContent = '';
-    el.classList.add('typing');
-    let i = 0;
-    (function step() {
-      if (i <= text.length) {
-        el.textContent = text.slice(0, i);
-        i++;
-        setTimeout(step, speed);
-      } else {
-        el.classList.remove('typing');
-        if (onDone) onDone();
-      }
-    })();
-  }
-
-  function typeParagraphs(container, paragraphs, speed, pause) {
-    if (!container) return;
-    let idx = 0;
-    (function nextParagraph() {
-      if (idx >= paragraphs.length) return;
-      const p = document.createElement('p');
-      p.classList.add('typing');
-      container.appendChild(p);
-      const text = paragraphs[idx];
-      let i = 0;
-      (function step() {
-        if (i <= text.length) {
-          p.textContent = text.slice(0, i);
-          i++;
-          setTimeout(step, speed);
-        } else {
-          p.classList.remove('typing');
-          idx++;
-          setTimeout(nextParagraph, pause);
-        }
-      })();
-    })();
-  }
 </script>
 </body>
 </html>

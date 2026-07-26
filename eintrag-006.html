@@ -53,24 +53,13 @@
   }
   .entry-text { max-width: 560px; font-size: 17px; line-height: 1.75; font-family: Arial, Helvetica, sans-serif; }
   .entry-text p { margin: 0 0 13px 0; min-height: 1em; }
-  .entry-text p.typing::after {
-    content: '|';
-    margin-left: 1px;
-    animation: twBlink 0.8s steps(1) infinite;
-  }
 
   @media (max-width: 720px) {
     .entry-grid { grid-template-columns: 1fr; gap: 24px; padding-top: clamp(180px, 34vw, 260px); }
     .meta-block { grid-column: 1; }
     .entry-main { grid-column: 1; }
   }
-
-  .entry-headline.typing::after {
-    content: '|';
-    margin-left: 2px;
-    animation: twBlink 0.8s steps(1) infinite;
-  }
-  @keyframes twBlink { 50% { opacity: 0; } }
+ }
 </style>
 </head>
 <body>
@@ -99,8 +88,26 @@
       </div>
 
       <div class="entry-main">
-        <h2 class="entry-headline" id="tw-title" data-text="Untertitel fürs Chaos"></h2>
-        <div class="entry-text" id="entry-body"></div>
+        <h2 class="entry-headline">Untertitel fürs Chaos</h2>
+        <div class="entry-text">
+        <p>Manchmal trifft mich ein Gedanke wie ein Blitz.</p>
+        <p>Plötzlich vibriert alles.</p>
+        <p>Ich könnte gerade alles verändern. Ich habe Einfluss. Ich bin irgendwie mehr.</p>
+        <p>Früher war das der Anfang vom Strudel. Ich hätte mich komplett hineingesteigert und den Gedanken so lange gefüttert, bis er größer war als ich.</p>
+        <p>Heute schreibe ich ihn auf.</p>
+        <p>Nicht, damit mir jemand sagt, dass ich recht habe. Sondern damit ich sehen kann, was daran stimmt – und was mein Kopf wieder auf Weltherrschaft aufgeblasen hat.</p>
+        <p>Meistens ist der Gedanke nicht falsch.</p>
+        <p>Nur übersteigert.</p>
+        <p>Ich habe Energie. Ich kann etwas bewegen. Ich bin nicht klein.</p>
+        <p>Das darf stehen bleiben.</p>
+        <p>Der Rest kann weg.</p>
+        <p>Mein Gefühl braucht keine Bremse. Es braucht eine Form.</p>
+        <p>Genau dabei hilft mir dieses Schreiben. Ich bringe das komplette Durcheinander rein und bekomme etwas zurück, das ich lesen kann.</p>
+        <p>Wie Untertitel für einen Film, bei dem ich sonst selbst nicht mehr mitkomme.</p>
+        <p>Das Chaos ist danach nicht weg.</p>
+        <p>Aber ich verstehe wieder, was da eigentlich läuft.</p>
+        <p>Und wenn mein Kopf morgen wieder komplett im Film ist, habe ich wenigstens Untertitel.</p>
+      </div>
       </div>
     </div>
   </div>
@@ -111,56 +118,6 @@
     cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
   });
   function toggleMenu() { document.body.classList.toggle('menu-open'); }
-
-  const ENTRY_PARAGRAPHS = ["Manchmal trifft mich ein Gedanke wie ein Blitz.", "Plötzlich vibriert alles.", "Ich könnte gerade alles verändern. Ich habe Einfluss. Ich bin irgendwie mehr.", "Früher war das der Anfang vom Strudel. Ich hätte mich komplett hineingesteigert und den Gedanken so lange gefüttert, bis er größer war als ich.", "Heute schreibe ich ihn auf.", "Nicht, damit mir jemand sagt, dass ich recht habe. Sondern damit ich sehen kann, was daran stimmt – und was mein Kopf wieder auf Weltherrschaft aufgeblasen hat.", "Meistens ist der Gedanke nicht falsch.", "Nur übersteigert.", "Ich habe Energie. Ich kann etwas bewegen. Ich bin nicht klein.", "Das darf stehen bleiben.", "Der Rest kann weg.", "Mein Gefühl braucht keine Bremse. Es braucht eine Form.", "Genau dabei hilft mir dieses Schreiben. Ich bringe das komplette Durcheinander rein und bekomme etwas zurück, das ich lesen kann.", "Wie Untertitel für einen Film, bei dem ich sonst selbst nicht mehr mitkomme.", "Das Chaos ist danach nicht weg.", "Aber ich verstehe wieder, was da eigentlich läuft.", "Und wenn mein Kopf morgen wieder komplett im Film ist, habe ich wenigstens Untertitel."];
-
-  window.addEventListener('DOMContentLoaded', () => {
-    typeWriter(document.getElementById('tw-title'), 38, () => {
-      typeParagraphs(document.getElementById('entry-body'), ENTRY_PARAGRAPHS, 14, 350);
-    });
-  });
-
-  function typeWriter(el, speed, onDone) {
-    if (!el) return;
-    const text = el.getAttribute('data-text') || '';
-    el.textContent = '';
-    el.classList.add('typing');
-    let i = 0;
-    (function step() {
-      if (i <= text.length) {
-        el.textContent = text.slice(0, i);
-        i++;
-        setTimeout(step, speed);
-      } else {
-        el.classList.remove('typing');
-        if (onDone) onDone();
-      }
-    })();
-  }
-
-  function typeParagraphs(container, paragraphs, speed, pause) {
-    if (!container) return;
-    let idx = 0;
-    (function nextParagraph() {
-      if (idx >= paragraphs.length) return;
-      const p = document.createElement('p');
-      p.classList.add('typing');
-      container.appendChild(p);
-      const text = paragraphs[idx];
-      let i = 0;
-      (function step() {
-        if (i <= text.length) {
-          p.textContent = text.slice(0, i);
-          i++;
-          setTimeout(step, speed);
-        } else {
-          p.classList.remove('typing');
-          idx++;
-          setTimeout(nextParagraph, pause);
-        }
-      })();
-    })();
-  }
 </script>
 </body>
 </html>

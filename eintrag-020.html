@@ -53,24 +53,13 @@
   }
   .entry-text { max-width: 560px; font-size: 17px; line-height: 1.75; font-family: Arial, Helvetica, sans-serif; }
   .entry-text p { margin: 0 0 13px 0; min-height: 1em; }
-  .entry-text p.typing::after {
-    content: '|';
-    margin-left: 1px;
-    animation: twBlink 0.8s steps(1) infinite;
-  }
 
   @media (max-width: 720px) {
     .entry-grid { grid-template-columns: 1fr; gap: 24px; padding-top: clamp(180px, 34vw, 260px); }
     .meta-block { grid-column: 1; }
     .entry-main { grid-column: 1; }
   }
-
-  .entry-headline.typing::after {
-    content: '|';
-    margin-left: 2px;
-    animation: twBlink 0.8s steps(1) infinite;
-  }
-  @keyframes twBlink { 50% { opacity: 0; } }
+ }
 </style>
 </head>
 <body>
@@ -99,8 +88,51 @@
       </div>
 
       <div class="entry-main">
-        <h2 class="entry-headline" id="tw-title" data-text="Warum ist das immer so?"></h2>
-        <div class="entry-text" id="entry-body"></div>
+        <h2 class="entry-headline">Warum ist das immer so?</h2>
+        <div class="entry-text">
+        <p>Warum ist das immer so?</p>
+        <p>Heute ist wieder so ein Tag.</p>
+        <p>Kein besonderer Auslöser.</p>
+        <p>Kein Drama.</p>
+        <p>Kein Weltuntergang.</p>
+        <p>Und trotzdem fühlt sich alles schwer an.</p>
+        <p>Das Verrückte ist, dass ich diese Tage mittlerweile kenne.</p>
+        <p>Früher dachte ich immer, das Tief bedeutet, dass wieder alles zusammenbricht.</p>
+        <p>Heute weiß ich eigentlich, dass das nicht stimmt.</p>
+        <p>Trotzdem nervt es.</p>
+        <p>Weil ich mich gerade erst wieder besser gefühlt habe.</p>
+        <p>Weil ich gerade erst wieder das Gefühl hatte, dass etwas vorwärtsgeht.</p>
+        <p>Und dann sitze ich da und denke:</p>
+        <p>Warum schon wieder?</p>
+        <p>Vielleicht liegt das Problem gar nicht darin, dass die Tiefs kommen.</p>
+        <p>Vielleicht liegt das Problem darin, dass ich immer noch glaube, sie dürften nicht kommen.</p>
+        <p>Als müsste Entwicklung bedeuten, dass man irgendwann nur noch gute Tage hat.</p>
+        <p>Dabei ist das wahrscheinlich Quatsch.</p>
+        <p>Ich bin kein fertiges Projekt.</p>
+        <p>Kein Vorher-Nachher-Bild.</p>
+        <p>Kein Motivationsspruch.</p>
+        <p>Ich bin ein Mensch, der gerade sein Leben neu sortiert.</p>
+        <p>Und manchmal fühlt sich das mutig an.</p>
+        <p>Und manchmal fühlt es sich einfach nur anstrengend an.</p>
+        <p>Heute ist eher anstrengend.</p>
+        <p>Was ich aber festgestellt habe:</p>
+        <p>Die Tiefs sind nicht mehr dieselben wie früher.</p>
+        <p>Früher konnte mich so ein Loch für Tage verschlucken.</p>
+        <p>Drei Tage. Vier Tage. Manchmal länger.</p>
+        <p>Dann hing ich darin fest und wusste nicht, wie ich wieder rauskommen soll.</p>
+        <p>Heute falle ich zwar immer noch hinein.</p>
+        <p>Aber ich finde schneller wieder den Ausgang.</p>
+        <p>Ich erkenne früher, was gerade passiert.</p>
+        <p>Ich glaube nicht mehr jedes Mal, dass jetzt alles verloren ist.</p>
+        <p>Ich kann mich selbst wieder einsammeln.</p>
+        <p>Nicht sofort.</p>
+        <p>Nicht perfekt.</p>
+        <p>Aber deutlich schneller als früher.</p>
+        <p>Vielleicht ist genau das Fortschritt.</p>
+        <p>Nicht, dass die Tiefs verschwinden.</p>
+        <p>Sondern dass sie nicht mehr das letzte Wort haben.</p>
+        <p>Und vielleicht reicht diese Erkenntnis für heute schon aus.</p>
+      </div>
       </div>
     </div>
   </div>
@@ -111,56 +143,6 @@
     cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
   });
   function toggleMenu() { document.body.classList.toggle('menu-open'); }
-
-  const ENTRY_PARAGRAPHS = ["Warum ist das immer so?", "Heute ist wieder so ein Tag.", "Kein besonderer Auslöser.", "Kein Drama.", "Kein Weltuntergang.", "Und trotzdem fühlt sich alles schwer an.", "Das Verrückte ist, dass ich diese Tage mittlerweile kenne.", "Früher dachte ich immer, das Tief bedeutet, dass wieder alles zusammenbricht.", "Heute weiß ich eigentlich, dass das nicht stimmt.", "Trotzdem nervt es.", "Weil ich mich gerade erst wieder besser gefühlt habe.", "Weil ich gerade erst wieder das Gefühl hatte, dass etwas vorwärtsgeht.", "Und dann sitze ich da und denke:", "Warum schon wieder?", "Vielleicht liegt das Problem gar nicht darin, dass die Tiefs kommen.", "Vielleicht liegt das Problem darin, dass ich immer noch glaube, sie dürften nicht kommen.", "Als müsste Entwicklung bedeuten, dass man irgendwann nur noch gute Tage hat.", "Dabei ist das wahrscheinlich Quatsch.", "Ich bin kein fertiges Projekt.", "Kein Vorher-Nachher-Bild.", "Kein Motivationsspruch.", "Ich bin ein Mensch, der gerade sein Leben neu sortiert.", "Und manchmal fühlt sich das mutig an.", "Und manchmal fühlt es sich einfach nur anstrengend an.", "Heute ist eher anstrengend.", "Was ich aber festgestellt habe:", "Die Tiefs sind nicht mehr dieselben wie früher.", "Früher konnte mich so ein Loch für Tage verschlucken.", "Drei Tage. Vier Tage. Manchmal länger.", "Dann hing ich darin fest und wusste nicht, wie ich wieder rauskommen soll.", "Heute falle ich zwar immer noch hinein.", "Aber ich finde schneller wieder den Ausgang.", "Ich erkenne früher, was gerade passiert.", "Ich glaube nicht mehr jedes Mal, dass jetzt alles verloren ist.", "Ich kann mich selbst wieder einsammeln.", "Nicht sofort.", "Nicht perfekt.", "Aber deutlich schneller als früher.", "Vielleicht ist genau das Fortschritt.", "Nicht, dass die Tiefs verschwinden.", "Sondern dass sie nicht mehr das letzte Wort haben.", "Und vielleicht reicht diese Erkenntnis für heute schon aus."];
-
-  window.addEventListener('DOMContentLoaded', () => {
-    typeWriter(document.getElementById('tw-title'), 38, () => {
-      typeParagraphs(document.getElementById('entry-body'), ENTRY_PARAGRAPHS, 14, 350);
-    });
-  });
-
-  function typeWriter(el, speed, onDone) {
-    if (!el) return;
-    const text = el.getAttribute('data-text') || '';
-    el.textContent = '';
-    el.classList.add('typing');
-    let i = 0;
-    (function step() {
-      if (i <= text.length) {
-        el.textContent = text.slice(0, i);
-        i++;
-        setTimeout(step, speed);
-      } else {
-        el.classList.remove('typing');
-        if (onDone) onDone();
-      }
-    })();
-  }
-
-  function typeParagraphs(container, paragraphs, speed, pause) {
-    if (!container) return;
-    let idx = 0;
-    (function nextParagraph() {
-      if (idx >= paragraphs.length) return;
-      const p = document.createElement('p');
-      p.classList.add('typing');
-      container.appendChild(p);
-      const text = paragraphs[idx];
-      let i = 0;
-      (function step() {
-        if (i <= text.length) {
-          p.textContent = text.slice(0, i);
-          i++;
-          setTimeout(step, speed);
-        } else {
-          p.classList.remove('typing');
-          idx++;
-          setTimeout(nextParagraph, pause);
-        }
-      })();
-    })();
-  }
 </script>
 </body>
 </html>

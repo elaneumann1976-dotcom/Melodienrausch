@@ -53,24 +53,13 @@
   }
   .entry-text { max-width: 560px; font-size: 17px; line-height: 1.75; font-family: Arial, Helvetica, sans-serif; }
   .entry-text p { margin: 0 0 13px 0; min-height: 1em; }
-  .entry-text p.typing::after {
-    content: '|';
-    margin-left: 1px;
-    animation: twBlink 0.8s steps(1) infinite;
-  }
 
   @media (max-width: 720px) {
     .entry-grid { grid-template-columns: 1fr; gap: 24px; padding-top: clamp(180px, 34vw, 260px); }
     .meta-block { grid-column: 1; }
     .entry-main { grid-column: 1; }
   }
-
-  .entry-headline.typing::after {
-    content: '|';
-    margin-left: 2px;
-    animation: twBlink 0.8s steps(1) infinite;
-  }
-  @keyframes twBlink { 50% { opacity: 0; } }
+ }
 </style>
 </head>
 <body>
@@ -99,8 +88,44 @@
       </div>
 
       <div class="entry-main">
-        <h2 class="entry-headline" id="tw-title" data-text="Ich dachte, ich hätte das längst hinter mir."></h2>
-        <div class="entry-text" id="entry-body"></div>
+        <h2 class="entry-headline">Ich dachte, ich hätte das längst hinter mir.</h2>
+        <div class="entry-text">
+        <p>Heute habe ich gemerkt, dass man erwachsen und reflektiert sein kann.</p>
+        <p>Man kann Therapie machen. Wissen, woher alte Wunden kommen. Alles schon hundertmal verstanden haben.</p>
+        <p>Und trotzdem steht plötzlich wieder dieses kleine Mädchen mitten in der Küche.</p>
+        <p>In der Arbeit ging es eigentlich um etwas Banales.</p>
+        <p>Abläufe. Kommunikation. Wer was gesagt oder nicht gesagt hat.</p>
+        <p>Also nichts, woraus man innerlich gleich ein komplettes Familiendrama bauen müsste.</p>
+        <p>Mein Kopf sah das anders.</p>
+        <p>Ich hatte wieder dieses Gefühl, außen vor zu sein. Nicht informiert. Nicht gesehen. Nicht ernst genommen.</p>
+        <p>Alle wissen Bescheid.</p>
+        <p>Nur ich nicht.</p>
+        <p>Dann kam der Satz:</p>
+        <p>„Hast du dich wieder beruhigt?“</p>
+        <p>Vielleicht war er gar nicht böse gemeint.</p>
+        <p>Aber in mir ging sofort etwas zu.</p>
+        <p>Weil ich nicht nur diesen Satz gehört habe.</p>
+        <p>Ich hörte: Stell dich nicht so an.</p>
+        <p>Du bist schon wieder zu viel.</p>
+        <p>Mach deine Gefühle kleiner, dann sind sie für uns angenehmer.</p>
+        <p>Und plötzlich wusste ich nicht mehr, ob ich gerade auf Carmen reagiere, auf Marina, auf die Arbeit oder auf Stimmen, die mit dieser Küche gar nichts zu tun haben.</p>
+        <p>Das ist das Anstrengende.</p>
+        <p>Heute passiert etwas Kleines und innen antwortet ein ganz altes System.</p>
+        <p>Ich hasse das manchmal.</p>
+        <p>Weil ich sofort denke: Nicht schon wieder. Nicht wegen so etwas. Nicht mit fast fünfzig. Nicht in einer Küche.</p>
+        <p>Aber es ging eben nicht nur um die Küche.</p>
+        <p>Ich hatte mein Leben lang oft das Gefühl, mich erst erklären zu müssen, bevor mich überhaupt jemand hört. Als müsste ich beweisen, dass ich nicht übertreibe.</p>
+        <p>Diesmal bin ich nicht komplett in den Kampf gegangen.</p>
+        <p>Keine Beweisführung wie vor Gericht. Zumindest nicht ganz.</p>
+        <p>Ich habe gemerkt: Das ist gerade größer als die Situation.</p>
+        <p>Leichter wurde es dadurch nicht. Aber verständlicher.</p>
+        <p>Vielleicht war ich nicht einfach empfindlich.</p>
+        <p>Vielleicht hat jemand aus Versehen auf eine alte Stelle gedrückt.</p>
+        <p>Das darf mich treffen, auch wenn es für andere klein aussieht.</p>
+        <p>Ich bin heute eine andere.</p>
+        <p>Aber die alte Stelle ist trotzdem noch da.</p>
+        <p>Und sie will nicht schon wieder übergangen werden.</p>
+      </div>
       </div>
     </div>
   </div>
@@ -111,56 +136,6 @@
     cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
   });
   function toggleMenu() { document.body.classList.toggle('menu-open'); }
-
-  const ENTRY_PARAGRAPHS = ["Heute habe ich gemerkt, dass man erwachsen und reflektiert sein kann.", "Man kann Therapie machen. Wissen, woher alte Wunden kommen. Alles schon hundertmal verstanden haben.", "Und trotzdem steht plötzlich wieder dieses kleine Mädchen mitten in der Küche.", "In der Arbeit ging es eigentlich um etwas Banales.", "Abläufe. Kommunikation. Wer was gesagt oder nicht gesagt hat.", "Also nichts, woraus man innerlich gleich ein komplettes Familiendrama bauen müsste.", "Mein Kopf sah das anders.", "Ich hatte wieder dieses Gefühl, außen vor zu sein. Nicht informiert. Nicht gesehen. Nicht ernst genommen.", "Alle wissen Bescheid.", "Nur ich nicht.", "Dann kam der Satz:", "„Hast du dich wieder beruhigt?“", "Vielleicht war er gar nicht böse gemeint.", "Aber in mir ging sofort etwas zu.", "Weil ich nicht nur diesen Satz gehört habe.", "Ich hörte: Stell dich nicht so an.", "Du bist schon wieder zu viel.", "Mach deine Gefühle kleiner, dann sind sie für uns angenehmer.", "Und plötzlich wusste ich nicht mehr, ob ich gerade auf Carmen reagiere, auf Marina, auf die Arbeit oder auf Stimmen, die mit dieser Küche gar nichts zu tun haben.", "Das ist das Anstrengende.", "Heute passiert etwas Kleines und innen antwortet ein ganz altes System.", "Ich hasse das manchmal.", "Weil ich sofort denke: Nicht schon wieder. Nicht wegen so etwas. Nicht mit fast fünfzig. Nicht in einer Küche.", "Aber es ging eben nicht nur um die Küche.", "Ich hatte mein Leben lang oft das Gefühl, mich erst erklären zu müssen, bevor mich überhaupt jemand hört. Als müsste ich beweisen, dass ich nicht übertreibe.", "Diesmal bin ich nicht komplett in den Kampf gegangen.", "Keine Beweisführung wie vor Gericht. Zumindest nicht ganz.", "Ich habe gemerkt: Das ist gerade größer als die Situation.", "Leichter wurde es dadurch nicht. Aber verständlicher.", "Vielleicht war ich nicht einfach empfindlich.", "Vielleicht hat jemand aus Versehen auf eine alte Stelle gedrückt.", "Das darf mich treffen, auch wenn es für andere klein aussieht.", "Ich bin heute eine andere.", "Aber die alte Stelle ist trotzdem noch da.", "Und sie will nicht schon wieder übergangen werden."];
-
-  window.addEventListener('DOMContentLoaded', () => {
-    typeWriter(document.getElementById('tw-title'), 38, () => {
-      typeParagraphs(document.getElementById('entry-body'), ENTRY_PARAGRAPHS, 14, 350);
-    });
-  });
-
-  function typeWriter(el, speed, onDone) {
-    if (!el) return;
-    const text = el.getAttribute('data-text') || '';
-    el.textContent = '';
-    el.classList.add('typing');
-    let i = 0;
-    (function step() {
-      if (i <= text.length) {
-        el.textContent = text.slice(0, i);
-        i++;
-        setTimeout(step, speed);
-      } else {
-        el.classList.remove('typing');
-        if (onDone) onDone();
-      }
-    })();
-  }
-
-  function typeParagraphs(container, paragraphs, speed, pause) {
-    if (!container) return;
-    let idx = 0;
-    (function nextParagraph() {
-      if (idx >= paragraphs.length) return;
-      const p = document.createElement('p');
-      p.classList.add('typing');
-      container.appendChild(p);
-      const text = paragraphs[idx];
-      let i = 0;
-      (function step() {
-        if (i <= text.length) {
-          p.textContent = text.slice(0, i);
-          i++;
-          setTimeout(step, speed);
-        } else {
-          p.classList.remove('typing');
-          idx++;
-          setTimeout(nextParagraph, pause);
-        }
-      })();
-    })();
-  }
 </script>
 </body>
 </html>

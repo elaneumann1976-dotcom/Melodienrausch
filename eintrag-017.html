@@ -53,24 +53,13 @@
   }
   .entry-text { max-width: 560px; font-size: 17px; line-height: 1.75; font-family: Arial, Helvetica, sans-serif; }
   .entry-text p { margin: 0 0 13px 0; min-height: 1em; }
-  .entry-text p.typing::after {
-    content: '|';
-    margin-left: 1px;
-    animation: twBlink 0.8s steps(1) infinite;
-  }
 
   @media (max-width: 720px) {
     .entry-grid { grid-template-columns: 1fr; gap: 24px; padding-top: clamp(180px, 34vw, 260px); }
     .meta-block { grid-column: 1; }
     .entry-main { grid-column: 1; }
   }
-
-  .entry-headline.typing::after {
-    content: '|';
-    margin-left: 2px;
-    animation: twBlink 0.8s steps(1) infinite;
-  }
-  @keyframes twBlink { 50% { opacity: 0; } }
+ }
 </style>
 </head>
 <body>
@@ -99,8 +88,38 @@
       </div>
 
       <div class="entry-main">
-        <h2 class="entry-headline" id="tw-title" data-text="Eigentlich war ich schon weiter"></h2>
-        <div class="entry-text" id="entry-body"></div>
+        <h2 class="entry-headline">Eigentlich war ich schon weiter</h2>
+        <div class="entry-text">
+        <p>Manchmal merke ich erst Tage später, dass ich eigentlich schon weiter war.</p>
+        <p>Der Streit war am Samstag.</p>
+        <p>Ich war wütend. Danach kamen Tränen, alte Erinnerungen und meine Eltern gleich noch mit dazu.</p>
+        <p>Alles auf einmal.</p>
+        <p>Aber dann war der Abend vorbei.</p>
+        <p>Ich war draußen, habe mich wieder mit meiner Website beschäftigt und war zurück in meinem Leben.</p>
+        <p>Ein paar Tage später schreibt Carmen.</p>
+        <p>Oder antwortet nicht.</p>
+        <p>Und mein Kopf erzählt die komplette Geschichte noch einmal von vorne.</p>
+        <p>Was sie bestimmt denkt. Was sie bestimmt erwartet. Dass ich wahrscheinlich wieder schuld bin.</p>
+        <p>Bis mir heute aufgefallen ist:</p>
+        <p>Eigentlich war ich schon weiter.</p>
+        <p>Nicht der Streit hat mich die ganze Zeit festgehalten. Mein Kopf hat mich noch einmal zurück in die Szene gezogen.</p>
+        <p>Früher hätte mich so etwas wochenlang beschäftigt. Ich hätte mich nicht gemeldet, alles hundertmal durchgekaut und irgendwann gar nicht mehr gewusst, worum es eigentlich angefangen hatte.</p>
+        <p>Diesmal habe ich geschrieben.</p>
+        <p>Ganz normal.</p>
+        <p>Ohne Drama und ohne angekrochen zu kommen.</p>
+        <p>Dann habe ich gewartet.</p>
+        <p>Klingt nach nichts.</p>
+        <p>Für mich ist es viel.</p>
+        <p>Der Streit hat wehgetan. Er hat alte Türen aufgerissen. Aber er hat nicht mehr alles übernommen.</p>
+        <p>Genau solche Fortschritte übersehe ich ständig, weil sie nicht groß genug knallen.</p>
+        <p>Dabei liegt die Veränderung vielleicht genau da.</p>
+        <p>Ich werde immer noch getriggert.</p>
+        <p>Ich merke nur schneller: Moment. Ich bin gar nicht mehr dort. Mein Kopf hat mich kurz zurückgezogen.</p>
+        <p>Dann kann ich wieder aussteigen.</p>
+        <p>Zurück zu meiner Website.</p>
+        <p>Zurück zu meinem Leben.</p>
+        <p>Zurück zu mir.</p>
+      </div>
       </div>
     </div>
   </div>
@@ -111,56 +130,6 @@
     cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
   });
   function toggleMenu() { document.body.classList.toggle('menu-open'); }
-
-  const ENTRY_PARAGRAPHS = ["Manchmal merke ich erst Tage später, dass ich eigentlich schon weiter war.", "Der Streit war am Samstag.", "Ich war wütend. Danach kamen Tränen, alte Erinnerungen und meine Eltern gleich noch mit dazu.", "Alles auf einmal.", "Aber dann war der Abend vorbei.", "Ich war draußen, habe mich wieder mit meiner Website beschäftigt und war zurück in meinem Leben.", "Ein paar Tage später schreibt Carmen.", "Oder antwortet nicht.", "Und mein Kopf erzählt die komplette Geschichte noch einmal von vorne.", "Was sie bestimmt denkt. Was sie bestimmt erwartet. Dass ich wahrscheinlich wieder schuld bin.", "Bis mir heute aufgefallen ist:", "Eigentlich war ich schon weiter.", "Nicht der Streit hat mich die ganze Zeit festgehalten. Mein Kopf hat mich noch einmal zurück in die Szene gezogen.", "Früher hätte mich so etwas wochenlang beschäftigt. Ich hätte mich nicht gemeldet, alles hundertmal durchgekaut und irgendwann gar nicht mehr gewusst, worum es eigentlich angefangen hatte.", "Diesmal habe ich geschrieben.", "Ganz normal.", "Ohne Drama und ohne angekrochen zu kommen.", "Dann habe ich gewartet.", "Klingt nach nichts.", "Für mich ist es viel.", "Der Streit hat wehgetan. Er hat alte Türen aufgerissen. Aber er hat nicht mehr alles übernommen.", "Genau solche Fortschritte übersehe ich ständig, weil sie nicht groß genug knallen.", "Dabei liegt die Veränderung vielleicht genau da.", "Ich werde immer noch getriggert.", "Ich merke nur schneller: Moment. Ich bin gar nicht mehr dort. Mein Kopf hat mich kurz zurückgezogen.", "Dann kann ich wieder aussteigen.", "Zurück zu meiner Website.", "Zurück zu meinem Leben.", "Zurück zu mir."];
-
-  window.addEventListener('DOMContentLoaded', () => {
-    typeWriter(document.getElementById('tw-title'), 38, () => {
-      typeParagraphs(document.getElementById('entry-body'), ENTRY_PARAGRAPHS, 14, 350);
-    });
-  });
-
-  function typeWriter(el, speed, onDone) {
-    if (!el) return;
-    const text = el.getAttribute('data-text') || '';
-    el.textContent = '';
-    el.classList.add('typing');
-    let i = 0;
-    (function step() {
-      if (i <= text.length) {
-        el.textContent = text.slice(0, i);
-        i++;
-        setTimeout(step, speed);
-      } else {
-        el.classList.remove('typing');
-        if (onDone) onDone();
-      }
-    })();
-  }
-
-  function typeParagraphs(container, paragraphs, speed, pause) {
-    if (!container) return;
-    let idx = 0;
-    (function nextParagraph() {
-      if (idx >= paragraphs.length) return;
-      const p = document.createElement('p');
-      p.classList.add('typing');
-      container.appendChild(p);
-      const text = paragraphs[idx];
-      let i = 0;
-      (function step() {
-        if (i <= text.length) {
-          p.textContent = text.slice(0, i);
-          i++;
-          setTimeout(step, speed);
-        } else {
-          p.classList.remove('typing');
-          idx++;
-          setTimeout(nextParagraph, pause);
-        }
-      })();
-    })();
-  }
 </script>
 </body>
 </html>

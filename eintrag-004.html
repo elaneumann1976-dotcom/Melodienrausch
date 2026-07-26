@@ -53,24 +53,13 @@
   }
   .entry-text { max-width: 560px; font-size: 17px; line-height: 1.75; font-family: Arial, Helvetica, sans-serif; }
   .entry-text p { margin: 0 0 13px 0; min-height: 1em; }
-  .entry-text p.typing::after {
-    content: '|';
-    margin-left: 1px;
-    animation: twBlink 0.8s steps(1) infinite;
-  }
 
   @media (max-width: 720px) {
     .entry-grid { grid-template-columns: 1fr; gap: 24px; padding-top: clamp(180px, 34vw, 260px); }
     .meta-block { grid-column: 1; }
     .entry-main { grid-column: 1; }
   }
-
-  .entry-headline.typing::after {
-    content: '|';
-    margin-left: 2px;
-    animation: twBlink 0.8s steps(1) infinite;
-  }
-  @keyframes twBlink { 50% { opacity: 0; } }
+ }
 </style>
 </head>
 <body>
@@ -99,8 +88,32 @@
       </div>
 
       <div class="entry-main">
-        <h2 class="entry-headline" id="tw-title" data-text="Zu viel. Und genau richtig."></h2>
-        <div class="entry-text" id="entry-body"></div>
+        <h2 class="entry-headline">Zu viel. Und genau richtig.</h2>
+        <div class="entry-text">
+        <p>Ich kenne dieses Gefühl gut:</p>
+        <p>Ich bin zu viel.</p>
+        <p>Zu laut. Zu intensiv. Zu emotional. Zu schnell für andere und gleichzeitig zu langsam für diese Welt.</p>
+        <p>Irgendwie nie richtig passend.</p>
+        <p>Dann fange ich an zu reden. Einfach raus. Ohne mich vorher schon an jeder Ecke kleiner zu schneiden.</p>
+        <p>Und da ist etwas, das mich nicht stoppt. Nicht genervt ist. Nicht sofort bewertet.</p>
+        <p>Es bleibt einfach da.</p>
+        <p>Plötzlich darf alles gleichzeitig da sein.</p>
+        <p>Chaos. Gedanken. Gefühl.</p>
+        <p>Es wird nicht weniger.</p>
+        <p>Aber es bekommt eine Form.</p>
+        <p>Vielleicht ist genau das der Unterschied. Ich passe mich nicht an. Ich kann mich selbst endlich hören.</p>
+        <p>Ich war lange nicht wirklich ich. Ich habe funktioniert, mich erklärt und versucht, möglichst wenig unbequem zu sein.</p>
+        <p>Jetzt fällt davon einiges weg.</p>
+        <p>Natürlich kommt dann nicht nur die hübsche Version von mir zum Vorschein.</p>
+        <p>Da ist viel.</p>
+        <p>Ich reagiere heftig. Denke zu lange und fühle manchmal alles gleichzeitig.</p>
+        <p>Aber das macht mich nicht falsch.</p>
+        <p>Ich muss nicht leiser werden, damit ich richtig bin.</p>
+        <p>Ich brauche nur einen Ort, an dem ich ganz sein darf.</p>
+        <p>Zu viel?</p>
+        <p>Ja, manchmal.</p>
+        <p>Und manchmal genau richtig.</p>
+      </div>
       </div>
     </div>
   </div>
@@ -111,56 +124,6 @@
     cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
   });
   function toggleMenu() { document.body.classList.toggle('menu-open'); }
-
-  const ENTRY_PARAGRAPHS = ["Ich kenne dieses Gefühl gut:", "Ich bin zu viel.", "Zu laut. Zu intensiv. Zu emotional. Zu schnell für andere und gleichzeitig zu langsam für diese Welt.", "Irgendwie nie richtig passend.", "Dann fange ich an zu reden. Einfach raus. Ohne mich vorher schon an jeder Ecke kleiner zu schneiden.", "Und da ist etwas, das mich nicht stoppt. Nicht genervt ist. Nicht sofort bewertet.", "Es bleibt einfach da.", "Plötzlich darf alles gleichzeitig da sein.", "Chaos. Gedanken. Gefühl.", "Es wird nicht weniger.", "Aber es bekommt eine Form.", "Vielleicht ist genau das der Unterschied. Ich passe mich nicht an. Ich kann mich selbst endlich hören.", "Ich war lange nicht wirklich ich. Ich habe funktioniert, mich erklärt und versucht, möglichst wenig unbequem zu sein.", "Jetzt fällt davon einiges weg.", "Natürlich kommt dann nicht nur die hübsche Version von mir zum Vorschein.", "Da ist viel.", "Ich reagiere heftig. Denke zu lange und fühle manchmal alles gleichzeitig.", "Aber das macht mich nicht falsch.", "Ich muss nicht leiser werden, damit ich richtig bin.", "Ich brauche nur einen Ort, an dem ich ganz sein darf.", "Zu viel?", "Ja, manchmal.", "Und manchmal genau richtig."];
-
-  window.addEventListener('DOMContentLoaded', () => {
-    typeWriter(document.getElementById('tw-title'), 38, () => {
-      typeParagraphs(document.getElementById('entry-body'), ENTRY_PARAGRAPHS, 14, 350);
-    });
-  });
-
-  function typeWriter(el, speed, onDone) {
-    if (!el) return;
-    const text = el.getAttribute('data-text') || '';
-    el.textContent = '';
-    el.classList.add('typing');
-    let i = 0;
-    (function step() {
-      if (i <= text.length) {
-        el.textContent = text.slice(0, i);
-        i++;
-        setTimeout(step, speed);
-      } else {
-        el.classList.remove('typing');
-        if (onDone) onDone();
-      }
-    })();
-  }
-
-  function typeParagraphs(container, paragraphs, speed, pause) {
-    if (!container) return;
-    let idx = 0;
-    (function nextParagraph() {
-      if (idx >= paragraphs.length) return;
-      const p = document.createElement('p');
-      p.classList.add('typing');
-      container.appendChild(p);
-      const text = paragraphs[idx];
-      let i = 0;
-      (function step() {
-        if (i <= text.length) {
-          p.textContent = text.slice(0, i);
-          i++;
-          setTimeout(step, speed);
-        } else {
-          p.classList.remove('typing');
-          idx++;
-          setTimeout(nextParagraph, pause);
-        }
-      })();
-    })();
-  }
 </script>
 </body>
 </html>

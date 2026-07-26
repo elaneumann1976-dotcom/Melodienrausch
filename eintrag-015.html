@@ -53,24 +53,13 @@
   }
   .entry-text { max-width: 560px; font-size: 17px; line-height: 1.75; font-family: Arial, Helvetica, sans-serif; }
   .entry-text p { margin: 0 0 13px 0; min-height: 1em; }
-  .entry-text p.typing::after {
-    content: '|';
-    margin-left: 1px;
-    animation: twBlink 0.8s steps(1) infinite;
-  }
 
   @media (max-width: 720px) {
     .entry-grid { grid-template-columns: 1fr; gap: 24px; padding-top: clamp(180px, 34vw, 260px); }
     .meta-block { grid-column: 1; }
     .entry-main { grid-column: 1; }
   }
-
-  .entry-headline.typing::after {
-    content: '|';
-    margin-left: 2px;
-    animation: twBlink 0.8s steps(1) infinite;
-  }
-  @keyframes twBlink { 50% { opacity: 0; } }
+ }
 </style>
 </head>
 <body>
@@ -99,8 +88,37 @@
       </div>
 
       <div class="entry-main">
-        <h2 class="entry-headline" id="tw-title" data-text="Kommunikation."></h2>
-        <div class="entry-text" id="entry-body"></div>
+        <h2 class="entry-headline">Kommunikation.</h2>
+        <div class="entry-text">
+        <p>Kommunikation.</p>
+        <p>Eigentlich ein ganz normales Wort.</p>
+        <p>Bei mir reicht manchmal schon ein fehlender Satz und innen ist sofort wieder alles da.</p>
+        <p>Alle wissen Bescheid.</p>
+        <p>Nur ich nicht.</p>
+        <p>Alle gehören dazu.</p>
+        <p>Ich stehe daneben.</p>
+        <p>In der Arbeit ging es um Abläufe. Wer wem was gesagt hatte. Nichts, woraus man ein komplettes Familiendrama bauen müsste.</p>
+        <p>Mein Kopf nahm die Herausforderung trotzdem an.</p>
+        <p>Dann kam der Satz:</p>
+        <p>„Hast du dich wieder beruhigt?“</p>
+        <p>Vielleicht war er nicht einmal böse gemeint.</p>
+        <p>Bei mir kam aber etwas ganz anderes an:</p>
+        <p>Stell dich nicht so an.</p>
+        <p>Du bist schon wieder zu viel.</p>
+        <p>Deine Gefühle sind unbequem.</p>
+        <p>In dem Moment reagiere ich nicht nur auf die Person vor mir. Da reden alte Stimmen mit, die mit dieser Küche überhaupt nichts zu tun haben.</p>
+        <p>Das merke ich inzwischen schneller.</p>
+        <p>Früher wäre ich direkt in die Beweisführung gegangen. Wort für Wort. Satz für Satz. Bis niemand mehr wusste, worum es eigentlich ging.</p>
+        <p>Heute kann ich manchmal kurz stoppen.</p>
+        <p>Nicht immer und nicht besonders elegant.</p>
+        <p>Aber ich merke: Das hier ist größer als die Situation.</p>
+        <p>Der Satz hat eine alte Stelle getroffen.</p>
+        <p>Deshalb tut er weh.</p>
+        <p>Ich muss mich dafür nicht schämen. Aber ich muss auch nicht jedes Mal einen ganzen Gerichtssaal eröffnen.</p>
+        <p>Manchmal reicht es, zu sagen:</p>
+        <p>Das hat mich getroffen.</p>
+        <p>Mehr Kommunikation wäre dann eigentlich gar nicht nötig.</p>
+      </div>
       </div>
     </div>
   </div>
@@ -111,56 +129,6 @@
     cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
   });
   function toggleMenu() { document.body.classList.toggle('menu-open'); }
-
-  const ENTRY_PARAGRAPHS = ["Kommunikation.", "Eigentlich ein ganz normales Wort.", "Bei mir reicht manchmal schon ein fehlender Satz und innen ist sofort wieder alles da.", "Alle wissen Bescheid.", "Nur ich nicht.", "Alle gehören dazu.", "Ich stehe daneben.", "In der Arbeit ging es um Abläufe. Wer wem was gesagt hatte. Nichts, woraus man ein komplettes Familiendrama bauen müsste.", "Mein Kopf nahm die Herausforderung trotzdem an.", "Dann kam der Satz:", "„Hast du dich wieder beruhigt?“", "Vielleicht war er nicht einmal böse gemeint.", "Bei mir kam aber etwas ganz anderes an:", "Stell dich nicht so an.", "Du bist schon wieder zu viel.", "Deine Gefühle sind unbequem.", "In dem Moment reagiere ich nicht nur auf die Person vor mir. Da reden alte Stimmen mit, die mit dieser Küche überhaupt nichts zu tun haben.", "Das merke ich inzwischen schneller.", "Früher wäre ich direkt in die Beweisführung gegangen. Wort für Wort. Satz für Satz. Bis niemand mehr wusste, worum es eigentlich ging.", "Heute kann ich manchmal kurz stoppen.", "Nicht immer und nicht besonders elegant.", "Aber ich merke: Das hier ist größer als die Situation.", "Der Satz hat eine alte Stelle getroffen.", "Deshalb tut er weh.", "Ich muss mich dafür nicht schämen. Aber ich muss auch nicht jedes Mal einen ganzen Gerichtssaal eröffnen.", "Manchmal reicht es, zu sagen:", "Das hat mich getroffen.", "Mehr Kommunikation wäre dann eigentlich gar nicht nötig."];
-
-  window.addEventListener('DOMContentLoaded', () => {
-    typeWriter(document.getElementById('tw-title'), 38, () => {
-      typeParagraphs(document.getElementById('entry-body'), ENTRY_PARAGRAPHS, 14, 350);
-    });
-  });
-
-  function typeWriter(el, speed, onDone) {
-    if (!el) return;
-    const text = el.getAttribute('data-text') || '';
-    el.textContent = '';
-    el.classList.add('typing');
-    let i = 0;
-    (function step() {
-      if (i <= text.length) {
-        el.textContent = text.slice(0, i);
-        i++;
-        setTimeout(step, speed);
-      } else {
-        el.classList.remove('typing');
-        if (onDone) onDone();
-      }
-    })();
-  }
-
-  function typeParagraphs(container, paragraphs, speed, pause) {
-    if (!container) return;
-    let idx = 0;
-    (function nextParagraph() {
-      if (idx >= paragraphs.length) return;
-      const p = document.createElement('p');
-      p.classList.add('typing');
-      container.appendChild(p);
-      const text = paragraphs[idx];
-      let i = 0;
-      (function step() {
-        if (i <= text.length) {
-          p.textContent = text.slice(0, i);
-          i++;
-          setTimeout(step, speed);
-        } else {
-          p.classList.remove('typing');
-          idx++;
-          setTimeout(nextParagraph, pause);
-        }
-      })();
-    })();
-  }
 </script>
 </body>
 </html>

@@ -53,24 +53,13 @@
   }
   .entry-text { max-width: 560px; font-size: 17px; line-height: 1.75; font-family: Arial, Helvetica, sans-serif; }
   .entry-text p { margin: 0 0 13px 0; min-height: 1em; }
-  .entry-text p.typing::after {
-    content: '|';
-    margin-left: 1px;
-    animation: twBlink 0.8s steps(1) infinite;
-  }
 
   @media (max-width: 720px) {
     .entry-grid { grid-template-columns: 1fr; gap: 24px; padding-top: clamp(180px, 34vw, 260px); }
     .meta-block { grid-column: 1; }
     .entry-main { grid-column: 1; }
   }
-
-  .entry-headline.typing::after {
-    content: '|';
-    margin-left: 2px;
-    animation: twBlink 0.8s steps(1) infinite;
-  }
-  @keyframes twBlink { 50% { opacity: 0; } }
+ }
 </style>
 </head>
 <body>
@@ -99,8 +88,29 @@
       </div>
 
       <div class="entry-main">
-        <h2 class="entry-headline" id="tw-title" data-text="Wie bin ich eigentlich auf dieser Schiene gelandet?"></h2>
-        <div class="entry-text" id="entry-body"></div>
+        <h2 class="entry-headline">Wie bin ich eigentlich auf dieser Schiene gelandet?</h2>
+        <div class="entry-text">
+        <p>Heute saß ich bei meiner Therapeutin.</p>
+        <p>Eigentlich dachte ich, wir reden wie immer über die Reha. Termine, Anträge, Wartezeiten. Dieser ganze Papierkram, der inzwischen gefühlt ein eigenes Hobby ist.</p>
+        <p>Dann sagte sie, dass sie nicht versteht, warum ich für fünf Monate in eine Entwöhnungstherapie soll.</p>
+        <p>Nicht weil sie gegen eine Reha ist.</p>
+        <p>Sie fragt sich, ob diese Reha überhaupt noch zu meiner heutigen Situation passt.</p>
+        <p>Und plötzlich saß ich da und dachte: Ja. Wie bin ich eigentlich auf dieser Schiene gelandet?</p>
+        <p>Entgiftung. Anträge. Gutachten. Empfehlungen.</p>
+        <p>Man macht einen Schritt nach dem anderen und vertraut darauf, dass die Leute schon wissen werden, was richtig ist.</p>
+        <p>Bis jemand fragt: Passt dieser Weg überhaupt noch zu dir?</p>
+        <p>Wenn ich ehrlich bin, rede ich seit Monaten kaum noch über Drogen.</p>
+        <p>Ich rede über ADHS. Erschöpfung. Beziehungen. Überforderung.</p>
+        <p>Darüber, wer ich eigentlich bin, wenn das Chaos im Kopf langsam leiser wird.</p>
+        <p>Ich rede darüber, wie ich wieder leben kann.</p>
+        <p>Natürlich brauche ich Hilfe.</p>
+        <p>Aber vielleicht eine andere als die, die vor Monaten geplant wurde.</p>
+        <p>Das Verrückte ist: Man verändert sich langsam und läuft trotzdem auf dem alten Weg weiter, weil man ihn eben einmal eingeschlagen hat.</p>
+        <p>Bis jemand kurz die Musik stoppt und fragt, ob das hier überhaupt noch der richtige Track ist.</p>
+        <p>Ich habe darauf noch keine Antwort.</p>
+        <p>Aber die Frage ist jetzt da.</p>
+        <p>Und sie geht nicht mehr weg.</p>
+      </div>
       </div>
     </div>
   </div>
@@ -111,56 +121,6 @@
     cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
   });
   function toggleMenu() { document.body.classList.toggle('menu-open'); }
-
-  const ENTRY_PARAGRAPHS = ["Heute saß ich bei meiner Therapeutin.", "Eigentlich dachte ich, wir reden wie immer über die Reha. Termine, Anträge, Wartezeiten. Dieser ganze Papierkram, der inzwischen gefühlt ein eigenes Hobby ist.", "Dann sagte sie, dass sie nicht versteht, warum ich für fünf Monate in eine Entwöhnungstherapie soll.", "Nicht weil sie gegen eine Reha ist.", "Sie fragt sich, ob diese Reha überhaupt noch zu meiner heutigen Situation passt.", "Und plötzlich saß ich da und dachte: Ja. Wie bin ich eigentlich auf dieser Schiene gelandet?", "Entgiftung. Anträge. Gutachten. Empfehlungen.", "Man macht einen Schritt nach dem anderen und vertraut darauf, dass die Leute schon wissen werden, was richtig ist.", "Bis jemand fragt: Passt dieser Weg überhaupt noch zu dir?", "Wenn ich ehrlich bin, rede ich seit Monaten kaum noch über Drogen.", "Ich rede über ADHS. Erschöpfung. Beziehungen. Überforderung.", "Darüber, wer ich eigentlich bin, wenn das Chaos im Kopf langsam leiser wird.", "Ich rede darüber, wie ich wieder leben kann.", "Natürlich brauche ich Hilfe.", "Aber vielleicht eine andere als die, die vor Monaten geplant wurde.", "Das Verrückte ist: Man verändert sich langsam und läuft trotzdem auf dem alten Weg weiter, weil man ihn eben einmal eingeschlagen hat.", "Bis jemand kurz die Musik stoppt und fragt, ob das hier überhaupt noch der richtige Track ist.", "Ich habe darauf noch keine Antwort.", "Aber die Frage ist jetzt da.", "Und sie geht nicht mehr weg."];
-
-  window.addEventListener('DOMContentLoaded', () => {
-    typeWriter(document.getElementById('tw-title'), 38, () => {
-      typeParagraphs(document.getElementById('entry-body'), ENTRY_PARAGRAPHS, 14, 350);
-    });
-  });
-
-  function typeWriter(el, speed, onDone) {
-    if (!el) return;
-    const text = el.getAttribute('data-text') || '';
-    el.textContent = '';
-    el.classList.add('typing');
-    let i = 0;
-    (function step() {
-      if (i <= text.length) {
-        el.textContent = text.slice(0, i);
-        i++;
-        setTimeout(step, speed);
-      } else {
-        el.classList.remove('typing');
-        if (onDone) onDone();
-      }
-    })();
-  }
-
-  function typeParagraphs(container, paragraphs, speed, pause) {
-    if (!container) return;
-    let idx = 0;
-    (function nextParagraph() {
-      if (idx >= paragraphs.length) return;
-      const p = document.createElement('p');
-      p.classList.add('typing');
-      container.appendChild(p);
-      const text = paragraphs[idx];
-      let i = 0;
-      (function step() {
-        if (i <= text.length) {
-          p.textContent = text.slice(0, i);
-          i++;
-          setTimeout(step, speed);
-        } else {
-          p.classList.remove('typing');
-          idx++;
-          setTimeout(nextParagraph, pause);
-        }
-      })();
-    })();
-  }
 </script>
 </body>
 </html>

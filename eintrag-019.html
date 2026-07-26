@@ -53,24 +53,13 @@
   }
   .entry-text { max-width: 560px; font-size: 17px; line-height: 1.75; font-family: Arial, Helvetica, sans-serif; }
   .entry-text p { margin: 0 0 13px 0; min-height: 1em; }
-  .entry-text p.typing::after {
-    content: '|';
-    margin-left: 1px;
-    animation: twBlink 0.8s steps(1) infinite;
-  }
 
   @media (max-width: 720px) {
     .entry-grid { grid-template-columns: 1fr; gap: 24px; padding-top: clamp(180px, 34vw, 260px); }
     .meta-block { grid-column: 1; }
     .entry-main { grid-column: 1; }
   }
-
-  .entry-headline.typing::after {
-    content: '|';
-    margin-left: 2px;
-    animation: twBlink 0.8s steps(1) infinite;
-  }
-  @keyframes twBlink { 50% { opacity: 0; } }
+ }
 </style>
 </head>
 <body>
@@ -99,8 +88,29 @@
       </div>
 
       <div class="entry-main">
-        <h2 class="entry-headline" id="tw-title" data-text="Mein Kopf macht, was er immer macht."></h2>
-        <div class="entry-text" id="entry-body"></div>
+        <h2 class="entry-headline">Mein Kopf macht, was er immer macht.</h2>
+        <div class="entry-text">
+        <p>Mein Kopf macht, was er immer macht.</p>
+        <p>Sobald etwas Neues passiert, spielt er jede mögliche Katastrophe einmal komplett durch.</p>
+        <p>Beim Flug nach Málaga war das natürlich nicht anders.</p>
+        <p>Was, wenn etwas schiefgeht?</p>
+        <p>Was, wenn ich mich unwohl fühle?</p>
+        <p>Was, wenn ich nach einem Tag wieder heimwill?</p>
+        <p>Er könnte auch einfach sagen: Du bist aufgeregt.</p>
+        <p>Aber nein. Wir produzieren direkt einen vollständigen Katastrophenfilm.</p>
+        <p>Das Interessante war: Zwischen all den Was-wäre-wenns tauchte plötzlich ein anderer Gedanke auf.</p>
+        <p>Was, wenn es gut wird?</p>
+        <p>Der war fast noch unheimlicher.</p>
+        <p>Weil ich mich auf schlechte Ausgänge innerlich gut vorbereiten kann. Hoffnung ist riskanter.</p>
+        <p>Wenn ich glaube, dass etwas schön werden könnte, kann ich enttäuscht werden.</p>
+        <p>Also hält mein Kopf lieber die Handbremse fest und nennt das Vernunft.</p>
+        <p>Diesmal bin ich trotzdem geflogen.</p>
+        <p>Nicht weil die Angst weg war.</p>
+        <p>Sie durfte mit.</p>
+        <p>Nur nicht ans Steuer.</p>
+        <p>Vielleicht muss mein Kopf gar nicht lernen, still zu sein.</p>
+        <p>Es reicht erst einmal, wenn ich nicht mehr jede seiner Geschichten für eine Vorhersage halte.</p>
+      </div>
       </div>
     </div>
   </div>
@@ -111,56 +121,6 @@
     cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
   });
   function toggleMenu() { document.body.classList.toggle('menu-open'); }
-
-  const ENTRY_PARAGRAPHS = ["Mein Kopf macht, was er immer macht.", "Sobald etwas Neues passiert, spielt er jede mögliche Katastrophe einmal komplett durch.", "Beim Flug nach Málaga war das natürlich nicht anders.", "Was, wenn etwas schiefgeht?", "Was, wenn ich mich unwohl fühle?", "Was, wenn ich nach einem Tag wieder heimwill?", "Er könnte auch einfach sagen: Du bist aufgeregt.", "Aber nein. Wir produzieren direkt einen vollständigen Katastrophenfilm.", "Das Interessante war: Zwischen all den Was-wäre-wenns tauchte plötzlich ein anderer Gedanke auf.", "Was, wenn es gut wird?", "Der war fast noch unheimlicher.", "Weil ich mich auf schlechte Ausgänge innerlich gut vorbereiten kann. Hoffnung ist riskanter.", "Wenn ich glaube, dass etwas schön werden könnte, kann ich enttäuscht werden.", "Also hält mein Kopf lieber die Handbremse fest und nennt das Vernunft.", "Diesmal bin ich trotzdem geflogen.", "Nicht weil die Angst weg war.", "Sie durfte mit.", "Nur nicht ans Steuer.", "Vielleicht muss mein Kopf gar nicht lernen, still zu sein.", "Es reicht erst einmal, wenn ich nicht mehr jede seiner Geschichten für eine Vorhersage halte."];
-
-  window.addEventListener('DOMContentLoaded', () => {
-    typeWriter(document.getElementById('tw-title'), 38, () => {
-      typeParagraphs(document.getElementById('entry-body'), ENTRY_PARAGRAPHS, 14, 350);
-    });
-  });
-
-  function typeWriter(el, speed, onDone) {
-    if (!el) return;
-    const text = el.getAttribute('data-text') || '';
-    el.textContent = '';
-    el.classList.add('typing');
-    let i = 0;
-    (function step() {
-      if (i <= text.length) {
-        el.textContent = text.slice(0, i);
-        i++;
-        setTimeout(step, speed);
-      } else {
-        el.classList.remove('typing');
-        if (onDone) onDone();
-      }
-    })();
-  }
-
-  function typeParagraphs(container, paragraphs, speed, pause) {
-    if (!container) return;
-    let idx = 0;
-    (function nextParagraph() {
-      if (idx >= paragraphs.length) return;
-      const p = document.createElement('p');
-      p.classList.add('typing');
-      container.appendChild(p);
-      const text = paragraphs[idx];
-      let i = 0;
-      (function step() {
-        if (i <= text.length) {
-          p.textContent = text.slice(0, i);
-          i++;
-          setTimeout(step, speed);
-        } else {
-          p.classList.remove('typing');
-          idx++;
-          setTimeout(nextParagraph, pause);
-        }
-      })();
-    })();
-  }
 </script>
 </body>
 </html>

@@ -53,24 +53,13 @@
   }
   .entry-text { max-width: 560px; font-size: 17px; line-height: 1.75; font-family: Arial, Helvetica, sans-serif; }
   .entry-text p { margin: 0 0 13px 0; min-height: 1em; }
-  .entry-text p.typing::after {
-    content: '|';
-    margin-left: 1px;
-    animation: twBlink 0.8s steps(1) infinite;
-  }
 
   @media (max-width: 720px) {
     .entry-grid { grid-template-columns: 1fr; gap: 24px; padding-top: clamp(180px, 34vw, 260px); }
     .meta-block { grid-column: 1; }
     .entry-main { grid-column: 1; }
   }
-
-  .entry-headline.typing::after {
-    content: '|';
-    margin-left: 2px;
-    animation: twBlink 0.8s steps(1) infinite;
-  }
-  @keyframes twBlink { 50% { opacity: 0; } }
+ }
 </style>
 </head>
 <body>
@@ -99,8 +88,39 @@
       </div>
 
       <div class="entry-main">
-        <h2 class="entry-headline" id="tw-title" data-text="Rücken an Rücken"></h2>
-        <div class="entry-text" id="entry-body"></div>
+        <h2 class="entry-headline">Rücken an Rücken</h2>
+        <div class="entry-text">
+        <p>Dieses Bild sagt wahrscheinlich mehr über mich als viele Worte.</p>
+        <p>Links die Version von mir, die jahrelang versucht hat, irgendwie durchzukommen.</p>
+        <p>Immer unter Strom.</p>
+        <p>Immer auf der Suche nach dem nächsten Moment, der den Kopf kurz leiser macht.</p>
+        <p>Rechts die Version, die heute hier sitzt.</p>
+        <p>Nicht perfekt.</p>
+        <p>Nicht angekommen.</p>
+        <p>Aber bewusster.</p>
+        <p>Manchmal werde ich gefragt, ob ich mein altes Ich vermisse.</p>
+        <p>Nein.</p>
+        <p>Ich vermisse höchstens die Unbeschwertheit, nach der ich damals gesucht habe.</p>
+        <p>Der Weg dorthin war nur nicht der richtige.</p>
+        <p>Das Schöne ist:</p>
+        <p>Ich kämpfe heute nicht mehr gegen mein früheres Ich.</p>
+        <p>Es gehört zu mir.</p>
+        <p>Ohne diese Frau gäbe es die andere nicht.</p>
+        <p>Sie hat Fehler gemacht.</p>
+        <p>Sie hat Entscheidungen getroffen, die ich heute anders treffen würde.</p>
+        <p>Sie war verzweifelt.</p>
+        <p>Sie war laut.</p>
+        <p>Sie war müde.</p>
+        <p>Aber sie hat nie aufgehört, weiterzugehen.</p>
+        <p>Heute stehen wir Rücken an Rücken.</p>
+        <p>Nicht als Gegner.</p>
+        <p>Sondern als zwei Kapitel derselben Geschichte.</p>
+        <p>Ich muss meine Vergangenheit nicht ausradieren, um stolz auf meine Gegenwart zu sein.</p>
+        <p>Sie darf bleiben.</p>
+        <p>Als Erinnerung.</p>
+        <p>Als Warnung.</p>
+        <p>Und auch als Beweis dafür, dass Menschen sich verändern können.</p>
+      </div>
       </div>
     </div>
   </div>
@@ -111,56 +131,6 @@
     cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
   });
   function toggleMenu() { document.body.classList.toggle('menu-open'); }
-
-  const ENTRY_PARAGRAPHS = ["Dieses Bild sagt wahrscheinlich mehr über mich als viele Worte.", "Links die Version von mir, die jahrelang versucht hat, irgendwie durchzukommen.", "Immer unter Strom.", "Immer auf der Suche nach dem nächsten Moment, der den Kopf kurz leiser macht.", "Rechts die Version, die heute hier sitzt.", "Nicht perfekt.", "Nicht angekommen.", "Aber bewusster.", "Manchmal werde ich gefragt, ob ich mein altes Ich vermisse.", "Nein.", "Ich vermisse höchstens die Unbeschwertheit, nach der ich damals gesucht habe.", "Der Weg dorthin war nur nicht der richtige.", "Das Schöne ist:", "Ich kämpfe heute nicht mehr gegen mein früheres Ich.", "Es gehört zu mir.", "Ohne diese Frau gäbe es die andere nicht.", "Sie hat Fehler gemacht.", "Sie hat Entscheidungen getroffen, die ich heute anders treffen würde.", "Sie war verzweifelt.", "Sie war laut.", "Sie war müde.", "Aber sie hat nie aufgehört, weiterzugehen.", "Heute stehen wir Rücken an Rücken.", "Nicht als Gegner.", "Sondern als zwei Kapitel derselben Geschichte.", "Ich muss meine Vergangenheit nicht ausradieren, um stolz auf meine Gegenwart zu sein.", "Sie darf bleiben.", "Als Erinnerung.", "Als Warnung.", "Und auch als Beweis dafür, dass Menschen sich verändern können."];
-
-  window.addEventListener('DOMContentLoaded', () => {
-    typeWriter(document.getElementById('tw-title'), 38, () => {
-      typeParagraphs(document.getElementById('entry-body'), ENTRY_PARAGRAPHS, 14, 350);
-    });
-  });
-
-  function typeWriter(el, speed, onDone) {
-    if (!el) return;
-    const text = el.getAttribute('data-text') || '';
-    el.textContent = '';
-    el.classList.add('typing');
-    let i = 0;
-    (function step() {
-      if (i <= text.length) {
-        el.textContent = text.slice(0, i);
-        i++;
-        setTimeout(step, speed);
-      } else {
-        el.classList.remove('typing');
-        if (onDone) onDone();
-      }
-    })();
-  }
-
-  function typeParagraphs(container, paragraphs, speed, pause) {
-    if (!container) return;
-    let idx = 0;
-    (function nextParagraph() {
-      if (idx >= paragraphs.length) return;
-      const p = document.createElement('p');
-      p.classList.add('typing');
-      container.appendChild(p);
-      const text = paragraphs[idx];
-      let i = 0;
-      (function step() {
-        if (i <= text.length) {
-          p.textContent = text.slice(0, i);
-          i++;
-          setTimeout(step, speed);
-        } else {
-          p.classList.remove('typing');
-          idx++;
-          setTimeout(nextParagraph, pause);
-        }
-      })();
-    })();
-  }
 </script>
 </body>
 </html>

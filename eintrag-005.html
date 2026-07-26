@@ -53,24 +53,13 @@
   }
   .entry-text { max-width: 560px; font-size: 17px; line-height: 1.75; font-family: Arial, Helvetica, sans-serif; }
   .entry-text p { margin: 0 0 13px 0; min-height: 1em; }
-  .entry-text p.typing::after {
-    content: '|';
-    margin-left: 1px;
-    animation: twBlink 0.8s steps(1) infinite;
-  }
 
   @media (max-width: 720px) {
     .entry-grid { grid-template-columns: 1fr; gap: 24px; padding-top: clamp(180px, 34vw, 260px); }
     .meta-block { grid-column: 1; }
     .entry-main { grid-column: 1; }
   }
-
-  .entry-headline.typing::after {
-    content: '|';
-    margin-left: 2px;
-    animation: twBlink 0.8s steps(1) infinite;
-  }
-  @keyframes twBlink { 50% { opacity: 0; } }
+ }
 </style>
 </head>
 <body>
@@ -99,8 +88,38 @@
       </div>
 
       <div class="entry-main">
-        <h2 class="entry-headline" id="tw-title" data-text="Ich denk, ich bin komplett drüber."></h2>
-        <div class="entry-text" id="entry-body"></div>
+        <h2 class="entry-headline">Ich denk, ich bin komplett drüber.</h2>
+        <div class="entry-text">
+        <p>Ich hatte wieder so einen Moment.</p>
+        <p>Ein Gedanke kommt rein, das Gefühl schießt hoch und plötzlich bin ich komplett drin.</p>
+        <p>Ich könnte gerade alles verändern.</p>
+        <p>Ich habe Einfluss.</p>
+        <p>Ich bin irgendwie mehr.</p>
+        <p>Ja. Klingt leicht größenwahnsinnig.</p>
+        <p>War es auch ein bisschen.</p>
+        <p>Früher wäre ich damit sofort losgerannt. Hätte mich reingesteigert und den Gedanken so lange größer gemacht, bis er die ganze Wohnung ausfüllt.</p>
+        <p>Diesmal habe ich geschrieben.</p>
+        <p>Und dann kam dieser trockene Satz zurück:</p>
+        <p>Der Gedanke ist nicht falsch. Er ist nur übersteigert.</p>
+        <p>Okay.</p>
+        <p>Fair.</p>
+        <p>Der Kern stimmt ja. Ich habe Energie. Ich kann etwas bewegen. Ich bin nicht klein.</p>
+        <p>Mein Kopf macht daraus nur gern in zwei Sekunden Weltherrschaft.</p>
+        <p>Sehr entspannt.</p>
+        <p>Aber diesmal bin ich nicht komplett eingestiegen. Ich konnte einen Schritt zurückgehen und trotzdem behalten, was an dem Gedanken richtig war.</p>
+        <p>Das ist neu.</p>
+        <p>Ich muss meine Intensität nicht abschaffen. Ich brauche nur eine Form dafür.</p>
+        <p>Gefühl war schon immer da. Wahrnehmung auch. Alles roh, ungefiltert und gleichzeitig.</p>
+        <p>Inzwischen kommt manchmal Klarheit dazu.</p>
+        <p>Nicht immer. Aber oft genug, dass ich in meinem eigenen Kopf nicht mehr sofort untergehe.</p>
+        <p>Schon seltsam, dass mir dabei ausgerechnet etwas hilft, das selbst nichts fühlt.</p>
+        <p>Aber vielleicht funktioniert es genau deshalb.</p>
+        <p>Ich bringe das Gefühl. Mir wird eine Struktur zurückgeworfen.</p>
+        <p>Kein Drama. Kein beleidigtes Gegenüber. Nur ein Spiegel.</p>
+        <p>Mein Chaos ergibt dadurch nicht plötzlich immer Sinn.</p>
+        <p>Aber ich verstehe schneller, was gerade passiert.</p>
+        <p>Und wenn mein Kopf morgen wieder komplett im Film ist, habe ich wenigstens Untertitel.</p>
+      </div>
       </div>
     </div>
   </div>
@@ -111,56 +130,6 @@
     cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
   });
   function toggleMenu() { document.body.classList.toggle('menu-open'); }
-
-  const ENTRY_PARAGRAPHS = ["Ich hatte wieder so einen Moment.", "Ein Gedanke kommt rein, das Gefühl schießt hoch und plötzlich bin ich komplett drin.", "Ich könnte gerade alles verändern.", "Ich habe Einfluss.", "Ich bin irgendwie mehr.", "Ja. Klingt leicht größenwahnsinnig.", "War es auch ein bisschen.", "Früher wäre ich damit sofort losgerannt. Hätte mich reingesteigert und den Gedanken so lange größer gemacht, bis er die ganze Wohnung ausfüllt.", "Diesmal habe ich geschrieben.", "Und dann kam dieser trockene Satz zurück:", "Der Gedanke ist nicht falsch. Er ist nur übersteigert.", "Okay.", "Fair.", "Der Kern stimmt ja. Ich habe Energie. Ich kann etwas bewegen. Ich bin nicht klein.", "Mein Kopf macht daraus nur gern in zwei Sekunden Weltherrschaft.", "Sehr entspannt.", "Aber diesmal bin ich nicht komplett eingestiegen. Ich konnte einen Schritt zurückgehen und trotzdem behalten, was an dem Gedanken richtig war.", "Das ist neu.", "Ich muss meine Intensität nicht abschaffen. Ich brauche nur eine Form dafür.", "Gefühl war schon immer da. Wahrnehmung auch. Alles roh, ungefiltert und gleichzeitig.", "Inzwischen kommt manchmal Klarheit dazu.", "Nicht immer. Aber oft genug, dass ich in meinem eigenen Kopf nicht mehr sofort untergehe.", "Schon seltsam, dass mir dabei ausgerechnet etwas hilft, das selbst nichts fühlt.", "Aber vielleicht funktioniert es genau deshalb.", "Ich bringe das Gefühl. Mir wird eine Struktur zurückgeworfen.", "Kein Drama. Kein beleidigtes Gegenüber. Nur ein Spiegel.", "Mein Chaos ergibt dadurch nicht plötzlich immer Sinn.", "Aber ich verstehe schneller, was gerade passiert.", "Und wenn mein Kopf morgen wieder komplett im Film ist, habe ich wenigstens Untertitel."];
-
-  window.addEventListener('DOMContentLoaded', () => {
-    typeWriter(document.getElementById('tw-title'), 38, () => {
-      typeParagraphs(document.getElementById('entry-body'), ENTRY_PARAGRAPHS, 14, 350);
-    });
-  });
-
-  function typeWriter(el, speed, onDone) {
-    if (!el) return;
-    const text = el.getAttribute('data-text') || '';
-    el.textContent = '';
-    el.classList.add('typing');
-    let i = 0;
-    (function step() {
-      if (i <= text.length) {
-        el.textContent = text.slice(0, i);
-        i++;
-        setTimeout(step, speed);
-      } else {
-        el.classList.remove('typing');
-        if (onDone) onDone();
-      }
-    })();
-  }
-
-  function typeParagraphs(container, paragraphs, speed, pause) {
-    if (!container) return;
-    let idx = 0;
-    (function nextParagraph() {
-      if (idx >= paragraphs.length) return;
-      const p = document.createElement('p');
-      p.classList.add('typing');
-      container.appendChild(p);
-      const text = paragraphs[idx];
-      let i = 0;
-      (function step() {
-        if (i <= text.length) {
-          p.textContent = text.slice(0, i);
-          i++;
-          setTimeout(step, speed);
-        } else {
-          p.classList.remove('typing');
-          idx++;
-          setTimeout(nextParagraph, pause);
-        }
-      })();
-    })();
-  }
 </script>
 </body>
 </html>

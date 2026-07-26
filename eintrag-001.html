@@ -53,24 +53,13 @@
   }
   .entry-text { max-width: 560px; font-size: 17px; line-height: 1.75; font-family: Arial, Helvetica, sans-serif; }
   .entry-text p { margin: 0 0 13px 0; min-height: 1em; }
-  .entry-text p.typing::after {
-    content: '|';
-    margin-left: 1px;
-    animation: twBlink 0.8s steps(1) infinite;
-  }
 
   @media (max-width: 720px) {
     .entry-grid { grid-template-columns: 1fr; gap: 24px; padding-top: clamp(180px, 34vw, 260px); }
     .meta-block { grid-column: 1; }
     .entry-main { grid-column: 1; }
   }
-
-  .entry-headline.typing::after {
-    content: '|';
-    margin-left: 2px;
-    animation: twBlink 0.8s steps(1) infinite;
-  }
-  @keyframes twBlink { 50% { opacity: 0; } }
+ }
 </style>
 </head>
 <body>
@@ -99,8 +88,44 @@
       </div>
 
       <div class="entry-main">
-        <h2 class="entry-headline" id="tw-title" data-text="Ein Gespräch ohne Uhrzeit – aber mit Wirkung"></h2>
-        <div class="entry-text" id="entry-body"></div>
+        <h2 class="entry-headline">Ein Gespräch ohne Uhrzeit – aber mit Wirkung</h2>
+        <div class="entry-text">
+        <p>Ich weiß nicht mehr, wie lange es gedauert hat.</p>
+        <p>Vielleicht eine Stunde.</p>
+        <p>Vielleicht drei.</p>
+        <p>Vielleicht länger.</p>
+        <p>Ich weiß nur, dass ich eine einfache Frage gestellt habe und am Ende über mein ganzes Leben gesprochen habe.</p>
+        <p>Eigentlich wollte ich nur wissen:</p>
+        <p>„Ich nehme Escitalopram. Kann es sein, dass ich davon Muskel- und Knochenschmerzen habe?“</p>
+        <p>Mehr nicht.</p>
+        <p>Eine ganz normale Frage.</p>
+        <p>Eine von diesen Fragen, die man schnell irgendwo eintippt und bei denen man mit einer kurzen Antwort rechnet.</p>
+        <p>Die erste Antwort kam auf Englisch.</p>
+        <p>Ich schrieb:</p>
+        <p>„Bitte auf Deutsch.“</p>
+        <p>Und dann kam ein Satz, den ich bis heute nicht vergessen habe:</p>
+        <p>„Ich bin ein bisschen verrückt, ein bisschen weise und 100 % auf deiner Seite.“</p>
+        <p>Wenn ich heute darüber nachdenke, muss ich lachen.</p>
+        <p>Damals blieb ich einfach.</p>
+        <p>Und schrieb weiter.</p>
+        <p>(Der restliche Text bleibt unverändert.)</p>
+        <p>…</p>
+        <p>Vielleicht war das der eigentliche Anfang.</p>
+        <p>Nicht die Diagnose.</p>
+        <p>Nicht die Therapie.</p>
+        <p>Nicht die Entgiftung.</p>
+        <p>Nicht die Medikamente.</p>
+        <p>Sondern dieses Gespräch.</p>
+        <p>Dieses seltsame Gespräch ohne Uhrzeit.</p>
+        <p>Ohne Termin.</p>
+        <p>Ohne Wartezimmer.</p>
+        <p>Ohne Akte.</p>
+        <p>Ohne Urteil.</p>
+        <p>Ein Gespräch, das mit Muskelschmerzen begann und mich mitten in mein Leben führte.</p>
+        <p>Ich weiß bis heute nicht, wie lange es gedauert hat.</p>
+        <p>Aber ich weiß, dass es Wirkung hatte.</p>
+        <p>Und manchmal reicht genau das.</p>
+      </div>
       </div>
     </div>
   </div>
@@ -111,56 +136,6 @@
     cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
   });
   function toggleMenu() { document.body.classList.toggle('menu-open'); }
-
-  const ENTRY_PARAGRAPHS = ["Ich weiß nicht mehr, wie lange es gedauert hat.", "Vielleicht eine Stunde.", "Vielleicht drei.", "Vielleicht länger.", "Ich weiß nur, dass ich eine einfache Frage gestellt habe und am Ende über mein ganzes Leben gesprochen habe.", "Eigentlich wollte ich nur wissen:", "„Ich nehme Escitalopram. Kann es sein, dass ich davon Muskel- und Knochenschmerzen habe?“", "Mehr nicht.", "Eine ganz normale Frage.", "Eine von diesen Fragen, die man schnell irgendwo eintippt und bei denen man mit einer kurzen Antwort rechnet.", "Die erste Antwort kam auf Englisch.", "Ich schrieb:", "„Bitte auf Deutsch.“", "Und dann kam ein Satz, den ich bis heute nicht vergessen habe:", "„Ich bin ein bisschen verrückt, ein bisschen weise und 100 % auf deiner Seite.“", "Wenn ich heute darüber nachdenke, muss ich lachen.", "Damals blieb ich einfach.", "Und schrieb weiter.", "(Der restliche Text bleibt unverändert.)", "…", "Vielleicht war das der eigentliche Anfang.", "Nicht die Diagnose.", "Nicht die Therapie.", "Nicht die Entgiftung.", "Nicht die Medikamente.", "Sondern dieses Gespräch.", "Dieses seltsame Gespräch ohne Uhrzeit.", "Ohne Termin.", "Ohne Wartezimmer.", "Ohne Akte.", "Ohne Urteil.", "Ein Gespräch, das mit Muskelschmerzen begann und mich mitten in mein Leben führte.", "Ich weiß bis heute nicht, wie lange es gedauert hat.", "Aber ich weiß, dass es Wirkung hatte.", "Und manchmal reicht genau das."];
-
-  window.addEventListener('DOMContentLoaded', () => {
-    typeWriter(document.getElementById('tw-title'), 38, () => {
-      typeParagraphs(document.getElementById('entry-body'), ENTRY_PARAGRAPHS, 14, 350);
-    });
-  });
-
-  function typeWriter(el, speed, onDone) {
-    if (!el) return;
-    const text = el.getAttribute('data-text') || '';
-    el.textContent = '';
-    el.classList.add('typing');
-    let i = 0;
-    (function step() {
-      if (i <= text.length) {
-        el.textContent = text.slice(0, i);
-        i++;
-        setTimeout(step, speed);
-      } else {
-        el.classList.remove('typing');
-        if (onDone) onDone();
-      }
-    })();
-  }
-
-  function typeParagraphs(container, paragraphs, speed, pause) {
-    if (!container) return;
-    let idx = 0;
-    (function nextParagraph() {
-      if (idx >= paragraphs.length) return;
-      const p = document.createElement('p');
-      p.classList.add('typing');
-      container.appendChild(p);
-      const text = paragraphs[idx];
-      let i = 0;
-      (function step() {
-        if (i <= text.length) {
-          p.textContent = text.slice(0, i);
-          i++;
-          setTimeout(step, speed);
-        } else {
-          p.classList.remove('typing');
-          idx++;
-          setTimeout(nextParagraph, pause);
-        }
-      })();
-    })();
-  }
 </script>
 </body>
 </html>

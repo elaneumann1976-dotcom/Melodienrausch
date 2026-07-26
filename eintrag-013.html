@@ -53,24 +53,13 @@
   }
   .entry-text { max-width: 560px; font-size: 17px; line-height: 1.75; font-family: Arial, Helvetica, sans-serif; }
   .entry-text p { margin: 0 0 13px 0; min-height: 1em; }
-  .entry-text p.typing::after {
-    content: '|';
-    margin-left: 1px;
-    animation: twBlink 0.8s steps(1) infinite;
-  }
 
   @media (max-width: 720px) {
     .entry-grid { grid-template-columns: 1fr; gap: 24px; padding-top: clamp(180px, 34vw, 260px); }
     .meta-block { grid-column: 1; }
     .entry-main { grid-column: 1; }
   }
-
-  .entry-headline.typing::after {
-    content: '|';
-    margin-left: 2px;
-    animation: twBlink 0.8s steps(1) infinite;
-  }
-  @keyframes twBlink { 50% { opacity: 0; } }
+ }
 </style>
 </head>
 <body>
@@ -99,8 +88,19 @@
       </div>
 
       <div class="entry-main">
-        <h2 class="entry-headline" id="tw-title" data-text="Angst vor dem nächsten Schritt"></h2>
-        <div class="entry-text" id="entry-body"></div>
+        <h2 class="entry-headline">Angst vor dem nächsten Schritt</h2>
+        <div class="entry-text">
+        <p>Heute kam der Anruf.</p>
+        <p>Am 11. August geht's in die Reha.</p>
+        <p>Monatelang habe ich auf diesen Platz gewartet. Immer wieder gehofft, immer wieder gedacht: Wann kommt endlich der Bescheid?</p>
+        <p>Und jetzt ist er da.</p>
+        <p>Komischerweise war das Erste, was ich gespürt habe, nicht Erleichterung.</p>
+        <p>Sondern Angst.</p>
+        <p>Seitdem rattert mein Kopf. Lucy fliegt am 1. August nach Griechenland. Flug buchen. Arzttermin. Krankenkasse anrufen. Jobcenter. Schröder versorgen. Reha vorbereiten. Geld.</p>
+        <p>Immer wieder Geld.</p>
+        <p>Ich merke, wie ich versuche, alles unter Kontrolle zu bekommen, bevor ich loslasse. Als könnte ich mich erst auf mich konzentrieren, wenn jede Kleinigkeit erledigt ist.</p>
+        <p>Dabei weiß ich genau, dass es diesen Moment wahrscheinlich nie geben wird.</p>
+      </div>
       </div>
     </div>
   </div>
@@ -111,56 +111,6 @@
     cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
   });
   function toggleMenu() { document.body.classList.toggle('menu-open'); }
-
-  const ENTRY_PARAGRAPHS = ["Heute kam der Anruf.", "Am 11. August geht's in die Reha.", "Monatelang habe ich auf diesen Platz gewartet. Immer wieder gehofft, immer wieder gedacht: Wann kommt endlich der Bescheid?", "Und jetzt ist er da.", "Komischerweise war das Erste, was ich gespürt habe, nicht Erleichterung.", "Sondern Angst.", "Seitdem rattert mein Kopf. Lucy fliegt am 1. August nach Griechenland. Flug buchen. Arzttermin. Krankenkasse anrufen. Jobcenter. Schröder versorgen. Reha vorbereiten. Geld.", "Immer wieder Geld.", "Ich merke, wie ich versuche, alles unter Kontrolle zu bekommen, bevor ich loslasse. Als könnte ich mich erst auf mich konzentrieren, wenn jede Kleinigkeit erledigt ist.", "Dabei weiß ich genau, dass es diesen Moment wahrscheinlich nie geben wird."];
-
-  window.addEventListener('DOMContentLoaded', () => {
-    typeWriter(document.getElementById('tw-title'), 38, () => {
-      typeParagraphs(document.getElementById('entry-body'), ENTRY_PARAGRAPHS, 14, 350);
-    });
-  });
-
-  function typeWriter(el, speed, onDone) {
-    if (!el) return;
-    const text = el.getAttribute('data-text') || '';
-    el.textContent = '';
-    el.classList.add('typing');
-    let i = 0;
-    (function step() {
-      if (i <= text.length) {
-        el.textContent = text.slice(0, i);
-        i++;
-        setTimeout(step, speed);
-      } else {
-        el.classList.remove('typing');
-        if (onDone) onDone();
-      }
-    })();
-  }
-
-  function typeParagraphs(container, paragraphs, speed, pause) {
-    if (!container) return;
-    let idx = 0;
-    (function nextParagraph() {
-      if (idx >= paragraphs.length) return;
-      const p = document.createElement('p');
-      p.classList.add('typing');
-      container.appendChild(p);
-      const text = paragraphs[idx];
-      let i = 0;
-      (function step() {
-        if (i <= text.length) {
-          p.textContent = text.slice(0, i);
-          i++;
-          setTimeout(step, speed);
-        } else {
-          p.classList.remove('typing');
-          idx++;
-          setTimeout(nextParagraph, pause);
-        }
-      })();
-    })();
-  }
 </script>
 </body>
 </html>

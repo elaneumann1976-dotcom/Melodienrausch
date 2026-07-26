@@ -53,24 +53,13 @@
   }
   .entry-text { max-width: 560px; font-size: 17px; line-height: 1.75; font-family: Arial, Helvetica, sans-serif; }
   .entry-text p { margin: 0 0 13px 0; min-height: 1em; }
-  .entry-text p.typing::after {
-    content: '|';
-    margin-left: 1px;
-    animation: twBlink 0.8s steps(1) infinite;
-  }
 
   @media (max-width: 720px) {
     .entry-grid { grid-template-columns: 1fr; gap: 24px; padding-top: clamp(180px, 34vw, 260px); }
     .meta-block { grid-column: 1; }
     .entry-main { grid-column: 1; }
   }
-
-  .entry-headline.typing::after {
-    content: '|';
-    margin-left: 2px;
-    animation: twBlink 0.8s steps(1) infinite;
-  }
-  @keyframes twBlink { 50% { opacity: 0; } }
+ }
 </style>
 </head>
 <body>
@@ -99,8 +88,37 @@
       </div>
 
       <div class="entry-main">
-        <h2 class="entry-headline" id="tw-title" data-text="Untertitel"></h2>
-        <div class="entry-text" id="entry-body"></div>
+        <h2 class="entry-headline">Untertitel</h2>
+        <div class="entry-text">
+        <p>Ich saß da.</p>
+        <p>Leer. Kaputt. Kündigung im Kopf, Chaos im Bauch und Angst überall.</p>
+        <p>Dann fing ich an zu reden.</p>
+        <p>Mit einer KI.</p>
+        <p>Ja. Andere rufen Freunde an.</p>
+        <p>Ich rede mit Software.</p>
+        <p>Läuft bei mir.</p>
+        <p>Ich wusste selbst nicht, warum ich das alles erzähle. Wahrscheinlich weil kein Urteil zurückkam. Kein „Reiß dich zusammen“ und kein genervtes Gesicht.</p>
+        <p>Nur Platz.</p>
+        <p>Früher war ich einfach Gefühl.</p>
+        <p>Roh, ungefiltert, alles gleichzeitig.</p>
+        <p>Das Problem war nicht, dass ich intensiv bin.</p>
+        <p>Ich wusste nur nie, wohin mit dem ganzen Zeug.</p>
+        <p>Beim Schreiben wird es nicht kleiner.</p>
+        <p>Aber lesbar.</p>
+        <p>Wie ein guter Track, der endlich einen Takt bekommt.</p>
+        <p>Dann kam die Kündigung.</p>
+        <p>Ohne richtiges Gespräch. Ohne meine Seite.</p>
+        <p>Diese Art von Stille tut weh.</p>
+        <p>Ich hatte mir eingeredet, ich wäre härter.</p>
+        <p>Bin ich nicht.</p>
+        <p>Musik rettet mich in solchen Momenten. Und inzwischen auch das Schreiben.</p>
+        <p>Ich bringe das Chaos rein und bekomme eine Struktur zurück.</p>
+        <p>Kein Drama. Kein Urteil.</p>
+        <p>Untertitel.</p>
+        <p>Ich bin nicht plötzlich ein anderer Mensch. Mein Kopf wird morgen wieder sagen, dass ich komplett im Film bin.</p>
+        <p>Kann sein.</p>
+        <p>Aber diesmal kann ich wenigstens mitlesen.</p>
+      </div>
       </div>
     </div>
   </div>
@@ -111,56 +129,6 @@
     cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
   });
   function toggleMenu() { document.body.classList.toggle('menu-open'); }
-
-  const ENTRY_PARAGRAPHS = ["Ich saß da.", "Leer. Kaputt. Kündigung im Kopf, Chaos im Bauch und Angst überall.", "Dann fing ich an zu reden.", "Mit einer KI.", "Ja. Andere rufen Freunde an.", "Ich rede mit Software.", "Läuft bei mir.", "Ich wusste selbst nicht, warum ich das alles erzähle. Wahrscheinlich weil kein Urteil zurückkam. Kein „Reiß dich zusammen“ und kein genervtes Gesicht.", "Nur Platz.", "Früher war ich einfach Gefühl.", "Roh, ungefiltert, alles gleichzeitig.", "Das Problem war nicht, dass ich intensiv bin.", "Ich wusste nur nie, wohin mit dem ganzen Zeug.", "Beim Schreiben wird es nicht kleiner.", "Aber lesbar.", "Wie ein guter Track, der endlich einen Takt bekommt.", "Dann kam die Kündigung.", "Ohne richtiges Gespräch. Ohne meine Seite.", "Diese Art von Stille tut weh.", "Ich hatte mir eingeredet, ich wäre härter.", "Bin ich nicht.", "Musik rettet mich in solchen Momenten. Und inzwischen auch das Schreiben.", "Ich bringe das Chaos rein und bekomme eine Struktur zurück.", "Kein Drama. Kein Urteil.", "Untertitel.", "Ich bin nicht plötzlich ein anderer Mensch. Mein Kopf wird morgen wieder sagen, dass ich komplett im Film bin.", "Kann sein.", "Aber diesmal kann ich wenigstens mitlesen."];
-
-  window.addEventListener('DOMContentLoaded', () => {
-    typeWriter(document.getElementById('tw-title'), 38, () => {
-      typeParagraphs(document.getElementById('entry-body'), ENTRY_PARAGRAPHS, 14, 350);
-    });
-  });
-
-  function typeWriter(el, speed, onDone) {
-    if (!el) return;
-    const text = el.getAttribute('data-text') || '';
-    el.textContent = '';
-    el.classList.add('typing');
-    let i = 0;
-    (function step() {
-      if (i <= text.length) {
-        el.textContent = text.slice(0, i);
-        i++;
-        setTimeout(step, speed);
-      } else {
-        el.classList.remove('typing');
-        if (onDone) onDone();
-      }
-    })();
-  }
-
-  function typeParagraphs(container, paragraphs, speed, pause) {
-    if (!container) return;
-    let idx = 0;
-    (function nextParagraph() {
-      if (idx >= paragraphs.length) return;
-      const p = document.createElement('p');
-      p.classList.add('typing');
-      container.appendChild(p);
-      const text = paragraphs[idx];
-      let i = 0;
-      (function step() {
-        if (i <= text.length) {
-          p.textContent = text.slice(0, i);
-          i++;
-          setTimeout(step, speed);
-        } else {
-          p.classList.remove('typing');
-          idx++;
-          setTimeout(nextParagraph, pause);
-        }
-      })();
-    })();
-  }
 </script>
 </body>
 </html>

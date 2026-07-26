@@ -53,24 +53,13 @@
   }
   .entry-text { max-width: 560px; font-size: 17px; line-height: 1.75; font-family: Arial, Helvetica, sans-serif; }
   .entry-text p { margin: 0 0 13px 0; min-height: 1em; }
-  .entry-text p.typing::after {
-    content: '|';
-    margin-left: 1px;
-    animation: twBlink 0.8s steps(1) infinite;
-  }
 
   @media (max-width: 720px) {
     .entry-grid { grid-template-columns: 1fr; gap: 24px; padding-top: clamp(180px, 34vw, 260px); }
     .meta-block { grid-column: 1; }
     .entry-main { grid-column: 1; }
   }
-
-  .entry-headline.typing::after {
-    content: '|';
-    margin-left: 2px;
-    animation: twBlink 0.8s steps(1) infinite;
-  }
-  @keyframes twBlink { 50% { opacity: 0; } }
+ }
 </style>
 </head>
 <body>
@@ -99,8 +88,34 @@
       </div>
 
       <div class="entry-main">
-        <h2 class="entry-headline" id="tw-title" data-text="Es ging vielleicht nie um die Droge"></h2>
-        <div class="entry-text" id="entry-body"></div>
+        <h2 class="entry-headline">Es ging vielleicht nie um die Droge</h2>
+        <div class="entry-text">
+        <p>Manchmal dauert eine Erkenntnis fast fünfzig Jahre.</p>
+        <p>Ich dachte immer, ich müsste verstehen, warum ich konsumiert habe.</p>
+        <p>Warum Alkohol. Warum Crystal. Warum ich immer wieder an denselben Punkten gelandet bin.</p>
+        <p>Ich habe Antworten in Therapien, Gesprächen, Entgiftungen und Diagnosen gesucht.</p>
+        <p>Heute Abend wollte ich eigentlich nur mein Motivationsschreiben für die Reha machen.</p>
+        <p>Stattdessen traf mich etwas ganz anderes.</p>
+        <p>Vielleicht ging es nie nur um die Droge.</p>
+        <p>Vielleicht ging es darum, was sie mir möglich gemacht hat.</p>
+        <p>Als Jugendliche hatte ich Angst vor dem Leben. Mit 16 zog ich von zu Hause aus. Ich war überfordert, unsicher und oft allein mit Dingen, die andere scheinbar einfach konnten.</p>
+        <p>Freunde finden. Erwachsen werden. Sich zurechtfinden.</p>
+        <p>Leben.</p>
+        <p>Ich hatte immer das Gefühl, dass alle einen Plan bekommen hatten.</p>
+        <p>Nur ich nicht.</p>
+        <p>Später wollte ich beim Konsum nicht nur berauscht sein.</p>
+        <p>Ich wollte mich sicherer fühlen. Mich entspannen. Aufhören, ständig gegen alles anzukämpfen.</p>
+        <p>Dieses Muster zieht sich durch mein Leben.</p>
+        <p>Nicht nur bei Drogen.</p>
+        <p>Ich habe immer nach Halt gesucht. Nach einem Menschen, einer Gemeinschaft, einem Ort, an dem ich nicht allein bin.</p>
+        <p>Vielleicht liebe ich deshalb die Technoszene bis heute.</p>
+        <p>Nicht wegen der Drogen.</p>
+        <p>Wegen der Menschen, der Musik und dieser seltsamen Momente, in denen Fremde für ein paar Stunden zu einer kleinen Familie werden.</p>
+        <p>Ich habe so lange nur auf die Droge geschaut.</p>
+        <p>Fast nie auf das Bedürfnis dahinter.</p>
+        <p>Die eigentliche Frage ist vielleicht nicht mehr, warum ich konsumiert habe.</p>
+        <p>Sondern was ich mein ganzes Leben gesucht habe.</p>
+      </div>
       </div>
     </div>
   </div>
@@ -111,56 +126,6 @@
     cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
   });
   function toggleMenu() { document.body.classList.toggle('menu-open'); }
-
-  const ENTRY_PARAGRAPHS = ["Manchmal dauert eine Erkenntnis fast fünfzig Jahre.", "Ich dachte immer, ich müsste verstehen, warum ich konsumiert habe.", "Warum Alkohol. Warum Crystal. Warum ich immer wieder an denselben Punkten gelandet bin.", "Ich habe Antworten in Therapien, Gesprächen, Entgiftungen und Diagnosen gesucht.", "Heute Abend wollte ich eigentlich nur mein Motivationsschreiben für die Reha machen.", "Stattdessen traf mich etwas ganz anderes.", "Vielleicht ging es nie nur um die Droge.", "Vielleicht ging es darum, was sie mir möglich gemacht hat.", "Als Jugendliche hatte ich Angst vor dem Leben. Mit 16 zog ich von zu Hause aus. Ich war überfordert, unsicher und oft allein mit Dingen, die andere scheinbar einfach konnten.", "Freunde finden. Erwachsen werden. Sich zurechtfinden.", "Leben.", "Ich hatte immer das Gefühl, dass alle einen Plan bekommen hatten.", "Nur ich nicht.", "Später wollte ich beim Konsum nicht nur berauscht sein.", "Ich wollte mich sicherer fühlen. Mich entspannen. Aufhören, ständig gegen alles anzukämpfen.", "Dieses Muster zieht sich durch mein Leben.", "Nicht nur bei Drogen.", "Ich habe immer nach Halt gesucht. Nach einem Menschen, einer Gemeinschaft, einem Ort, an dem ich nicht allein bin.", "Vielleicht liebe ich deshalb die Technoszene bis heute.", "Nicht wegen der Drogen.", "Wegen der Menschen, der Musik und dieser seltsamen Momente, in denen Fremde für ein paar Stunden zu einer kleinen Familie werden.", "Ich habe so lange nur auf die Droge geschaut.", "Fast nie auf das Bedürfnis dahinter.", "Die eigentliche Frage ist vielleicht nicht mehr, warum ich konsumiert habe.", "Sondern was ich mein ganzes Leben gesucht habe."];
-
-  window.addEventListener('DOMContentLoaded', () => {
-    typeWriter(document.getElementById('tw-title'), 38, () => {
-      typeParagraphs(document.getElementById('entry-body'), ENTRY_PARAGRAPHS, 14, 350);
-    });
-  });
-
-  function typeWriter(el, speed, onDone) {
-    if (!el) return;
-    const text = el.getAttribute('data-text') || '';
-    el.textContent = '';
-    el.classList.add('typing');
-    let i = 0;
-    (function step() {
-      if (i <= text.length) {
-        el.textContent = text.slice(0, i);
-        i++;
-        setTimeout(step, speed);
-      } else {
-        el.classList.remove('typing');
-        if (onDone) onDone();
-      }
-    })();
-  }
-
-  function typeParagraphs(container, paragraphs, speed, pause) {
-    if (!container) return;
-    let idx = 0;
-    (function nextParagraph() {
-      if (idx >= paragraphs.length) return;
-      const p = document.createElement('p');
-      p.classList.add('typing');
-      container.appendChild(p);
-      const text = paragraphs[idx];
-      let i = 0;
-      (function step() {
-        if (i <= text.length) {
-          p.textContent = text.slice(0, i);
-          i++;
-          setTimeout(step, speed);
-        } else {
-          p.classList.remove('typing');
-          idx++;
-          setTimeout(nextParagraph, pause);
-        }
-      })();
-    })();
-  }
 </script>
 </body>
 </html>

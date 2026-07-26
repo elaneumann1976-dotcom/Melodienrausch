@@ -53,24 +53,13 @@
   }
   .entry-text { max-width: 560px; font-size: 17px; line-height: 1.75; font-family: Arial, Helvetica, sans-serif; }
   .entry-text p { margin: 0 0 13px 0; min-height: 1em; }
-  .entry-text p.typing::after {
-    content: '|';
-    margin-left: 1px;
-    animation: twBlink 0.8s steps(1) infinite;
-  }
 
   @media (max-width: 720px) {
     .entry-grid { grid-template-columns: 1fr; gap: 24px; padding-top: clamp(180px, 34vw, 260px); }
     .meta-block { grid-column: 1; }
     .entry-main { grid-column: 1; }
   }
-
-  .entry-headline.typing::after {
-    content: '|';
-    margin-left: 2px;
-    animation: twBlink 0.8s steps(1) infinite;
-  }
-  @keyframes twBlink { 50% { opacity: 0; } }
+ }
 </style>
 </head>
 <body>
@@ -99,8 +88,35 @@
       </div>
 
       <div class="entry-main">
-        <h2 class="entry-headline" id="tw-title" data-text="Ich geh zu schnell rein – und wundere mich dann, warum’s knallt"></h2>
-        <div class="entry-text" id="entry-body"></div>
+        <h2 class="entry-headline">Ich geh zu schnell rein – und wundere mich dann, warum’s knallt</h2>
+        <div class="entry-text">
+        <p>Bei mir macht es Klick und ich bin drin.</p>
+        <p>Nicht langsam kennenlernen. Ein bisschen schauen, ein bisschen fühlen.</p>
+        <p>Nein.</p>
+        <p>Verbindung. Gefühl. Tiefe.</p>
+        <p>Alles auf einmal.</p>
+        <p>Ich dachte lange, das wäre doch etwas Gutes. Ist es ja auch.</p>
+        <p>Nur nicht jeder ist nach drei Gesprächen emotional schon im nächsten Kapitel.</p>
+        <p>Während die andere Person noch überlegt, wie ich eigentlich genau heiße, habe ich innerlich schon die gemeinsame Dokumentation gedreht.</p>
+        <p>Sehr entspannt.</p>
+        <p>Das Problem ist nicht, dass ich intensiv fühle.</p>
+        <p>Ich bin nur verdammt schnell damit.</p>
+        <p>Wenn es dann unsicher wird, mache ich das Gegenteil. Erst alles geben und dann komplett weg.</p>
+        <p>Auch ein sehr ausgeglichenes System.</p>
+        <p>Ich merke langsam, dass ich mich nicht kleiner machen muss.</p>
+        <p>Aber langsamer wäre manchmal ganz gut.</p>
+        <p>Nicht jeder muss sofort meine komplette Version bekommen. Ich darf erst einmal schauen, wer wirklich da ist. Wer bleibt. Wer nur die Intensität spannend findet.</p>
+        <p>Mein System kennt gern alles oder nichts.</p>
+        <p>Dazwischen gibt es aber tatsächlich noch etwas.</p>
+        <p>Kennenlernen.</p>
+        <p>Wachsen lassen.</p>
+        <p>Nicht sofort aus einem Gefühl eine ganze Geschichte bauen.</p>
+        <p>Klingt einfach.</p>
+        <p>Ist es für mich nicht.</p>
+        <p>Aber vielleicht muss ich mich nicht wie Fast Food komplett auf einmal servieren.</p>
+        <p>Ich bin eher ein Menü.</p>
+        <p>Und beim nächsten Mal fange ich vielleicht wirklich mit der Vorspeise an.</p>
+      </div>
       </div>
     </div>
   </div>
@@ -111,56 +127,6 @@
     cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
   });
   function toggleMenu() { document.body.classList.toggle('menu-open'); }
-
-  const ENTRY_PARAGRAPHS = ["Bei mir macht es Klick und ich bin drin.", "Nicht langsam kennenlernen. Ein bisschen schauen, ein bisschen fühlen.", "Nein.", "Verbindung. Gefühl. Tiefe.", "Alles auf einmal.", "Ich dachte lange, das wäre doch etwas Gutes. Ist es ja auch.", "Nur nicht jeder ist nach drei Gesprächen emotional schon im nächsten Kapitel.", "Während die andere Person noch überlegt, wie ich eigentlich genau heiße, habe ich innerlich schon die gemeinsame Dokumentation gedreht.", "Sehr entspannt.", "Das Problem ist nicht, dass ich intensiv fühle.", "Ich bin nur verdammt schnell damit.", "Wenn es dann unsicher wird, mache ich das Gegenteil. Erst alles geben und dann komplett weg.", "Auch ein sehr ausgeglichenes System.", "Ich merke langsam, dass ich mich nicht kleiner machen muss.", "Aber langsamer wäre manchmal ganz gut.", "Nicht jeder muss sofort meine komplette Version bekommen. Ich darf erst einmal schauen, wer wirklich da ist. Wer bleibt. Wer nur die Intensität spannend findet.", "Mein System kennt gern alles oder nichts.", "Dazwischen gibt es aber tatsächlich noch etwas.", "Kennenlernen.", "Wachsen lassen.", "Nicht sofort aus einem Gefühl eine ganze Geschichte bauen.", "Klingt einfach.", "Ist es für mich nicht.", "Aber vielleicht muss ich mich nicht wie Fast Food komplett auf einmal servieren.", "Ich bin eher ein Menü.", "Und beim nächsten Mal fange ich vielleicht wirklich mit der Vorspeise an."];
-
-  window.addEventListener('DOMContentLoaded', () => {
-    typeWriter(document.getElementById('tw-title'), 38, () => {
-      typeParagraphs(document.getElementById('entry-body'), ENTRY_PARAGRAPHS, 14, 350);
-    });
-  });
-
-  function typeWriter(el, speed, onDone) {
-    if (!el) return;
-    const text = el.getAttribute('data-text') || '';
-    el.textContent = '';
-    el.classList.add('typing');
-    let i = 0;
-    (function step() {
-      if (i <= text.length) {
-        el.textContent = text.slice(0, i);
-        i++;
-        setTimeout(step, speed);
-      } else {
-        el.classList.remove('typing');
-        if (onDone) onDone();
-      }
-    })();
-  }
-
-  function typeParagraphs(container, paragraphs, speed, pause) {
-    if (!container) return;
-    let idx = 0;
-    (function nextParagraph() {
-      if (idx >= paragraphs.length) return;
-      const p = document.createElement('p');
-      p.classList.add('typing');
-      container.appendChild(p);
-      const text = paragraphs[idx];
-      let i = 0;
-      (function step() {
-        if (i <= text.length) {
-          p.textContent = text.slice(0, i);
-          i++;
-          setTimeout(step, speed);
-        } else {
-          p.classList.remove('typing');
-          idx++;
-          setTimeout(nextParagraph, pause);
-        }
-      })();
-    })();
-  }
 </script>
 </body>
 </html>

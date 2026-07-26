@@ -53,24 +53,13 @@
   }
   .entry-text { max-width: 560px; font-size: 17px; line-height: 1.75; font-family: Arial, Helvetica, sans-serif; }
   .entry-text p { margin: 0 0 13px 0; min-height: 1em; }
-  .entry-text p.typing::after {
-    content: '|';
-    margin-left: 1px;
-    animation: twBlink 0.8s steps(1) infinite;
-  }
 
   @media (max-width: 720px) {
     .entry-grid { grid-template-columns: 1fr; gap: 24px; padding-top: clamp(180px, 34vw, 260px); }
     .meta-block { grid-column: 1; }
     .entry-main { grid-column: 1; }
   }
-
-  .entry-headline.typing::after {
-    content: '|';
-    margin-left: 2px;
-    animation: twBlink 0.8s steps(1) infinite;
-  }
-  @keyframes twBlink { 50% { opacity: 0; } }
+ }
 </style>
 </head>
 <body>
@@ -99,8 +88,28 @@
       </div>
 
       <div class="entry-main">
-        <h2 class="entry-headline" id="tw-title" data-text="Warum ich mich schuldig fühle – obwohl nichts passiert ist"></h2>
-        <div class="entry-text" id="entry-body"></div>
+        <h2 class="entry-headline">Warum ich mich schuldig fühle – obwohl nichts passiert ist</h2>
+        <div class="entry-text">
+        <p>Heute ist so ein Tag.</p>
+        <p>Ich wache auf und habe sofort dieses Gefühl: Ich habe irgendwas falsch gemacht.</p>
+        <p>Was genau? Keine Ahnung.</p>
+        <p>Aber mein Körper scheint sich sehr sicher zu sein.</p>
+        <p>Ich bin müde und gleichzeitig angespannt. Als müsste ich aufspringen und noch schnell etwas retten, von dem ich nicht einmal weiß, was es sein soll.</p>
+        <p>Früher hätte ich dem Gefühl sofort geglaubt. Wenn es sich nach Schuld anfühlt, werde ich wohl schuld sein. Logisch.</p>
+        <p>Heute merke ich wenigstens: Da war die letzten Tage einfach zu viel. Zu viele Gedanken. Zu viele Gefühle. Zu viel Verantwortung. Mein System ist voll und mein Kopf sucht verzweifelt nach einer Erklärung.</p>
+        <p>Und wenn er keine findet, nimmt er halt mich.</p>
+        <p>Auch praktisch.</p>
+        <p>Dann bin eben ich falsch. Ich war zu viel, zu empfindlich oder habe bestimmt irgendetwas übersehen.</p>
+        <p>Nur stimmt das nicht.</p>
+        <p>Ich bin erschöpft. Überreizt. Die Wirkung der Medikamente lässt nach und alles wird wieder lauter. Manchmal reicht dann ein Gespräch oder irgendeine Kleinigkeit und mein Körper reagiert schon, während mein Kopf noch versucht herauszufinden, was eigentlich los ist.</p>
+        <p>Das Gefühl ist trotzdem echt.</p>
+        <p>Aber es ist kein Beweis.</p>
+        <p>Das ist neu für mich. Ich muss nicht jedes Gefühl bis zum Anschlag analysieren und am Ende eine Anklage gegen mich selbst daraus bauen.</p>
+        <p>Heute muss ich nichts lösen.</p>
+        <p>Ich kann einfach sagen: Mein System ist drüber. Mehr ist gerade nicht.</p>
+        <p>Das geht wieder vorbei.</p>
+        <p>Und bis dahin muss ich mich nicht auch noch selbst dafür bestrafen.</p>
+      </div>
       </div>
     </div>
   </div>
@@ -111,56 +120,6 @@
     cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
   });
   function toggleMenu() { document.body.classList.toggle('menu-open'); }
-
-  const ENTRY_PARAGRAPHS = ["Heute ist so ein Tag.", "Ich wache auf und habe sofort dieses Gefühl: Ich habe irgendwas falsch gemacht.", "Was genau? Keine Ahnung.", "Aber mein Körper scheint sich sehr sicher zu sein.", "Ich bin müde und gleichzeitig angespannt. Als müsste ich aufspringen und noch schnell etwas retten, von dem ich nicht einmal weiß, was es sein soll.", "Früher hätte ich dem Gefühl sofort geglaubt. Wenn es sich nach Schuld anfühlt, werde ich wohl schuld sein. Logisch.", "Heute merke ich wenigstens: Da war die letzten Tage einfach zu viel. Zu viele Gedanken. Zu viele Gefühle. Zu viel Verantwortung. Mein System ist voll und mein Kopf sucht verzweifelt nach einer Erklärung.", "Und wenn er keine findet, nimmt er halt mich.", "Auch praktisch.", "Dann bin eben ich falsch. Ich war zu viel, zu empfindlich oder habe bestimmt irgendetwas übersehen.", "Nur stimmt das nicht.", "Ich bin erschöpft. Überreizt. Die Wirkung der Medikamente lässt nach und alles wird wieder lauter. Manchmal reicht dann ein Gespräch oder irgendeine Kleinigkeit und mein Körper reagiert schon, während mein Kopf noch versucht herauszufinden, was eigentlich los ist.", "Das Gefühl ist trotzdem echt.", "Aber es ist kein Beweis.", "Das ist neu für mich. Ich muss nicht jedes Gefühl bis zum Anschlag analysieren und am Ende eine Anklage gegen mich selbst daraus bauen.", "Heute muss ich nichts lösen.", "Ich kann einfach sagen: Mein System ist drüber. Mehr ist gerade nicht.", "Das geht wieder vorbei.", "Und bis dahin muss ich mich nicht auch noch selbst dafür bestrafen."];
-
-  window.addEventListener('DOMContentLoaded', () => {
-    typeWriter(document.getElementById('tw-title'), 38, () => {
-      typeParagraphs(document.getElementById('entry-body'), ENTRY_PARAGRAPHS, 14, 350);
-    });
-  });
-
-  function typeWriter(el, speed, onDone) {
-    if (!el) return;
-    const text = el.getAttribute('data-text') || '';
-    el.textContent = '';
-    el.classList.add('typing');
-    let i = 0;
-    (function step() {
-      if (i <= text.length) {
-        el.textContent = text.slice(0, i);
-        i++;
-        setTimeout(step, speed);
-      } else {
-        el.classList.remove('typing');
-        if (onDone) onDone();
-      }
-    })();
-  }
-
-  function typeParagraphs(container, paragraphs, speed, pause) {
-    if (!container) return;
-    let idx = 0;
-    (function nextParagraph() {
-      if (idx >= paragraphs.length) return;
-      const p = document.createElement('p');
-      p.classList.add('typing');
-      container.appendChild(p);
-      const text = paragraphs[idx];
-      let i = 0;
-      (function step() {
-        if (i <= text.length) {
-          p.textContent = text.slice(0, i);
-          i++;
-          setTimeout(step, speed);
-        } else {
-          p.classList.remove('typing');
-          idx++;
-          setTimeout(nextParagraph, pause);
-        }
-      })();
-    })();
-  }
 </script>
 </body>
 </html>
