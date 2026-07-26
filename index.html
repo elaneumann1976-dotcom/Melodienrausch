@@ -206,7 +206,7 @@
 
     // Erst an die gewünschte Stelle springen...
     scWidget.seekTo(START_MS);
-    scWidget.setVolume(0);
+    scWidget.setVolume(10); // startet bei 10%, nicht bei 0 oder voller Lautstärke
 
     // ...und ERST NACH einer kurzen Pause abspielen. Ohne diese Pause kann
     // SoundCloud den play()-Befehl manchmal noch auf Position 0:00 ausführen,
@@ -220,16 +220,19 @@
     updateDebug();
   }
 
-  // Blendet die Lautstärke über ca. 4 Sekunden sanft von 0 auf 100% hoch.
+  // Blendet die Lautstärke über 5 Sekunden kontinuierlich von 10% auf 100% hoch.
   function fadeVolumeIn() {
-    const durationMs = 4000;
+    const startVol = 10;
+    const endVol = 100;
+    const durationMs = 5000;
     const stepMs = 100;
     const steps = durationMs / stepMs;
-    let current = 0;
+    const increment = (endVol - startVol) / steps;
+    let current = startVol;
     const fadeInterval = setInterval(() => {
-      current += 100 / steps;
-      if (current >= 100) {
-        current = 100;
+      current += increment;
+      if (current >= endVol) {
+        current = endVol;
         clearInterval(fadeInterval);
       }
       scWidget.setVolume(current);
