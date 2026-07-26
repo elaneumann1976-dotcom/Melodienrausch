@@ -85,7 +85,11 @@
     clip-path: inset(var(--top) 100% var(--bottom) 0);
   }
   body.intro-done .home-collage-strip {
-    animation: none;
+    animation: homeCollageRowReveal 1.15s steps(10, end) var(--delay) forwards;
+  }
+  @keyframes homeCollageRowReveal {
+    0% { opacity: 1; clip-path: inset(var(--top) 100% var(--bottom) 0); }
+    100% { opacity: 0.92; clip-path: inset(var(--top) 0 var(--bottom) 0); }
   }
 
   @keyframes introFromBehind {
@@ -241,28 +245,12 @@
   });
 
   const zoomImage = document.getElementById('zoomImage');
-  const scribbleRows = [...document.querySelectorAll('.home-collage-strip')];
-
-  function updateScribbleDrawing(scrollProgress) {
-    const drawingProgress = Math.min(1, 0.22 + (scrollProgress * 0.78));
-    scribbleRows.forEach((row, index) => {
-      const rowProgress = Math.min(1, Math.max(0, drawingProgress * scribbleRows.length - index));
-      const right = (1 - rowProgress) * 100;
-      const top = index * 12.5;
-      const bottom = 100 - ((index + 1) * 12.5);
-      row.style.opacity = rowProgress > 0 ? '0.92' : '0';
-      row.style.clipPath = `inset(${top}% ${right}% ${bottom}% 0)`;
-    });
-  }
-
   function updateHeroScroll() {
     const scrollPos = window.scrollY;
     const travel = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
     const progress = Math.min(1, Math.max(0, scrollPos / travel));
     const imageY = 100 - (progress * 100);
     const zoomFactor = 1;
-
-    updateScribbleDrawing(progress);
 
     zoomImage.style.position = 'fixed';
     zoomImage.style.top = '0';
