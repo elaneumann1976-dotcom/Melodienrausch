@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MELODIENRAUSCH // TAGEBUCH 018</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Shadows+Into+Light&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  html, body { overflow-x: hidden; }
+  .main-content { min-height: 100vh; color: #000000; background:#f5f3ee; }
+  .hero-header {
+    position: fixed; top: 0; left: 0; width: 100%;
+    display: flex; justify-content: space-between; align-items: flex-end;
+    padding: 30px 40px 10px 40px; box-sizing: border-box; z-index: 100;
+  }
+  .huge-title {
+    color: #000000;
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(20px, 3.2vw, 60px); font-weight: 700; line-height: 0.8;
+    letter-spacing: -1px; text-transform: uppercase; margin: 0; white-space: nowrap;
+  }
+
+  .entry-grid {
+    display: grid;
+    grid-template-columns: minmax(120px, 200px) minmax(0, 560px);
+    gap: 70px;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: clamp(300px, 26vw, 420px) 40px 140px;
+    position: relative;
+  }
+
+  .meta-block {
+    grid-column: 1;
+    font-family: 'Oswald', sans-serif; font-size: 14px;
+    line-height: 1.4; text-transform: uppercase; position: relative; z-index: 101;
+  }
+  .back-link {
+    display: inline-block; margin-top: 18px; font-family: 'Oswald', sans-serif;
+    font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px;
+    color: #000000; text-decoration: none; border-bottom: 1px solid #000000; padding-bottom: 2px;
+  }
+  .back-link:hover { opacity: 0.6; }
+
+  .entry-main { grid-column: 2; position: relative; z-index: 101; }
+  .entry-headline {
+    font-family: 'Courier New', 'Courier', monospace; font-weight: 700;
+    font-size: clamp(19px, 2.2vw, 28px); line-height: 1.4;
+    text-transform: none; margin: 0 0 36px 0; letter-spacing: 0.5px;
+  }
+  .entry-text { max-width: 560px; font-size: 17px; line-height: 1.75; font-family: Arial, Helvetica, sans-serif; }
+  .entry-text p { margin: 0 0 13px 0; min-height: 1em; }
+  .entry-text p.typing::after {
+    content: '|';
+    margin-left: 1px;
+    animation: twBlink 0.8s steps(1) infinite;
+  }
+
+  @media (max-width: 720px) {
+    .entry-grid { grid-template-columns: 1fr; gap: 24px; padding-top: clamp(180px, 34vw, 260px); }
+    .meta-block { grid-column: 1; }
+    .entry-main { grid-column: 1; }
+  }
+
+  @keyframes introFromBehind {
+    0%   { transform: scale(0.1); filter: blur(18px); opacity: 0; }
+    60%  { filter: blur(2px); opacity: 1; }
+    100% { transform: scale(1); filter: blur(0); opacity: 1; }
+  }
+  .entry-headline.typing::after {
+    content: '|';
+    margin-left: 2px;
+    animation: twBlink 0.8s steps(1) infinite;
+  }
+  @keyframes twBlink { 50% { opacity: 0; } }
+  #intro-screen { perspective: 800px; }
+  #intro-screen .intro-text {
+    font-family:'Courier New'; font-size:24px; letter-spacing:10px;
+    text-transform:uppercase; font-weight:bold;
+    animation: introFromBehind 3s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  }
+</style>
+</head>
+<body>
+
+  <div id="intro-screen" style="position:fixed; top:0; left:0; width:100%; height:100vh; background:#000; color:#fff; display:flex; justify-content:center; align-items:center; z-index:9999999; transition:opacity 0.6s ease;">
+    <div class="intro-text">melodienrausch</div>
+  </div>
+  <div class="custom-cursor" id="cursor"></div>
+
+  <div class="side-menu">
+    <a href="index.html" class="menu-link">Heimat</a>
+    <a href="werke.html" class="menu-link">Kunst</a>
+    <a href="ueber.html" class="menu-link">Über mich</a>
+    <a href="register.html" class="menu-link active">Tagebuch</a>
+    <a href="kontakt.html" class="menu-link">Kontakt</a>
+  </div>
+
+  <div class="main-content">
+    <div class="hero-header">
+      <h1 class="huge-title">MELODIENRAUSCH®</h1>
+      <div class="menu-icon" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+    </div>
+
+    <div class="entry-grid">
+      <div class="meta-block">
+        <strong>EINTRAG 018</strong>
+        <br>
+        <a href="register.html" class="back-link">&#9664; Zurück zum Tagebuch</a>
+      </div>
+
+      <div class="entry-main">
+        <h2 class="entry-headline" id="tw-title" data-text="Ich geh zu schnell rein – und wundere mich dann, warum’s knallt"></h2>
+        <div class="entry-text" id="entry-body"></div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  document.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
+  });
+  function toggleMenu() { document.body.classList.toggle('menu-open'); }
+
+  const ENTRY_PARAGRAPHS = ["Bei mir macht es Klick und ich bin drin.", "Nicht langsam kennenlernen. Ein bisschen schauen, ein bisschen fühlen.", "Nein.", "Verbindung. Gefühl. Tiefe.", "Alles auf einmal.", "Ich dachte lange, das wäre doch etwas Gutes. Ist es ja auch.", "Nur nicht jeder ist nach drei Gesprächen emotional schon im nächsten Kapitel.", "Während die andere Person noch überlegt, wie ich eigentlich genau heiße, habe ich innerlich schon die gemeinsame Dokumentation gedreht.", "Sehr entspannt.", "Das Problem ist nicht, dass ich intensiv fühle.", "Ich bin nur verdammt schnell damit.", "Wenn es dann unsicher wird, mache ich das Gegenteil. Erst alles geben und dann komplett weg.", "Auch ein sehr ausgeglichenes System.", "Ich merke langsam, dass ich mich nicht kleiner machen muss.", "Aber langsamer wäre manchmal ganz gut.", "Nicht jeder muss sofort meine komplette Version bekommen. Ich darf erst einmal schauen, wer wirklich da ist. Wer bleibt. Wer nur die Intensität spannend findet.", "Mein System kennt gern alles oder nichts.", "Dazwischen gibt es aber tatsächlich noch etwas.", "Kennenlernen.", "Wachsen lassen.", "Nicht sofort aus einem Gefühl eine ganze Geschichte bauen.", "Klingt einfach.", "Ist es für mich nicht.", "Aber vielleicht muss ich mich nicht wie Fast Food komplett auf einmal servieren.", "Ich bin eher ein Menü.", "Und beim nächsten Mal fange ich vielleicht wirklich mit der Vorspeise an."];
+
+  window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      const intro = document.getElementById('intro-screen');
+      if(intro) { intro.style.opacity = '0'; setTimeout(() => intro.remove(), 600); }
+      document.body.classList.add('intro-done');
+      typeWriter(document.getElementById('tw-title'), 38, () => {
+        typeParagraphs(document.getElementById('entry-body'), ENTRY_PARAGRAPHS, 14, 350);
+      });
+    }, 3400);
+  });
+
+  function typeWriter(el, speed, onDone) {
+    if (!el) return;
+    const text = el.getAttribute('data-text') || '';
+    el.textContent = '';
+    el.classList.add('typing');
+    let i = 0;
+    (function step() {
+      if (i <= text.length) {
+        el.textContent = text.slice(0, i);
+        i++;
+        setTimeout(step, speed);
+      } else {
+        el.classList.remove('typing');
+        if (onDone) onDone();
+      }
+    })();
+  }
+
+  function typeParagraphs(container, paragraphs, speed, pause) {
+    if (!container) return;
+    let idx = 0;
+    (function nextParagraph() {
+      if (idx >= paragraphs.length) return;
+      const p = document.createElement('p');
+      p.classList.add('typing');
+      container.appendChild(p);
+      const text = paragraphs[idx];
+      let i = 0;
+      (function step() {
+        if (i <= text.length) {
+          p.textContent = text.slice(0, i);
+          i++;
+          setTimeout(step, speed);
+        } else {
+          p.classList.remove('typing');
+          idx++;
+          setTimeout(nextParagraph, pause);
+        }
+      })();
+    })();
+  }
+</script>
+</body>
+</html>
