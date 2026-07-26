@@ -159,9 +159,9 @@
     }, 3400);
   });
 
-  // ===== Cineastischer Sound-Einstieg (neu ergänzt) =====
-  // Der Track soll GENAU EINMAL starten, sobald der Zoom-Effekt auf dem
-  // Hero-Bild ca. 20-30% seiner Gesamt-Animation erreicht hat.
+  // ===== Sound-Einstieg (vereinfacht) =====
+  // Musik startet beim ersten Klick/Tippen irgendwo auf der Seite — kein
+  // Zusammenhang mehr mit dem Scrollen/Zoom-Effekt.
   let scWidget = null;       // SoundCloud-Widget-Objekt, sobald bereit
   let widgetReady = false;   // wird true, sobald der Player intern startklar ist
   let pendingPlay = false;   // merkt sich: "sollte eigentlich schon laufen"
@@ -174,8 +174,7 @@
     el.innerHTML =
       'SC-Objekt vorhanden: ' + (scWidget ? 'ja' : 'NEIN') + '<br>' +
       'Player bereit (READY): ' + (widgetReady ? 'ja' : 'nein') + '<br>' +
-      'Nutzer-Geste erkannt: ' + (hasUserGesture ? 'ja' : 'nein') + '<br>' +
-      'Scroll-Schwelle erreicht: ' + (thresholdReached ? 'ja' : 'nein') + '<br>' +
+      'Klick erkannt: ' + (soundStarted || pendingPlay ? 'ja' : 'nein') + '<br>' +
       'Play aufgerufen: ' + (soundStarted ? 'ja' : 'nein');
   }
 
@@ -198,29 +197,13 @@
     updateDebug();
   });
 
-  // Reines Scroll-Event zählt in den meisten Desktop-Browsern NICHT als die vom
-  // Autoplay-Schutz geforderte "echte" Nutzer-Geste (Klick/Tippen/Taste) — deshalb
-  // zusätzlich auf die erste dieser Gesten lauschen. Sobald sowohl (a) die
-  // 20-30%-Scroll-Marke erreicht wurde als auch (b) irgendeine echte Geste
-  // stattgefunden hat, wird abgespielt. Auf dem Handy fällt das Wischen zum
-  // Scrollen selbst bereits mit einer touchstart-Geste zusammen.
-  let hasUserGesture = false;
-  let thresholdReached = false;
-  ['pointerdown', 'touchstart', 'keydown'].forEach(evt => {
-    document.addEventListener(evt, () => {
-      hasUserGesture = true;
-      updateDebug();
-      if (thresholdReached) tryPlay();
-    }, { once: true, passive: true });
-  });
-
   function tryPlay() {
     if (soundStarted) return;
     if (!widgetReady) { pendingPlay = true; updateDebug(); return; }
     soundStarted = true;
     // Track startet bei 3:20 (statt 0:00) — Zeitangabe in Millisekunden.
     scWidget.seekTo((3 * 60 + 20) * 1000);
-    // Lautstärke startet bei 3:20 und blendet sanft hoch, statt abrupt voll
+    // Lautstärke startet bei 0 und blendet sanft hoch, statt abrupt voll
     // einzusetzen ("soll ruhig reinkommen, nicht gleich losbrüllen").
     scWidget.setVolume(0);
     scWidget.play();
@@ -244,12 +227,12 @@
     }, stepMs);
   }
 
-  // Startet den Track einmalig, sobald Scroll-Schwelle UND Nutzer-Geste vorliegen.
-  function startSoundOnce() {
-    thresholdReached = true;
-    updateDebug();
-    if (hasUserGesture) tryPlay();
-  }
+  // Erster Klick/Tipp irgendwo auf der Seite startet die Musik einmalig.
+  ['pointerdown', 'touchstart', 'keydown'].forEach(evt => {
+    document.addEventListener(evt, () => {
+      tryPlay();
+    }, { once: true, passive: true });
+  });
 
   const zoomImage = document.getElementById('zoomImage');
   window.addEventListener('scroll', () => {
@@ -258,14 +241,6 @@
       zoomImage.style.position = 'fixed'; zoomImage.style.top = '0'; zoomImage.style.left = '0'; zoomImage.style.width = '100vw'; zoomImage.style.height = '100vh';
       let zoomFaktor = 1 + (scrollPos * 0.002); if(zoomFaktor > 2.2) zoomFaktor = 2.2;
       zoomImage.style.transform = `scale(${zoomFaktor})`;
-
-      // ===== Sound-Trigger (neu ergänzt) =====
-      // zoomProgress: 0 = Zoom-Start, 1 = maximale Zoom-Stufe (2.2) erreicht.
-      // Bei ca. 20-30% der Zoom-Animation (hier: 25%) wird der Track einmalig ausgelöst.
-      let zoomProgress = (zoomFaktor - 1) / (2.2 - 1);
-      if (zoomProgress >= 0.25 && !soundStarted) {
-        startSoundOnce();
-      }
     } else {
       zoomImage.style.position = 'absolute'; zoomImage.style.width = '100%'; zoomImage.style.height = '100%'; zoomImage.style.transform = 'scale(1)';
     }
