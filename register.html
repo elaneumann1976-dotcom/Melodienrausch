@@ -291,6 +291,84 @@
   body.entry-open {
     overflow: hidden;
   }
+
+  /* ===== MOBILE-LAYER: Flipbook ===== */
+  @media (max-width: 720px) {
+    .diary-3d-wrapper {
+      min-height: 100svh;
+      align-items: flex-start;
+      padding: 108px 12px 42px;
+      overflow: visible;
+      perspective: 1200px;
+    }
+
+    .book-environment {
+      width: calc(100vw - 24px);
+      max-width: none;
+      height: min(70vh, 590px);
+      min-height: 520px;
+      transform: rotateX(5deg) rotateY(-3deg) rotateZ(.7deg);
+      box-shadow: 0 24px 54px rgba(0,0,0,.62);
+    }
+
+    .book-base {
+      border-width: 5px;
+    }
+
+    .static-page-left {
+      display: none;
+    }
+
+    .page-3d {
+      left: 0;
+      right: auto;
+      width: 100%;
+    }
+
+    .page-front,
+    .page-back {
+      padding: 30px 25px 24px;
+    }
+
+    .page-front::after {
+      width: 20px;
+    }
+
+    .static-page-left::before {
+      left: 25px;
+    }
+
+    .huge-title-diary {
+      font-size: clamp(20px, 6.2vw, 28px);
+      margin-bottom: 14px;
+    }
+
+    .pink-badge {
+      margin-bottom: 18px;
+    }
+
+    .text-content {
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .text-content strong {
+      font-size: 16px;
+    }
+
+    .entry-reader-close {
+      top: 12px;
+      right: 12px;
+      padding: 9px 10px;
+      font-size: 10px;
+    }
+
+    .read-entry,
+    .page-number.clickable {
+      cursor: pointer;
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -503,7 +581,8 @@
     { number: '020', title: 'Warum ist das immer so?', teaser: 'Heute ist wieder so ein Tag. Kein besonderer Auslöser. Und trotzdem fühlt sich alles schwer an.', thumb: '', url: 'eintrag-020.html' },
   ];
 
-  let rightIndex = 1;
+  const mobileBook = window.matchMedia('(max-width: 720px)').matches;
+  let rightIndex = mobileBook ? 0 : 1;
   let animating = false;
 
   function openDiaryEntry(url) {
@@ -571,7 +650,8 @@
 
   function updateNav() {
     const hasNext = rightIndex + 1 < diaryEntries.length;
-    const hasPrev = rightIndex - 1 >= 1;
+    const firstVisibleIndex = mobileBook ? 0 : 1;
+    const hasPrev = rightIndex > firstVisibleIndex;
     ['front-prev', 'back-prev', 'left-prev'].forEach((id) => {
       document.getElementById(id).style.visibility = hasPrev ? 'visible' : 'hidden';
     });
@@ -581,8 +661,13 @@
   }
 
   function initBook() {
-    fillEntry('left', diaryEntries[0], 0);
-    fillEntry('front', diaryEntries[1], 1);
+    if (mobileBook) {
+      fillEntry('left', null, -1);
+      fillEntry('front', diaryEntries[0], 0);
+    } else {
+      fillEntry('left', diaryEntries[0], 0);
+      fillEntry('front', diaryEntries[1], 1);
+    }
     updateNav();
   }
 
@@ -608,13 +693,14 @@
       }, 1200);
 
       rightIndex = nextIndex;
-      fillEntry('left', diaryEntries[rightIndex - 1], rightIndex - 1);
+      if (!mobileBook) fillEntry('left', diaryEntries[rightIndex - 1], rightIndex - 1);
       updateNav();
     } else {
-      if (rightIndex - 1 < 1) return;
+      const firstVisibleIndex = mobileBook ? 0 : 1;
+      if (rightIndex - 1 < firstVisibleIndex) return;
       rightIndex -= 1;
       fillEntry('front', diaryEntries[rightIndex], rightIndex);
-      fillEntry('left', diaryEntries[rightIndex - 1], rightIndex - 1);
+      if (!mobileBook) fillEntry('left', diaryEntries[rightIndex - 1], rightIndex - 1);
       updateNav();
     }
   }
