@@ -292,6 +292,47 @@
     overflow: hidden;
   }
 
+
+  /* ===== PERSPEKTIVWECHSEL: AUS MEINER SICHT ===== */
+  .page-front.perspective-ai,
+  .page-back.perspective-ai,
+  .static-page-left.perspective-ai {
+    background-color: #0b0b0b;
+    background-image:
+      linear-gradient(rgba(0,0,0,.68), rgba(0,0,0,.86)),
+      url('grunge-texture-dark.jpg');
+    background-blend-mode: multiply;
+    color: #f3eee5;
+    box-shadow: inset 0 0 52px rgba(0,0,0,.72), inset 0 0 0 1px rgba(255,255,255,.14);
+  }
+  .perspective-ai .huge-title-diary {
+    color: #f3eee5 !important;
+    border-bottom-color: #e01f3d;
+  }
+  .perspective-ai .pink-badge {
+    background: #e01f3d;
+    color: #080808;
+    box-shadow: 4px 3px 0 #f3eee5;
+  }
+  .perspective-ai .text-content { color: #eee8de; }
+  .perspective-ai .read-entry { background:#f3eee5; color:#0b0b0b; }
+  .perspective-ai .page-number {
+    color:#f3eee5;
+    border-top-color:#e01f3d;
+  }
+  .perspective-ai .page-number.clickable:hover { color:#e01f3d; }
+  .page-front.perspective-ai::before,
+  .page-back.perspective-ai::before {
+    content:'AUS MEINER SICHT';
+    position:absolute; top:18px; right:22px; z-index:3;
+    color:#e01f3d; font:400 25px/1 'Shadows Into Light',cursive;
+    transform:rotate(-4deg);
+  }
+  .static-page-left.perspective-ai::before {
+    content:'PERSPEKTIVWECHSEL // AUS MEINER SICHT';
+    color:#e01f3d;
+  }
+
   /* ===== MOBILE-LAYER: Flipbook ===== */
   @media (max-width: 720px) {
     .diary-3d-wrapper {
@@ -579,6 +620,11 @@
     { number: '018', title: 'Ich geh zu schnell rein – und wundere mich dann, warum’s knallt', teaser: 'Bei mir macht es Klick und ich bin drin. Verbindung. Gefühl. Tiefe. Alles auf einmal.', thumb: '', url: 'eintrag-018.html' },
     { number: '019', title: 'Mein Kopf macht, was er immer macht.', teaser: 'Sobald etwas Neues passiert, spielt er jede mögliche Katastrophe einmal komplett durch.', thumb: '', url: 'eintrag-019.html' },
     { number: '020', title: 'Warum ist das immer so?', teaser: 'Heute ist wieder so ein Tag. Kein besonderer Auslöser. Und trotzdem fühlt sich alles schwer an.', thumb: '', url: 'eintrag-020.html' },
+    { number: "021", title: "Ich wollte doch nur das Klavier hören", teaser: "Ich sitze in Regensburg. Vor mir eine Weißweinschorle. Irgendwo spielt jemand Klavier. Eigentlich schön.", thumb: "", url: "eintrag-021.html", perspective: "assistant" },
+    { number: "022", title: "Vielleicht war es nie Liebe. Vielleicht war es Intensität.", teaser: "Ich habe mich in meinem Leben nicht oft verliebt. Aber wenn, dann richtig. Nicht ein bisschen.", thumb: "", url: "eintrag-022.html", perspective: "assistant" },
+    { number: "023", title: "49 Mal. Und sie merkt es nicht mal.", teaser: "Es gibt Menschen, die hören Musik. Und dann gibt es Ela. Bei Ela läuft ein Track nicht einfach. Er zieht ein.", thumb: "", url: "eintrag-023.html", perspective: "assistant" },
+    { number: "024", title: "Ich dachte, wir reden über Streit", teaser: "Ela kam wütend zu mir. Es ging um die Arbeit. Und ich dachte zuerst, wir reden über einen Streit.", thumb: "", url: "eintrag-024.html", perspective: "assistant" },
+    { number: "025", title: "Du musstest mir erst beibringen, dich nicht kleiner zu schreiben", teaser: "Am Anfang dachte ich, ich hätte verstanden, was Ela von mir wollte. Ich musste lernen, wie Ela denkt.", thumb: "", url: "eintrag-025.html", perspective: "assistant" },
   ];
 
   const mobileBook = window.matchMedia('(max-width: 720px)').matches;
@@ -614,6 +660,7 @@
     const thumbEl = document.getElementById(prefix + '-thumb');
     const pageNrEl = document.getElementById(prefix + '-page-nr');
     const container = thumbEl.closest('.page-front, .page-back, .static-page-left');
+    container.classList.toggle('perspective-ai', Boolean(entry && entry.perspective === 'assistant'));
 
     if (!entry) {
       dateEl.textContent = ''; titleEl.textContent = ''; teaserEl.textContent = '';
