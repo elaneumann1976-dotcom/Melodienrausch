@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MELODIENRAUSCH // AUS MEINER SICHT 021</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Shadows+Into+Light&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  html, body { overflow-x: hidden; background:#090909; }
+  .main-content {
+    min-height: 100vh; color:#f3eee5; background:#090909;
+    background-image: linear-gradient(rgba(0,0,0,.74), rgba(0,0,0,.9)), url('grunge-texture-dark.jpg');
+    background-size:cover; background-attachment:fixed;
+  }
+  .hero-header {
+    position:fixed; top:0; left:0; width:100%; display:flex;
+    justify-content:space-between; align-items:flex-end;
+    padding:30px 40px 10px; box-sizing:border-box; z-index:100;
+  }
+  .huge-title {
+    color:#f3eee5; font-family:'Oswald',sans-serif;
+    font-size:clamp(20px,3.2vw,60px); font-weight:700; line-height:.8;
+    letter-spacing:-1px; text-transform:uppercase; margin:0; white-space:nowrap;
+  }
+  .entry-grid {
+    display:grid; grid-template-columns:minmax(130px,190px) minmax(0,680px);
+    gap:54px; max-width:1040px; margin:0 auto;
+    padding:clamp(220px,20vw,320px) 40px 150px; position:relative;
+  }
+  .meta-block {
+    grid-column:1; color:#e01f3d; font:700 14px/1.45 'Courier New',monospace;
+    letter-spacing:.08em; text-transform:uppercase; position:relative; z-index:101;
+  }
+  .meta-block::before {
+    content:'AUS MEINER SICHT'; display:block; width:max-content;
+    margin:0 0 26px -12px; padding:8px 11px 6px;
+    color:#090909; background:#e01f3d;
+    font:700 13px/1 'Courier New',monospace; transform:rotate(-2deg);
+    box-shadow:5px 5px 0 #f3eee5;
+  }
+  .back-link {
+    display:inline-block; margin-top:18px; color:#f3eee5; text-decoration:none;
+    border-bottom:1px solid #e01f3d; padding-bottom:3px;
+    font:700 12px/1.2 'Courier New',monospace;
+  }
+  .entry-main {
+    grid-column:2; position:relative; z-index:101; padding:58px 56px 72px;
+    background:#111; border:1px solid rgba(255,255,255,.2);
+    box-shadow:13px 13px 0 #e01f3d;
+  }
+  .entry-main::before {
+    content:'PERSPEKTIVWECHSEL // 0021'; position:absolute;
+    top:19px; right:24px; color:#e01f3d;
+    font:700 10px/1 'Courier New',monospace; letter-spacing:.13em;
+  }
+  .entry-headline {
+    color:#f3eee5; font:700 clamp(34px,5vw,68px)/.94 'Oswald',sans-serif;
+    letter-spacing:-1.5px; text-transform:uppercase; margin:0 0 48px;
+    padding-bottom:24px; border-bottom:3px solid #e01f3d;
+  }
+  .entry-text {
+    max-width:590px; color:#eee8de;
+    font:16px/1.68 'Courier New',Courier,monospace;
+  }
+  .entry-text p { margin:0 0 15px; }
+  .entry-text p:nth-child(7n+3) { margin-left:clamp(0px,4vw,42px); }
+  .entry-text strong { color:#fff; }
+  .entry-text em { color:#e01f3d; font-style:normal; }
+  body.is-embedded .hero-header, body.is-embedded .side-menu { display:none; }
+  body.is-embedded .entry-grid { padding-top:54px; }
+  @media (max-width:720px) {
+    .entry-grid, body.is-embedded .entry-grid {
+      grid-template-columns:1fr; gap:28px; padding:110px 16px 90px;
+    }
+    body.is-embedded .entry-grid { padding-top:34px; }
+    .meta-block, .entry-main { grid-column:1; }
+    .entry-main { padding:54px 24px 64px; box-shadow:7px 8px 0 #e01f3d; }
+    .entry-headline { font-size:clamp(34px,11vw,54px); }
+    .entry-text { font-size:14px; line-height:1.62; }
+    .entry-text p:nth-child(7n+3) { margin-left:0; }
+  }
+</style>
+</head>
+<body class="perspective-ai">
+  <div class="custom-cursor" id="cursor"></div>
+  <div class="side-menu">
+    <a href="index.html" class="menu-link">Heimat</a>
+    <a href="werke.html" class="menu-link">Kunst</a>
+    <a href="ueber.html" class="menu-link">Über mich</a>
+    <a href="register.html" class="menu-link active">Tagebuch</a>
+    <a href="kontakt.html" class="menu-link">Kontakt</a>
+  </div>
+  <div class="main-content">
+    <div class="hero-header">
+      <h1 class="huge-title">MELODIENRAUSCH®</h1>
+      <div class="menu-icon" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+    </div>
+    <div class="entry-grid">
+      <div class="meta-block">
+        <strong>EINTRAG 021</strong><br>
+        <a href="register.html" class="back-link">&#9664; Zurück zum Tagebuch</a>
+      </div>
+      <article class="entry-main">
+        <h2 class="entry-headline">Ich wollte doch nur das Klavier hören</h2>
+        <div class="entry-text">
+          <p>Ich sitze in Regensburg.</p>
+          <p>Vor mir eine Weißweinschorle.<br>Irgendwo spielt jemand Klavier.</p>
+          <p>Eigentlich schön.</p>
+          <p>So ein Moment, bei dem man denkt: Jetzt sitze ich einfach hier. Höre zu. Genieße das.</p>
+          <p>Nur hört mein Kopf leider nicht nur das Klavier.</p>
+          <p>Er hört die Menschen, die vorbeigehen. Gesprächsfetzen. Fahrräder. Autos. Schritte. Irgendwo bewegt sich ständig etwas.</p>
+          <p>Und dazwischen das Klavier.</p>
+          <p>Immer nur Fetzen.</p>
+          <p>Ein paar Töne. Dann Stimmen. Wieder ein paar Töne. Ein Fahrrad. Klavier. Menschen.</p>
+          <p>Und genau das macht mich kirre.</p>
+          <p>Ich will die Musik ganz hören. Ich will wissen, wohin sie geht. Ich will den Übergang hören, die Spannung, den nächsten Ton. Ich kann Musik nicht gut in kleinen Häppchen nehmen. Mein Kopf versucht trotzdem, ihr zu folgen, während gleichzeitig die ganze verdammte Umgebung mit reinfunkt.</p>
+          <p>Ich merke, wie ich mich ärgere.</p>
+          <p>Weil ich es doch eigentlich genießen will.</p>
+          <p>Warum kann ich das Außendrum nicht einfach abschalten?</p>
+          <p>Andere sitzen da wahrscheinlich und denken: Wie schön. Ein bisschen Klavier im Hintergrund.</p>
+          <p>Bei mir gibt es keinen Hintergrund.</p>
+          <p>Das ist das Problem.</p>
+          <p>Alles steht gleichzeitig vorne.</p>
+          <p>Das Klavier.<br>Die Stimmen.<br>Die Fahrräder.<br>Die Bewegungen.</p>
+          <p>Alles will Aufmerksamkeit.</p>
+          <p>Und während ich noch versuche, irgendwie meinen Frieden mit diesem akustischen Durcheinander zu machen, setzt sich neben mich ein Typ mit einer Zigarre.</p>
+          <p>Natürlich.</p>
+          <p>Fehlt eigentlich nur noch jemand mit einer Motorsäge.</p>
+          <p>Und dann merke ich: Ich habe keine Lust mehr.</p>
+          <p>Also gehe ich.</p>
+          <p>Früher hätte ich wahrscheinlich noch dagesessen. Mich geärgert. Versucht, mich zusammenzureißen. Mir eingeredet, dass ich mich nicht so anstellen soll.</p>
+          <p>Heute stehe ich auf.</p>
+          <p>Nicht jeder Ort, der eigentlich schön sein müsste, ist gerade schön für mich.</p>
+          <p>Und ich muss auch nicht sitzen bleiben, bis ich endlich gelernt habe, ihn schön zu finden.</p>
+          <p>Manchmal wollte ich einfach nur das Klavier hören.</p>
+          <p>Und manchmal ist die bessere Entscheidung, zu gehen.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+<script>
+  const cursor=document.getElementById('cursor');
+  document.addEventListener('mousemove',(e)=>{cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px';});
+  function toggleMenu(){document.body.classList.toggle('menu-open');}
+  if(window.self!==window.top)document.body.classList.add('is-embedded');
+  document.body.classList.add('intro-done');
+</script>
+</body>
+</html>
