@@ -182,24 +182,49 @@ letter-spacing: -0.5px; margin-bottom: 20px; }
 0.85; }
   .werk-description { font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 1.65; margin-bottom: 20px; opacity: 0.9; }
   .werk-sound {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 12px;
     margin: 18px 0 0;
     padding-top: 14px;
     border-top: 1px solid rgba(0, 0, 0, 0.35);
   }
   .werk-sound-label {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     font-family: 'Oswald', sans-serif;
     font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    opacity: 0.55;
-    margin-bottom: 6px;
+    opacity: 0.68;
+  }
+  .werk-sound-toggle {
+    border: 1px solid #000000;
+    background: transparent;
+    color: #000000;
+    padding: 7px 10px 6px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: none;
+  }
+  .werk-sound-toggle:hover,
+  .werk-sound-toggle:focus-visible {
+    background: #000000;
+    color: #ffffff;
+  }
+  .werk-sound-toggle:disabled {
+    opacity: 0.35;
   }
   .werk-sound iframe {
-    display: block;
-    height: 64px;
-    border: none;
-    filter: grayscale(1) contrast(1.08);
-    opacity: 0.84;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
   }
   .werk-fields { font-family: 'Oswald', sans-serif; font-size: 13px; 
 text-transform: uppercase; line-height: 1.7; padding-top: 16px; 
@@ -303,12 +328,15 @@ id="werk-year">2026</span></div>
           </div>
           <div class="werk-sound" id="werk-sound-wrap" style="display:none;">
             <div class="werk-sound-label" id="werk-sound-label"></div>
-            <iframe id="werk-sound-frame" width="100%" height="64" frameborder="no" scrolling="no" allow="autoplay; encrypted-media"></iframe>
+            <button class="werk-sound-toggle" id="werk-sound-toggle" type="button" aria-pressed="true">TON AUS</button>
+            <iframe id="werk-sound-frame" width="1" height="1" frameborder="no" scrolling="no" allow="autoplay; encrypted-media" title="Soundtrack zum Werk"></iframe>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+<script src="https://w.soundcloud.com/player/api.js"></script>
 
 <script>
   // ---- Werk-Katalog (nur #01 mit echten Daten, Rest Platzhalter) ----
@@ -406,6 +434,79 @@ id="werk-year">2026</span></div>
   ];
 
   let currentWerk = 0;
+  let werkSoundWidget = null;
+  let werkSoundPlaying = false;
+  let werkSoundLoadToken = 0;
+
+  function updateWerkSoundControl(isPlaying, isLoading = false) {
+    werkSoundPlaying = isPlaying;
+    const button = document.getElementById('werk-sound-toggle');
+    button.disabled = isLoading;
+    button.textContent = isLoading ? 'LÄDT …' : (isPlaying ? 'TON AUS' : 'TON AN');
+    button.setAttribute('aria-pressed', isPlaying ? 'true' : 'false');
+  }
+
+  function stopWerkSound(clearFrame = false) {
+    werkSoundLoadToken += 1;
+    if (werkSoundWidget) {
+      try { werkSoundWidget.pause(); } catch (error) {}
+    }
+    werkSoundWidget = null;
+    updateWerkSoundControl(false);
+    if (clearFrame) {
+      document.getElementById('werk-sound-frame').src = 'about:blank';
+    }
+  }
+
+  function loadWerkSound(w) {
+    const soundWrap = document.getElementById('werk-sound-wrap');
+    const soundLabel = document.getElementById('werk-sound-label');
+    const soundFrame = document.getElementById('werk-sound-frame');
+
+    stopWerkSound(true);
+
+    if (!w.trackId) {
+      soundLabel.textContent = '';
+      soundWrap.style.display = 'none';
+      return;
+    }
+
+    const token = ++werkSoundLoadToken;
+    soundLabel.textContent = w.sound || 'Soundtrack';
+    soundWrap.style.display = 'grid';
+    updateWerkSoundControl(false, true);
+
+    soundFrame.src = 'https://w.soundcloud.com/player/?url=https%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F' + w.trackId + '&color=%23000000&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_playcount=false&show_artwork=false&show_reposts=false&visual=false';
+
+    if (!window.SC) {
+      updateWerkSoundControl(false);
+      return;
+    }
+
+    const widget = SC.Widget(soundFrame);
+    werkSoundWidget = widget;
+
+    widget.bind(SC.Widget.Events.READY, () => {
+      if (token !== werkSoundLoadToken) return;
+      updateWerkSoundControl(false);
+      widget.play();
+    });
+    widget.bind(SC.Widget.Events.PLAY, () => {
+      if (token === werkSoundLoadToken) updateWerkSoundControl(true);
+    });
+    widget.bind(SC.Widget.Events.PAUSE, () => {
+      if (token === werkSoundLoadToken) updateWerkSoundControl(false);
+    });
+    widget.bind(SC.Widget.Events.FINISH, () => {
+      if (token === werkSoundLoadToken) updateWerkSoundControl(false);
+    });
+  }
+
+  document.getElementById('werk-sound-toggle').addEventListener('click', () => {
+    if (!werkSoundWidget) return;
+    if (werkSoundPlaying) werkSoundWidget.pause();
+    else werkSoundWidget.play();
+  });
 
   function showWerk(i) {
     const w = werke[i];
@@ -418,18 +519,7 @@ id="werk-year">2026</span></div>
     if (w.description) { descEl.textContent = w.description; descEl.style.display = 'block'; }
     else { descEl.textContent = ''; descEl.style.display = 'none'; }
 
-    const soundWrap = document.getElementById('werk-sound-wrap');
-    const soundLabel = document.getElementById('werk-sound-label');
-    const soundFrame = document.getElementById('werk-sound-frame');
-    if (w.trackId) {
-      soundLabel.textContent = 'Sound – startet automatisch' + (w.sound ? ': ' + w.sound : '');
-      soundFrame.src = 'https://w.soundcloud.com/player/?url=https%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F' + w.trackId + '&color=%23ffffff&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_playcount=false&show_artwork=false&show_reposts=false&visual=false';
-      soundWrap.style.display = 'block';
-    } else {
-      soundLabel.textContent = '';
-      soundFrame.src = '';
-      soundWrap.style.display = 'none';
-    }
+    loadWerkSound(w);
 
     document.getElementById('werk-tech').textContent = w.tech;
     document.getElementById('werk-size').textContent = w.size;
@@ -496,7 +586,7 @@ showWerk(currentWerk + 1); }
   }
 
   function showGallery() {
-    document.getElementById('werk-sound-frame').src = '';
+    stopWerkSound(true);
     const dv = document.getElementById('detailView');
     dv.classList.remove('visible');
     setTimeout(() => {
