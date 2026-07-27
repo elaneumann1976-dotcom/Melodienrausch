@@ -397,8 +397,8 @@
   let scWidget = null;
   let widgetReady = false;
   let pendingPlay = false;
-  let startAttempted = false;
   let soundStarted = false;
+  let soundPrimed = false;
   let fadeStarted = false;
 
   window.addEventListener('load', () => {
@@ -407,7 +407,7 @@
       scWidget = SC.Widget(scIframe);
       scWidget.bind(SC.Widget.Events.READY, () => {
         widgetReady = true;
-        startDiarySound();
+        if (pendingPlay) startDiarySound();
       });
       scWidget.bind(SC.Widget.Events.PLAY, () => {
         soundStarted = true;
@@ -416,19 +416,20 @@
     }
   });
 
-  function startDiarySound(force = false) {
+  function startDiarySound() {
     if (soundStarted) return;
     if (!widgetReady) {
       pendingPlay = true;
       return;
     }
-    if (startAttempted && !force) return;
+
     pendingPlay = false;
-    startAttempted = true;
-    const START_MS = 3300000; // 55:00
-    scWidget.seekTo(START_MS);
-    scWidget.setVolume(10);
-    setTimeout(() => scWidget.play(), 250);
+    if (!soundPrimed) {
+      scWidget.seekTo(3300000); // 55:00
+      scWidget.setVolume(10);
+      soundPrimed = true;
+    }
+    scWidget.play();
   }
 
   function fadeDiarySound() {
@@ -442,9 +443,10 @@
     }, 100);
   }
 
-  // Falls der Browser Autoplay abweist, startet die erste Berührung zuverlässig.
+  // Browser erlauben Ton erst nach einer Berührung. Solange noch nichts
+  // läuft, versucht jede echte Interaktion den Start erneut.
   ['pointerdown', 'touchstart', 'keydown'].forEach((eventName) => {
-    document.addEventListener(eventName, () => startDiarySound(true), { once: true, passive: true });
+    document.addEventListener(eventName, startDiarySound, { passive: true });
   });
 
   window.addEventListener('DOMContentLoaded', () => {
