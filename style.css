@@ -541,3 +541,56 @@ body.diary-entry.layout-c .entry-text > p:nth-child(3) {
     font-size: clamp(27px, 8.4vw, 38px) !important;
   }
 }
+
+
+/* ===== MOBILE-LAYER: gemeinsame Navigation ===== */
+@media (max-width: 720px) {
+  html, body {
+    cursor: auto;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  .custom-cursor {
+    display: none !important;
+  }
+
+  .hero-header {
+    padding: 18px 16px 8px !important;
+    align-items: center !important;
+  }
+
+  .huge-title {
+    max-width: calc(100vw - 72px);
+    overflow: hidden;
+    font-size: clamp(27px, 9.7vw, 42px) !important;
+    line-height: .84 !important;
+    letter-spacing: -1px !important;
+  }
+
+  .menu-icon {
+    width: 28px;
+    height: 18px;
+    margin-bottom: 0;
+    cursor: pointer;
+  }
+
+  .side-menu {
+    right: -110vw;
+    width: min(86vw, 340px);
+    padding: 90px 20px 32px;
+  }
+
+  .menu-link {
+    padding: 12px 14px;
+    font-size: 26px;
+    cursor: pointer;
+  }
+
+  .menu-link:hover {
+    padding-left: 14px;
+  }
+
+  .menu-link.active:hover {
+    padding-left: 14px;
+  }
+}
