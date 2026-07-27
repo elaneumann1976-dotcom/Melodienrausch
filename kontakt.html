@@ -73,6 +73,16 @@
     text-transform:uppercase; font-weight:bold;
     animation: introFromBehind 3s cubic-bezier(0.19, 1, 0.22, 1) forwards;
   }
+  #sc-hidden-player {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
 </style>
 </head>
 <body>
@@ -126,6 +136,13 @@
     </div>
   </div>
 
+
+  <iframe id="sc-hidden-player"
+    scrolling="no" frameborder="no" allow="autoplay; encrypted-media"
+    src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2331433277&color=%23000000&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false">
+  </iframe>
+  <script src="https://w.soundcloud.com/player/api.js"></script>
+
 <script>
   const cursor = document.getElementById('cursor');
   document.addEventListener('mousemove', (e) => {
@@ -138,6 +155,59 @@
       if(intro) { intro.style.opacity = '0'; setTimeout(() => intro.remove(), 600); }
       document.body.classList.add('intro-done');
     }, 3400);
+  });
+
+  // Kontaktseite: Fedele x Ora Curated ab 1:29:00.
+  let scWidget = null;
+  let widgetReady = false;
+  let pendingPlay = false;
+  let soundStarted = false;
+  let soundPrimed = false;
+  let fadeStarted = false;
+
+  window.addEventListener('load', () => {
+    const scIframe = document.getElementById('sc-hidden-player');
+    if (window.SC && scIframe) {
+      scWidget = SC.Widget(scIframe);
+      scWidget.bind(SC.Widget.Events.READY, () => {
+        widgetReady = true;
+        if (pendingPlay) startContactSound();
+      });
+      scWidget.bind(SC.Widget.Events.PLAY, () => {
+        soundStarted = true;
+        fadeContactSound();
+      });
+    }
+  });
+
+  function startContactSound() {
+    if (soundStarted) return;
+    if (!widgetReady) {
+      pendingPlay = true;
+      return;
+    }
+    pendingPlay = false;
+    if (!soundPrimed) {
+      scWidget.seekTo(5340000); // 1:29:00
+      scWidget.setVolume(10);
+      soundPrimed = true;
+    }
+    scWidget.play();
+  }
+
+  function fadeContactSound() {
+    if (fadeStarted) return;
+    fadeStarted = true;
+    let volume = 10;
+    const fade = setInterval(() => {
+      volume = Math.min(volume + 1.8, 100);
+      scWidget.setVolume(volume);
+      if (volume >= 100) clearInterval(fade);
+    }, 100);
+  }
+
+  ['pointerdown', 'touchstart', 'keydown'].forEach((eventName) => {
+    document.addEventListener(eventName, startContactSound, { passive: true });
   });
 
 </script>
