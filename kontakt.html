@@ -83,6 +83,54 @@
     pointer-events: none;
     overflow: hidden;
   }
+
+  /* ===== MOBILE-LAYER: Kontakt ===== */
+  @media (max-width: 720px) {
+    .section-grid {
+      grid-template-columns: 1fr;
+      gap: 30px;
+      min-height: 100vh;
+      padding: 116px 18px 64px;
+    }
+
+    .meta-block,
+    .kontakt-main,
+    .desc-block {
+      grid-column: 1;
+    }
+
+    .meta-block {
+      font-size: 13px;
+    }
+
+    .kontakt-headline {
+      margin-bottom: 24px;
+      font-size: clamp(36px, 13vw, 52px);
+    }
+
+    .kontakt-text {
+      max-width: none;
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .mail-block {
+      margin-top: 30px;
+      padding: 20px 0;
+    }
+
+    .mail-block a {
+      display: block;
+      overflow-wrap: anywhere;
+      font-size: clamp(20px, 7vw, 28px);
+    }
+
+    .desc-block {
+      padding-top: 20px;
+      border-top: 1px solid rgba(0,0,0,.45);
+    }
+  }
+
 </style>
 </head>
 <body>
