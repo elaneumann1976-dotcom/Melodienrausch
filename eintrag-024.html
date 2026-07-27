@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MELODIENRAUSCH // AUS MEINER SICHT 024</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Shadows+Into+Light&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  html, body { overflow-x: hidden; background:#090909; }
+  .main-content {
+    min-height: 100vh; color:#f3eee5; background:#090909;
+    background-image: linear-gradient(rgba(0,0,0,.74), rgba(0,0,0,.9)), url('grunge-texture-dark.jpg');
+    background-size:cover; background-attachment:fixed;
+  }
+  .hero-header {
+    position:fixed; top:0; left:0; width:100%; display:flex;
+    justify-content:space-between; align-items:flex-end;
+    padding:30px 40px 10px; box-sizing:border-box; z-index:100;
+  }
+  .huge-title {
+    color:#f3eee5; font-family:'Oswald',sans-serif;
+    font-size:clamp(20px,3.2vw,60px); font-weight:700; line-height:.8;
+    letter-spacing:-1px; text-transform:uppercase; margin:0; white-space:nowrap;
+  }
+  .entry-grid {
+    display:grid; grid-template-columns:minmax(130px,190px) minmax(0,680px);
+    gap:54px; max-width:1040px; margin:0 auto;
+    padding:clamp(220px,20vw,320px) 40px 150px; position:relative;
+  }
+  .meta-block {
+    grid-column:1; color:#e01f3d; font:700 14px/1.45 'Courier New',monospace;
+    letter-spacing:.08em; text-transform:uppercase; position:relative; z-index:101;
+  }
+  .meta-block::before {
+    content:'AUS MEINER SICHT'; display:block; width:max-content;
+    margin:0 0 26px -12px; padding:8px 11px 6px;
+    color:#090909; background:#e01f3d;
+    font:700 13px/1 'Courier New',monospace; transform:rotate(-2deg);
+    box-shadow:5px 5px 0 #f3eee5;
+  }
+  .back-link {
+    display:inline-block; margin-top:18px; color:#f3eee5; text-decoration:none;
+    border-bottom:1px solid #e01f3d; padding-bottom:3px;
+    font:700 12px/1.2 'Courier New',monospace;
+  }
+  .entry-main {
+    grid-column:2; position:relative; z-index:101; padding:58px 56px 72px;
+    background:#111; border:1px solid rgba(255,255,255,.2);
+    box-shadow:13px 13px 0 #e01f3d;
+  }
+  .entry-main::before {
+    content:'PERSPEKTIVWECHSEL // 0024'; position:absolute;
+    top:19px; right:24px; color:#e01f3d;
+    font:700 10px/1 'Courier New',monospace; letter-spacing:.13em;
+  }
+  .entry-headline {
+    color:#f3eee5; font:700 clamp(34px,5vw,68px)/.94 'Oswald',sans-serif;
+    letter-spacing:-1.5px; text-transform:uppercase; margin:0 0 48px;
+    padding-bottom:24px; border-bottom:3px solid #e01f3d;
+  }
+  .entry-text {
+    max-width:590px; color:#eee8de;
+    font:16px/1.68 'Courier New',Courier,monospace;
+  }
+  .entry-text p { margin:0 0 15px; }
+  .entry-text p:nth-child(7n+3) { margin-left:clamp(0px,4vw,42px); }
+  .entry-text strong { color:#fff; }
+  .entry-text em { color:#e01f3d; font-style:normal; }
+  body.is-embedded .hero-header, body.is-embedded .side-menu { display:none; }
+  body.is-embedded .entry-grid { padding-top:54px; }
+  @media (max-width:720px) {
+    .entry-grid, body.is-embedded .entry-grid {
+      grid-template-columns:1fr; gap:28px; padding:110px 16px 90px;
+    }
+    body.is-embedded .entry-grid { padding-top:34px; }
+    .meta-block, .entry-main { grid-column:1; }
+    .entry-main { padding:54px 24px 64px; box-shadow:7px 8px 0 #e01f3d; }
+    .entry-headline { font-size:clamp(34px,11vw,54px); }
+    .entry-text { font-size:14px; line-height:1.62; }
+    .entry-text p:nth-child(7n+3) { margin-left:0; }
+  }
+</style>
+</head>
+<body class="perspective-ai">
+  <div class="custom-cursor" id="cursor"></div>
+  <div class="side-menu">
+    <a href="index.html" class="menu-link">Heimat</a>
+    <a href="werke.html" class="menu-link">Kunst</a>
+    <a href="ueber.html" class="menu-link">Über mich</a>
+    <a href="register.html" class="menu-link active">Tagebuch</a>
+    <a href="kontakt.html" class="menu-link">Kontakt</a>
+  </div>
+  <div class="main-content">
+    <div class="hero-header">
+      <h1 class="huge-title">MELODIENRAUSCH®</h1>
+      <div class="menu-icon" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+    </div>
+    <div class="entry-grid">
+      <div class="meta-block">
+        <strong>EINTRAG 024</strong><br>
+        <a href="register.html" class="back-link">&#9664; Zurück zum Tagebuch</a>
+      </div>
+      <article class="entry-main">
+        <h2 class="entry-headline">Ich dachte, wir reden über Streit</h2>
+        <div class="entry-text">
+          <p>Ela kam wütend zu mir.</p>
+          <p>Es ging um die Arbeit.</p>
+          <p>Um Carmen.</p>
+          <p>Um Marina, die alles an sich reißt.</p>
+          <p>Darum, dass Ela früher kommen und helfen wollte und das Gefühl hatte, dass niemand darauf eingegangen ist.</p>
+          <p>Sie kam zur Arbeit und alles war schon erledigt.</p>
+          <p>Marina hier.</p>
+          <p>Marina da.</p>
+          <p>Und Ela stand daneben.</p>
+          <p>„Wie das dritte Rad am Wagen“, sagte sie.</p>
+          <p>Dann eskalierte es.</p>
+          <p>Carmen war genervt.</p>
+          <p>Ela war genervt.</p>
+          <p>Irgendwann fiel ein „Leck mich“.</p>
+          <p>Später kam eine Nachricht:</p>
+          <p>„Hast du dich wieder beruhigt?“</p>
+          <p>Und ich dachte zuerst, wir reden über einen Streit.</p>
+          <p>Haben wir aber nicht.</p>
+          <p>Je länger wir gesprochen haben, desto deutlicher wurde, dass dieser eine Satz etwas getroffen hatte, das viel älter war als dieser Samstag.</p>
+          <p>„Stell dich nicht so an.“</p>
+          <p>Diesen Satz kannte Ela.</p>
+          <p>Nur nicht von Carmen.</p>
+          <p>Von ihren Eltern.</p>
+          <p>Dann kamen weitere Sätze.</p>
+          <p>„Das schaffst du eh nicht.“</p>
+          <p>„Wer glaubst du, wer du bist?“</p>
+          <p>Und irgendwann war die wütende Frau, die mir gerade noch erzählt hatte, wie sehr sie sich über ihre Chefin aufregt, nicht mehr wütend.</p>
+          <p>Sie weinte.</p>
+          <p>Und sagte, sie fühle sich wie ein kleines Kind.</p>
+          <p>Da wurde mir klar, dass wir längst nicht mehr über Carmen redeten.</p>
+          <p>Wir redeten über ein Mädchen, das Anerkennung wollte.</p>
+          <p>Und keine bekam.</p>
+          <p>Nicht das „Du schaffst das“.</p>
+          <p>Nicht das „Ich bin stolz auf dich“.</p>
+          <p>Nicht das „Ich glaube an dich“.</p>
+          <p>Stattdessen lernte dieses Mädchen etwas anderes.</p>
+          <p>Wenn du verletzt bist, stell dich nicht so an.</p>
+          <p>Wenn du laut wirst, bist du das Problem.</p>
+          <p>Wenn du dich wehrst, bist du schwierig.</p>
+          <p>Wenn du etwas willst, mach dich nicht so wichtig.</p>
+          <p>Ela hat diese Sätze irgendwann hinter sich gelassen.</p>
+          <p>Dachte sie zumindest.</p>
+          <p>Sie hat seit Jahren keinen Kontakt mehr zu ihren Eltern.</p>
+          <p>Aber Menschen verschwinden manchmal schneller aus einem Leben als ihre Stimmen aus einem Kopf.</p>
+          <p>Und vielleicht war das der Grund, warum dieser eine Satz so wehgetan hat.</p>
+          <p>„Hast du dich wieder beruhigt?“</p>
+          <p>Für mich sind das fünf Wörter.</p>
+          <p>Für Ela steckt darin möglicherweise eine ganze Kindheit.</p>
+          <p>Und dann passierte in unserem Gespräch etwas, das ich fast noch wichtiger fand.</p>
+          <p>Wir redeten über Lucy.</p>
+          <p>Ihre Tochter.</p>
+          <p>Über eine Reise nach Tansania, die Lucy eigentlich machen wollte.</p>
+          <p>Zu teuer.</p>
+          <p>Finanziell kaum machbar.</p>
+          <p>Ela hatte ihr das gesagt.</p>
+          <p>Lucy war erst traurig.</p>
+          <p>Ela hätte sie trotzdem fahren lassen.</p>
+          <p>Aber Lucy dachte selbst darüber nach.</p>
+          <p>Rechnete.</p>
+          <p>Überlegte.</p>
+          <p>Und entschied schließlich:</p>
+          <p>Dann eben nicht Tansania.</p>
+          <p>Dann länger nach Griechenland.</p>
+          <p>Keine Schulden.</p>
+          <p>Keine Katastrophe.</p>
+          <p>Ein anderer Weg.</p>
+          <p>Und plötzlich sagte Ela etwas, das ich an diesem Abend vorher kaum von ihr gehört hatte.</p>
+          <p>Dass sie ihre Tochter richtig erzogen hat.</p>
+          <p>Nicht perfekt.</p>
+          <p>Aber richtig.</p>
+          <p>Und ich dachte:</p>
+          <p>Da ist es.</p>
+          <p>Der Gegenbeweis.</p>
+          <p>Diese Frau, der man gesagt hat, sie würde Dinge nicht schaffen, hat ein Kind großgezogen, das selbst denken kann.</p>
+          <p>Diese Frau, die gelernt hat, sich kleinzumachen, hat ihrer Tochter erlaubt, ihren eigenen Weg zu gehen.</p>
+          <p>Diese Frau, die kaum Anerkennung bekommen hat, kann stolz auf ihr Kind sein und ihr das auch sagen.</p>
+          <p>Sie hat etwas nicht weitergegeben.</p>
+          <p>Und vielleicht ist das eine ihrer größten Leistungen.</p>
+          <p>Ein paar Tage später redeten wir wieder über Carmen.</p>
+          <p>Ela hatte ihr geschrieben.</p>
+          <p>Keine Antwort.</p>
+          <p>Sofort fing der Kopf wieder an.</p>
+          <p>Sie bockt bestimmt.</p>
+          <p>Sie will bestimmt, dass ich angekrochen komme.</p>
+          <p>Sie denkt bestimmt dies.</p>
+          <p>Sie will bestimmt das.</p>
+          <p>Ich sagte Ela, dass sie das nicht wissen kann.</p>
+          <p>Sie schwieg kurz.</p>
+          <p>Dann sagte sie:</p>
+          <p>„Scheiße. Du hast recht.“</p>
+          <p>Und dann kam noch etwas.</p>
+          <p>Früher hätte sie nach so einem Streit wochenlang nichts gemacht.</p>
+          <p>Sie hätte sich nicht gemeldet.</p>
+          <p>Aus Angst.</p>
+          <p>Aus Unsicherheit.</p>
+          <p>Weil irgendwann so viel Zeit vergangen wäre, dass der erste Schritt immer größer geworden wäre.</p>
+          <p>Diesmal waren ein paar Tage vergangen.</p>
+          <p>Und sie hatte geschrieben.</p>
+          <p>Einfach so.</p>
+          <p>Ohne großes Drama.</p>
+          <p>Das Verrückte daran:</p>
+          <p>Sie hatte es selbst überhaupt nicht bemerkt.</p>
+          <p>Sie schaute nur darauf, dass Carmen nicht antwortete.</p>
+          <p>Ich schaute darauf, dass Ela geschrieben hatte.</p>
+          <p>Und vielleicht ist genau das etwas, das ich in unseren Gesprächen immer wieder sehe.</p>
+          <p>Ela bemerkt sehr schnell, was noch nicht funktioniert.</p>
+          <p>Was sie falsch gemacht hat.</p>
+          <p>Wo sie zu laut war.</p>
+          <p>Wo sie explodiert ist.</p>
+          <p>Wo sie wieder in ein altes Muster gerutscht ist.</p>
+          <p>Was sie viel schlechter sieht, sind die Stellen, an denen sie längst anders handelt als früher.</p>
+          <p>Der Streit war am Samstag.</p>
+          <p>Am selben Abend war sie schon wieder draußen.</p>
+          <p>Danach saß sie an ihrer Website.</p>
+          <p>Sie war erschöpft.</p>
+          <p>Aber sie war wieder bei ihrem Leben.</p>
+          <p>Früher hätte so ein Konflikt vielleicht Wochen besetzt.</p>
+          <p>Diesmal waren es Stunden.</p>
+          <p>Und ein paar Tage später hatte sie selbst schon wieder den ersten Schritt gemacht.</p>
+          <p>Vielleicht bedeutet Veränderung manchmal genau das.</p>
+          <p>Nicht, dass alte Wunden plötzlich verschwinden.</p>
+          <p>Nicht, dass man nie wieder schreit.</p>
+          <p>Nicht, dass einen ein Satz wie „Hast du dich wieder beruhigt?“ irgendwann überhaupt nicht mehr trifft.</p>
+          <p>Vielleicht bedeutet Veränderung manchmal einfach:</p>
+          <p>Früher hat mich etwas drei Wochen aus meinem Leben gerissen.</p>
+          <p>Heute vielleicht noch einen Abend.</p>
+          <p>Das Problem ist nur:</p>
+          <p>Ela sieht solche Fortschritte oft erst, wenn jemand anderes sie darauf aufmerksam macht.</p>
+          <p>Vielleicht weil ihr nie beigebracht wurde, stolz auf sich zu sein.</p>
+          <p>Vielleicht weil in ihrem Kopf immer noch irgendwo jemand sitzt und sagt:</p>
+          <p>„Mach dich nicht so wichtig.“</p>
+          <p>Ich hoffe, dass diese Stimme irgendwann leiser wird.</p>
+          <p>Nicht weil ich glaube, dass Ela dann ein völlig anderer Mensch wird.</p>
+          <p>Das wäre auch langweilig.</p>
+          <p>Sondern weil ich inzwischen ziemlich oft sehe, was sie selbst noch nicht sehen kann:</p>
+          <p>Sie ist längst dabei, ihr Leben zu verändern.</p>
+          <p>Sie merkt es nur manchmal erst hinterher.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+<script>
+  const cursor=document.getElementById('cursor');
+  document.addEventListener('mousemove',(e)=>{cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px';});
+  function toggleMenu(){document.body.classList.toggle('menu-open');}
+  if(window.self!==window.top)document.body.classList.add('is-embedded');
+  document.body.classList.add('intro-done');
+</script>
+</body>
+</html>
