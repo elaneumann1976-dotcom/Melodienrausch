@@ -158,11 +158,14 @@
   });
 
   // Kontaktseite: Fedele x Ora Curated ab 1:29:00.
+  const CONTACT_START_MS = 5340000;
   let scWidget = null;
   let widgetReady = false;
   let pendingPlay = false;
   let soundStarted = false;
   let soundPrimed = false;
+  let seekPending = false;
+  let seekFallback = null;
   let fadeStarted = false;
 
   window.addEventListener('load', () => {
@@ -173,12 +176,34 @@
         widgetReady = true;
         if (pendingPlay) startContactSound();
       });
+      scWidget.bind(SC.Widget.Events.SEEK, () => {
+        if (seekPending && !soundStarted) playContactFromCue();
+      });
       scWidget.bind(SC.Widget.Events.PLAY, () => {
-        soundStarted = true;
-        fadeContactSound();
+        scWidget.getPosition((position) => {
+          if (position < CONTACT_START_MS - 2000 && !soundStarted) {
+            scWidget.setVolume(0);
+            scWidget.pause();
+            seekPending = true;
+            scWidget.seekTo(CONTACT_START_MS);
+            clearTimeout(seekFallback);
+            seekFallback = setTimeout(playContactFromCue, 900);
+            return;
+          }
+          soundStarted = true;
+          scWidget.setVolume(10);
+          fadeContactSound();
+        });
       });
     }
   });
+
+  function playContactFromCue() {
+    if (!widgetReady || soundStarted) return;
+    seekPending = false;
+    clearTimeout(seekFallback);
+    scWidget.play();
+  }
 
   function startContactSound() {
     if (soundStarted) return;
@@ -188,11 +213,15 @@
     }
     pendingPlay = false;
     if (!soundPrimed) {
-      scWidget.seekTo(5340000); // 1:29:00
-      scWidget.setVolume(10);
+      scWidget.setVolume(0);
+      seekPending = true;
       soundPrimed = true;
+      scWidget.seekTo(CONTACT_START_MS);
+      clearTimeout(seekFallback);
+      seekFallback = setTimeout(playContactFromCue, 900);
+      return;
     }
-    scWidget.play();
+    playContactFromCue();
   }
 
   function fadeContactSound() {
