@@ -115,6 +115,51 @@
     pointer-events: none;
     overflow: hidden;
   }
+
+  /* ===== MOBILE-LAYER: Start ===== */
+  @media (max-width: 720px) {
+    .main-content {
+      height: 190vh;
+    }
+
+    .section-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+      min-height: 190vh;
+      padding: 116px 18px 40px;
+    }
+
+    .meta-block,
+    .media-box,
+    .desc-block {
+      grid-column: 1;
+    }
+
+    .meta-block {
+      max-width: 78vw;
+      font-size: 13px;
+    }
+
+    .media-box {
+      width: 100%;
+      height: 54vh;
+    }
+
+    .desc-block {
+      max-width: 76vw;
+      margin-left: auto;
+      font-size: 12px;
+    }
+
+    .hero-img {
+      background-position: center bottom;
+    }
+
+    .home-collage-strip {
+      background-size: auto 100%;
+    }
+  }
+
 </style>
 </head>
 <body>
