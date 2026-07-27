@@ -442,7 +442,7 @@ id="werk-year">2026</span></div>
     const token = ++werkSoundLoadToken;
     soundLabel.textContent = w.sound || 'Soundtrack';
     soundWrap.style.display = 'block';
-    soundFrame.src = 'https://w.soundcloud.com/player/?url=https%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F' + w.trackId + '&color=%23000000&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_playcount=false&show_artwork=false&show_reposts=false&visual=false';
+    soundFrame.src = 'https://w.soundcloud.com/player/?url=https%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F' + w.trackId + '&color=%23000000&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&visual=false';
 
     if (!window.SC) return;
 
