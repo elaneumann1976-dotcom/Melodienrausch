@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="style.css">
 <style>
   html, body { overflow-x: hidden; }
-  .main-content { height: 250vh; }
+  .main-content { height: 160vh; }
 
   .hero-header {
     position: fixed;
@@ -32,7 +32,7 @@
   .section-grid {
     display: grid; grid-template-columns: repeat(12, 1fr); gap: 40px;
     padding: 240px 40px 40px 40px; align-items: start; position: relative;
-    min-height: 250vh; box-sizing: border-box;
+    min-height: 160vh; box-sizing: border-box;
   }
 
   .meta-block {
@@ -58,6 +58,15 @@
   }
 
   .custom-cursor { background-color: #000000 !important; }
+
+  .header-controls { display: flex; align-items: center; gap: 16px; }
+  .music-toggle {
+    font-family: Arial, Helvetica, sans-serif; font-size: 12px; letter-spacing: 1px;
+    text-transform: uppercase; color: #000000; background: transparent;
+    border: 1px solid #000000; padding: 8px 14px; cursor: pointer;
+  }
+  .music-toggle:hover { background-color: #000000; color: #ffffff; }
+  .music-toggle:focus-visible { outline: 3px solid #000000; outline-offset: 3px; }
 
   .meta-block,
   .meta-block p {
@@ -119,13 +128,13 @@
   /* ===== MOBILE-LAYER: Start ===== */
   @media (max-width: 720px) {
     .main-content {
-      height: 190vh;
+      height: 130vh;
     }
 
     .section-grid {
       grid-template-columns: 1fr;
       gap: 24px;
-      min-height: 190vh;
+      min-height: 130vh;
       padding: 116px 18px 40px;
     }
 
@@ -167,7 +176,7 @@
   <div id="intro-screen" style="position:fixed; top:0; left:0; width:100%; height:100vh; background:#000; color:#fff; display:flex; justify-content:center; align-items:center; z-index:9999999; transition:opacity 0.6s ease;"><div class="intro-text">melodienrausch</div></div>
   <div class="custom-cursor" id="cursor"></div>
 
-  <div class="side-menu">
+  <div class="side-menu" id="side-menu">
     <a href="index.html" class="menu-link active">Heimat</a>
     <a href="werke.html" class="menu-link">Kunst</a>
     <a href="ueber.html" class="menu-link">Über mich</a>
@@ -178,7 +187,10 @@
   <div class="main-content">
     <div class="hero-header">
       <h1 class="huge-title">MELODIENRAUSCH®</h1>
-      <div class="menu-icon" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+      <div class="header-controls">
+        <button id="music-toggle" class="music-toggle" type="button" aria-pressed="false">Musik abspielen</button>
+        <button type="button" class="menu-icon" id="menu-toggle" aria-expanded="false" aria-controls="side-menu" aria-label="Menü öffnen"><span></span><span></span><span></span></button>
+      </div>
     </div>
 
     <main class="section-grid">
@@ -202,7 +214,7 @@
         <div class="hero-img" id="zoomImage"></div>
       </div>
 
-      <div class="meta-block">
+      <div class="desc-block">
         <p>Hier landet, was mich nicht loslässt. Bilder, Gedanken, Musik und das Chaos dazwischen. Nicht perfekt sortiert. Aber meins.</p>
         <br>
       </div>
@@ -231,7 +243,30 @@
   document.addEventListener('mousemove', (e) => {
     cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
   });
-  function toggleMenu() { document.body.classList.toggle('menu-open'); }
+  const menuToggle = document.getElementById('menu-toggle');
+  const sideMenu = document.getElementById('side-menu');
+
+  function setMenuOpen(open) {
+    document.body.classList.toggle('menu-open', open);
+    menuToggle.setAttribute('aria-expanded', String(open));
+    menuToggle.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+    if (open) {
+      const firstLink = sideMenu.querySelector('.menu-link');
+      if (firstLink) firstLink.focus();
+    } else {
+      menuToggle.focus();
+    }
+  }
+
+  menuToggle.addEventListener('click', () => {
+    setMenuOpen(!document.body.classList.contains('menu-open'));
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && document.body.classList.contains('menu-open')) {
+      setMenuOpen(false);
+    }
+  });
 
   window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
@@ -252,22 +287,17 @@
       scWidget = SC.Widget(scIframe);
       scWidget.bind(SC.Widget.Events.READY, () => {
         widgetReady = true;
-        if (pendingPlay) tryPlay();
+        if (pendingPlay) { pendingPlay = false; startMusic(); }
       });
     }
   });
 
-  function tryPlay() {
-    if (soundStarted) return;
-    if (!widgetReady) { pendingPlay = true; return; }
-    soundStarted = true;
-    const START_MS = 2021000;
-    scWidget.seekTo(START_MS);
-    scWidget.setVolume(10);
-    setTimeout(() => {
-      scWidget.play();
-      fadeVolumeIn();
-    }, 200);
+  const musicToggle = document.getElementById('music-toggle');
+  let isPlaying = false;
+
+  function updateToggleLabel() {
+    musicToggle.textContent = isPlaying ? 'Musik pausieren' : 'Musik abspielen';
+    musicToggle.setAttribute('aria-pressed', String(isPlaying));
   }
 
   function fadeVolumeIn() {
@@ -288,8 +318,32 @@
     }, stepMs);
   }
 
-  ['pointerdown', 'touchstart', 'keydown'].forEach(evt => {
-    document.addEventListener(evt, tryPlay, { once: true, passive: true });
+  function startMusic() {
+    if (!widgetReady) { pendingPlay = true; isPlaying = true; updateToggleLabel(); return; }
+    if (!soundStarted) {
+      soundStarted = true;
+      const START_MS = 2021000;
+      scWidget.seekTo(START_MS);
+      scWidget.setVolume(10);
+      setTimeout(() => {
+        scWidget.play();
+        fadeVolumeIn();
+      }, 200);
+    } else {
+      scWidget.play();
+    }
+    isPlaying = true;
+    updateToggleLabel();
+  }
+
+  function pauseMusic() {
+    if (scWidget) scWidget.pause();
+    isPlaying = false;
+    updateToggleLabel();
+  }
+
+  musicToggle.addEventListener('click', () => {
+    if (isPlaying) { pauseMusic(); } else { startMusic(); }
   });
 
   const zoomImage = document.getElementById('zoomImage');

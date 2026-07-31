@@ -14,7 +14,6 @@ html, body {
   font-family: Arial, Helvetica, sans-serif;
   margin: 0; padding: 0;
   box-sizing: border-box;
-  cursor: none;
 }
 /* Basis-Cursor-Punkt (auf ueber.html kommt zusätzlich der eigene
    Bild-Trail-Effekt dazu — .trail-image + Trail-JS bleiben dort lokal
@@ -30,8 +29,16 @@ html, body {
 .main-content {
   opacity: 0;
   transition: opacity 0.8s ease;
+  /* Sicherheitsnetz: falls JavaScript deaktiviert ist oder das Intro-Skript
+     fehlschlägt, wird der Inhalt spätestens nach 4,5s trotzdem eingeblendet.
+     Läuft das Skript normal, greift die schnellere intro-done-Regel zuerst. */
+  animation: revealMainContentFallback 0s 4.5s forwards;
 }
 body.intro-done .main-content { opacity: 1; }
+
+@keyframes revealMainContentFallback {
+  to { opacity: 1; }
+}
 
 /* Die Eintragsnummern bleiben nur intern in den Dateinamen erhalten. */
 body.diary-entry .meta-block > strong:first-child,
@@ -41,8 +48,15 @@ body.perspective-ai .meta-block > strong:first-child {
 }
 .menu-icon {
   display: flex; flex-direction: column; justify-content: space-between;
-  width: 30px; height: 16px; cursor: none; margin-bottom: 8px; z-index: 1001;
+  width: 30px; height: 16px; margin-bottom: 8px; z-index: 1001;
   pointer-events: auto;
+  /* Reset, damit das Element auch als <button> keine Browser-Standardoptik zeigt */
+  background: transparent; border: none; padding: 0; font: inherit; color: inherit;
+}
+.menu-icon:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 4px;
+  box-shadow: 0 0 0 6px #000000;
 }
 .menu-icon span {
   display: block; width: 100%; height: 2px;
@@ -62,7 +76,7 @@ body.menu-open .side-menu { right: 0; }
 .menu-link {
   font-family: 'Oswald', sans-serif; font-size: 32px; color: #000000;
   text-decoration: none; text-transform: uppercase; padding: 15px 20px;
-  border: 1px solid transparent; transition: all 0.2s ease; display: block; cursor: none;
+  border: 1px solid transparent; transition: all 0.2s ease; display: block;
 }
 .menu-link:hover { background-color: #ffffff; border-color: #000000; padding-left: 30px; }
 .menu-link.active { background-color: #000000; color: #ffffff; }
