@@ -32,6 +32,13 @@ html, body {
   transition: opacity 0.8s ease;
 }
 body.intro-done .main-content { opacity: 1; }
+
+/* Die Eintragsnummern bleiben nur intern in den Dateinamen erhalten. */
+body.diary-entry .meta-block > strong:first-child,
+body.entry-001 .meta-block > strong:first-child,
+body.perspective-ai .meta-block > strong:first-child {
+  display: none;
+}
 .menu-icon {
   display: flex; flex-direction: column; justify-content: space-between;
   width: 30px; height: 16px; cursor: none; margin-bottom: 8px; z-index: 1001;

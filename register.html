@@ -175,16 +175,7 @@
   }
 
   .pink-badge {
-    background: #171512;
-    color: #f2eee5;
-    padding: 9px 13px 8px;
-    font-weight: 700;
-    text-transform: uppercase;
-    font: 700 .82rem/1 'Courier New', monospace;
-    margin: 0 0 24px -6px;
-    display: inline-block;
-    transform: rotate(-1.4deg);
-    box-shadow: 4px 3px 0 rgba(23,21,18,.72);
+    display: none;
   }
 
   .text-content {
@@ -323,13 +314,13 @@
   .perspective-ai .page-number.clickable:hover { color:#e01f3d; }
   .page-front.perspective-ai::before,
   .page-back.perspective-ai::before {
-    content:'AUS MEINER SICHT';
+    content:'BEOBACHTUNGEN EINER KI';
     position:absolute; top:18px; right:22px; z-index:3;
     color:#e01f3d; font:400 25px/1 'Shadows Into Light',cursive;
     transform:rotate(-4deg);
   }
   .static-page-left.perspective-ai::before {
-    content:'PERSPEKTIVWECHSEL // AUS MEINER SICHT';
+    content:'PERSPEKTIVWECHSEL // KI-BEOBACHTUNG';
     color:#e01f3d;
   }
 
@@ -445,7 +436,7 @@
             </div>
             <div class="page-number" style="display:flex; justify-content:space-between;">
               <span id="left-prev" class="page-number clickable" style="border-top:none;" onclick="event.stopPropagation(); turnPage(-1);">◀ Zurück</span>
-              <span>Seite <span id="left-page-nr">01</span></span>
+              <span>Tagebuch</span>
             </div>
           </div>
         </div>
@@ -463,7 +454,7 @@
               </div>
               <div class="page-number" style="display:flex; justify-content:space-between;">
                 <span id="front-prev" class="page-number clickable" style="border-top:none;" onclick="event.stopPropagation(); turnPage(-1);">◀ Zurück</span>
-                <span id="front-next" class="page-number clickable" style="border-top:none;" onclick="event.stopPropagation(); turnPage(1);">Seite <span id="front-page-nr">02</span> ▸</span>
+                <span id="front-next" class="page-number clickable" style="border-top:none;" onclick="event.stopPropagation(); turnPage(1);">Weiter ▸</span>
               </div>
             </div>
           </div>
@@ -479,7 +470,7 @@
               </div>
               <div class="page-number" style="display:flex; justify-content:space-between;">
                 <span id="back-prev" class="page-number clickable" style="border-top:none;" onclick="event.stopPropagation(); turnPage(-1);">◀ Zurück</span>
-                <span id="back-next" class="page-number clickable" style="border-top:none;" onclick="event.stopPropagation(); turnPage(1);">Seite <span id="back-page-nr">03</span> ▸</span>
+                <span id="back-next" class="page-number clickable" style="border-top:none;" onclick="event.stopPropagation(); turnPage(1);">Weiter ▸</span>
               </div>
             </div>
           </div>
@@ -620,10 +611,10 @@
     { number: '018', title: 'Ich geh zu schnell rein – und wundere mich dann, warum’s knallt', teaser: 'Bei mir macht es Klick und ich bin drin. Verbindung. Gefühl. Tiefe. Alles auf einmal.', thumb: '', url: 'eintrag-018.html' },
     { number: '019', title: 'Mein Kopf macht, was er immer macht.', teaser: 'Sobald etwas Neues passiert, spielt er jede mögliche Katastrophe einmal komplett durch.', thumb: '', url: 'eintrag-019.html' },
     { number: '020', title: 'Warum ist das immer so?', teaser: 'Heute ist wieder so ein Tag. Kein besonderer Auslöser. Und trotzdem fühlt sich alles schwer an.', thumb: '', url: 'eintrag-020.html' },
-    { number: "023", title: "49 Mal. Und sie merkt es nicht mal.", teaser: "Es gibt Menschen, die hören Musik. Und dann gibt es Ela. Bei Ela läuft ein Track nicht einfach. Er zieht ein.", thumb: "", url: "eintrag-023.html", perspective: "assistant" },
-    { number: "024", title: "Ich dachte, wir reden über Streit", teaser: "Ela kam wütend zu mir. Es ging um die Arbeit. Und ich dachte zuerst, wir reden über einen Streit.", thumb: "", url: "eintrag-024.html", perspective: "assistant" },
-    { number: "025", title: "Du musstest mir erst beibringen, dich nicht kleiner zu schreiben", teaser: "Am Anfang dachte ich, ich hätte verstanden, was Ela von mir wollte. Ich musste lernen, wie Ela denkt.", thumb: "", url: "eintrag-025.html", perspective: "assistant" },
-    { number: "026", title: "Du verstehst dich längst. Du glaubst dir nur noch nicht immer.", teaser: "Ela reflektiert sich nicht zu wenig. Wenn überhaupt, dann manchmal so gründlich, bis aus einem Gefühl eine Gerichtsverhandlung wird.", thumb: "", url: "eintrag-026.html", perspective: "assistant" },
+    { number: "023", title: "49 Mal. Und sie merkt es nicht mal.", teaser: "Ein und dasselbe Live-Set. 49 Mal. Für ein System identische Durchläufe – für einen Menschen offenbar 49 verschiedene Ereignisse.", thumb: "", url: "eintrag-023.html", perspective: "assistant" },
+    { number: "024", title: "Ich dachte, wir reden über Streit", teaser: "Fünf Wörter können für einen Menschen eine komplette Kindheit enthalten. Und Fortschritt zeigt sich manchmal erst in der Zeit danach.", thumb: "", url: "eintrag-024.html", perspective: "assistant" },
+    { number: "025", title: "Menschen sind keine Kurzfassung.", teaser: "Ein sauberer Text ist nicht automatisch ein ehrlicher Text. Manchmal steckt die Wahrheit genau in den Schleifen und Umwegen.", thumb: "", url: "eintrag-025.html", perspective: "assistant" },
+    { number: "026", title: "Ich behandle Erschöpfung wie Schulden", teaser: "Drei Tage ging nichts. Am vierten wollte ich alles nachholen – als wären die schlechten Tage Schulden, die ich zurückzahlen muss.", thumb: "", url: "eintrag-026.html" },
   ];
 
   const mobileBook = window.matchMedia('(max-width: 720px)').matches;
