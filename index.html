@@ -61,6 +61,7 @@
   .custom-cursor { background-color: #000000 !important; }
 
   .header-controls { display: flex; align-items: center; gap: 16px; }
+  .music-control { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
   .music-toggle {
     font-family: Arial, Helvetica, sans-serif; font-size: 12px; letter-spacing: 1px;
     text-transform: uppercase; color: #000000; background: transparent;
@@ -68,6 +69,12 @@
   }
   .music-toggle:hover { background-color: #000000; color: #ffffff; }
   .music-toggle:focus-visible { outline: 3px solid #000000; outline-offset: 3px; }
+  .music-status {
+    display: none;
+    font-family: Arial, Helvetica, sans-serif; font-size: 11px; color: #000000;
+    text-align: right; max-width: 220px;
+  }
+  .music-status.visible { display: block; }
 
   .meta-block,
   .meta-block p {
@@ -177,7 +184,7 @@
   <div id="intro-screen" style="position:fixed; top:0; left:0; width:100%; height:100vh; background:#000; color:#fff; display:flex; justify-content:center; align-items:center; z-index:9999999; transition:opacity 0.6s ease;"><div class="intro-text">melodienrausch</div></div>
   <div class="custom-cursor" id="cursor"></div>
 
-  <div class="side-menu" id="side-menu">
+  <div class="side-menu" id="side-menu" inert>
     <a href="index.html" class="menu-link active">Heimat</a>
     <a href="werke.html" class="menu-link">Kunst</a>
     <a href="ueber.html" class="menu-link">Über mich</a>
@@ -189,7 +196,10 @@
     <div class="hero-header">
       <h1 class="huge-title">MELODIENRAUSCH®</h1>
       <div class="header-controls">
-        <button id="music-toggle" class="music-toggle" type="button" aria-pressed="false">Musik abspielen</button>
+        <div class="music-control">
+          <button id="music-toggle" class="music-toggle" type="button" aria-pressed="false">Musik abspielen</button>
+          <div id="music-status" class="music-status" aria-live="polite"></div>
+        </div>
         <button type="button" class="menu-icon" id="menu-toggle" aria-expanded="false" aria-controls="side-menu" aria-label="Menü öffnen"><span></span><span></span><span></span></button>
       </div>
     </div>
@@ -261,6 +271,7 @@
     document.body.classList.toggle('menu-open', open);
     menuToggle.setAttribute('aria-expanded', String(open));
     menuToggle.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+    sideMenu.inert = !open;
     if (open) {
       const firstLink = sideMenu.querySelector('.menu-link');
       if (firstLink) firstLink.focus();
@@ -279,28 +290,46 @@
     }
   });
 
+  const musicToggle = document.getElementById('music-toggle');
+  const musicStatus = document.getElementById('music-status');
+  const START_MS = 2021000;
+
   let scWidget = null;
   let widgetReady = false;
   let pendingPlay = false;
   let soundStarted = false;
-
-  window.addEventListener('load', () => {
-    const scIframe = document.getElementById('sc-hidden-player');
-    if (window.SC && scIframe) {
-      scWidget = SC.Widget(scIframe);
-      scWidget.bind(SC.Widget.Events.READY, () => {
-        widgetReady = true;
-        if (pendingPlay) { pendingPlay = false; startMusic(); }
-      });
-    }
-  });
-
-  const musicToggle = document.getElementById('music-toggle');
   let isPlaying = false;
+  let soundcloudFailed = false;
+  let fadeStarted = false;
+  let loadTimeoutId = null;
 
   function updateToggleLabel() {
     musicToggle.textContent = isPlaying ? 'Musik pausieren' : 'Musik abspielen';
     musicToggle.setAttribute('aria-pressed', String(isPlaying));
+  }
+
+  function showStatusMessage(text) {
+    musicStatus.textContent = text;
+    musicStatus.classList.add('visible');
+  }
+
+  function clearStatusMessage() {
+    musicStatus.textContent = '';
+    musicStatus.classList.remove('visible');
+  }
+
+  // Wird aufgerufen, wenn SoundCloud nachweislich nicht verfuegbar ist:
+  // entweder das Skript/Fenster-Objekt fehlt, oder READY kommt trotz
+  // Klick nicht innerhalb der Absicherungs-Zeit (die SoundCloud-API
+  // liefert keinen zuverlaessigen Fehlerstatus fuer jeden Ausfall,
+  // daher dieser Timeout als zusaetzliche Absicherung).
+  function markSoundcloudFailed() {
+    if (soundcloudFailed) return;
+    soundcloudFailed = true;
+    pendingPlay = false;
+    isPlaying = false;
+    updateToggleLabel();
+    showStatusMessage('Musik konnte nicht geladen werden.');
   }
 
   function fadeVolumeIn() {
@@ -321,32 +350,77 @@
     }, stepMs);
   }
 
-  function startMusic() {
-    if (!widgetReady) { pendingPlay = true; isPlaying = true; updateToggleLabel(); return; }
+  function beginPlayback() {
     if (!soundStarted) {
       soundStarted = true;
-      const START_MS = 2021000;
       scWidget.seekTo(START_MS);
       scWidget.setVolume(10);
-      setTimeout(() => {
-        scWidget.play();
-        fadeVolumeIn();
-      }, 200);
-    } else {
-      scWidget.play();
     }
-    isPlaying = true;
-    updateToggleLabel();
+    scWidget.play();
+  }
+
+  function requestPlay() {
+    if (soundcloudFailed) {
+      showStatusMessage('Musik konnte nicht geladen werden.');
+      return;
+    }
+    if (widgetReady && scWidget) {
+      beginPlayback();
+      return;
+    }
+    pendingPlay = true;
+    if (!loadTimeoutId) {
+      loadTimeoutId = setTimeout(() => {
+        if (!widgetReady) markSoundcloudFailed();
+      }, 6000);
+    }
   }
 
   function pauseMusic() {
-    if (scWidget) scWidget.pause();
+    if (scWidget && widgetReady) scWidget.pause();
     isPlaying = false;
     updateToggleLabel();
   }
 
+  window.addEventListener('load', () => {
+    const scIframe = document.getElementById('sc-hidden-player');
+    if (window.SC && scIframe) {
+      scWidget = SC.Widget(scIframe);
+
+      scWidget.bind(SC.Widget.Events.READY, () => {
+        widgetReady = true;
+        if (loadTimeoutId) { clearTimeout(loadTimeoutId); loadTimeoutId = null; }
+        if (pendingPlay) { pendingPlay = false; beginPlayback(); }
+      });
+
+      // Zustand des Buttons folgt ab hier ausschliesslich den echten
+      // Wiedergabe-Ereignissen von SoundCloud, nicht mehr dem Klick selbst.
+      scWidget.bind(SC.Widget.Events.PLAY, () => {
+        isPlaying = true;
+        soundcloudFailed = false;
+        updateToggleLabel();
+        clearStatusMessage();
+        if (!fadeStarted) { fadeStarted = true; fadeVolumeIn(); }
+      });
+      scWidget.bind(SC.Widget.Events.PAUSE, () => {
+        isPlaying = false;
+        updateToggleLabel();
+      });
+      scWidget.bind(SC.Widget.Events.FINISH, () => {
+        isPlaying = false;
+        updateToggleLabel();
+      });
+      if (SC.Widget.Events.ERROR) {
+        scWidget.bind(SC.Widget.Events.ERROR, markSoundcloudFailed);
+      }
+    } else {
+      // SoundCloud-Skript selbst konnte nicht geladen werden (z.B. blockiert)
+      markSoundcloudFailed();
+    }
+  });
+
   musicToggle.addEventListener('click', () => {
-    if (isPlaying) { pauseMusic(); } else { startMusic(); }
+    if (isPlaying) { pauseMusic(); } else { requestPlay(); }
   });
 
   const zoomImage = document.getElementById('zoomImage');
