@@ -309,6 +309,206 @@
     overflow: hidden;
   }
 
+  /* ===== TRACKLIST: klare Übersicht vor dem Blätterbuch ===== */
+  .diary-index {
+    width: min(1120px, calc(100vw - 80px));
+    margin: 0 auto;
+    padding: 190px 0 70px;
+    box-sizing: border-box;
+  }
+
+  .diary-index.is-hidden,
+  .diary-3d-wrapper.is-hidden {
+    display: none;
+  }
+
+  .tracklist-sleeve {
+    display: grid;
+    grid-template-columns: minmax(280px, .78fr) minmax(0, 1.22fr);
+    min-height: 610px;
+    background: #0b0b0b;
+    color: #f3eee5;
+    border: 1px solid rgba(255,255,255,.2);
+    box-shadow: 18px 24px 60px rgba(0,0,0,.58);
+  }
+
+  .tracklist-cover,
+  .tracklist-panel {
+    padding: clamp(30px, 4vw, 56px);
+    box-sizing: border-box;
+  }
+
+  .tracklist-cover {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: 1px solid rgba(255,255,255,.2);
+  }
+
+  .tracklist-cover::before,
+  .tracklist-cover::after {
+    content: '';
+    position: absolute;
+    z-index: 0;
+    background: #e01f3d;
+    pointer-events: none;
+  }
+
+  .tracklist-cover::before {
+    width: 76%;
+    height: 3px;
+    left: 3%;
+    top: 43%;
+    transform: rotate(-17deg);
+  }
+
+  .tracklist-cover::after {
+    width: 3px;
+    height: 52%;
+    right: 24%;
+    top: 12%;
+    transform: rotate(24deg);
+  }
+
+  .tracklist-cover > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .tracklist-kicker,
+  .tracklist-category,
+  .tracklist-count {
+    font: 700 10px/1.2 'Courier New', monospace;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  .tracklist-kicker,
+  .tracklist-count {
+    color: rgba(243,238,229,.62);
+  }
+
+  .tracklist-cover-title {
+    max-width: 6ch;
+    margin: 0;
+    font: 700 clamp(62px, 8vw, 118px)/.78 'Oswald', sans-serif;
+    letter-spacing: -.07em;
+    text-transform: uppercase;
+    transform: rotate(-3deg);
+  }
+
+  .tracklist-cover-copy {
+    max-width: 25ch;
+    margin: 0;
+    font: 16px/1.5 'Courier New', monospace;
+  }
+
+  .tracklist-panel {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tracklist-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255,255,255,.25);
+  }
+
+  .tracklist-head h2 {
+    margin: 0;
+    font: 700 25px/1 'Oswald', sans-serif;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .tracklist-groups {
+    display: grid;
+    gap: 28px;
+    padding-top: 28px;
+  }
+
+  .tracklist-group {
+    display: grid;
+    gap: 5px;
+  }
+
+  .tracklist-category {
+    margin: 0 0 5px;
+    color: #e01f3d;
+  }
+
+  .tracklist-entry {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 18px;
+    width: 100%;
+    padding: 10px 0;
+    border: 0;
+    border-bottom: 1px solid rgba(255,255,255,.11);
+    background: transparent;
+    color: #f3eee5;
+    font: 700 clamp(15px, 1.6vw, 20px)/1.2 'Oswald', sans-serif;
+    text-align: left;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .tracklist-entry:hover,
+  .tracklist-entry:focus-visible {
+    color: #e01f3d;
+  }
+
+  .tracklist-arrow {
+    font-family: 'Courier New', monospace;
+  }
+
+  .book-mode-button {
+    align-self: flex-start;
+    margin-top: 34px;
+    padding: 10px 13px;
+    border: 1px solid rgba(255,255,255,.55);
+    background: transparent;
+    color: #f3eee5;
+    font: 700 11px/1 'Courier New', monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .book-mode-button:hover,
+  .book-mode-button:focus-visible {
+    border-color: #e01f3d;
+    color: #e01f3d;
+  }
+
+  .book-index-button {
+    position: absolute;
+    top: 145px;
+    left: 50%;
+    z-index: 20;
+    transform: translateX(-50%);
+    padding: 9px 12px;
+    border: 1px solid rgba(255,255,255,.55);
+    background: rgba(10,10,10,.88);
+    color: #fff;
+    font: 700 11px/1 'Courier New', monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .book-index-button:hover,
+  .book-index-button:focus-visible {
+    border-color: #e01f3d;
+    color: #e01f3d;
+  }
+
 
   /* ===== PERSPEKTIVWECHSEL: AUS MEINER SICHT ===== */
   .page-front.perspective-ai,
@@ -354,6 +554,34 @@
 
   /* ===== MOBILE-LAYER: Flipbook ===== */
   @media (max-width: 720px) {
+    .diary-index {
+      width: calc(100vw - 24px);
+      padding: 108px 0 42px;
+    }
+
+    .tracklist-sleeve {
+      grid-template-columns: 1fr;
+      min-height: 0;
+    }
+
+    .tracklist-cover {
+      min-height: 330px;
+      border-right: 0;
+      border-bottom: 1px solid rgba(255,255,255,.2);
+    }
+
+    .tracklist-cover-title {
+      font-size: clamp(68px, 21vw, 98px);
+    }
+
+    .tracklist-entry {
+      font-size: 17px;
+    }
+
+    .book-index-button {
+      top: 70px;
+    }
+
     .diary-3d-wrapper {
       min-height: 100svh;
       align-items: flex-start;
@@ -456,7 +684,26 @@
       <div class="menu-icon" onclick="toggleMenu()"><span></span><span></span><span></span></div>
     </div>
 
-    <div class="diary-3d-wrapper">
+    <section class="diary-index" id="diary-index" aria-labelledby="tracklist-title">
+      <div class="tracklist-sleeve">
+        <div class="tracklist-cover">
+          <div class="tracklist-kicker">Melodienrausch</div>
+          <h2 class="tracklist-cover-title">Tage<br>buch</h2>
+          <p class="tracklist-cover-copy">Gedanken, die zu laut waren, um im Kopf zu bleiben.</p>
+        </div>
+        <div class="tracklist-panel">
+          <div class="tracklist-head">
+            <h2 id="tracklist-title">Tracklist</h2>
+            <span class="tracklist-count" id="tracklist-count"></span>
+          </div>
+          <div class="tracklist-groups" id="tracklist-groups"></div>
+          <button class="book-mode-button" type="button" onclick="showDiaryBook()">Im Buch blättern →</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="diary-3d-wrapper is-hidden" id="diary-book">
+      <button class="book-index-button" type="button" onclick="showDiaryIndex()">← Zur Tracklist</button>
       <div class="book-environment">
         <div class="book-base"></div>
 
@@ -532,7 +779,7 @@
   </div>
 
   <div class="entry-reader" id="entry-reader" aria-hidden="true">
-    <button class="entry-reader-close" type="button" onclick="closeDiaryEntry()">Zurück zum Buch ×</button>
+    <button class="entry-reader-close" type="button" onclick="closeDiaryEntry()">Zurück zur Tracklist ×</button>
     <iframe id="entry-reader-frame" title="Tagebucheintrag"></iframe>
   </div>
 
@@ -638,6 +885,7 @@
   });
 
   window.addEventListener('DOMContentLoaded', () => {
+    renderDiaryIndex();
     initBook();
   });
 
@@ -668,6 +916,69 @@
     { number: "026", title: "Ich behandle Erschöpfung wie Schulden", teaser: "Drei Tage ging nichts. Am vierten wollte ich alles nachholen – als wären die schlechten Tage Schulden, die ich zurückzahlen muss.", thumb: "", url: "eintrag-026.html" },
   ];
 
+  const diarySections = [
+    {
+      title: 'ADHS & Ich',
+      entries: diaryEntries.filter((entry) => !['eintrag-023.html', 'eintrag-024.html', 'eintrag-025.html'].includes(entry.url))
+    },
+    {
+      title: 'KI & Menschen',
+      entries: diaryEntries.filter((entry) => ['eintrag-024.html', 'eintrag-025.html'].includes(entry.url))
+    },
+    {
+      title: 'Musik',
+      entries: diaryEntries.filter((entry) => entry.url === 'eintrag-023.html')
+    }
+  ];
+
+  function renderDiaryIndex() {
+    const groups = document.getElementById('tracklist-groups');
+    const count = document.getElementById('tracklist-count');
+    count.textContent = diaryEntries.length + ' Texte';
+
+    diarySections.forEach((section) => {
+      const group = document.createElement('section');
+      group.className = 'tracklist-group';
+
+      const heading = document.createElement('h3');
+      heading.className = 'tracklist-category';
+      heading.textContent = section.title;
+      group.appendChild(heading);
+
+      section.entries.forEach((entry) => {
+        const button = document.createElement('button');
+        button.className = 'tracklist-entry';
+        button.type = 'button';
+
+        const title = document.createElement('span');
+        title.textContent = entry.title;
+
+        const arrow = document.createElement('span');
+        arrow.className = 'tracklist-arrow';
+        arrow.setAttribute('aria-hidden', 'true');
+        arrow.textContent = '→';
+
+        button.append(title, arrow);
+        button.addEventListener('click', () => openDiaryEntry(entry.url));
+        group.appendChild(button);
+      });
+
+      groups.appendChild(group);
+    });
+  }
+
+  function showDiaryBook() {
+    document.getElementById('diary-index').classList.add('is-hidden');
+    document.getElementById('diary-book').classList.remove('is-hidden');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function showDiaryIndex() {
+    document.getElementById('diary-book').classList.add('is-hidden');
+    document.getElementById('diary-index').classList.remove('is-hidden');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   const mobileBook = window.matchMedia('(max-width: 720px)').matches;
   let rightIndex = mobileBook ? 0 : 1;
   let animating = false;
@@ -687,6 +998,7 @@
     reader.classList.remove('open');
     reader.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('entry-open');
+    showDiaryIndex();
     setTimeout(() => { frame.src = 'about:blank'; }, 350);
   }
 
