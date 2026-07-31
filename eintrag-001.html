@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Shadows+Into+Light&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<script src="cursor.js" defer></script>
 <style>
   html, body { overflow-x: hidden; }
   .main-content { min-height: 100vh; color: #000000; background:#f5f3ee; }
@@ -389,12 +390,7 @@
   </div>
 
 <script>
-  const cursor = document.getElementById('cursor');
-  document.addEventListener('mousemove', (e) => {
-    cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
-  });
-
-  if (window.self !== window.top) {
+if (window.self !== window.top) {
     document.body.classList.add('is-embedded');
   }
 
