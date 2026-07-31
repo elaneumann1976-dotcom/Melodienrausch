@@ -1,0 +1,48 @@
+name: Repair diary page turning
+
+on:
+  push:
+    paths:
+      - .github/workflows/repair-diary.yml
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch register.html
+        shell: bash
+        run: |
+          cat > /tmp/patch_diary.py <<'PY'
+          from pathlib import Path
+          p=Path("register.html")
+          s=p.read_text(encoding="utf-8")
+          s=s.replace('<section class="diary-index" id="diary-index"', '<section class="diary-index is-hidden" id="diary-index"', 1)
+          s=s.replace('<div class="diary-3d-wrapper is-hidden" id="diary-book">', '<div class="diary-3d-wrapper" id="diary-book">', 1)
+          s=s.replace('    transform-origin: left center;\n    transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);', '    transform-origin: left center;\n    transform: rotateY(0deg);\n    transition: transform 1.05s cubic-bezier(0.4, 0, 0.2, 1);', 1)
+          s=s.replace('    backface-visibility: hidden;\n    padding: 40px;', '    backface-visibility: hidden;\n    -webkit-backface-visibility: hidden;\n    padding: 40px;', 1)
+          s=s.replace('  .page-back {\n    transform: rotateY(180deg);', '  .page-front {\n    transform: rotateY(0deg) translateZ(0.5px);\n  }\n\n  .page-back {\n    transform: rotateY(180deg) translateZ(0.5px);', 1)
+          start=s.index('  function initBook() {')
+          end=s.index('\n</script>', start)
+          s=s[:start]+"  function spreadStep() {\n    return mobileBook ? 1 : 2;\n  }\n\n  function nextUnderIndex() {\n    return rightIndex + spreadStep();\n  }\n\n  function renderCurrentSpread() {\n    if (mobileBook) {\n      fillEntry('left', null, -1);\n      fillEntry('front', diaryEntries[rightIndex], rightIndex);\n      fillEntry('under', diaryEntries[rightIndex + 1], rightIndex + 1);\n    } else {\n      fillEntry('left', diaryEntries[rightIndex - 1], rightIndex - 1);\n      fillEntry('front', diaryEntries[rightIndex], rightIndex);\n      fillEntry('under', diaryEntries[rightIndex + 2], rightIndex + 2);\n    }\n    updateNav();\n  }\n\n  function initBook() {\n    rightIndex = mobileBook ? 0 : 1;\n    const page = document.getElementById('flipPage');\n    page.classList.add('no-transition');\n    page.classList.remove('flipped');\n    renderCurrentSpread();\n    void page.offsetWidth;\n    page.classList.remove('no-transition');\n  }\n\n  function afterPageTurn(callback) {\n    const page = document.getElementById('flipPage');\n    let finished = false;\n    const finish = () => {\n      if (finished) return;\n      finished = true;\n      page.removeEventListener('transitionend', onTransitionEnd);\n      callback();\n    };\n    const onTransitionEnd = (event) => {\n      if (event.target === page && event.propertyName === 'transform') finish();\n    };\n    page.addEventListener('transitionend', onTransitionEnd);\n    setTimeout(finish, 1300);\n  }\n\n  function resetTurningPage(frontEntry, frontIndex) {\n    const page = document.getElementById('flipPage');\n    page.classList.add('no-transition');\n    page.classList.remove('flipped');\n    fillEntry('front', frontEntry, frontIndex);\n    fillEntry('back', null, -1);\n    void page.offsetWidth;\n    page.classList.remove('no-transition');\n  }\n\n  function turnPage(direction) {\n    if (animating) return;\n\n    const page = document.getElementById('flipPage');\n    const step = spreadStep();\n\n    if (direction > 0) {\n      const turningBackIndex = rightIndex + 1;\n      if (turningBackIndex >= diaryEntries.length) return;\n\n      const nextRightIndex = rightIndex + step;\n      animating = true;\n\n      fillEntry('back', diaryEntries[turningBackIndex], turningBackIndex);\n      fillEntry('under', diaryEntries[nextRightIndex], nextRightIndex);\n      page.classList.add('flipped');\n\n      afterPageTurn(() => {\n        rightIndex = nextRightIndex;\n        if (!mobileBook) {\n          fillEntry('left', diaryEntries[rightIndex - 1], rightIndex - 1);\n        }\n        resetTurningPage(diaryEntries[rightIndex], rightIndex);\n        fillEntry('under', diaryEntries[nextUnderIndex()], nextUnderIndex());\n        updateNav();\n        animating = false;\n      });\n      return;\n    }\n\n    const firstRightIndex = mobileBook ? 0 : 1;\n    const previousRightIndex = rightIndex - step;\n    if (previousRightIndex < firstRightIndex) return;\n\n    animating = true;\n    const currentLeftIndex = mobileBook ? rightIndex : rightIndex - 1;\n    const previousLeftIndex = mobileBook ? -1 : previousRightIndex - 1;\n\n    page.classList.add('no-transition');\n    fillEntry('front', diaryEntries[previousRightIndex], previousRightIndex);\n    fillEntry('back', diaryEntries[currentLeftIndex], currentLeftIndex);\n    page.classList.add('flipped');\n    if (!mobileBook) {\n      fillEntry('left', diaryEntries[previousLeftIndex], previousLeftIndex);\n    }\n    fillEntry('under', diaryEntries[rightIndex], rightIndex);\n    void page.offsetWidth;\n    page.classList.remove('no-transition');\n\n    requestAnimationFrame(() => {\n      requestAnimationFrame(() => {\n        page.classList.remove('flipped');\n        afterPageTurn(() => {\n          rightIndex = previousRightIndex;\n          fillEntry('back', null, -1);\n          fillEntry('under', diaryEntries[nextUnderIndex()], nextUnderIndex());\n          updateNav();\n          animating = false;\n        });\n      });\n    });\n  }\n"+s[end:]
+          p.write_text(s,encoding="utf-8")
+          PY
+          python /tmp/patch_diary.py
+          python - <<'PY' > /tmp/register.js
+          from pathlib import Path
+          s=Path('register.html').read_text(encoding='utf-8')
+          print(s[s.index('<script>')+8:s.rindex('</script>')])
+          PY
+          node --check /tmp/register.js
+      - name: Commit repair
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add register.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Repair diary page turning [skip ci]"
+          git push
