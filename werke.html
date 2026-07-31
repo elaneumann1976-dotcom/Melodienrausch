@@ -332,9 +332,9 @@ transition:opacity 0.6s ease;">
   <div class="custom-cursor" id="cursor"></div>
 
   <!-- SIDE MENU (Werke ist aktiv) -->
-  <div class="side-menu">
+  <div class="side-menu" id="side-menu" inert>
     <a href="index.html" class="menu-link">Heimat</a>
-    <a href="werke.html" class="menu-link active">Kunst</a>
+    <a href="werke.html" class="menu-link active" aria-current="page">Kunst</a>
     <a href="ueber.html" class="menu-link">Über mich</a>
     <a href="register.html" class="menu-link">Tagebuch</a>
     <a href="kontakt.html" class="menu-link">Kontakt</a>
@@ -343,10 +343,10 @@ transition:opacity 0.6s ease;">
   <div class="main-content">
     <div class="hero-header">
       <h1 class="huge-title">MELODIENRAUSCH®</h1>
-      <div class="menu-icon" onclick="toggleMenu()">
+      <button type="button" class="menu-icon" id="menu-toggle" aria-expanded="false" aria-controls="side-menu" aria-label="Menü öffnen">
         
 <span></span><span></span><span></span>
-      </div>
+      </button>
     </div>
 
     <!-- GALERIE-ANSICHT -->
@@ -679,7 +679,31 @@ showWerk(currentWerk + 1); }
  'px';
   });
 
-  function toggleMenu() { document.body.classList.toggle('menu-open'); }
+  const menuToggle = document.getElementById('menu-toggle');
+  const sideMenu = document.getElementById('side-menu');
+
+  function setMenuOpen(open) {
+    document.body.classList.toggle('menu-open', open);
+    menuToggle.setAttribute('aria-expanded', String(open));
+    menuToggle.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+    sideMenu.inert = !open;
+    if (open) {
+      const firstLink = sideMenu.querySelector('.menu-link');
+      if (firstLink) firstLink.focus();
+    } else {
+      menuToggle.focus();
+    }
+  }
+
+  menuToggle.addEventListener('click', () => {
+    setMenuOpen(!document.body.classList.contains('menu-open'));
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && document.body.classList.contains('menu-open')) {
+      setMenuOpen(false);
+    }
+  });
 
   window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
