@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+<script>document.documentElement.classList.add('js-enabled');</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MELODIENRAUSCH</title>
@@ -232,6 +233,16 @@
   <script src="https://w.soundcloud.com/player/api.js"></script>
 
 <script>
+  // Ganz zuerst registrieren: Introanimation beenden und Inhalt einblenden.
+  // So läuft das auch dann noch, wenn weiter unten im Skript ein Fehler auftritt.
+  window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      const intro = document.getElementById('intro-screen');
+      if(intro) { intro.style.opacity = '0'; setTimeout(() => intro.remove(), 600); }
+      document.body.classList.add('intro-done');
+    }, 3400);
+  });
+
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
   window.scrollTo(0, 0);
   window.addEventListener('pageshow', () => {
@@ -266,14 +277,6 @@
     if (e.key === 'Escape' && document.body.classList.contains('menu-open')) {
       setMenuOpen(false);
     }
-  });
-
-  window.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-      const intro = document.getElementById('intro-screen');
-      if(intro) { intro.style.opacity = '0'; setTimeout(() => intro.remove(), 600); }
-      document.body.classList.add('intro-done');
-    }, 3400);
   });
 
   let scWidget = null;
