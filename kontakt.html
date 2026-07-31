@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Shadows+Into+Light&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <script src="cursor.js" defer></script>
+<script src="menu.js" defer></script>
 <style>
   html, body { overflow-x: hidden; }
   .main-content { min-height: 100vh; color: #000000; }
@@ -193,32 +194,7 @@
   <script src="https://w.soundcloud.com/player/api.js"></script>
 
 <script>
-const menuToggle = document.getElementById('menu-toggle');
-  const sideMenu = document.getElementById('side-menu');
-
-  function setMenuOpen(open) {
-    document.body.classList.toggle('menu-open', open);
-    menuToggle.setAttribute('aria-expanded', String(open));
-    menuToggle.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
-    sideMenu.inert = !open;
-    if (open) {
-      const firstLink = sideMenu.querySelector('.menu-link');
-      if (firstLink) firstLink.focus();
-    } else {
-      menuToggle.focus();
-    }
-  }
-
-  menuToggle.addEventListener('click', () => {
-    setMenuOpen(!document.body.classList.contains('menu-open'));
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && document.body.classList.contains('menu-open')) {
-      setMenuOpen(false);
-    }
-  });
-  window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       const intro = document.getElementById('intro-screen');
       if(intro) { intro.style.opacity = '0'; setTimeout(() => intro.remove(), 600); }
