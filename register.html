@@ -139,6 +139,32 @@
       inset 0 0 0 1px rgba(20,18,14,.16);
   }
 
+  .static-page-right {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1;
+    width: 50%;
+    height: 100%;
+    background-color: #f0ece3;
+    background-image:
+      linear-gradient(rgba(255,255,255,.2), rgba(60,45,25,.055)),
+      url('grunge-texture-dark.jpg');
+    background-size: cover;
+    background-blend-mode: screen;
+    color: #171512;
+    padding: 40px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    box-shadow:
+      inset 30px 0 34px -25px rgba(25,20,14,.5),
+      inset 0 0 42px rgba(49,38,22,.13),
+      inset 0 0 0 1px rgba(20,18,14,.16);
+  }
+
   .static-page-left::before {
     content: 'MELODIENRAUSCH — KUNST-TAGEBUCH';
     position: absolute;
@@ -287,7 +313,8 @@
   /* ===== PERSPEKTIVWECHSEL: AUS MEINER SICHT ===== */
   .page-front.perspective-ai,
   .page-back.perspective-ai,
-  .static-page-left.perspective-ai {
+  .static-page-left.perspective-ai,
+  .static-page-right.perspective-ai {
     background-color: #0b0b0b;
     background-image:
       linear-gradient(rgba(0,0,0,.68), rgba(0,0,0,.86)),
@@ -313,7 +340,8 @@
   }
   .perspective-ai .page-number.clickable:hover { color:#e01f3d; }
   .page-front.perspective-ai::before,
-  .page-back.perspective-ai::before {
+  .page-back.perspective-ai::before,
+  .static-page-right.perspective-ai::before {
     content:'BEOBACHTUNGEN EINER KI';
     position:absolute; top:18px; right:22px; z-index:3;
     color:#e01f3d; font:400 25px/1 'Shadows Into Light',cursive;
@@ -349,6 +377,13 @@
 
     .static-page-left {
       display: none;
+    }
+
+    .static-page-right {
+      left: 0;
+      right: auto;
+      width: 100%;
+      padding: 30px 25px 24px;
     }
 
     .page-3d {
@@ -437,6 +472,22 @@
             <div class="page-number" style="display:flex; justify-content:space-between;">
               <span id="left-prev" class="page-number clickable" style="border-top:none;" onclick="event.stopPropagation(); turnPage(-1);">◀ Zurück</span>
               <span>Tagebuch</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="static-page-right" id="page-right-static">
+          <div class="content-layer">
+            <div>
+              <div class="pink-badge" id="under-date"></div>
+              <img class="entry-thumb" id="under-thumb" alt="">
+              <h1 class="huge-title-diary" id="under-title"></h1>
+              <div class="text-content" id="under-teaser"></div>
+              <button class="read-entry" id="under-read" type="button">Eintrag lesen →</button>
+            </div>
+            <div class="page-number" style="display:flex; justify-content:space-between;">
+              <span id="under-prev" class="page-number clickable" style="border-top:none;" onclick="event.stopPropagation(); turnPage(-1);">◀ Zurück</span>
+              <span id="under-next" class="page-number clickable" style="border-top:none;" onclick="event.stopPropagation(); turnPage(1);">Weiter ▸</span>
             </div>
           </div>
         </div>
@@ -649,7 +700,7 @@
     const teaserEl = document.getElementById(prefix + '-teaser');
     const thumbEl = document.getElementById(prefix + '-thumb');
     const pageNrEl = document.getElementById(prefix + '-page-nr');
-    const container = thumbEl.closest('.page-front, .page-back, .static-page-left');
+    const container = thumbEl.closest('.page-front, .page-back, .static-page-left, .static-page-right');
     container.classList.toggle('perspective-ai', Boolean(entry && entry.perspective === 'assistant'));
 
     if (!entry) {
@@ -689,10 +740,10 @@
     const hasNext = rightIndex + 1 < diaryEntries.length;
     const firstVisibleIndex = mobileBook ? 0 : 1;
     const hasPrev = rightIndex > firstVisibleIndex;
-    ['front-prev', 'back-prev', 'left-prev'].forEach((id) => {
+    ['front-prev', 'back-prev', 'left-prev', 'under-prev'].forEach((id) => {
       document.getElementById(id).style.visibility = hasPrev ? 'visible' : 'hidden';
     });
-    ['front-next', 'back-next'].forEach((id) => {
+    ['front-next', 'back-next', 'under-next'].forEach((id) => {
       document.getElementById(id).style.visibility = hasNext ? 'visible' : 'hidden';
     });
   }
@@ -701,11 +752,29 @@
     if (mobileBook) {
       fillEntry('left', null, -1);
       fillEntry('front', diaryEntries[0], 0);
+      fillEntry('under', diaryEntries[1], 1);
     } else {
       fillEntry('left', diaryEntries[0], 0);
       fillEntry('front', diaryEntries[1], 1);
+      fillEntry('under', diaryEntries[3], 3);
     }
     updateNav();
+  }
+
+  function afterPageTurn(callback) {
+    const page = document.getElementById('flipPage');
+    let finished = false;
+    const finish = () => {
+      if (finished) return;
+      finished = true;
+      page.removeEventListener('transitionend', onTransitionEnd);
+      callback();
+    };
+    const onTransitionEnd = (event) => {
+      if (event.target === page && event.propertyName === 'transform') finish();
+    };
+    page.addEventListener('transitionend', onTransitionEnd);
+    setTimeout(finish, 1500);
   }
 
   function turnPage(direction) {
@@ -714,31 +783,58 @@
 
     if (direction > 0) {
       if (rightIndex + 1 >= diaryEntries.length) return;
-      const nextIndex = rightIndex + 1;
       animating = true;
 
-      fillEntry('back', diaryEntries[nextIndex], nextIndex);
+      const nextLeftIndex = rightIndex + 1;
+      const nextRightIndex = mobileBook ? nextLeftIndex : rightIndex + 2;
+      const nextLeftEntry = diaryEntries[nextLeftIndex];
+      const nextRightEntry = diaryEntries[nextRightIndex];
+
+      fillEntry('back', mobileBook ? nextRightEntry : nextLeftEntry, mobileBook ? nextRightIndex : nextLeftIndex);
+      fillEntry('under', nextRightEntry, nextRightIndex);
       page.classList.add('flipped');
 
-      setTimeout(() => {
+      afterPageTurn(() => {
+        if (!mobileBook) fillEntry('left', nextLeftEntry, nextLeftIndex);
         page.classList.add('no-transition');
         page.classList.remove('flipped');
         void page.offsetWidth;
-        fillEntry('front', diaryEntries[nextIndex], nextIndex);
+        fillEntry('front', nextRightEntry, nextRightIndex);
         page.classList.remove('no-transition');
+        rightIndex = nextRightIndex;
+        fillEntry('under', diaryEntries[rightIndex + (mobileBook ? 1 : 2)], rightIndex + (mobileBook ? 1 : 2));
+        updateNav();
         animating = false;
-      }, 1200);
-
-      rightIndex = nextIndex;
-      if (!mobileBook) fillEntry('left', diaryEntries[rightIndex - 1], rightIndex - 1);
-      updateNav();
+      });
     } else {
       const firstVisibleIndex = mobileBook ? 0 : 1;
-      if (rightIndex - 1 < firstVisibleIndex) return;
-      rightIndex -= 1;
-      fillEntry('front', diaryEntries[rightIndex], rightIndex);
-      if (!mobileBook) fillEntry('left', diaryEntries[rightIndex - 1], rightIndex - 1);
-      updateNav();
+      const previousRightIndex = rightIndex - (mobileBook ? 1 : 2);
+      if (previousRightIndex < firstVisibleIndex) return;
+      animating = true;
+
+      const currentLeftIndex = mobileBook ? rightIndex : rightIndex - 1;
+      const previousLeftIndex = mobileBook ? -1 : previousRightIndex - 1;
+
+      page.classList.add('no-transition');
+      fillEntry('back', diaryEntries[currentLeftIndex], currentLeftIndex);
+      fillEntry('front', diaryEntries[previousRightIndex], previousRightIndex);
+      page.classList.add('flipped');
+      if (!mobileBook) fillEntry('left', diaryEntries[previousLeftIndex], previousLeftIndex);
+      fillEntry('under', diaryEntries[rightIndex], rightIndex);
+      void page.offsetWidth;
+      page.classList.remove('no-transition');
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          page.classList.remove('flipped');
+          afterPageTurn(() => {
+            rightIndex = previousRightIndex;
+            fillEntry('under', diaryEntries[rightIndex + (mobileBook ? 1 : 2)], rightIndex + (mobileBook ? 1 : 2));
+            updateNav();
+            animating = false;
+          });
+        });
+      });
     }
   }
 </script>
