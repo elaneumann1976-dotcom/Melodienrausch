@@ -6,6 +6,14 @@
 <meta name="viewport" content="width=device-width, 
 initial-scale=1.0">
 <title>MELODIENRAUSCH // WERKE</title>
+<meta name="description" content="Werke von Melodienrausch: eine Galerie mit Kunstwerken, Werktiteln, Techniken und Hintergrundtexten zum Entdecken und Anhören.">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="canonical" href="https://elaneumann1976-dotcom.github.io/Melodienrausch/werke.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Werke – Melodienrausch">
+<meta property="og:description" content="Eine Galerie mit Kunstwerken, Werktiteln und Hintergrundtexten von Melodienrausch.">
+<meta property="og:image" content="https://elaneumann1976-dotcom.github.io/Melodienrausch/profilbilld_Fotogenic.jpg">
+<meta property="og:locale" content="de_DE">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" 
 crossorigin>
@@ -13,6 +21,7 @@ crossorigin>
 href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap"
  rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<script src="cursor.js" defer></script>
 <style>
   html, body { overflow-x: hidden; }
 
@@ -54,10 +63,13 @@ transform; }
     width: 320px; height: 220px;
     background-color: #000000; color: #ffffff; border: 1px solid #ffffff;
     display: flex; align-items: center; justify-content: center;
-    cursor: none; overflow: hidden;
+    cursor: pointer; overflow: hidden;
     transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    padding: 0; font: inherit; text-align: inherit;
+    appearance: none; -webkit-appearance: none;
   }
   .card.clicked { transform: scale(1.06); }
+  .card:focus-visible { outline: 3px solid #ffffff; outline-offset: 4px; }
 
   .card-bg {
     position: absolute; inset: 0;
@@ -106,14 +118,18 @@ transform; }
   .detail-view.visible { opacity: 1; }
 
   .back-to-gallery {
-color: #000000;
-border-bottom: 1px solid #000000;
-   grid-column: 1 / 4; font-family: 'Oswald', sans-serif; font-size: 
-13px;
-    letter-spacing: 1px; text-transform: uppercase; cursor: none;
-    border-bottom: 1px solid #fff; display: inline-block; 
-padding-bottom: 3px;
+    display: inline-block;
+    background: none;
+    border: none;
+    border-bottom: 1px solid #fff;
+    padding: 0 0 3px 0;
     margin-top: 20px;
+    grid-column: 1 / 4; font-family: 'Oswald', sans-serif; font-size: 13px;
+    letter-spacing: 1px; text-transform: uppercase; cursor: pointer;
+    color: #000000;
+  }
+  .back-to-gallery:focus-visible {
+    outline: 3px solid #000000; outline-offset: 4px;
   }
 
   .section-grid {
@@ -134,9 +150,10 @@ z-index: 101;
   .werk-nav { display: flex; gap: 24px; margin-top: 24px; font-family: 
 'Oswald', sans-serif; font-size: 22px; }
   .werk-nav button { background: none; border: none; padding: 0; 
-font-family: inherit; font-size: inherit; color: #000000; cursor: none; 
+font-family: inherit; font-size: inherit; color: #000000; cursor: pointer; 
 letter-spacing: 2px; pointer-events: auto; }
   .werk-nav button:disabled { opacity: 0.25; }
+  .werk-nav button:focus-visible { outline: 3px solid #000000; outline-offset: 3px; }
   .werk-nav .divider { opacity: 0.35; }
 
   .media-box { grid-column: 4 / 10; height: 520px; position: relative; }
@@ -332,9 +349,9 @@ transition:opacity 0.6s ease;">
   <div class="custom-cursor" id="cursor"></div>
 
   <!-- SIDE MENU (Werke ist aktiv) -->
-  <div class="side-menu">
+  <div class="side-menu" id="side-menu" inert>
     <a href="index.html" class="menu-link">Heimat</a>
-    <a href="werke.html" class="menu-link active">Kunst</a>
+    <a href="werke.html" class="menu-link active" aria-current="page">Kunst</a>
     <a href="ueber.html" class="menu-link">Über mich</a>
     <a href="register.html" class="menu-link">Tagebuch</a>
     <a href="kontakt.html" class="menu-link">Kontakt</a>
@@ -343,10 +360,10 @@ transition:opacity 0.6s ease;">
   <div class="main-content">
     <div class="hero-header">
       <h1 class="huge-title">MELODIENRAUSCH®</h1>
-      <div class="menu-icon" onclick="toggleMenu()">
+      <button type="button" class="menu-icon" id="menu-toggle" aria-expanded="false" aria-controls="side-menu" aria-label="Menü öffnen">
         
 <span></span><span></span><span></span>
-      </div>
+      </button>
     </div>
 
     <!-- GALERIE-ANSICHT -->
@@ -355,20 +372,20 @@ transition:opacity 0.6s ease;">
     </div>
 
     <!-- DETAIL-ANSICHT -->
-    <div class="detail-view" id="detailView">
+    <div class="detail-view" id="detailView" aria-labelledby="werk-title">
       <div class="section-grid">
         <div class="meta-block">
           WERKKATALOG <br><br>
-          <a class="back-to-gallery" onclick="showGallery()">← Zur
- Galerie</a><br><br>
+          <button type="button" class="back-to-gallery" id="back-to-gallery">← Zur
+ Galerie</button><br><br>
           <strong>INDEX 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
  <span id="werk-index">01/30</span></strong>
           <div class="werk-nav">
-            <button id="prev-btn" onclick="prevWerk()" 
+            <button id="prev-btn" 
 aria-label="Vorheriges Werk">◂</button>
             <span class="divider">·</span>
-            <button id="next-btn" onclick="nextWerk()" 
+            <button id="next-btn" 
 aria-label="Nächstes Werk">▸</button>
           </div>
         </div>
@@ -621,6 +638,8 @@ showWerk(currentWerk + 1); }
       requestAnimationFrame(() => { dv.classList.add('visible'); });
     });
     window.scrollTo(0, 0);
+    const backBtn = document.getElementById('back-to-gallery');
+    if (backBtn) backBtn.focus();
   }
 
   function showGallery() {
@@ -630,6 +649,7 @@ showWerk(currentWerk + 1); }
     setTimeout(() => {
       dv.classList.remove('active');
       document.getElementById('galleryView').style.display = 'block';
+      if (lastOpenedCard) lastOpenedCard.focus();
     }, 400);
     window.scrollTo(0, 0);
   }
@@ -645,15 +665,17 @@ showWerk(currentWerk + 1); }
     row.style.position = 'sticky';
     row.style.top = (160 + r * 260) + 'px';
     for (let i = r; i < werke.length; i += rowsCount) {
-      const card = document.createElement('div');
+      const card = document.createElement('button');
+      card.type = 'button';
       card.className = 'card';
       card.dataset.index = i;
+      card.setAttribute('aria-label', werke[i].num + ' – ' + werke[i].title);
       const thumbImg = werke[i].img || (werke[i].images && werke[i].images[0]);
       if (thumbImg) {
         const bg = document.createElement('img');
         bg.className = 'card-bg';
         bg.src = thumbImg;
-        bg.alt = werke[i].title;
+        bg.alt = '';
         bg.loading = 'lazy';
         card.appendChild(bg);
       }
@@ -672,14 +694,40 @@ showWerk(currentWerk + 1); }
     rowEls.push(row);
   }
 
-  // ---- Cursor ----
-  const cursor = document.getElementById('cursor');
-  document.addEventListener('mousemove', (e) => {
-    cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY +
- 'px';
+
+  const menuToggle = document.getElementById('menu-toggle');
+  const sideMenu = document.getElementById('side-menu');
+
+  function setMenuOpen(open) {
+    document.body.classList.toggle('menu-open', open);
+    menuToggle.setAttribute('aria-expanded', String(open));
+    menuToggle.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+    sideMenu.inert = !open;
+    if (open) {
+      const firstLink = sideMenu.querySelector('.menu-link');
+      if (firstLink) firstLink.focus();
+    } else {
+      menuToggle.focus();
+    }
+  }
+
+  menuToggle.addEventListener('click', () => {
+    setMenuOpen(!document.body.classList.contains('menu-open'));
   });
 
-  function toggleMenu() { document.body.classList.toggle('menu-open'); }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (document.body.classList.contains('menu-open')) {
+        setMenuOpen(false);
+      } else if (document.getElementById('detailView').classList.contains('active')) {
+        showGallery();
+      }
+    }
+  });
+
+  document.getElementById('back-to-gallery').addEventListener('click', showGallery);
+  document.getElementById('prev-btn').addEventListener('click', prevWerk);
+  document.getElementById('next-btn').addEventListener('click', nextWerk);
 
   window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
@@ -718,7 +766,9 @@ intro.remove(), 600); }
   requestAnimationFrame(loop);
 
   // ---- Klick auf Kachel: direkt zur Werkseite, mit kurzer Klick-Animation ----
+  let lastOpenedCard = null;
   function openWerk(card, index) {
+    lastOpenedCard = card;
     card.classList.add('clicked');
     setTimeout(() => card.classList.remove('clicked'), 500);
     setTimeout(() => showDetail(index), 180);

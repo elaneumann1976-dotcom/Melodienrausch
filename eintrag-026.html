@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Shadows+Into+Light&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<script src="cursor.js" defer></script>
 <style>
   html, body { overflow-x: hidden; background:#090909; }
   .main-content {
@@ -69,7 +70,7 @@
   .entry-text p:nth-child(7n+3) { margin-left:clamp(0px,4vw,42px); }
   .entry-text strong { color:#fff; }
   .entry-text em { color:#e01f3d; font-style:normal; }
-  body.is-embedded .hero-header, body.is-embedded .side-menu { display:none; }
+  body.is-embedded .hero-header { display:none; }
   body.is-embedded .entry-grid { padding-top:54px; }
   @media (max-width:720px) {
     .entry-grid, body.is-embedded .entry-grid {
@@ -86,18 +87,10 @@
 </head>
 <body class="diary-entry layout-a">
   <div class="custom-cursor" id="cursor"></div>
-  <div class="side-menu">
-    <a href="index.html" class="menu-link">Heimat</a>
-    <a href="werke.html" class="menu-link">Kunst</a>
-    <a href="ueber.html" class="menu-link">Über mich</a>
-    <a href="register.html" class="menu-link active">Tagebuch</a>
-    <a href="kontakt.html" class="menu-link">Kontakt</a>
-  </div>
-  <div class="main-content">
+<div class="main-content">
     <div class="hero-header">
       <h1 class="huge-title">MELODIENRAUSCH®</h1>
-      <div class="menu-icon" onclick="toggleMenu()"><span></span><span></span><span></span></div>
-    </div>
+</div>
     <div class="entry-grid">
       <div class="meta-block">
         <a href="register.html" class="back-link">&#9664; Zurück zum Tagebuch</a>
@@ -197,10 +190,7 @@
     </div>
   </div>
 <script>
-  const cursor=document.getElementById('cursor');
-  document.addEventListener('mousemove',(e)=>{cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px';});
-  function toggleMenu(){document.body.classList.toggle('menu-open');}
-  if(window.self!==window.top)document.body.classList.add('is-embedded');
+if(window.self!==window.top)document.body.classList.add('is-embedded');
   document.body.classList.add('intro-done');
 </script>
 </body>

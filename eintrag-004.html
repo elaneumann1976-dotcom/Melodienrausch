@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Shadows+Into+Light&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<script src="cursor.js" defer></script>
 <style>
   html, body { overflow-x: hidden; }
   .main-content { min-height: 100vh; color: #000000; background:#f5f3ee; }
@@ -65,19 +66,10 @@
 
   <div class="custom-cursor" id="cursor"></div>
 
-  <div class="side-menu">
-    <a href="index.html" class="menu-link">Heimat</a>
-    <a href="werke.html" class="menu-link">Kunst</a>
-    <a href="ueber.html" class="menu-link">Über mich</a>
-    <a href="register.html" class="menu-link active">Tagebuch</a>
-    <a href="kontakt.html" class="menu-link">Kontakt</a>
-  </div>
-
-  <div class="main-content">
+<div class="main-content">
     <div class="hero-header">
       <h1 class="huge-title">MELODIENRAUSCH®</h1>
-      <div class="menu-icon" onclick="toggleMenu()"><span></span><span></span><span></span></div>
-    </div>
+</div>
 
     <div class="entry-grid">
       <div class="meta-block">
@@ -116,13 +108,7 @@
   </div>
 
 <script>
-  const cursor = document.getElementById('cursor');
-  document.addEventListener('mousemove', (e) => {
-    cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
-  });
-  function toggleMenu() { document.body.classList.toggle('menu-open'); }
-
-  // Diese Seite hat kein Intro (nur die 5 Hauptseiten haben das) — Inhalt
+// Diese Seite hat kein Intro (nur die 5 Hauptseiten haben das) — Inhalt
   // sofort sichtbar machen, sonst bleibt .main-content dauerhaft bei opacity:0
   // (siehe style.css: body.intro-done .main-content { opacity: 1; })
   document.body.classList.add('intro-done');

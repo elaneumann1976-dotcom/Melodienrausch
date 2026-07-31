@@ -4,10 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MELODIENRAUSCH // KONTAKT</title>
+<meta name="description" content="Kontakt zu Melodienrausch: Schreib eine Nachricht, wenn dich ein Text, ein Bild oder ein Sound-Schnipsel beschäftigt hat.">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="canonical" href="https://elaneumann1976-dotcom.github.io/Melodienrausch/kontakt.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Kontakt – Melodienrausch">
+<meta property="og:description" content="Schreib eine Nachricht, wenn dich ein Text, ein Bild oder ein Sound-Schnipsel beschäftigt hat.">
+<meta property="og:image" content="https://elaneumann1976-dotcom.github.io/Melodienrausch/profilbilld_Fotogenic.jpg">
+<meta property="og:locale" content="de_DE">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Shadows+Into+Light&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<script src="cursor.js" defer></script>
+<script src="menu.js" defer></script>
 <style>
   html, body { overflow-x: hidden; }
   .main-content { min-height: 100vh; color: #000000; }
@@ -84,6 +94,22 @@
     overflow: hidden;
   }
 
+  .header-controls { display: flex; align-items: center; gap: 16px; }
+  .music-control { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+  .music-toggle {
+    font-family: Arial, Helvetica, sans-serif; font-size: 12px; letter-spacing: 1px;
+    text-transform: uppercase; color: #000000; background: transparent;
+    border: 1px solid #000000; padding: 8px 14px; cursor: pointer;
+  }
+  .music-toggle:hover { background-color: #000000; color: #ffffff; }
+  .music-toggle:focus-visible { outline: 3px solid #000000; outline-offset: 3px; }
+  .music-status {
+    display: none;
+    font-family: Arial, Helvetica, sans-serif; font-size: 11px; color: #000000;
+    text-align: right; max-width: 220px;
+  }
+  .music-status.visible { display: block; }
+
   /* ===== MOBILE-LAYER: Kontakt ===== */
   @media (max-width: 720px) {
     .section-grid {
@@ -140,18 +166,24 @@
   </div>
   <div class="custom-cursor" id="cursor"></div>
 
-  <div class="side-menu">
+  <div class="side-menu" id="side-menu" inert>
     <a href="index.html" class="menu-link">Heimat</a>
     <a href="werke.html" class="menu-link">Kunst</a>
     <a href="ueber.html" class="menu-link">Über mich</a>
     <a href="register.html" class="menu-link">Tagebuch</a>
-    <a href="kontakt.html" class="menu-link active">Kontakt</a>
+    <a href="kontakt.html" class="menu-link active" aria-current="page">Kontakt</a>
   </div>
 
   <div class="main-content">
     <div class="hero-header">
       <h1 class="huge-title">MELODIENRAUSCH®</h1>
-      <div class="menu-icon" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+      <div class="header-controls">
+        <div class="music-control">
+          <button id="music-toggle" class="music-toggle" type="button" aria-pressed="false">Musik abspielen</button>
+          <div id="music-status" class="music-status" aria-live="polite"></div>
+        </div>
+        <button type="button" class="menu-icon" id="menu-toggle" aria-expanded="false" aria-controls="side-menu" aria-label="Menü öffnen"><span></span><span></span><span></span></button>
+      </div>
     </div>
 
     <div class="section-grid" id="doodleTarget">
@@ -192,12 +224,7 @@
   <script src="https://w.soundcloud.com/player/api.js"></script>
 
 <script>
-  const cursor = document.getElementById('cursor');
-  document.addEventListener('mousemove', (e) => {
-    cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
-  });
-  function toggleMenu() { document.body.classList.toggle('menu-open'); }
-  window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       const intro = document.getElementById('intro-screen');
       if(intro) { intro.style.opacity = '0'; setTimeout(() => intro.remove(), 600); }
@@ -215,6 +242,39 @@
   let seekPending = false;
   let seekFallback = null;
   let fadeStarted = false;
+  let isPlaying = false;
+  let soundcloudFailed = false;
+  let loadTimeoutId = null;
+
+  const musicToggle = document.getElementById('music-toggle');
+  const musicStatus = document.getElementById('music-status');
+
+  function updateToggleLabel() {
+    musicToggle.textContent = isPlaying ? 'Musik pausieren' : 'Musik abspielen';
+    musicToggle.setAttribute('aria-pressed', String(isPlaying));
+  }
+
+  function showStatusMessage(text) {
+    musicStatus.textContent = text;
+    musicStatus.classList.add('visible');
+  }
+
+  function clearStatusMessage() {
+    musicStatus.textContent = '';
+    musicStatus.classList.remove('visible');
+  }
+
+  // Wird aufgerufen, wenn SoundCloud nachweislich nicht verfuegbar ist:
+  // entweder das Skript/Fenster-Objekt fehlt, oder READY kommt trotz
+  // Klick nicht innerhalb der Absicherungs-Zeit.
+  function markSoundcloudFailed() {
+    if (soundcloudFailed) return;
+    soundcloudFailed = true;
+    pendingPlay = false;
+    isPlaying = false;
+    updateToggleLabel();
+    showStatusMessage('Musik konnte nicht geladen werden.');
+  }
 
   window.addEventListener('load', () => {
     const scIframe = document.getElementById('sc-hidden-player');
@@ -222,6 +282,7 @@
       scWidget = SC.Widget(scIframe);
       scWidget.bind(SC.Widget.Events.READY, () => {
         widgetReady = true;
+        if (loadTimeoutId) { clearTimeout(loadTimeoutId); loadTimeoutId = null; }
         if (pendingPlay) startContactSound();
       });
       scWidget.bind(SC.Widget.Events.SEEK, () => {
@@ -241,8 +302,30 @@
           soundStarted = true;
           scWidget.setVolume(10);
           fadeContactSound();
+          isPlaying = true;
+          soundcloudFailed = false;
+          updateToggleLabel();
+          clearStatusMessage();
         });
       });
+      // Die interne Neuausrichtung (siehe oben) ruft pause() selbst auf, bevor
+      // die eigentliche Wiedergabe an der richtigen Stelle beginnt. Waehrend
+      // seekPending laeuft, ist das kein echtes Pausieren durch die Person.
+      scWidget.bind(SC.Widget.Events.PAUSE, () => {
+        if (seekPending) return;
+        isPlaying = false;
+        updateToggleLabel();
+      });
+      scWidget.bind(SC.Widget.Events.FINISH, () => {
+        isPlaying = false;
+        updateToggleLabel();
+      });
+      if (SC.Widget.Events.ERROR) {
+        scWidget.bind(SC.Widget.Events.ERROR, markSoundcloudFailed);
+      }
+    } else {
+      // SoundCloud-Skript selbst konnte nicht geladen werden (z.B. blockiert)
+      markSoundcloudFailed();
     }
   });
 
@@ -283,8 +366,27 @@
     }, 100);
   }
 
-  ['pointerdown', 'touchstart', 'keydown'].forEach((eventName) => {
-    document.addEventListener(eventName, startContactSound, { passive: true });
+  function pauseMusic() {
+    if (scWidget && widgetReady) scWidget.pause();
+    isPlaying = false;
+    updateToggleLabel();
+  }
+
+  function requestPlay() {
+    if (soundcloudFailed) {
+      showStatusMessage('Musik konnte nicht geladen werden.');
+      return;
+    }
+    startContactSound();
+    if (!widgetReady && !loadTimeoutId) {
+      loadTimeoutId = setTimeout(() => {
+        if (!widgetReady) markSoundcloudFailed();
+      }, 6000);
+    }
+  }
+
+  musicToggle.addEventListener('click', () => {
+    if (isPlaying) { pauseMusic(); } else { requestPlay(); }
   });
 
 </script>
