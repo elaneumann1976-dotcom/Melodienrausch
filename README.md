@@ -96,21 +96,21 @@ Bewertung.
 ## Veröffentlichung
 
 Das Repository liegt unter `github.com/elaneumann1976-dotcom/Melodienrausch`.
-Die Commit-Historie zeigt, dass zwischenzeitlich eine eigene Domain
-(`melodienrausch.blog`) über eine `CNAME`-Datei verbunden und später wieder
-entfernt wurde, weil sie nicht erreichbar war – aktuell liegt **keine**
-`CNAME`-Datei im Repository, das spricht dafür, dass die Seite (sofern
-GitHub Pages in den Repository-Einstellungen aktiviert ist) über die
-GitHub-Pages-Standardadresse erreichbar wäre:
+Die Website ist aktuell öffentlich über GitHub Pages erreichbar. Die
+verwendete Basisadresse lautet:
 
 ```text
 https://elaneumann1976-dotcom.github.io/Melodienrausch/
 ```
 
-Diese Adresse wird in den Metadaten der fünf Hauptseiten als vorläufige
-Canonical-URL verwendet. Ob GitHub Pages aktuell tatsächlich aktiviert ist,
-lässt sich aus dem Repository-Inhalt allein nicht sicher bestätigen – das
-sollte in den GitHub-Repository-Einstellungen geprüft werden.
+Diese Adresse wird in den Metadaten der fünf Hauptseiten als Canonical-URL
+verwendet. Eine eigene Domain beziehungsweise eine `CNAME`-Datei ist aktuell
+nicht eingerichtet: Die Commit-Historie zeigt, dass zwischenzeitlich eine
+eigene Domain (`melodienrausch.blog`) über eine `CNAME`-Datei verbunden und
+später wieder entfernt wurde, weil sie nicht erreichbar war. Falls
+`melodienrausch.blog` (oder eine andere Domain) später erneut verwendet
+wird, müssen die Canonical- und Open-Graph-URLs in allen fünf Hauptseiten
+entsprechend angepasst werden.
 
 Allgemein lässt sich eine statische Website wie diese über jeden Hosting-
 Dienst veröffentlichen, der einfache HTML-/CSS-/JS-Dateien ausliefert (z. B.
@@ -119,10 +119,8 @@ nicht erforderlich.
 
 ## Offene Aufgaben
 
-- Endgültige Domain festlegen (aktuell nur die GitHub-Pages-Standardadresse
-  als vorläufiger Wert hinterlegt).
-- Canonical-URLs in allen Metadaten aktualisieren, sobald die endgültige
-  Domain feststeht.
+- Falls eine eigene Domain (z. B. `melodienrausch.blog`) erneut eingerichtet
+  wird: Canonical- und Open-Graph-URLs in allen fünf Hauptseiten anpassen.
 - Open-Graph-Bild-URL aktualisieren, falls ein anderes Vorschaubild als
   `profilbilld_Fotogenic.jpg` gewünscht ist.
 - Favicon festlegen – aktuell ist keines im Projekt vorhanden.
