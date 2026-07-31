@@ -312,18 +312,9 @@
 
   <div class="custom-cursor" id="cursor"></div>
 
-  <div class="side-menu">
-    <a href="index.html" class="menu-link">Heimat</a>
-    <a href="werke.html" class="menu-link">Kunst</a>
-    <a href="ueber.html" class="menu-link">Über mich</a>
-    <a href="register.html" class="menu-link active">Tagebuch</a>
-    <a href="kontakt.html" class="menu-link">Kontakt</a>
-  </div>
-
   <div class="main-content">
     <div class="hero-header">
       <h1 class="huge-title">MELODIENRAUSCH®</h1>
-      <div class="menu-icon" onclick="toggleMenu()"><span></span><span></span><span></span></div>
     </div>
 
     <div class="entry-grid">
@@ -365,8 +356,7 @@
             <p>Wenn ich heute darüber nachdenke, muss ich lachen.</p>
             <p>Damals blieb ich einfach.</p>
             <p>Und schrieb weiter.</p>
-            <p>(Der restliche Text bleibt unverändert.)</p>
-            <p>…</p>
+            <!-- Autorin: Hier fehlt möglicherweise noch der ursprüngliche vollständige Text. -->
           </section>
 
           <section class="turning-point">
@@ -403,7 +393,6 @@
   document.addEventListener('mousemove', (e) => {
     cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
   });
-  function toggleMenu() { document.body.classList.toggle('menu-open'); }
 
   if (window.self !== window.top) {
     document.body.classList.add('is-embedded');
