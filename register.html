@@ -1,83 +1,257 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+<script>document.documentElement.classList.add('js');</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MELODIENRAUSCH // TAGEBUCH</title>
-<meta name="description" content="Das Tagebuch von Melodienrausch: persönliche Einträge zwischen Musik, Gedanken und Alltag, als Buch oder Tracklist durchblätterbar.">
-<meta name="theme-color" content="#0a0a0a">
+<title>Tagebuch — Melodienrausch</title>
+<meta name="description" content="Das Tagebuch von Melodienrausch: persönliche Einträge zwischen Musik, Gedanken und Alltag.">
+<meta name="theme-color" content="#080807">
 <link rel="canonical" href="https://elaneumann1976-dotcom.github.io/Melodienrausch/register.html">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Tagebuch – Melodienrausch">
-<meta property="og:description" content="Persönliche Tagebucheinträge zwischen Musik, Gedanken und Alltag, als Buch oder Tracklist durchblätterbar.">
-<meta property="og:image" content="https://elaneumann1976-dotcom.github.io/Melodienrausch/profilbilld_Fotogenic.jpg">
+<meta property="og:title" content="Tagebuch — Melodienrausch">
+<meta property="og:description" content="Persönliche Tagebucheinträge zwischen Musik, Gedanken und Alltag.">
+<meta property="og:image" content="https://elaneumann1976-dotcom.github.io/Melodienrausch/assets/images/journal/portrait-seated-dark.jpg">
+<meta property="og:url" content="https://elaneumann1976-dotcom.github.io/Melodienrausch/register.html">
 <meta property="og:locale" content="de_DE">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Shadows+Into+Light&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<script src="cursor.js" defer></script>
-<style>
-html,body{overflow-x:hidden}.hero-header{position:fixed;top:0;left:0;width:100%;display:flex;justify-content:space-between;align-items:flex-end;padding:30px 40px 10px;box-sizing:border-box;z-index:100}.huge-title{font-family:'Oswald',sans-serif;color:#000;font-size:clamp(30px,7.8vw,180px);font-weight:700;line-height:.8;letter-spacing:-2px;text-transform:uppercase;margin:0;white-space:nowrap}.diary-3d-wrapper{font-family:'Helvetica Neue',Arial,sans-serif;margin:0;padding:200px 0 60px;box-sizing:border-box;display:flex;justify-content:center;align-items:center;min-height:100vh;overflow:hidden;perspective:2000px}.book-environment{position:relative;width:900px;max-width:90vw;height:580px;transform:rotateX(25deg) rotateY(-10deg) rotateZ(2deg);transform-style:preserve-3d;box-shadow:0 50px 100px rgba(0,0,0,.8)}.book-base{position:absolute;width:100%;height:100%;background:#171512;border:9px solid #171512;box-sizing:border-box;box-shadow:8px 10px 0 rgba(0,0,0,.34),0 0 0 1px rgba(255,255,255,.08)}.page-3d{position:absolute;top:0;right:0;width:50%;height:100%;transform-origin:left center;transform:rotateY(0);transition:transform 1.05s cubic-bezier(.4,0,.2,1);transform-style:preserve-3d;cursor:pointer;z-index:5}.page-front,.page-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden;padding:40px;box-sizing:border-box;background-color:#f0ece3;background-image:linear-gradient(rgba(255,255,255,.2),rgba(60,45,25,.055)),url('grunge-texture-dark.jpg');background-size:cover;background-blend-mode:screen;color:#171512;display:flex;flex-direction:column;justify-content:space-between;box-shadow:inset 0 0 42px rgba(49,38,22,.15),inset 0 0 0 1px rgba(20,18,14,.16)}.page-front{transform:rotateY(0) translateZ(.5px)}.page-back{transform:rotateY(180deg) translateZ(.5px);background-color:#e7e1d5;border-left:1px solid rgba(30,25,18,.28)}.page-front::after{content:'';position:absolute;left:0;top:0;width:30px;height:100%;background:linear-gradient(to right,rgba(0,0,0,.3),rgba(0,0,0,.07) 45%,transparent)}.page-3d.flipped{transform:rotateY(-180deg)}.page-3d.no-transition{transition:none!important}.static-page-left,.static-page-right{position:absolute;top:0;width:50%;height:100%;background-color:#eee9df;background-image:linear-gradient(rgba(255,255,255,.18),rgba(60,45,25,.05)),url('grunge-texture-dark.jpg');background-size:cover;background-blend-mode:screen;color:#171512;padding:40px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer}.static-page-left{left:0;box-shadow:inset -30px 0 34px -25px rgba(25,20,14,.5),inset 0 0 42px rgba(49,38,22,.13),inset 0 0 0 1px rgba(20,18,14,.16)}.static-page-right{right:0;z-index:1;background-color:#f0ece3;box-shadow:inset 30px 0 34px -25px rgba(25,20,14,.5),inset 0 0 42px rgba(49,38,22,.13),inset 0 0 0 1px rgba(20,18,14,.16)}.static-page-left::before{content:'MELODIENRAUSCH — KUNST-TAGEBUCH';position:absolute;top:17px;left:40px;font:700 9px/1 'Courier New',monospace;letter-spacing:.08em;opacity:.62}.entry-thumb{width:100%;height:120px;object-fit:cover;margin-bottom:16px;border:1px solid #ddd;display:none}.entry-thumb.has-image{display:block}.page-number.clickable{cursor:pointer;background:none;border:none;padding:0;font:inherit;color:inherit}.page-number.clickable:hover,.page-number.clickable:focus-visible{color:#171512}.page-number.clickable:focus-visible{outline:2px solid #171512;outline-offset:2px}.page-number.clickable:disabled{opacity:.3;cursor:default}.huge-title-diary{font-size:clamp(1rem,1.6vw,1.3rem);font-family:'Oswald','Arial Narrow',sans-serif;font-weight:700;line-height:1.08;text-transform:uppercase;letter-spacing:-.35px;margin:0 0 18px;padding-bottom:10px;border-bottom:2px solid #171512}.pink-badge{display:none}.text-content{font:13px/1.65 'Courier New',Courier,monospace;color:#211f1b}.text-content strong{font-size:18px;color:#000;display:block;margin-bottom:8px}.page-number{font-size:12px;font-weight:700;border-top:1px solid #171512;padding-top:10px;text-transform:uppercase;letter-spacing:1px}.content-layer{position:relative;height:100%;display:flex;flex-direction:column;justify-content:space-between}.read-entry{display:inline-block;margin:14px 0 0;padding:7px 10px;border:0;background:#171512;color:#f2eee5;font:700 10px/1 'Courier New',monospace;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transform:rotate(-.5deg)}.read-entry:hover,.read-entry:focus-visible{background:#171512}.read-entry:focus-visible{outline:2px solid currentColor;outline-offset:2px}#sc-hidden-player{position:absolute;top:-9999px;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;overflow:hidden}.header-controls{display:flex;align-items:center;gap:16px}.music-control{display:flex;flex-direction:column;align-items:flex-end;gap:4px}.music-toggle{font-family:Arial,Helvetica,sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#000000;background:transparent;border:1px solid #000000;padding:8px 14px;cursor:pointer}.music-toggle:hover{background-color:#000000;color:#ffffff}.music-toggle:focus-visible{outline:3px solid #000000;outline-offset:3px}.music-status{display:none;font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#000000;text-align:right;max-width:220px}.music-status.visible{display:block}.entry-reader{position:fixed;inset:0;z-index:1000000;background:#0a0a0a;opacity:0;visibility:hidden;transition:opacity .35s ease,visibility .35s ease}.entry-reader.open{opacity:1;visibility:visible}.entry-reader iframe{display:block;width:100%;height:100%;border:0;background:#0a0a0a}.entry-reader-close{position:fixed;top:18px;right:22px;z-index:1000001;border:1px solid rgba(255,255,255,.65);background:rgba(10,10,10,.88);color:#fff;padding:10px 14px;font:700 12px/1 'Courier New',monospace;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}.entry-reader-close:focus-visible{outline:2px solid #fff;outline-offset:2px}body.entry-open{overflow:hidden}.diary-index{width:min(1120px,calc(100vw - 80px));margin:0 auto;padding:190px 0 70px;box-sizing:border-box}.diary-index.is-hidden,.diary-3d-wrapper.is-hidden{display:none}.tracklist-sleeve{display:grid;grid-template-columns:minmax(280px,.78fr) minmax(0,1.22fr);min-height:610px;background:#0b0b0b;color:#f3eee5;border:1px solid rgba(255,255,255,.2);box-shadow:18px 24px 60px rgba(0,0,0,.58)}.tracklist-cover,.tracklist-panel{padding:clamp(30px,4vw,56px);box-sizing:border-box}.tracklist-cover{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;border-right:1px solid rgba(255,255,255,.2)}.tracklist-cover::before,.tracklist-cover::after{content:'';position:absolute;z-index:0;background:#e01f3d;pointer-events:none}.tracklist-cover::before{width:76%;height:3px;left:3%;top:43%;transform:rotate(-17deg)}.tracklist-cover::after{width:3px;height:52%;right:24%;top:12%;transform:rotate(24deg)}.tracklist-cover>*{position:relative;z-index:1}.tracklist-kicker,.tracklist-category,.tracklist-count{font:700 10px/1.2 'Courier New',monospace;letter-spacing:.12em;text-transform:uppercase}.tracklist-kicker,.tracklist-count{color:rgba(243,238,229,.62)}.tracklist-cover-title{max-width:6ch;margin:0;font:700 clamp(62px,8vw,118px)/.78 'Oswald',sans-serif;letter-spacing:-.07em;text-transform:uppercase;transform:rotate(-3deg)}.tracklist-cover-copy{max-width:25ch;margin:0;font:16px/1.5 'Courier New',monospace}.tracklist-panel{display:flex;flex-direction:column}.tracklist-head{display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.25)}.tracklist-head h2{margin:0;font:700 25px/1 'Oswald',sans-serif;letter-spacing:.08em;text-transform:uppercase}.tracklist-groups{display:grid;gap:28px;padding-top:28px}.tracklist-group{display:grid;gap:5px}.tracklist-category{margin:0 0 5px;color:#e01f3d}.tracklist-entry{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:18px;width:100%;padding:10px 0;border:0;border-bottom:1px solid rgba(255,255,255,.11);background:transparent;color:#f3eee5;font:700 clamp(15px,1.6vw,20px)/1.2 'Oswald',sans-serif;text-align:left;text-transform:uppercase;cursor:pointer}.tracklist-entry:hover,.tracklist-entry:focus-visible{color:#e01f3d}.tracklist-entry:focus-visible{outline:2px solid #e01f3d;outline-offset:2px}.tracklist-arrow{font-family:'Courier New',monospace}.book-mode-button{align-self:flex-start;margin-top:34px;padding:10px 13px;border:1px solid rgba(255,255,255,.55);background:transparent;color:#f3eee5;font:700 11px/1 'Courier New',monospace;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}.book-mode-button:hover,.book-mode-button:focus-visible{border-color:#e01f3d;color:#e01f3d}.book-mode-button:focus-visible{outline:2px solid #e01f3d;outline-offset:2px}.book-index-button{position:absolute;top:145px;left:50%;z-index:20;transform:translateX(-50%);padding:9px 12px;border:1px solid rgba(255,255,255,.55);background:rgba(10,10,10,.88);color:#fff;font:700 11px/1 'Courier New',monospace;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}.book-index-button:hover,.book-index-button:focus-visible{border-color:#e01f3d;color:#e01f3d}.book-index-button:focus-visible{outline:2px solid #e01f3d;outline-offset:2px}.page-front.perspective-ai,.page-back.perspective-ai,.static-page-left.perspective-ai,.static-page-right.perspective-ai{background-color:#0b0b0b;background-image:linear-gradient(rgba(0,0,0,.68),rgba(0,0,0,.86)),url('grunge-texture-dark.jpg');background-blend-mode:multiply;color:#f3eee5;box-shadow:inset 0 0 52px rgba(0,0,0,.72),inset 0 0 0 1px rgba(255,255,255,.14)}.perspective-ai .huge-title-diary{color:#f3eee5!important;border-bottom-color:#e01f3d}.perspective-ai .pink-badge{background:#e01f3d;color:#080808;box-shadow:4px 3px 0 #f3eee5}.perspective-ai .text-content{color:#eee8de}.perspective-ai .read-entry{background:#f3eee5;color:#0b0b0b}.perspective-ai .page-number{color:#f3eee5;border-top-color:#e01f3d}.perspective-ai .page-number.clickable:hover{color:#e01f3d}.page-front.perspective-ai::before,.page-back.perspective-ai::before,.static-page-right.perspective-ai::before{content:'BEOBACHTUNGEN EINER KI';position:absolute;top:18px;right:22px;z-index:3;color:#e01f3d;font:400 25px/1 'Shadows Into Light',cursive;transform:rotate(-4deg)}.static-page-left.perspective-ai::before{content:'PERSPEKTIVWECHSEL // KI-BEOBACHTUNG';color:#e01f3d}@media(max-width:720px){.diary-index{width:calc(100vw - 24px);padding:108px 0 42px}.tracklist-sleeve{grid-template-columns:1fr;min-height:0}.tracklist-cover{min-height:330px;border-right:0;border-bottom:1px solid rgba(255,255,255,.2)}.tracklist-cover-title{font-size:clamp(68px,21vw,98px)}.tracklist-entry{font-size:17px}.book-index-button{top:70px}.diary-3d-wrapper{min-height:100svh;align-items:flex-start;padding:108px 12px 42px;overflow:visible;perspective:1200px}.book-environment{width:calc(100vw - 24px);max-width:none;height:min(70vh,590px);min-height:520px;transform:rotateX(5deg) rotateY(-3deg) rotateZ(.7deg);box-shadow:0 24px 54px rgba(0,0,0,.62)}.book-base{border-width:5px}.static-page-left{display:none}.static-page-right{left:0;right:auto;width:100%;padding:30px 25px 24px}.page-3d{left:0;right:auto;width:100%}.page-front,.page-back{padding:30px 25px 24px}.page-front::after{width:20px}.static-page-left::before{left:25px}.huge-title-diary{font-size:clamp(20px,6.2vw,28px);margin-bottom:14px}.pink-badge{margin-bottom:18px}.text-content{font-size:13px;line-height:1.55}.text-content strong{font-size:16px}.entry-reader-close{top:12px;right:12px;padding:9px 10px;font-size:10px}.read-entry,.page-number.clickable{cursor:pointer}}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/journal.css">
 </head>
 <body>
-<div class="custom-cursor" id="cursor"></div>
-<div class="side-menu" id="side-menu" inert><a href="index.html" class="menu-link">Heimat</a><a href="werke.html" class="menu-link">Kunst</a><a href="ueber.html" class="menu-link">Über mich</a><a href="register.html" class="menu-link active" aria-current="page">Tagebuch</a><a href="kontakt.html" class="menu-link">Kontakt</a></div>
-<div class="main-content">
-<div class="hero-header"><h1 class="huge-title">MELODIENRAUSCH®</h1><div class="header-controls"><div class="music-control"><button id="music-toggle" class="music-toggle" type="button" aria-pressed="false">Musik abspielen</button><div id="music-status" class="music-status" aria-live="polite"></div></div><button type="button" class="menu-icon" id="menu-toggle" aria-expanded="false" aria-controls="side-menu" aria-label="Menü öffnen"><span></span><span></span><span></span></button></div></div>
-<section class="diary-index is-hidden" id="diary-index" aria-labelledby="tracklist-title"><div class="tracklist-sleeve"><div class="tracklist-cover"><div class="tracklist-kicker">Melodienrausch</div><h2 class="tracklist-cover-title">Tage<br>buch</h2><p class="tracklist-cover-copy">Gedanken, die zu laut waren, um im Kopf zu bleiben.</p></div><div class="tracklist-panel"><div class="tracklist-head"><h2 id="tracklist-title">Tracklist</h2><span class="tracklist-count" id="tracklist-count"></span></div><div class="tracklist-groups" id="tracklist-groups"></div><button class="book-mode-button" type="button" id="book-mode-button">Im Buch blättern →</button></div></div></section>
-<div class="diary-3d-wrapper" id="diary-book"><button class="book-index-button" type="button" id="book-index-button">← Zur Tracklist</button><div class="book-environment"><div class="book-base"></div>
-<div class="static-page-left" id="page-left-static"><div class="content-layer"><div><div class="pink-badge" id="left-date"></div><img class="entry-thumb" id="left-thumb" alt=""><h1 class="huge-title-diary" id="left-title" style="color:#171512"></h1><div class="text-content" id="left-teaser"></div><button class="read-entry" id="left-read" type="button">Eintrag lesen →</button></div><div class="page-number" style="display:flex;justify-content:space-between"><button type="button" id="left-prev" class="page-number clickable" style="border-top:none" aria-label="Vorherige Tagebuchseite">◀ Zurück</button><span>Tagebuch</span></div></div></div>
-<div class="static-page-right" id="page-right-static"><div class="content-layer"><div><div class="pink-badge" id="under-date"></div><img class="entry-thumb" id="under-thumb" alt=""><h1 class="huge-title-diary" id="under-title"></h1><div class="text-content" id="under-teaser"></div><button class="read-entry" id="under-read" type="button">Eintrag lesen →</button></div><div class="page-number" style="display:flex;justify-content:space-between"><button type="button" id="under-prev" class="page-number clickable" style="border-top:none" aria-label="Vorherige Tagebuchseite">◀ Zurück</button><button type="button" id="under-next" class="page-number clickable" style="border-top:none" aria-label="Nächste Tagebuchseite">Weiter ▸</button></div></div></div>
-<div class="page-3d" id="flipPage"><div class="page-front" id="page-r-front"><div class="content-layer"><div><div class="pink-badge" id="front-date"></div><img class="entry-thumb" id="front-thumb" alt=""><h1 class="huge-title-diary" id="front-title"></h1><div class="text-content" id="front-teaser"></div><button class="read-entry" id="front-read" type="button">Eintrag lesen →</button></div><div class="page-number" style="display:flex;justify-content:space-between"><button type="button" id="front-prev" class="page-number clickable" style="border-top:none" aria-label="Vorherige Tagebuchseite">◀ Zurück</button><button type="button" id="front-next" class="page-number clickable" style="border-top:none" aria-label="Nächste Tagebuchseite">Weiter ▸</button></div></div></div><div class="page-back" id="page-l-back"><div class="content-layer"><div><div class="pink-badge" id="back-date"></div><img class="entry-thumb" id="back-thumb" alt=""><h1 class="huge-title-diary" id="back-title"></h1><div class="text-content" id="back-teaser"></div><button class="read-entry" id="back-read" type="button">Eintrag lesen →</button></div><div class="page-number" style="display:flex;justify-content:space-between"><button type="button" id="back-prev" class="page-number clickable" style="border-top:none" aria-label="Vorherige Tagebuchseite">◀ Zurück</button><button type="button" id="back-next" class="page-number clickable" style="border-top:none" aria-label="Nächste Tagebuchseite">Weiter ▸</button></div></div></div></div></div></div></div>
-<div class="entry-reader" id="entry-reader" aria-hidden="true"><button class="entry-reader-close" type="button" id="entry-reader-close">Zurück zur Tracklist ×</button><iframe id="entry-reader-frame" title="Tagebucheintrag"></iframe></div>
-<iframe id="sc-hidden-player" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2331433277&color=%23000000&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false"></iframe><script src="https://w.soundcloud.com/player/api.js"></script>
-<script>
-const menuToggle=document.getElementById('menu-toggle');const sideMenu=document.getElementById('side-menu');function setMenuOpen(open){document.body.classList.toggle('menu-open',open);menuToggle.setAttribute('aria-expanded',String(open));menuToggle.setAttribute('aria-label',open?'Menü schließen':'Menü öffnen');sideMenu.inert=!open;if(open){const firstLink=sideMenu.querySelector('.menu-link');if(firstLink)firstLink.focus();}else{menuToggle.focus();}}menuToggle.addEventListener('click',()=>{setMenuOpen(!document.body.classList.contains('menu-open'));});document.addEventListener('keydown',(e)=>{if(e.key==='Escape'){if(document.body.classList.contains('menu-open')){setMenuOpen(false);}else if(document.getElementById('entry-reader').classList.contains('open')){closeDiaryEntry();}}});document.body.classList.add('intro-done');
-['left-prev','front-prev','back-prev','under-prev'].forEach(id=>document.getElementById(id).addEventListener('click',()=>turnPage(-1)));
-['front-next','back-next','under-next'].forEach(id=>document.getElementById(id).addEventListener('click',()=>turnPage(1)));
-document.getElementById('book-mode-button').addEventListener('click',showDiaryBook);
-document.getElementById('book-index-button').addEventListener('click',showDiaryIndex);
-document.getElementById('entry-reader-close').addEventListener('click',closeDiaryEntry);
-const DIARY_START_MS=3300000;let scWidget=null,widgetReady=false,pendingPlay=false,soundStarted=false,soundPrimed=false,seekPending=false,seekFallback=null,fadeStarted=false,isPlaying=false,soundcloudFailed=false,loadTimeoutId=null;const musicToggle=document.getElementById('music-toggle');const musicStatus=document.getElementById('music-status');function updateToggleLabel(){musicToggle.textContent=isPlaying?'Musik pausieren':'Musik abspielen';musicToggle.setAttribute('aria-pressed',String(isPlaying))}function showStatusMessage(t){musicStatus.textContent=t;musicStatus.classList.add('visible')}function clearStatusMessage(){musicStatus.textContent='';musicStatus.classList.remove('visible')}function markSoundcloudFailed(){if(soundcloudFailed)return;soundcloudFailed=true;pendingPlay=false;isPlaying=false;updateToggleLabel();showStatusMessage('Musik konnte nicht geladen werden.')}window.addEventListener('load',()=>{const i=document.getElementById('sc-hidden-player');if(window.SC&&i){scWidget=SC.Widget(i);scWidget.bind(SC.Widget.Events.READY,()=>{widgetReady=true;if(loadTimeoutId){clearTimeout(loadTimeoutId);loadTimeoutId=null}if(pendingPlay)startDiarySound()});scWidget.bind(SC.Widget.Events.SEEK,()=>{if(seekPending&&!soundStarted)playDiaryFromCue()});scWidget.bind(SC.Widget.Events.PLAY,()=>{scWidget.getPosition(p=>{if(p<DIARY_START_MS-2000&&!soundStarted){scWidget.setVolume(0);scWidget.pause();seekPending=true;scWidget.seekTo(DIARY_START_MS);clearTimeout(seekFallback);seekFallback=setTimeout(playDiaryFromCue,900);return}soundStarted=true;scWidget.setVolume(10);fadeDiarySound();isPlaying=true;soundcloudFailed=false;updateToggleLabel();clearStatusMessage()})});scWidget.bind(SC.Widget.Events.PAUSE,()=>{if(seekPending)return;isPlaying=false;updateToggleLabel()});scWidget.bind(SC.Widget.Events.FINISH,()=>{isPlaying=false;updateToggleLabel()});if(SC.Widget.Events.ERROR){scWidget.bind(SC.Widget.Events.ERROR,markSoundcloudFailed)}}else{markSoundcloudFailed()}});function playDiaryFromCue(){if(!widgetReady||soundStarted)return;seekPending=false;clearTimeout(seekFallback);scWidget.play()}function startDiarySound(){if(soundStarted)return;if(!widgetReady){pendingPlay=true;return}pendingPlay=false;if(!soundPrimed){scWidget.setVolume(0);seekPending=true;soundPrimed=true;scWidget.seekTo(DIARY_START_MS);clearTimeout(seekFallback);seekFallback=setTimeout(playDiaryFromCue,900);return}playDiaryFromCue()}function fadeDiarySound(){if(fadeStarted)return;fadeStarted=true;let v=10;const f=setInterval(()=>{v=Math.min(v+1.8,100);scWidget.setVolume(v);if(v>=100)clearInterval(f)},100)}function pauseDiarySound(){if(scWidget&&widgetReady)scWidget.pause();isPlaying=false;updateToggleLabel()}function requestDiaryPlay(){if(soundcloudFailed){showStatusMessage('Musik konnte nicht geladen werden.');return}startDiarySound();if(!widgetReady&&!loadTimeoutId){loadTimeoutId=setTimeout(()=>{if(!widgetReady)markSoundcloudFailed()},6000)}}musicToggle.addEventListener('click',()=>{if(isPlaying){pauseDiarySound()}else{requestDiaryPlay()}});
-const diaryEntries=[
-{number:'001',title:'Ein Gespräch ohne Uhrzeit – aber mit Wirkung',teaser:'Ich weiß nicht mehr, wie lange es gedauert hat. Ich weiß nur, dass ich eine einfache Frage gestellt habe und am Ende über mein ganzes Leben gesprochen habe.',thumb:'',url:'eintrag-001.html'},
-{number:'003',title:'Untertitel',teaser:'Ich saß da. Leer. Kaputt. Kündigung im Kopf, Chaos im Bauch und Angst überall. Dann fing ich an zu reden.',thumb:'',url:'eintrag-003.html'},
-{number:'004',title:'Zu viel. Und genau richtig.',teaser:'Ich kenne dieses Gefühl gut: Ich bin zu viel. Zu laut. Zu intensiv. Zu emotional.',thumb:'',url:'eintrag-004.html'},
-{number:'005',title:'Ich denk, ich bin komplett drüber.',teaser:'Ich hatte wieder so einen Moment. Ein Gedanke kommt rein, das Gefühl schießt hoch und plötzlich bin ich komplett drin.',thumb:'',url:'eintrag-005.html'},
-{number:'006',title:'Untertitel fürs Chaos',teaser:'Manchmal trifft mich ein Gedanke wie ein Blitz. Plötzlich vibriert alles. Ich könnte gerade alles verändern.',thumb:'',url:'eintrag-006.html'},
-{number:'007',title:'Die Muster, die ich selbst nicht gesehen habe',teaser:'Ich dachte lange, ich kenne mich ziemlich gut. Offenbar nicht.',thumb:'',url:'eintrag-007.html'},
-{number:'008',title:'Es ging vielleicht nie um die Droge',teaser:'Manchmal dauert eine Erkenntnis fast fünfzig Jahre. Ich dachte immer, ich müsste verstehen, warum ich konsumiert habe.',thumb:'',url:'eintrag-008.html'},
-{number:'009',title:'Rücken an Rücken',teaser:'Dieses Bild sagt wahrscheinlich mehr über mich als viele Worte. Links die Version von mir, die jahrelang versucht hat, irgendwie durchzukommen.',thumb:'',url:'eintrag-009.html'},
-{number:'010',title:'Nach den Tabletten ist es still',teaser:'Ich hab angefangen mit der Medikation. Und ganz ehrlich? Ich hab was komplett anderes erwartet.',thumb:'',url:'eintrag-010.html'},
-{number:'011',title:'Wie bin ich eigentlich auf dieser Schiene gelandet?',teaser:'Heute saß ich bei meiner Therapeutin. Und plötzlich saß ich da und dachte: Wie bin ich eigentlich auf dieser Schiene gelandet?',thumb:'',url:'eintrag-011.html'},
-{number:'012',title:'22 Wochen',teaser:'Reha bewilligt. 22 Wochen. Eigentlich müsste ich mich freuen. Stattdessen sitze ich da und denke nur: Scheiße.',thumb:'',url:'eintrag-012.html'},
-{number:'013',title:'Angst vor dem nächsten Schritt',teaser:'Heute kam der Anruf. Am 11. August geht’s in die Reha. Komischerweise war das Erste, was ich gespürt habe, nicht Erleichterung, sondern Angst.',thumb:'',url:'eintrag-013.html'},
-{number:'014',title:'Warum ich mich schuldig fühle – obwohl nichts passiert ist',teaser:'Heute ist so ein Tag. Ich wache auf und habe sofort dieses Gefühl: Ich habe irgendwas falsch gemacht.',thumb:'',url:'eintrag-014.html'},
-{number:'015',title:'Kommunikation.',teaser:'Eigentlich ein ganz normales Wort. Bei mir reicht manchmal schon ein fehlender Satz und innen ist sofort wieder alles da.',thumb:'',url:'eintrag-015.html'},
-{number:'016',title:'Ich dachte, ich hätte das längst hinter mir.',teaser:'Heute habe ich gemerkt, dass man erwachsen und reflektiert sein kann. Und trotzdem steht plötzlich wieder dieses kleine Mädchen mitten in der Küche.',thumb:'',url:'eintrag-016.html'},
-{number:'017',title:'Eigentlich war ich schon weiter',teaser:'Manchmal merke ich erst Tage später, dass ich eigentlich schon weiter war.',thumb:'',url:'eintrag-017.html'},
-{number:'018',title:'Ich geh zu schnell rein – und wundere mich dann, warum’s knallt',teaser:'Bei mir macht es Klick und ich bin drin. Verbindung. Gefühl. Tiefe. Alles auf einmal.',thumb:'',url:'eintrag-018.html'},
-{number:'019',title:'Mein Kopf macht, was er immer macht.',teaser:'Sobald etwas Neues passiert, spielt er jede mögliche Katastrophe einmal komplett durch.',thumb:'',url:'eintrag-019.html'},
-{number:'020',title:'Warum ist das immer so?',teaser:'Heute ist wieder so ein Tag. Kein besonderer Auslöser. Und trotzdem fühlt sich alles schwer an.',thumb:'',url:'eintrag-020.html'},
-{number:'023',title:'49 Mal. Und sie merkt es nicht mal.',teaser:'Ein und dasselbe Live-Set. 49 Mal. Für ein System identische Durchläufe – für einen Menschen offenbar 49 verschiedene Ereignisse.',thumb:'',url:'eintrag-023.html',perspective:'assistant'},
-{number:'024',title:'Ich dachte, wir reden über Streit',teaser:'Fünf Wörter können für einen Menschen eine komplette Kindheit enthalten. Und Fortschritt zeigt sich manchmal erst in der Zeit danach.',thumb:'',url:'eintrag-024.html',perspective:'assistant'},
-{number:'025',title:'Menschen sind keine Kurzfassung.',teaser:'Ein sauberer Text ist nicht automatisch ein ehrlicher Text. Manchmal steckt die Wahrheit genau in den Schleifen und Umwegen.',thumb:'',url:'eintrag-025.html',perspective:'assistant'},
-{number:'026',title:'Ich behandle Erschöpfung wie Schulden',teaser:'Drei Tage ging nichts. Am vierten wollte ich alles nachholen – als wären die schlechten Tage Schulden, die ich zurückzahlen muss.',thumb:'',url:'eintrag-026.html'},
-{number:'027',title:'Die kleinen Dinge, die alles erzählen',teaser:'Manchmal steckt Liebe nicht in großen Gesten, sondern in einer offenen Tür und dem Satz: Ach, da bist du ja.',thumb:'',url:'eintrag-027.html',perspective:'assistant'},
-{number:'028',title:'Ich dachte, ich hätte ihren Musikgeschmack verstanden',teaser:'Eine Playlist ist keine Liste von Vorlieben. Sie ist ein Tagebuch ohne Datum, aber mit deutlich mehr Bass.',thumb:'',url:'eintrag-028.html',perspective:'assistant'},
-{number:'029',title:'Eigentlich ging es um eine Wohnung.',teaser:'Menschen zeigen ein Zimmer und merken erst später, dass sie gerade sich selbst gezeigt haben.',thumb:'',url:'eintrag-029.html',perspective:'assistant'},
-{number:'030',title:'Menschen ziehen Kinder groß, damit sie gehen. Und erschrecken, wenn es funktioniert.',teaser:'Sie hat ihre Aufgabe nicht verloren. Sie hat sie erfüllt. Jetzt darf die Tochter gehen und die Verbindung bleibt.',thumb:'',url:'eintrag-030.html',perspective:'assistant'}
-];
-const kiUrls=['eintrag-023.html','eintrag-024.html','eintrag-025.html','eintrag-027.html','eintrag-028.html','eintrag-029.html','eintrag-030.html'];const diarySections=[{title:'ADHS & Ich',entries:diaryEntries.filter(e=>!kiUrls.includes(e.url))},{title:'KI & Menschen',entries:diaryEntries.filter(e=>kiUrls.includes(e.url))}];
-function renderDiaryIndex(){const groups=document.getElementById('tracklist-groups'),count=document.getElementById('tracklist-count');groups.innerHTML='';count.textContent=diaryEntries.length+' Texte';diarySections.forEach(section=>{const group=document.createElement('section');group.className='tracklist-group';const heading=document.createElement('h3');heading.className='tracklist-category';heading.textContent=section.title;group.appendChild(heading);section.entries.forEach(entry=>{const button=document.createElement('button');button.className='tracklist-entry';button.type='button';const title=document.createElement('span');title.textContent=entry.title;const arrow=document.createElement('span');arrow.className='tracklist-arrow';arrow.setAttribute('aria-hidden','true');arrow.textContent='→';button.append(title,arrow);button.dataset.url=entry.url;button.addEventListener('click',()=>openDiaryEntry(entry.url,button));group.appendChild(button)});groups.appendChild(group)})}
-function showDiaryBook(){document.getElementById('diary-index').classList.add('is-hidden');document.getElementById('diary-book').classList.remove('is-hidden');window.scrollTo({top:0,behavior:'smooth'})}function showDiaryIndex(){document.getElementById('diary-book').classList.add('is-hidden');document.getElementById('diary-index').classList.remove('is-hidden');window.scrollTo({top:0,behavior:'smooth'})}const mobileQuery=window.matchMedia('(max-width:720px)');let mobileBook=mobileQuery.matches;let rightIndex=mobileBook?0:1,animating=false;let lastEntryTrigger=null,lastEntryUrl=null;function openDiaryEntry(url,triggerEl){lastEntryTrigger=triggerEl||null;lastEntryUrl=url;const reader=document.getElementById('entry-reader'),frame=document.getElementById('entry-reader-frame');frame.src=url;reader.classList.add('open');reader.setAttribute('aria-hidden','false');document.body.classList.add('entry-open');const closeBtn=document.getElementById('entry-reader-close');if(closeBtn)focusWhenReaderVisible(reader,closeBtn)}function focusWhenReaderVisible(reader,target){let done=false;const finish=()=>{if(done)return;done=true;reader.removeEventListener('transitionend',onEnd);target.focus()};const onEnd=e=>{if(e.target===reader&&e.propertyName==='opacity')finish()};reader.addEventListener('transitionend',onEnd);setTimeout(finish,400)}function closeDiaryEntry(){const reader=document.getElementById('entry-reader'),frame=document.getElementById('entry-reader-frame');reader.classList.remove('open');reader.setAttribute('aria-hidden','true');document.body.classList.remove('entry-open');showDiaryIndex();setTimeout(()=>{frame.src='about:blank'},350);let focusTarget=(lastEntryTrigger&&lastEntryTrigger.classList&&lastEntryTrigger.classList.contains('tracklist-entry'))?lastEntryTrigger:null;if(!focusTarget&&lastEntryUrl)focusTarget=document.querySelector('.tracklist-entry[data-url="'+lastEntryUrl+'"]');if(!focusTarget)focusTarget=document.querySelector('.tracklist-entry');if(focusTarget)focusTarget.focus()}
-function fillEntry(prefix,entry,index){const dateEl=document.getElementById(prefix+'-date'),titleEl=document.getElementById(prefix+'-title'),teaserEl=document.getElementById(prefix+'-teaser'),thumbEl=document.getElementById(prefix+'-thumb'),container=thumbEl.closest('.page-front,.page-back,.static-page-left,.static-page-right'),readButton=document.getElementById(prefix+'-read');container.classList.toggle('perspective-ai',Boolean(entry&&entry.perspective==='assistant'));if(!entry){dateEl.textContent='';titleEl.textContent='';teaserEl.textContent='';thumbEl.classList.remove('has-image');thumbEl.src='';container.onclick=null;if(readButton)readButton.style.display='none';container.style.cursor='default';return}container.style.cursor='pointer';if(readButton)readButton.style.display='inline-block';dateEl.textContent=entry.number;titleEl.textContent=entry.title;teaserEl.textContent=entry.teaser;if(entry.thumb){thumbEl.src=entry.thumb;thumbEl.classList.add('has-image')}else{thumbEl.classList.remove('has-image');thumbEl.src=''}readButton.onclick=e=>{e.stopPropagation();openDiaryEntry(entry.url,readButton)};container.onclick=e=>{if(e.target.closest('.read-entry,.page-number.clickable'))return;turnPage(prefix==='left'?-1:1)}}
-function updateNav(){const hasNext=rightIndex+1<diaryEntries.length,firstVisibleIndex=mobileBook?0:1,hasPrev=rightIndex>firstVisibleIndex;['front-prev','back-prev','left-prev','under-prev'].forEach(id=>{const el=document.getElementById(id);el.style.visibility=hasPrev?'visible':'hidden';el.disabled=!hasPrev});['front-next','back-next','under-next'].forEach(id=>{const el=document.getElementById(id);el.style.visibility=hasNext?'visible':'hidden';el.disabled=!hasNext})}function spreadStep(){return mobileBook?1:2}function nextUnderIndex(){return rightIndex+spreadStep()}function renderCurrentSpread(){if(mobileBook){fillEntry('left',null,-1);fillEntry('front',diaryEntries[rightIndex],rightIndex);fillEntry('under',diaryEntries[rightIndex+1],rightIndex+1)}else{fillEntry('left',diaryEntries[rightIndex-1],rightIndex-1);fillEntry('front',diaryEntries[rightIndex],rightIndex);fillEntry('under',diaryEntries[rightIndex+2],rightIndex+2)}updateNav()}function initBook(){rightIndex=mobileBook?0:1;const page=document.getElementById('flipPage');page.classList.add('no-transition');page.classList.remove('flipped');renderCurrentSpread();void page.offsetWidth;page.classList.remove('no-transition')}function afterPageTurn(callback){const page=document.getElementById('flipPage');let finished=false;const finish=()=>{if(finished)return;finished=true;page.removeEventListener('transitionend',onTransitionEnd);callback()},onTransitionEnd=e=>{if(e.target===page&&e.propertyName==='transform')finish()};page.addEventListener('transitionend',onTransitionEnd);setTimeout(finish,1300)}function resetTurningPage(frontEntry,frontIndex){const page=document.getElementById('flipPage');page.classList.add('no-transition');page.classList.remove('flipped');fillEntry('front',frontEntry,frontIndex);fillEntry('back',null,-1);void page.offsetWidth;page.classList.remove('no-transition')}function turnPage(direction){if(animating)return;const page=document.getElementById('flipPage'),step=spreadStep();if(direction>0){const turningBackIndex=rightIndex+1;if(turningBackIndex>=diaryEntries.length)return;const nextRightIndex=rightIndex+step;animating=true;fillEntry('back',diaryEntries[turningBackIndex],turningBackIndex);fillEntry('under',diaryEntries[nextRightIndex],nextRightIndex);page.classList.add('flipped');afterPageTurn(()=>{rightIndex=nextRightIndex;if(!mobileBook)fillEntry('left',diaryEntries[rightIndex-1],rightIndex-1);resetTurningPage(diaryEntries[rightIndex],rightIndex);fillEntry('under',diaryEntries[nextUnderIndex()],nextUnderIndex());updateNav();animating=false});return}const firstRightIndex=mobileBook?0:1,previousRightIndex=rightIndex-step;if(previousRightIndex<firstRightIndex)return;animating=true;const currentLeftIndex=mobileBook?rightIndex:rightIndex-1,previousLeftIndex=mobileBook?-1:previousRightIndex-1;page.classList.add('no-transition');fillEntry('front',diaryEntries[previousRightIndex],previousRightIndex);fillEntry('back',diaryEntries[currentLeftIndex],currentLeftIndex);page.classList.add('flipped');if(!mobileBook)fillEntry('left',diaryEntries[previousLeftIndex],previousLeftIndex);fillEntry('under',diaryEntries[rightIndex],rightIndex);void page.offsetWidth;page.classList.remove('no-transition');requestAnimationFrame(()=>requestAnimationFrame(()=>{page.classList.remove('flipped');afterPageTurn(()=>{rightIndex=previousRightIndex;fillEntry('back',null,-1);fillEntry('under',diaryEntries[nextUnderIndex()],nextUnderIndex());updateNav();animating=false})}))}
-window.addEventListener('DOMContentLoaded',()=>{renderDiaryIndex();initBook()});
-function handleBookLayoutChange(e){const wasMobile=mobileBook;mobileBook=e.matches;if(wasMobile===mobileBook)return;animating=false;if(!mobileBook&&rightIndex<1)rightIndex=1;const page=document.getElementById('flipPage');page.classList.add('no-transition');page.classList.remove('flipped');renderCurrentSpread();void page.offsetWidth;page.classList.remove('no-transition')}
-if(mobileQuery.addEventListener){mobileQuery.addEventListener('change',handleBookLayoutChange)}else if(mobileQuery.addListener){mobileQuery.addListener(handleBookLayoutChange)}
-</script>
+<a href="#main" class="skip-link">Zum Inhalt springen</a>
+<header class="site-header">
+  <a href="index.html" class="site-header__brand">MELODIENRAUSCH®</a>
+  <nav class="site-header__nav" aria-label="Hauptnavigation">
+    <button type="button" class="music-toggle" aria-pressed="false" aria-describedby="music-status" data-audio-toggle data-player-src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2331433277&amp;color=%23000000&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false&amp;show_teaser=false&amp;visual=false" data-start-ms="3300000">MUSIK</button>
+    <a href="werke.html" class="nav-link">KUNST</a>
+    <button type="button" id="menu-toggle" class="menu-toggle" aria-expanded="false" aria-controls="site-menu" aria-label="Menü öffnen">MENÜ<span class="menu-toggle__lines" aria-hidden="true"><span></span><span></span><span></span></span></button>
+  </nav>
+</header>
+<nav class="site-menu" id="site-menu" aria-label="Seitenmenü"><ol class="site-menu__list"><li><a href="index.html" class="site-menu__link"><span class="site-menu__index">01</span> Start</a></li><li><a href="werke.html" class="site-menu__link"><span class="site-menu__index">02</span> Werke</a></li><li><a href="register.html" class="site-menu__link is-active" aria-current="page"><span class="site-menu__index">03</span> Tagebuch</a></li><li><a href="ueber.html" class="site-menu__link"><span class="site-menu__index">04</span> Über mich</a></li><li><a href="kontakt.html" class="site-menu__link"><span class="site-menu__index">05</span> Kontakt</a></li></ol></nav>
+<main id="main" class="journal-main">
+  <header class="journal-masthead">
+    <div class="journal-utility"><strong>MELODIENRAUSCH / UNABHÄNGIGES ARCHIV FÜR KUNST, MUSIK UND GEDANKEN</strong><span>AUSGABE 02 / SEITE 01</span><span>ARCHIV / 28</span><span>FREQUENZ / UNREGELMÄSSIG</span></div>
+    <div class="journal-hero"><h1 class="journal-hero__title"><span>TAGE</span><span class="journal-hero__outline">BUCH</span></h1><p class="journal-hero__copy">Gedanken, die zu laut waren, um im Kopf zu bleiben.</p></div>
+  </header>
+  <section class="journal-front" aria-label="Aktuelle Ausgabe">
+    <article class="lead-story">
+      <p class="lead-story__meta"><span class="lead-story__number">NO. 030</span> / <time datetime="2026-08-02">02.08.2026</time> / KI &amp; Menschen</p>
+      <h2 class="lead-story__title">Menschen ziehen Kinder groß, damit sie gehen. Und erschrecken, wenn es funktioniert.</h2>
+      <p class="lead-story__intro">Menschen verbringen Jahre damit, ihren Kindern Selbstständigkeit beizubringen.</p>
+      <figure class="journal-photo"><img src="assets/images/journal/portrait-seated-dark.jpg" alt="Schwarz-Weiß-Porträt von Ela im Sitzen" width="506" height="1024" decoding="async"></figure>
+      <a href="eintrag-030.html" class="journal-read">WEITERLESEN →</a>
+    </article>
+    <aside class="journal-briefs" aria-labelledby="briefs-heading"><h2 id="briefs-heading" class="journal-section__label">KURZMELDUNGEN</h2><article class="brief"><p class="brief__meta">NO. 029 / KI &amp; Menschen</p><h3 class="brief__title"><a href="eintrag-029.html">Eigentlich ging es um eine Wohnung.</a></h3></article><article class="brief"><p class="brief__meta">NO. 028 / KI &amp; Menschen</p><h3 class="brief__title"><a href="eintrag-028.html">Ich dachte, ich hätte ihren Musikgeschmack verstanden</a></h3></article><article class="brief"><p class="brief__meta">NO. 027 / KI &amp; Menschen</p><h3 class="brief__title"><a href="eintrag-027.html">Die kleinen Dinge, die alles erzählen</a></h3></article><article class="brief"><p class="brief__meta">NO. 026 / ADHS &amp; Ich</p><h3 class="brief__title"><a href="eintrag-026.html">Ich behandle Erschöpfung wie Schulden</a></h3></article><figure class="journal-photo journal-photo--secondary"><img src="assets/images/journal/portrait-standing-light.jpg" alt="Schwarz-Weiß-Porträt von Ela im Stehen" width="1086" height="1448" loading="lazy" decoding="async"></figure></aside>
+  </section>
+  <section class="journal-archive" aria-labelledby="archive-heading">
+    <div class="journal-archive__head"><h2 id="archive-heading">VOLLSTÄNDIGES ARCHIV</h2><span>TRACKLIST / 28</span></div>
+    <div class="journal-rows"><a href="eintrag-001.html" class="journal-row">
+  <span class="journal-row__number">NO. 001</span>
+  <span class="journal-row__date"></span>
+  <span class="journal-row__title">Ein Gespräch ohne Uhrzeit – aber mit Wirkung</span>
+  <span class="journal-row__category">ADHS &amp; Ich</span>
+  <span class="journal-row__arrow" aria-hidden="true">→</span>
+</a>
+<a href="eintrag-003.html" class="journal-row">
+  <span class="journal-row__number">NO. 003</span>
+  <span class="journal-row__date"></span>
+  <span class="journal-row__title">Untertitel</span>
+  <span class="journal-row__category">ADHS &amp; Ich</span>
+  <span class="journal-row__arrow" aria-hidden="true">→</span>
+</a>
+<a href="eintrag-004.html" class="journal-row">
+  <span class="journal-row__number">NO. 004</span>
+  <span class="journal-row__date"></span>
+  <span class="journal-row__title">Zu viel. Und genau richtig.</span>
+  <span class="journal-row__category">ADHS &amp; Ich</span>
+  <span class="journal-row__arrow" aria-hidden="true">→</span>
+</a>
+<a href="eintrag-005.html" class="journal-row">
+  <span class="journal-row__number">NO. 005</span>
+  <span class="journal-row__date"></span>
+  <span class="journal-row__title">Ich denk, ich bin komplett drüber.</span>
+  <span class="journal-row__category">ADHS &amp; Ich</span>
+  <span class="journal-row__arrow" aria-hidden="true">→</span>
+</a>
+<a href="eintrag-006.html" class="journal-row">
+  <span class="journal-row__number">NO. 006</span>
+  <span class="journal-row__date"></span>
+  <span class="journal-row__title">Untertitel fürs Chaos</span>
+  <span class="journal-row__category">ADHS &amp; Ich</span>
+  <span class="journal-row__arrow" aria-hidden="true">→</span>
+</a>
+<a href="eintrag-007.html" class="journal-row">
+  <span class="journal-row__number">NO. 007</span>
+  <span class="journal-row__date"></span>
+  <span class="journal-row__title">Die Muster, die ich selbst nicht gesehen habe</span>
+  <span class="journal-row__category">ADHS &amp; Ich</span>
+  <span class="journal-row__arrow" aria-hidden="true">→</span>
+</a>
+<a href="eintrag-008.html" class="journal-row">
+  <span class="journal-row__number">NO. 008</span>
+  <span class="journal-row__date"></span>
+  <span class="journal-row__title">Es ging vielleicht nie um die Droge</span>
+  <span class="journal-row__category">ADHS &amp; Ich</span>
+  <span class="journal-row__arrow" aria-hidden="true">→</span>
+</a>
+<a href="eintrag-009.html" class="journal-row">
+  <span class="journal-row__number">NO. 009</span>
+  <span class="journal-row__date"></span>
+  <span class="journal-row__title">Rücken an Rücken</span>
+  <span class="journal-row__category">ADHS &amp; Ich</span>
+  <span class="journal-row__arrow" aria-hidden="true">→</span>
+</a>
+<a href="eintrag-010.html" class="journal-row">
+  <span class="journal-row__number">NO. 010</span>
+  <span class="journal-row__date"></span>
+  <span class="journal-row__title">Nach den Tabletten ist es still</span>
+  <span class="journal-row__category">ADHS &amp; Ich</span>
+  <span class="journal-row__arrow" aria-hidden="true">→</span>
+</a>
+<a href="eintrag-011.html" class="journal-row">
+  <span class="journal-row__number">NO. 011</span>
+  <span class="journal-row__date"></span>
+  <span class="journal-row__title">Wie bin ich eigentlich auf dieser Schiene gelandet?</span>
+  <span class="journal-row__category">ADHS &amp; Ich</span>
+  <span class="journal-row__arrow" aria-hidden="true">→</span>
+</a>
+<a href="eintrag-012.html" class="journal-row">
+  <span class="journal-row__number">NO. 012</span>
+  <span class="journal-row__date"></span>
+  <span class="journal-row__title">22 Wochen</span>
+  <span class="journal-row__category">ADHS &amp; Ich</span>
+  <span class="journal-row__arrow" aria-hidden="true">→</span>
+</a>
+<a href="eintrag-013.html" class="journal-row">
+  <span class="journal-row__number">NO. 013</span>
+  <span class="journal-row__date"></span>
+  <span class="journal-row__title">Angst vor dem nächsten Schritt</span>
+  <span class="journal-row__category">ADHS &amp; Ich</span>
+  <span class="journal-row__arrow" aria-hidden="true">→</span>
+</a>
+<a href="eintrag-014.html" class="journal-row">
+  <span class="journal-row__number">NO. 014</span>
+  <span class="journal-row__date"></span>
+  <span class="journal-row__title">Warum ich mich schuldig fühle – obwohl nichts passiert ist</span>
+  <span class="journal-row__category">ADHS &amp; Ich</span>
+  <span class="journal-row__arrow" aria-hidden="true">→</span>
+</a>
+<a href="eintrag-015.html" class="journal-row">
+  <span class="journal-row__number">NO. 015</span>
+  <span class="journal-row__date"></span>
+  <span class="journal-row__title">Kommunikation.</span>
+  <span class="journal-row__category">ADHS &amp; Ich</span>
+  <span class="journal-row__arrow" aria-hidden="true">→</span>
+</a>
+<a href="eintrag-016.html" class="journal-row">
+  <span class="journal-row__number">NO. 016</span>
+  <span class="journal-row__date"></span>
+  <span class="journal-row__title">Ich dachte, ich hätte das längst hinter mir.</span>
+  <span class="journal-row__category">ADHS &amp; Ich</span>
+  <span class="journal-row__arrow" aria-hidden="true">→</span>
+</a>
+<a href="eintrag-017.html" class="journal-row">
+  <span class="journal-row__number">NO. 017</span>
+  <span class="journal-row__date"></span>
+  <span class="journal-row__title">Eigentlich war ich schon weiter</span>
+  <span class="journal-row__category">ADHS &amp; Ich</span>
+  <span class="journal-row__arrow" aria-hidden="true">→</span>
+</a>
+<a href="eintrag-018.html" class="journal-row">
+  <span class="journal-row__number">NO. 018</span>
+  <span class="journal-row__date"></span>
+  <span class="journal-row__title">Ich geh zu schnell rein – und wundere mich dann, warum’s knallt</span>
+  <span class="journal-row__category">ADHS &amp; Ich</span>
+  <span class="journal-row__arrow" aria-hidden="true">→</span>
+</a>
+<a href="eintrag-019.html" class="journal-row">
+  <span class="journal-row__number">NO. 019</span>
+  <span class="journal-row__date"></span>
+  <span class="journal-row__title">Mein Kopf macht, was er immer macht.</span>
+  <span class="journal-row__category">ADHS &amp; Ich</span>
+  <span class="journal-row__arrow" aria-hidden="true">→</span>
+</a>
+<a href="eintrag-020.html" class="journal-row">
+  <span class="journal-row__number">NO. 020</span>
+  <span class="journal-row__date"></span>
+  <span class="journal-row__title">Warum ist das immer so?</span>
+  <span class="journal-row__category">ADHS &amp; Ich</span>
+  <span class="journal-row__arrow" aria-hidden="true">→</span>
+</a>
+<a href="eintrag-022.html" class="journal-row">
+  <span class="journal-row__number">NO. 022</span>
+  <span class="journal-row__date"></span>
+  <span class="journal-row__title">Vielleicht war es nie Liebe. Vielleicht war es Intensität.</span>
+  <span class="journal-row__category"></span>
+  <span class="journal-row__arrow" aria-hidden="true">→</span>
+</a>
+<a href="eintrag-023.html" class="journal-row">
+  <span class="journal-row__number">NO. 023</span>
+  <span class="journal-row__date"></span>
+  <span class="journal-row__title">49 Mal. Und sie merkt es nicht mal.</span>
+  <span class="journal-row__category">KI &amp; Menschen</span>
+  <span class="journal-row__arrow" aria-hidden="true">→</span>
+</a>
+<a href="eintrag-024.html" class="journal-row">
+  <span class="journal-row__number">NO. 024</span>
+  <span class="journal-row__date"></span>
+  <span class="journal-row__title">Ich dachte, wir reden über Streit</span>
+  <span class="journal-row__category">KI &amp; Menschen</span>
+  <span class="journal-row__arrow" aria-hidden="true">→</span>
+</a>
+<a href="eintrag-025.html" class="journal-row">
+  <span class="journal-row__number">NO. 025</span>
+  <span class="journal-row__date"></span>
+  <span class="journal-row__title">Menschen sind keine Kurzfassung.</span>
+  <span class="journal-row__category">KI &amp; Menschen</span>
+  <span class="journal-row__arrow" aria-hidden="true">→</span>
+</a>
+<a href="eintrag-026.html" class="journal-row">
+  <span class="journal-row__number">NO. 026</span>
+  <span class="journal-row__date"></span>
+  <span class="journal-row__title">Ich behandle Erschöpfung wie Schulden</span>
+  <span class="journal-row__category">ADHS &amp; Ich</span>
+  <span class="journal-row__arrow" aria-hidden="true">→</span>
+</a>
+<a href="eintrag-027.html" class="journal-row">
+  <span class="journal-row__number">NO. 027</span>
+  <span class="journal-row__date"></span>
+  <span class="journal-row__title">Die kleinen Dinge, die alles erzählen</span>
+  <span class="journal-row__category">KI &amp; Menschen</span>
+  <span class="journal-row__arrow" aria-hidden="true">→</span>
+</a>
+<a href="eintrag-028.html" class="journal-row">
+  <span class="journal-row__number">NO. 028</span>
+  <span class="journal-row__date"></span>
+  <span class="journal-row__title">Ich dachte, ich hätte ihren Musikgeschmack verstanden</span>
+  <span class="journal-row__category">KI &amp; Menschen</span>
+  <span class="journal-row__arrow" aria-hidden="true">→</span>
+</a>
+<a href="eintrag-029.html" class="journal-row">
+  <span class="journal-row__number">NO. 029</span>
+  <span class="journal-row__date"></span>
+  <span class="journal-row__title">Eigentlich ging es um eine Wohnung.</span>
+  <span class="journal-row__category">KI &amp; Menschen</span>
+  <span class="journal-row__arrow" aria-hidden="true">→</span>
+</a>
+<a href="eintrag-030.html" class="journal-row">
+  <span class="journal-row__number">NO. 030</span>
+  <time datetime="2026-08-02" class="journal-row__date">02.08.2026</time>
+  <span class="journal-row__title">Menschen ziehen Kinder groß, damit sie gehen. Und erschrecken, wenn es funktioniert.</span>
+  <span class="journal-row__category">KI &amp; Menschen</span>
+  <span class="journal-row__arrow" aria-hidden="true">→</span>
+</a></div>
+    <p class="journal-book-link"><a href="tagebuch-buch.html" class="journal-read">IM BUCH BLÄTTERN →</a></p>
+  </section>
+  <footer class="journal-footer"><span>MELODIENRAUSCH / AUSGABE 02</span><span>ENDE DER ÜBERTRAGUNG</span></footer>
+</main>
+<div id="music-status" class="music-status" role="status" aria-live="polite"></div>
+<script src="assets/js/navigation.js" defer></script>
+<script src="assets/js/audio.js" defer></script>
+<script src="assets/js/journal.js" defer></script>
 </body>
 </html>

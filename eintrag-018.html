@@ -1,84 +1,43 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+<script>document.documentElement.classList.add('js');</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MELODIENRAUSCH // TAGEBUCH</title>
+<title>Ich geh zu schnell rein – und wundere mich dann, warum’s knallt — Melodienrausch Tagebuch</title>
+<meta name="theme-color" content="#080807">
+<link rel="canonical" href="https://elaneumann1976-dotcom.github.io/Melodienrausch/eintrag-018.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ich geh zu schnell rein – und wundere mich dann, warum’s knallt — Melodienrausch Tagebuch">
+<meta property="og:url" content="https://elaneumann1976-dotcom.github.io/Melodienrausch/eintrag-018.html">
+<meta property="og:locale" content="de_DE">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Shadows+Into+Light&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<script src="cursor.js" defer></script>
-<style>
-  html, body { overflow-x: hidden; }
-  .main-content { min-height: 100vh; color: #000000; background:#f5f3ee; }
-  .hero-header {
-    position: fixed; top: 0; left: 0; width: 100%;
-    display: flex; justify-content: space-between; align-items: flex-end;
-    padding: 30px 40px 10px 40px; box-sizing: border-box; z-index: 100;
-  }
-  .huge-title {
-    color: #000000;
-    font-family: 'Oswald', sans-serif;
-    font-size: clamp(20px, 3.2vw, 60px); font-weight: 700; line-height: 0.8;
-    letter-spacing: -1px; text-transform: uppercase; margin: 0; white-space: nowrap;
-  }
-
-  .entry-grid {
-    display: grid;
-    grid-template-columns: minmax(120px, 200px) minmax(0, 560px);
-    gap: 70px;
-    max-width: 980px;
-    margin: 0 auto;
-    padding: clamp(300px, 26vw, 420px) 40px 140px;
-    position: relative;
-  }
-
-  .meta-block {
-    grid-column: 1;
-    font-family: 'Oswald', sans-serif; font-size: 14px;
-    line-height: 1.4; text-transform: uppercase; position: relative; z-index: 101;
-  }
-  .back-link {
-    display: inline-block; margin-top: 18px; font-family: 'Oswald', sans-serif;
-    font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px;
-    color: #000000; text-decoration: none; border-bottom: 1px solid #000000; padding-bottom: 2px;
-  }
-  .back-link:hover { opacity: 0.6; }
-
-  .entry-main { grid-column: 2; position: relative; z-index: 101; }
-  .entry-headline {
-    font-family: 'Courier New', 'Courier', monospace; font-weight: 700;
-    font-size: clamp(19px, 2.2vw, 28px); line-height: 1.4;
-    text-transform: none; margin: 0 0 36px 0; letter-spacing: 0.5px;
-  }
-  .entry-text { max-width: 560px; font-size: 17px; line-height: 1.75; font-family: Arial, Helvetica, sans-serif; }
-  .entry-text p { margin: 0 0 13px 0; min-height: 1em; }
-
-  @media (max-width: 720px) {
-    .entry-grid { grid-template-columns: 1fr; gap: 24px; padding-top: clamp(180px, 34vw, 260px); }
-    .meta-block { grid-column: 1; }
-    .entry-main { grid-column: 1; }
-  }
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/journal.css">
+<link rel="stylesheet" href="assets/css/entry.css">
 </head>
-<body class="diary-entry layout-a">
-
-  <div class="custom-cursor" id="cursor"></div>
-
-<div class="main-content">
-    <div class="hero-header">
-      <h1 class="huge-title">MELODIENRAUSCH®</h1>
-</div>
-
-    <div class="entry-grid">
-      <div class="meta-block">
-        <a href="register.html" class="back-link">&#9664; Zurück zum Tagebuch</a>
-      </div>
-
-      <div class="entry-main">
-        <h2 class="entry-headline">Ich geh zu schnell rein – und wundere mich dann, warum’s knallt</h2>
-        <div class="entry-text">
+<body class="journal-entry">
+<a href="#main" class="skip-link">Zum Inhalt springen</a>
+<header class="site-header">
+  <a href="index.html" class="site-header__brand">MELODIENRAUSCH®</a>
+  <nav class="site-header__nav" aria-label="Hauptnavigation">
+    <button type="button" class="music-toggle" aria-pressed="false" aria-describedby="music-status" data-audio-toggle data-player-src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2331433277&amp;color=%23000000&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false&amp;show_teaser=false&amp;visual=false" data-start-ms="3300000">MUSIK</button>
+    <a href="werke.html" class="nav-link">KUNST</a>
+    <button type="button" id="menu-toggle" class="menu-toggle" aria-expanded="false" aria-controls="site-menu" aria-label="Menü öffnen">MENÜ<span class="menu-toggle__lines" aria-hidden="true"><span></span><span></span><span></span></span></button>
+  </nav>
+</header>
+<nav class="site-menu" id="site-menu" aria-label="Seitenmenü"><ol class="site-menu__list"><li><a href="index.html" class="site-menu__link"><span class="site-menu__index">01</span> Start</a></li><li><a href="werke.html" class="site-menu__link"><span class="site-menu__index">02</span> Werke</a></li><li><a href="register.html" class="site-menu__link is-active" aria-current="page"><span class="site-menu__index">03</span> Tagebuch</a></li><li><a href="ueber.html" class="site-menu__link"><span class="site-menu__index">04</span> Über mich</a></li><li><a href="kontakt.html" class="site-menu__link"><span class="site-menu__index">05</span> Kontakt</a></li></ol></nav>
+<main id="main" class="entry-main">
+  <article>
+    <p class="entry-kicker"><strong>MELODIENRAUSCH / TAGEBUCH</strong><span>AUSGABE 02</span></p>
+    <header class="entry-header">
+      <div class="entry-meta"><span class="entry-meta__number">NO. 018</span><span>ADHS &amp; Ich</span><a href="register.html">← ARCHIV</a></div>
+      <h1 class="entry-title">Ich geh zu schnell rein – und wundere mich dann, warum’s knallt</h1>
+    </header>
+    <div class="entry-body-layout"><aside class="entry-code" aria-label="Archivangaben"><span>ARCHIVCODE / MR-018</span><span>SEITE / 17</span></aside><div class="entry-text">
         <p>Bei mir macht es Klick und ich bin drin.</p>
         <p>Nicht langsam kennenlernen. Ein bisschen schauen, ein bisschen fühlen.</p>
         <p>Nein.</p>
@@ -105,16 +64,14 @@
         <p>Aber vielleicht muss ich mich nicht wie Fast Food komplett auf einmal servieren.</p>
         <p>Ich bin eher ein Menü.</p>
         <p>Und beim nächsten Mal fange ich vielleicht wirklich mit der Vorspeise an.</p>
-      </div>
-      </div>
-    </div>
-  </div>
-
-<script>
-// Diese Seite hat kein Intro (nur die 5 Hauptseiten haben das) — Inhalt
-  // sofort sichtbar machen, sonst bleibt .main-content dauerhaft bei opacity:0
-  // (siehe style.css: body.intro-done .main-content { opacity: 1; })
-  document.body.classList.add('intro-done');
-</script>
+      </div></div>
+    <nav class="entry-nav" aria-label="Navigation zwischen Tagebucheinträgen"><a href="eintrag-017.html" class="entry-nav__item entry-nav__item--prev"><span class="entry-nav__label">VORHERIGE SEITE</span><span class="entry-nav__title">← NO. 017 / Eigentlich war ich schon weiter</span></a><a href="register.html" class="entry-nav__item entry-nav__item--archive"><span class="entry-nav__label">ARCHIV</span><span class="entry-nav__title">ALLE EINTRÄGE</span></a><a href="eintrag-019.html" class="entry-nav__item entry-nav__item--next"><span class="entry-nav__label">NÄCHSTE SEITE</span><span class="entry-nav__title">NO. 019 / Mein Kopf macht, was er immer macht. →</span></a></nav>
+    <footer class="entry-footer"><span>MELODIENRAUSCH / NO. 018</span><span>ENDE DER ÜBERTRAGUNG</span></footer>
+  </article>
+</main>
+<div id="music-status" class="music-status" role="status" aria-live="polite"></div>
+<script src="assets/js/navigation.js" defer></script>
+<script src="assets/js/audio.js" defer></script>
+<script src="assets/js/entry.js" defer></script>
 </body>
 </html>
