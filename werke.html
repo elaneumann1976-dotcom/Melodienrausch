@@ -1,778 +1,301 @@
-<!DOCTYPE
- html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
+<script>document.documentElement.classList.add('js');</script>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, 
-initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MELODIENRAUSCH // WERKE</title>
 <meta name="description" content="Werke von Melodienrausch: eine Galerie mit Kunstwerken, Werktiteln, Techniken und Hintergrundtexten zum Entdecken und Anhören.">
-<meta name="theme-color" content="#0a0a0a">
+<meta name="theme-color" content="#080807">
 <link rel="canonical" href="https://elaneumann1976-dotcom.github.io/Melodienrausch/werke.html">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Werke – Melodienrausch">
 <meta property="og:description" content="Eine Galerie mit Kunstwerken, Werktiteln und Hintergrundtexten von Melodienrausch.">
 <meta property="og:image" content="https://elaneumann1976-dotcom.github.io/Melodienrausch/profilbilld_Fotogenic.jpg">
+<meta property="og:url" content="https://elaneumann1976-dotcom.github.io/Melodienrausch/werke.html">
 <meta property="og:locale" content="de_DE">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" 
-crossorigin>
-<link 
-href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap"
- rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<script src="cursor.js" defer></script>
-<style>
-  html, body { overflow-x: hidden; }
-
-  .hero-header {
-    position: fixed; top: 0; left: 0; width: 100%;
-    display: flex; justify-content: space-between; align-items: 
-flex-end;
-    padding: 30px 40px 10px 40px; box-sizing: border-box;
-    z-index: 300;
-    background: rgba(10,10,10,0.92);
-  }
-
-  .huge-title {
-    font-family: 'Oswald', sans-serif;
-    font-size: clamp(24px, 5vw, 90px);
-    font-weight: 700; line-height: 0.8; letter-spacing: -2px;
-    text-transform: uppercase; margin: 0; white-space: nowrap;
-  }
-
-  /* ===== GALERIE-ANSICHT ===== */
-  .scroll-hint {
-    font-family: 'Oswald', sans-serif; font-size: 13px;
-    letter-spacing: 2px; text-transform: uppercase; opacity: 0.5;
-  }
-
-  .gallery-wrap {
-    padding-top: 160px;
-    height: 400vh;
-    position: relative;
-  }
-
-  .row { display: flex; gap: 24px; padding: 12px 0; will-change: 
-transform; }
-  .row:nth-child(odd)  { padding-left: 6vw; }
-  .row:nth-child(even) { padding-left: 0; margin-left: -6vw; }
-
-  .card {
-    position: relative; flex: 0 0 auto;
-    width: 320px; height: 220px;
-    background-color: #000000; color: #ffffff; border: 1px solid #ffffff;
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer; overflow: hidden;
-    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-    padding: 0; font: inherit; text-align: inherit;
-    appearance: none; -webkit-appearance: none;
-  }
-  .card.clicked { transform: scale(1.06); }
-  .card:focus-visible { outline: 3px solid #ffffff; outline-offset: 4px; }
-
-  .card-bg {
-    position: absolute; inset: 0;
-    width: 100%; height: 100%; object-fit: cover;
-    opacity: 0; transform: scale(1.08);
-    filter: grayscale(100%) contrast(1.2) brightness(0.45);
-    transition: opacity 900ms ease, transform 1200ms cubic-bezier(0.16, 1, 0.3, 1), filter 1100ms ease;
-    z-index: 1;
-  }
-  .card:hover .card-bg { opacity: 1; transform: scale(1); filter: grayscale(15%) contrast(1.05) brightness(0.85); }
-
-  .card::before {
-    content: ''; position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0) 55%);
-    opacity: 0; transition: opacity 0.9s ease; z-index: 2; pointer-events: none;
-  }
-  .card:hover::before { opacity: 1; }
-
-  .card .num {
-    font-family: 'Oswald', sans-serif; font-weight: 700;
-    font-size: 64px; opacity: 0.85; position: relative; z-index: 3;
-    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease;
-  }
-  .card:hover .num { transform: translateY(-18px) scale(0.72); opacity: 0.6; }
-
-  .card-title {
-    position: absolute; left: 20px; bottom: 16px; right: 20px; z-index: 3;
-    font-family: 'Oswald', sans-serif; font-size: 14px; letter-spacing: 1px;
-    text-transform: uppercase; opacity: 0; transform: translateY(10px);
-    transition: opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s;
-  }
-  .card:hover .card-title { opacity: 1; transform: translateY(0); }
-
-  /* Handy: kein echtes Hover verfügbar, deshalb Bild/Titel dezent immer sichtbar */
-  @media (hover: none) {
-    .card-bg { opacity: 0.55; transform: scale(1); filter: grayscale(35%) contrast(1.1) brightness(0.6); }
-    .card::before { opacity: 1; }
-    .card .num { transform: translateY(-16px) scale(0.78); opacity: 0.7; }
-    .card-title { opacity: 1; transform: translateY(0); }
-  }
-
-
-  /* ===== DETAIL-ANSICHT (bestehende Einzelwerk-Seite) ===== */
-  .detail-view { display: none; opacity: 0; transition: opacity 0.7s ease; }
-  .detail-view.active { display: block; }
-  .detail-view.visible { opacity: 1; }
-
-  .back-to-gallery {
-    display: inline-block;
-    background: none;
-    border: none;
-    border-bottom: 1px solid #fff;
-    padding: 0 0 3px 0;
-    margin-top: 20px;
-    grid-column: 1 / 4; font-family: 'Oswald', sans-serif; font-size: 13px;
-    letter-spacing: 1px; text-transform: uppercase; cursor: pointer;
-    color: #000000;
-  }
-  .back-to-gallery:focus-visible {
-    outline: 3px solid #000000; outline-offset: 4px;
-  }
-
-  .section-grid {
-    display: grid; grid-template-columns: repeat(12, 1fr); gap: 40px;
-    padding: 240px 40px 40px 40px; align-items: start; position: 
-relative;
-    min-height: 100vh; box-sizing: border-box;
-  }
-
-  .meta-block {
-    color: #000000;
-    grid-column: 1 / 4; font-family: 'Oswald', sans-serif; font-size: 
-15px;
-    line-height: 1.3; text-transform: uppercase; position: relative; 
-z-index: 101;
-  }
-
-  .werk-nav { display: flex; gap: 24px; margin-top: 24px; font-family: 
-'Oswald', sans-serif; font-size: 22px; }
-  .werk-nav button { background: none; border: none; padding: 0; 
-font-family: inherit; font-size: inherit; color: #000000; cursor: pointer; 
-letter-spacing: 2px; pointer-events: auto; }
-  .werk-nav button:disabled { opacity: 0.25; }
-  .werk-nav button:focus-visible { outline: 3px solid #000000; outline-offset: 3px; }
-  .werk-nav .divider { opacity: 0.35; }
-
-  .media-box { grid-column: 4 / 10; height: 520px; position: relative; }
-
- .hero-img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: transparent;
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    z-index: 50;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-}
-  .werk-num-big {
-    font-family: 'Oswald', sans-serif; font-weight: 700; color: #000000;
-    font-size: clamp(120px, 22vw, 380px); line-height: 0.8; 
-letter-spacing: -8px;
-    opacity: 0.9; pointer-events: none;
-  }
-
-  .hero-img-multi {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    display: flex; gap: 6px; z-index: 50;
-  }
-  .hero-img-multi img {
-    flex: 1 1 0; width: 100%; height: 100%; object-fit: cover;
-  }
-
-  .desc-block { grid-column: 10 / 13; font-family: Arial, Helvetica, 
-sans-serif; font-size: 13px; line-height: 1.6; color: #000000; position:
- relative; z-index: 101; }
-  .werk-title { font-family: 'Oswald', sans-serif; font-size: 22px; 
-font-weight: 700; text-transform: uppercase; line-height: 1.05; 
-letter-spacing: -0.5px; margin-bottom: 20px; }
-  .werk-manifest { font-style: italic; margin-bottom: 20px; opacity: 
-0.85; }
-  .werk-description { font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 1.65; margin-bottom: 20px; opacity: 0.9; }
-  .werk-sound {
-    margin: 18px 0 0;
-    padding-top: 14px;
-    border-top: 1px solid rgba(0, 0, 0, 0.35);
-  }
-  .werk-sound-label {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-family: 'Oswald', sans-serif;
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    opacity: 0.68;
-    margin-bottom: 7px;
-  }
-  .werk-sound iframe {
-    display: block;
-    width: 100%;
-    height: 80px;
-    border: none;
-    filter: grayscale(1) contrast(1.06);
-    opacity: 0.88;
-  }
-  .werk-fields { font-family: 'Oswald', sans-serif; font-size: 13px; 
-text-transform: uppercase; line-height: 1.7; padding-top: 16px; 
-border-top: 1px solid #000000; }
-  .werk-fields div { display: flex; justify-content: space-between; gap:
- 20px; }
-  .werk-fields .k {opacity: 0.75;
-color: #000000;}
-</style>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/works.css">
 </head>
 <body>
 
-  <style>
-    @keyframes introFromBehind {
-      0%   { transform: scale(0.1); filter: blur(18px); opacity: 0; }
-      60%  { filter: blur(2px); opacity: 1; }
-      100% { transform: scale(1); filter: blur(0); opacity: 1; }
-    }
-    #intro-screen { perspective: 800px; }
-    #intro-screen .intro-text {
-      font-family:'Courier New'; font-size:24px; letter-spacing:10px;
-      text-transform:uppercase; font-weight:bold;
-      animation: introFromBehind 3s cubic-bezier(0.19, 1, 0.22, 1) 
-forwards;
-    }
-  
-  /* ===== MOBILE-LAYER: Werke ===== */
-  @media (max-width: 720px) {
-    .hero-header {
-      background: rgba(10,10,10,.94);
-    }
+  <a href="#main" class="skip-link">Zum Inhalt springen</a>
 
-    .gallery-wrap {
-      height: auto;
-      min-height: 100vh;
-      padding: 104px 12px 56px;
-    }
-
-    .row,
-    .row:nth-child(odd),
-    .row:nth-child(even) {
-      position: static !important;
-      top: auto !important;
-      transform: none !important;
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-      margin: 0;
-      padding: 0 0 12px;
-    }
-
-    .card {
-      width: auto;
-      height: 148px;
-      cursor: pointer;
-    }
-
-    .card .num {
-      font-size: 44px;
-    }
-
-    .card-title {
-      left: 12px;
-      right: 12px;
-      bottom: 10px;
-      font-size: 11px;
-    }
-
-    .section-grid {
-      grid-template-columns: 1fr;
-      gap: 24px;
-      min-height: 100vh;
-      padding: 112px 18px 54px;
-    }
-
-    .meta-block,
-    .media-box,
-    .desc-block {
-      grid-column: 1;
-    }
-
-    .meta-block {
-      font-size: 13px;
-    }
-
-    .media-box {
-      width: 100%;
-      height: min(58vh, 470px);
-      min-height: 330px;
-    }
-
-    .desc-block {
-      font-size: 13px;
-    }
-
-    .werk-title {
-      font-size: 28px;
-      margin-bottom: 16px;
-    }
-
-    .werk-description {
-      font-size: 15px;
-    }
-
-    .werk-fields {
-      font-size: 12px;
-    }
-
-    .werk-sound iframe {
-      height: 80px;
-    }
-
-    .back-to-gallery,
-    .werk-nav button {
-      cursor: pointer;
-    }
-  }
-
-</style>
-  <div id="intro-screen" style="position:fixed; top:0; left:0; 
-width:100%; height:100vh; background:#000; color:#fff; display:flex; 
-justify-content:center; align-items:center; z-index:9999999; 
-transition:opacity 0.6s ease;">
-    <div class="intro-text">melodienrausch</div>
-  </div>
-  <div class="custom-cursor" id="cursor"></div>
-
-  <!-- SIDE MENU (Werke ist aktiv) -->
-  <div class="side-menu" id="side-menu" inert>
-    <a href="index.html" class="menu-link">Heimat</a>
-    <a href="werke.html" class="menu-link active" aria-current="page">Kunst</a>
-    <a href="ueber.html" class="menu-link">Über mich</a>
-    <a href="register.html" class="menu-link">Tagebuch</a>
-    <a href="kontakt.html" class="menu-link">Kontakt</a>
-  </div>
-
-  <div class="main-content">
-    <div class="hero-header">
-      <h1 class="huge-title">MELODIENRAUSCH®</h1>
-      <button type="button" class="menu-icon" id="menu-toggle" aria-expanded="false" aria-controls="side-menu" aria-label="Menü öffnen">
-        
-<span></span><span></span><span></span>
+  <header class="site-header">
+    <a href="index.html" class="site-header__brand">MELODIENRAUSCH®</a>
+    <nav class="site-header__nav" aria-label="Hauptnavigation">
+      <button type="button" id="music-toggle" class="music-toggle" aria-pressed="false">MUSIK</button>
+      <a href="werke.html" class="nav-link is-active" aria-current="page">KUNST</a>
+      <button type="button" id="menu-toggle" class="menu-toggle" aria-expanded="false" aria-controls="site-menu" aria-label="Menü öffnen">
+        MENÜ
+        <span class="menu-toggle__lines" aria-hidden="true"><span></span><span></span><span></span></span>
       </button>
-    </div>
+    </nav>
+  </header>
 
-    <!-- GALERIE-ANSICHT -->
-    <div class="gallery-view" id="galleryView">
-      <div class="gallery-wrap" id="galleryWrap"></div>
-    </div>
+  <nav class="site-menu" id="site-menu" aria-label="Seitenmenü">
+    <ol class="site-menu__list">
+      <li><a href="index.html" class="site-menu__link"><span class="site-menu__index">01</span> Start</a></li>
+      <li><a href="werke.html" class="site-menu__link is-active" aria-current="page"><span class="site-menu__index">02</span> Werke</a></li>
+      <li><a href="register.html" class="site-menu__link"><span class="site-menu__index">03</span> Tagebuch</a></li>
+      <li><a href="ueber.html" class="site-menu__link"><span class="site-menu__index">04</span> Über mich</a></li>
+      <li><a href="kontakt.html" class="site-menu__link"><span class="site-menu__index">05</span> Kontakt</a></li>
+    </ol>
+  </nav>
 
-    <!-- DETAIL-ANSICHT -->
-    <div class="detail-view" id="detailView" aria-labelledby="werk-title">
-      <div class="section-grid">
-        <div class="meta-block">
-          WERKKATALOG <br><br>
-          <button type="button" class="back-to-gallery" id="back-to-gallery">← Zur
- Galerie</button><br><br>
-          <strong>INDEX 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- <span id="werk-index">01/30</span></strong>
-          <div class="werk-nav">
-            <button id="prev-btn" 
-aria-label="Vorheriges Werk">◂</button>
-            <span class="divider">·</span>
-            <button id="next-btn" 
-aria-label="Nächstes Werk">▸</button>
-          </div>
-        </div>
+  <main id="main">
+    <header class="works-header">
+      <p class="works-eyebrow">01 / Kunst</p>
+      <div class="works-meta-row">
+        <h1 class="works-title"><span class="works-title__filled">WER</span><span class="works-title__outline">KE</span></h1>
+        <p class="works-description">Arbeiten zwischen Farbe, Klang und dem, was sich nicht ordentlich sortieren lässt.</p>
+        <p class="works-index">Index / <span id="worksIndexCount">29</span></p>
+      </div>
+    </header>
 
-        <div class="media-box">
-          <div class="hero-img" id="zoomImage">
-            <span class="werk-num-big" id="werk-num-big">01</span>
-          </div>
-          <div class="hero-img-multi" id="zoomImageMulti" style="display:none;"></div>
-        </div>
+    <ul class="works-grid" id="worksGrid">
+      <li class="works-grid__item" data-slug="manuskript-ohne-stimme">
+        <a class="work-card" href="#manuskript-ohne-stimme" data-slug="manuskript-ohne-stimme" aria-label="Manuskript ohne Stimme, Werkdetails öffnen">
+          <span class="work-card__num">NO. 01</span>
+          <span class="work-card__title">Manuskript ohne Stimme</span>
+          <span class="work-card__meta">Acryl</span>
+        </a>
+      </li>
+      <li class="works-grid__item" data-slug="kupferwald">
+        <a class="work-card" href="#kupferwald" data-slug="kupferwald" aria-label="Kupferwald, Werkdetails öffnen">
+          <span class="work-card__num">NO. 02</span>
+          <span class="work-card__title">Kupferwald</span>
+          <span class="work-card__meta">Acryl und Strukturpaste auf Leinwand</span>
+        </a>
+      </li>
+      <li class="works-grid__item" data-slug="feuerstreifen-im-schweigen">
+        <a class="work-card" href="#feuerstreifen-im-schweigen" data-slug="feuerstreifen-im-schweigen" aria-label="Feuerstreifen im Schweigen, Werkdetails öffnen">
+          <span class="work-card__num">NO. 03</span>
+          <span class="work-card__title">Feuerstreifen im Schweigen</span>
+          <span class="work-card__meta">Acryl und Strukturpaste auf Leinwand</span>
+        </a>
+      </li>
+      <li class="works-grid__item" data-slug="explosion-der-leichtigkeit">
+        <a class="work-card" href="#explosion-der-leichtigkeit" data-slug="explosion-der-leichtigkeit" aria-label="Explosion der Leichtigkeit, Werkdetails öffnen">
+          <span class="work-card__num">NO. 04</span>
+          <span class="work-card__title">Explosion der Leichtigkeit</span>
+          <span class="work-card__meta">Acryl auf Leinwand</span>
+        </a>
+      </li>
+      <li class="works-grid__item" data-slug="oxidiertes-schweigen">
+        <a class="work-card" href="#oxidiertes-schweigen" data-slug="oxidiertes-schweigen" aria-label="Oxidiertes Schweigen, Werkdetails öffnen">
+          <span class="work-card__num">NO. 05</span>
+          <span class="work-card__title">Oxidiertes Schweigen</span>
+          <span class="work-card__meta">Acryl und Strukturpaste auf Leinwand</span>
+        </a>
+      </li>
+      <li class="works-grid__item" data-slug="zwischen-den-schichten">
+        <a class="work-card" href="#zwischen-den-schichten" data-slug="zwischen-den-schichten" aria-label="Zwischen den Schichten, Werkdetails öffnen">
+          <span class="work-card__num">NO. 06</span>
+          <span class="work-card__title">Zwischen den Schichten</span>
+          <span class="work-card__meta">Acryl und Strukturpaste auf Leinwand</span>
+        </a>
+      </li>
+      <li class="works-grid__item" data-slug="unearthed-place">
+        <a class="work-card" href="#unearthed-place" data-slug="unearthed-place" aria-label="Unearthed Place, Werkdetails öffnen">
+          <span class="work-card__num">NO. 07</span>
+          <span class="work-card__media"><img src="bilder/unearthed-place.jpg" alt="Unearthed Place — Acryl und Strukturpaste auf Leinwand" width="1333" height="2000" loading="lazy" decoding="async"></span>
+          <span class="work-card__title">Unearthed Place</span>
+          <span class="work-card__meta">Acryl und Strukturpaste auf Leinwand</span>
+        </a>
+      </li>
+      <li class="works-grid__item" data-slug="spuren-und-wege">
+        <a class="work-card" href="#spuren-und-wege" data-slug="spuren-und-wege" aria-label="Spuren und Wege, Werkdetails öffnen">
+          <span class="work-card__num">NO. 08</span>
+          <span class="work-card__media"><img src="bilder/spuren-und-wege.jpg" alt="Spuren und Wege — Acryl und Strukturpaste auf Leinwand" width="607" height="716" loading="lazy" decoding="async"></span>
+          <span class="work-card__title">Spuren und Wege</span>
+          <span class="work-card__meta">Acryl und Strukturpaste auf Leinwand</span>
+        </a>
+      </li>
+      <li class="works-grid__item" data-slug="silent-core">
+        <a class="work-card" href="#silent-core" data-slug="silent-core" aria-label="Silent Core, Werkdetails öffnen">
+          <span class="work-card__num">NO. 09</span>
+          <span class="work-card__media"><img src="bilder/silent-core.jpg" alt="Silent Core — Acryl auf Leinwand" width="303" height="396" loading="lazy" decoding="async"></span>
+          <span class="work-card__title">Silent Core</span>
+          <span class="work-card__meta">Acryl auf Leinwand</span>
+        </a>
+      </li>
+      <li class="works-grid__item" data-slug="spuren-in-beton">
+        <a class="work-card" href="#spuren-in-beton" data-slug="spuren-in-beton" aria-label="Spuren in Beton, Werkdetails öffnen">
+          <span class="work-card__num">NO. 10</span>
+          <span class="work-card__media"><img src="bilder/spuren-in-beton.jpg" alt="Spuren in Beton — Acryl" width="677" height="471" loading="lazy" decoding="async"></span>
+          <span class="work-card__title">Spuren in Beton</span>
+          <span class="work-card__meta">Acryl</span>
+        </a>
+      </li>
+      <li class="works-grid__item" data-slug="symmetrie-der-stille">
+        <a class="work-card" href="#symmetrie-der-stille" data-slug="symmetrie-der-stille" aria-label="Symmetrie der Stille, 2024, Werkdetails öffnen">
+          <span class="work-card__num">NO. 11</span>
+          <span class="work-card__media"><img src="bilder/symmetrie-der-stille.jpg" alt="Symmetrie der Stille — Acryl und Strukturtechniken auf Leinwand" width="1700" height="1208" loading="lazy" decoding="async"></span>
+          <span class="work-card__title">Symmetrie der Stille</span>
+          <span class="work-card__meta">2024 / Acryl und Strukturtechniken auf Leinwand</span>
+        </a>
+      </li>
+      <li class="works-grid__item" data-slug="gelbes-echo">
+        <a class="work-card" href="#gelbes-echo" data-slug="gelbes-echo" aria-label="Gelbes Echo, Werkdetails öffnen">
+          <span class="work-card__num">NO. 12</span>
+          <span class="work-card__media"><img src="bilder/gelbes-echo.jpg" alt="Gelbes Echo — Acryl-Mischtechnik auf Leinwand" width="387" height="503" loading="lazy" decoding="async"></span>
+          <span class="work-card__title">Gelbes Echo</span>
+          <span class="work-card__meta">Acryl-Mischtechnik auf Leinwand</span>
+        </a>
+      </li>
+      <li class="works-grid__item" data-slug="fragmentierte-einheit">
+        <a class="work-card" href="#fragmentierte-einheit" data-slug="fragmentierte-einheit" aria-label="Fragmentierte Einheit, Werkdetails öffnen">
+          <span class="work-card__num">NO. 13</span>
+          <span class="work-card__media"><img src="bilder/fragmentierte-einheit.jpg" alt="Fragmentierte Einheit — Mixed Media auf Leinwand" width="1402" height="1122" loading="lazy" decoding="async"></span>
+          <span class="work-card__title">Fragmentierte Einheit</span>
+          <span class="work-card__meta">Mixed Media auf Leinwand</span>
+        </a>
+      </li>
+      <li class="works-grid__item" data-slug="linie-im-blau">
+        <a class="work-card" href="#linie-im-blau" data-slug="linie-im-blau" aria-label="Linie im Blau, Werkdetails öffnen">
+          <span class="work-card__num">NO. 14</span>
+          <span class="work-card__media"><img src="bilder/linie-im-blau.jpg" alt="Linie im Blau — Acryl" width="1096" height="824" loading="lazy" decoding="async"></span>
+          <span class="work-card__title">Linie im Blau</span>
+          <span class="work-card__meta">Acryl</span>
+        </a>
+      </li>
+      <li class="works-grid__item" data-slug="unter-strom">
+        <a class="work-card" href="#unter-strom" data-slug="unter-strom" aria-label="Unter Strom, Werkdetails öffnen">
+          <span class="work-card__num">NO. 15</span>
+          <span class="work-card__media"><img src="bilder/unter-strom.png" alt="Unter Strom — Acryl und Strukturpaste auf Leinwand" width="272" height="255" loading="lazy" decoding="async"></span>
+          <span class="work-card__title">Unter Strom</span>
+          <span class="work-card__meta">Acryl und Strukturpaste auf Leinwand</span>
+        </a>
+      </li>
+      <li class="works-grid__item" data-slug="drei-tore-ins-licht">
+        <a class="work-card" href="#drei-tore-ins-licht" data-slug="drei-tore-ins-licht" aria-label="Drei Tore ins Licht, Werkdetails öffnen">
+          <span class="work-card__num">NO. 16</span>
+          <span class="work-card__media"><img src="bilder/drei-tore-ins-licht-1.jpg" alt="Drei Tore ins Licht — Acryl" width="300" height="825" loading="lazy" decoding="async"></span>
+          <span class="work-card__title">Drei Tore ins Licht</span>
+          <span class="work-card__meta">Acryl</span>
+        </a>
+      </li>
+      <li class="works-grid__item" data-slug="you-dont">
+        <a class="work-card" href="#you-dont" data-slug="you-dont" aria-label="YOU DON'T, Werkdetails öffnen">
+          <span class="work-card__num">NO. 17</span>
+          <span class="work-card__title">YOU DON'T</span>
+          <span class="work-card__meta">Acryl</span>
+        </a>
+      </li>
+      <li class="works-grid__item" data-slug="riss-im-rauschen">
+        <a class="work-card" href="#riss-im-rauschen" data-slug="riss-im-rauschen" aria-label="Riss im Rauschen, Werkdetails öffnen">
+          <span class="work-card__num">NO. 18</span>
+          <span class="work-card__title">Riss im Rauschen</span>
+          <span class="work-card__meta">Acryl</span>
+        </a>
+      </li>
+      <li class="works-grid__item" data-slug="element-trilogie">
+        <a class="work-card" href="#element-trilogie" data-slug="element-trilogie" aria-label="Element-Trilogie, Werkdetails öffnen">
+          <span class="work-card__num">NO. 19</span>
+          <span class="work-card__title">Element-Trilogie</span>
+          <span class="work-card__meta">Acryl</span>
+        </a>
+      </li>
+      <li class="works-grid__item" data-slug="zu-viel-rot">
+        <a class="work-card" href="#zu-viel-rot" data-slug="zu-viel-rot" aria-label="Zu viel Rot, Werkdetails öffnen">
+          <span class="work-card__num">NO. 20</span>
+          <span class="work-card__title">Zu viel Rot</span>
+          <span class="work-card__meta">Acryl auf Leinwand</span>
+        </a>
+      </li>
+      <li class="works-grid__item" data-slug="resonanz-im-beton">
+        <a class="work-card" href="#resonanz-im-beton" data-slug="resonanz-im-beton" aria-label="Resonanz im Beton, Werkdetails öffnen">
+          <span class="work-card__num">NO. 21</span>
+          <span class="work-card__title">Resonanz im Beton</span>
+          <span class="work-card__meta">Acryl auf Leinwand</span>
+        </a>
+      </li>
+      <li class="works-grid__item" data-slug="layers-of-being">
+        <a class="work-card" href="#layers-of-being" data-slug="layers-of-being" aria-label="Layers of Being, Werkdetails öffnen">
+          <span class="work-card__num">NO. 22</span>
+          <span class="work-card__title">Layers of Being</span>
+          <span class="work-card__meta">Acryl</span>
+        </a>
+      </li>
+      <li class="works-grid__item" data-slug="horizont-in-flammen">
+        <a class="work-card" href="#horizont-in-flammen" data-slug="horizont-in-flammen" aria-label="Horizont in Flammen, Werkdetails öffnen">
+          <span class="work-card__num">NO. 23</span>
+          <span class="work-card__title">Horizont in Flammen</span>
+          <span class="work-card__meta">Acryl-Lasur und Spachtelarbeit</span>
+        </a>
+      </li>
+      <li class="works-grid__item" data-slug="farbrebellen">
+        <a class="work-card" href="#farbrebellen" data-slug="farbrebellen" aria-label="Farbrebellen, Werkdetails öffnen">
+          <span class="work-card__num">NO. 24</span>
+          <span class="work-card__title">Farbrebellen</span>
+          <span class="work-card__meta">Mischtechnik</span>
+        </a>
+      </li>
+      <li class="works-grid__item" data-slug="the-end">
+        <a class="work-card" href="#the-end" data-slug="the-end" aria-label="The End, Werkdetails öffnen">
+          <span class="work-card__num">NO. 25</span>
+          <span class="work-card__title">The End</span>
+          <span class="work-card__meta">Oxidationsmittel</span>
+        </a>
+      </li>
+      <li class="works-grid__item" data-slug="wenn-die-stille-zittert">
+        <a class="work-card" href="#wenn-die-stille-zittert" data-slug="wenn-die-stille-zittert" aria-label="Wenn die Stille zittert, Werkdetails öffnen">
+          <span class="work-card__num">NO. 26</span>
+          <span class="work-card__title">Wenn die Stille zittert</span>
+          <span class="work-card__meta">Urban Abstract</span>
+        </a>
+      </li>
+      <li class="works-grid__item" data-slug="no-23-spuren-im-betonlicht">
+        <a class="work-card" href="#no-23-spuren-im-betonlicht" data-slug="no-23-spuren-im-betonlicht" aria-label="No. 23 – Spuren im Betonlicht, Werkdetails öffnen">
+          <span class="work-card__num">NO. 27</span>
+          <span class="work-card__title">No. 23 – Spuren im Betonlicht</span>
+          <span class="work-card__meta">Acryl</span>
+        </a>
+      </li>
+      <li class="works-grid__item" data-slug="feuer-im-raster">
+        <a class="work-card" href="#feuer-im-raster" data-slug="feuer-im-raster" aria-label="Feuer im Raster, Werkdetails öffnen">
+          <span class="work-card__num">NO. 28</span>
+          <span class="work-card__title">Feuer im Raster</span>
+          <span class="work-card__meta">Mixed Media auf Leinwand</span>
+        </a>
+      </li>
+      <li class="works-grid__item" data-slug="golden-rush">
+        <a class="work-card" href="#golden-rush" data-slug="golden-rush" aria-label="Golden Rush, Werkdetails öffnen">
+          <span class="work-card__num">NO. 29</span>
+          <span class="work-card__title">Golden Rush</span>
+          <span class="work-card__meta">Acryl auf Leinwand</span>
+        </a>
+      </li>
+    </ul>
+  </main>
 
-        <div class="desc-block">
-          <div class="werk-title" id="werk-title">Wenn der Bass 
-die Stille im Kopf überdröhnt</div>
-          <div class="werk-manifest" id="werk-manifest">„Das hier 
-ist kein Portfolio, sondern ein digitales 
-Underground-Magazin."</div>
-          <div class="werk-description" id="werk-description"></div>
-          <div class="werk-fields">
-            <div><span 
-class="k">Technik</span><span id="werk-tech">Mischtechnik
- auf Papier</span></div>
-            <div><span class="k">Format</span><span
- id="werk-size">60 × 80 cm</span></div>
-            <div><span class="k">Jahr</span><span 
-id="werk-year">2026</span></div>
-            <div><span class="k">Status</span><span
- id="werk-status">Verfügbar</span></div>
-          </div>
-          <div class="werk-sound" id="werk-sound-wrap" style="display:none;">
-            <div class="werk-sound-label" id="werk-sound-label"></div>
-            <iframe id="werk-sound-frame" width="100%" height="80" frameborder="no" scrolling="no" allow="autoplay; encrypted-media" title="Soundtrack zum Werk"></iframe>
-          </div>
-        </div>
+  <dialog class="work-dialog" id="workDialog" aria-labelledby="workDialogTitle">
+    <div class="work-dialog__body">
+      <button type="button" class="work-dialog__close" id="workDialogClose" aria-label="Werkdetails schließen">×</button>
+      <div class="work-dialog__media" id="workDialogMedia"></div>
+      <div class="work-dialog__info">
+        <p class="work-dialog__num" id="workDialogNum"></p>
+        <h2 class="work-dialog__title" id="workDialogTitle"></h2>
+        <dl class="work-dialog__facts" id="workDialogFacts"></dl>
+        <p class="work-dialog__description" id="workDialogDescription"></p>
+        <p class="work-dialog__manifest" id="workDialogManifest"></p>
+        <div class="work-dialog__actions" id="workDialogActions"></div>
       </div>
     </div>
-  </div>
+    <div class="work-dialog__nav">
+      <button type="button" id="workDialogPrev">← Vorheriges Werk</button>
+      <button type="button" id="workDialogNext">Nächstes Werk →</button>
+    </div>
+  </dialog>
 
-<script src="https://w.soundcloud.com/player/api.js"></script>
-
-<script>
-  // ---- Werk-Katalog (nur #01 mit echten Daten, Rest Platzhalter) ----
-  const werke = [
-    {
-      num: '07', title: 'Unearthed Place',
-      description: '„Unearthed Place“ erinnert mich an etwas, das man in sich findet, ohne bewusst danach gesucht zu haben. Die rostigen und blauen Schichten wirken wie alte Haut – getragen, verwittert, aber voller Geschichten. Nichts daran ist glatt, und genau das fühlt sich ehrlich an. Die eingravierte Zahl taucht auf wie eine Erinnerung, die man fast vergessen hätte, die aber plötzlich wieder da ist. In den freigelegten Spuren spüre ich Zeit, Abrieb, etwas Verletzliches, das trotzdem bleibt. Und der Soundtrack passt, weil manche Orte in einem nur leise sprechen – mehr als Gefühl als Gedanke, wie etwas, das wieder ans Licht will.',
-      manifest: 'Jede Oberfläche trägt eine Geschichte, auch wenn niemand sie mehr lesen kann.',
-      sound: 'Ammenmärchen (intro remix by Dynamit Harry)', trackId: '116847902',
-      tech: 'Acryl und Strukturpaste auf Leinwand, mehrschichtiger Farbauftrag, Lasurtechnik und partielle Freilegung der unteren Farbschichten.',
-      size: '60 x 80 cm', year: null, status: 'Offen',
-      img: 'bilder/unearthed-place.jpg'
-    },
-    {
-      num: '08', title: 'Spuren und Wege',
-      description: '„Spuren und Wege“ ist mein Bild für dieses Unterwegssein in mir selbst. Das Ocker und Türkis fühlen sich an wie zwei Stimmungen, zwischen denen ich oft hin- und herschwinge. Die Linien und Fragmente sind für mich Gedanken, die auftauchen, sich überschneiden, wieder verschwinden. Ein leiser Prozess, aber voller Bewegung. Der Soundtrack passt, weil Musik mir oft zeigt, wo ich gerade stehe – manchmal klar, manchmal diffus, aber immer echt.',
-      manifest: 'Jeder Weg hinterlässt Spuren, auch die unsichtbaren.',
-      sound: 'Depeche Mode - Only When I Lose Myself (Lexicon Avenue Remix)', trackId: '1265840854',
-      tech: 'Acryl und Strukturpaste auf Leinwand, Schichtmalerei, Spachtel- und Wischtechnik',
-      size: '40 x 50 cm', year: null, status: 'Offen',
-      img: 'bilder/spuren-und-wege.jpg'
-    },
-    {
-      num: '09', title: 'Silent Core',
-      description: 'In „Silent Core“ spüre ich einen konzentrierten Moment, in dem innen Ruhe bleibt, auch wenn außen alles laut wird. Das rote Quadrat fühlt sich für mich wie ein klarer Kern an – direkt, unverrückt, ohne Ablenkung. Rundherum nimmt das Schwarz alles Unnötige auf und lässt nur das Wesentliche stehen. So entsteht eine stille Spannung, die eher atmet als erklärt. Und der Soundtrack passt, weil manche inneren Zentren nicht in Worten sprechen – sie pulsieren einfach.',
-      manifest: 'Im Zentrum der Stille liegt die größte Kraft.',
-      sound: 'Azari & III - Hungry For The Power (Jamie Jones Ridge Street Remix)', trackId: '14554141',
-      tech: 'Acryl auf Leinwand, Strukturauftrag, monochrome Flächenmalerei',
-      size: '70 x 50 cm', year: null, status: 'Offen',
-      img: 'bilder/silent-core.jpg'
-    },
-    {
-      num: '10', title: 'Spuren in Beton',
-      description: '„Spuren im Betonlicht“ lässt Erinnerung und Stadtgeräusche flüchtig verschmelzen. Neon blau wirkt wie ein kalter Atemzug. Rosa wie restliche Wärme, während die „23“ als fixer Gedanke auftaucht. Abnutzungen zeigen das leise Leben des Vergessenen – eine Erinnerung, die nicht klar wird, sondern nur im eigenen Licht glimmt.',
-      manifest: 'Die Zeit schreibt ihre eigenen Geschichten in jede Oberfläche.',
-      sound: 'Tone Depth Feat. Johannes Brecht & Fetsum - Free (HOSH Edit) (Preview)', trackId: '493315446',
-      tech: 'Acryl, Strukturpaste und Transferdruck auf Leinwand, Schichtaufbau mit Spachtel-, Schleif- und Lasurtechniken.',
-      size: '70 x 100 cm', year: null, status: 'Offen',
-      img: 'bilder/spuren-in-beton.jpg'
-    },
-    {
-      num: '11', title: 'Symmetrie der Stille',
-      description: '„Symmetrie der Stille“ ist mein Versuch, Ordnung sichtbar zu machen, ohne so zu tun, als wäre innen wirklich alles ordentlich. Klare Formen, viel Ruhe, Grau, Weiß, Schatten – und trotzdem liegt in allem eine leichte Spannung. Genau diese Art von Stille kenne ich: nicht leer, nicht friedlich, eher kontrolliert. Der verlinkte Soundtrack setzt darunter den Puls, den man im Bild erst auf den zweiten Blick merkt.',
-      manifest: 'Ordnung ist die Maske des Chaos.',
-      sound: 'Calvin Harris vs Rüfüs Du Sol - Sweet Nothing vs Innerbloom (VIP MIX)', trackId: '2029530928',
-      tech: 'Acryl und Strukturtechniken auf Leinwand',
-      size: '100 x 70 cm', year: 2024, status: 'Offen',
-      img: 'bilder/symmetrie-der-stille.jpg'
-    },
-    {
-      num: '12', title: 'Gelbes Echo',
-      description: '„Gelbes Echo“ ist mein Bild für das Aufbrechen von Licht in einer stillen, schweren Umgebung. Das leuchtende Gelb fühlt sich für mich an wie ein warmer Widerhall – ein Impuls, der durch Grau und Geschichte dringt. Da ist Klarheit drin, aber auch Trotz. Die beiden Flächen erinnern mich daran, dass selbst in der Stille etwas in Bewegung bleibt. Der Soundtrack gehört dazu, weil manche Helligkeit nicht sichtbar beginnt – sie klingt zuerst.',
-      manifest: 'Ein letzter Rest Trotz im Grau.',
-      sound: 'Kris Davis - Fallout', trackId: '739696288',
-      tech: 'Acryl-Mischtechnik auf Leinwand',
-      size: '80 x 60 cm', year: null, status: 'Offen',
-      img: 'bilder/gelbes-echo.jpg'
-    },
-    {
-      num: '13', title: 'Fragmentierte Einheit',
-      description: '„Fragmentierte Einheit“ visualisiert das Gefühl, innerlich zu zerfallen und dennoch zusammenzuhalten. Drei Segmente zeigen unterschiedliche Zustände, die getrennt und doch verbunden bleiben. Während das zentrale Rot den unermüdlichen Herzschlag verkörpert, halten Linien die Brüche zusammen. Der Soundtrack gibt dem Unausgesprochenen in den rauen Hintergründen einen Takt – ein Echo, das weiterlebt.',
-      manifest: 'Zersplittert, aber im Kern unbesiegbar.',
-      sound: 'deadmau5 - xyz', trackId: '1288852933',
-      tech: 'Mixed Media auf Leinwand',
-      size: '70 x 50 cm, 50 x40 cm, 20 x 60 cm (dreiteilig)', year: null, status: 'Offen',
-      images: ['bilder/fragmentierte-einheit.jpg']
-    },
-    {
-      num: '14', title: 'Linie im Blau',
-      description: 'Linie im Blau erzählt von Orientierung inmitten von Bewegung. Kräftige Blautöne treffen auf dunkle Flächen und werden von einer goldenen Linie durchzogen, die beide Bildteile miteinander verbindet. Das Werk handelt von Fokus, Richtung und der Fähigkeit, einen eigenen Weg sichtbar zu machen.',
-      manifest: 'Manchmal genügt eine Linie, um die Richtung zu ändern.',
-      sound: 'Leo Kane - Epic (Original Mix)', trackId: '81184764',
-      tech: 'Acryl, Strukturpaste und Pigmentfarbe auf Leinwand, Spachteltechnik, gestische Linienführung und mehrschichtiger Farbauftrag.',
-      size: '50 x 70, 30 x 70 cm', year: null, status: 'Offen',
-      img: ['bilder/linie-im-blau.jpg']
-    },
-    {
-      num: '15', title: 'Unter Strom',
-      description: 'Das Blau frisst sich rein. Nicht ruhig, nicht weich – eher wie ein Druck, der von außen kommt. Und das Dunkle hält dagegen. Rau, schwer, fast stumm. Für mich ist das dieser Moment, wenn innen alles arbeitet, aber nach außen nichts passiert. Nur Spannung. Die bleibt.',
-      manifest: 'Blaues Licht. Hochspannung. Kein Zurück.',
-      sound: 'Fedele - Zommerfest 25', trackId: '2168070657',
-      tech: 'Acryl und Strukturpaste auf Leinwand, Spachteltechnik, Reliefstruktur, mehrschichtiger Farbauftrag mit metallisch-pigmentierten Akzenten.',
-      size: '80 x 80 cm', year: null, status: 'Offen',
-      img: 'bilder/unter-strom.png'
-    },
-    {
-      num: '16', title: 'Drei Tore ins Licht',
-      description: '„Drei Tore ins Licht“ ist mein Bild über Veränderung — über Dunkelheit, alte Muster und den Moment, in dem man merkt, dass es so nicht weitergehen kann. Die Farben und Strukturen erzählen von Reibung, Hoffnung und dem langsamen Weg in mehr Klarheit. Nicht linear, nicht sauber, aber echt. Der verlinkte Soundtrack gehört dazu, weil manche Stimmungen erst in Musik zu Ende erzählt werden.',
-      manifest: 'Der Moment, in dem die Klarheit siegt.',
-      sound: 'Bunte Bummler - Lightsammon mantao', trackId: '176031491',
-      tech: 'Acryl, Strukturpaste und Lasuren auf Leinwand. Mehrschichtiger Farbauftrag mit partiellen Schleif- und Freilegungstechniken. Triptychon (dreiteilig).',
-      size: '3 x 30 x 90 cm', year: null, status: 'Offen',
-      images: ['bilder/drei-tore-ins-licht-1.jpg', 'bilder/drei-tore-ins-licht-2.jpg', 'bilder/drei-tore-ins-licht-3.jpg']
-    }
-  ];
-
-  let currentWerk = 0;
-  let werkSoundWidget = null;
-  let werkSoundLoadToken = 0;
-
-  function stopWerkSound(clearFrame = false) {
-    werkSoundLoadToken += 1;
-    if (werkSoundWidget) {
-      try { werkSoundWidget.pause(); } catch (error) {}
-    }
-    werkSoundWidget = null;
-    if (clearFrame) {
-      document.getElementById('werk-sound-frame').src = 'about:blank';
-    }
-  }
-
-  function loadWerkSound(w) {
-    const soundWrap = document.getElementById('werk-sound-wrap');
-    const soundLabel = document.getElementById('werk-sound-label');
-    const soundFrame = document.getElementById('werk-sound-frame');
-
-    stopWerkSound(true);
-
-    if (!w.trackId) {
-      soundLabel.textContent = '';
-      soundWrap.style.display = 'none';
-      return;
-    }
-
-    const token = ++werkSoundLoadToken;
-    soundLabel.textContent = w.sound || 'Soundtrack';
-    soundWrap.style.display = 'block';
-    soundFrame.src = 'https://w.soundcloud.com/player/?url=https%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F' + w.trackId + '&color=%23000000&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&visual=false';
-
-    if (!window.SC) return;
-
-    const widget = SC.Widget(soundFrame);
-    werkSoundWidget = widget;
-    widget.bind(SC.Widget.Events.READY, () => {
-      if (token === werkSoundLoadToken) widget.play();
-    });
-  }
-
-  function showWerk(i) {
-    const w = werke[i];
-    document.getElementById('werk-index').textContent = (i + 1) + '/' + werke.length;
-    document.getElementById('werk-num-big').textContent = w.num;
-    document.getElementById('werk-title').textContent = w.title;
-    document.getElementById('werk-manifest').textContent = '„' + w.manifest + '"';
-
-    const descEl = document.getElementById('werk-description');
-    if (w.description) { descEl.textContent = w.description; descEl.style.display = 'block'; }
-    else { descEl.textContent = ''; descEl.style.display = 'none'; }
-
-    loadWerkSound(w);
-
-    document.getElementById('werk-tech').textContent = w.tech;
-    document.getElementById('werk-size').textContent = w.size;
-    const yearRow = document.getElementById('werk-year').closest('div');
-    if (w.year) { document.getElementById('werk-year').textContent = w.year; yearRow.style.display = 'flex'; }
-    else { yearRow.style.display = 'none'; }
-    document.getElementById('werk-status').textContent = w.status;
-
-    const img = document.getElementById('zoomImage');
-    const imgMulti = document.getElementById('zoomImageMulti');
-    const numEl = document.getElementById('werk-num-big');
-    if (w.images && w.images.length) {
-      img.style.display = 'none';
-      imgMulti.style.display = 'flex';
-      imgMulti.innerHTML = '';
-      w.images.forEach((src) => {
-        const el = document.createElement('img');
-        el.src = src;
-        el.alt = w.title;
-        imgMulti.appendChild(el);
-      });
-    } else if (w.img) {
-      img.style.display = 'flex';
-      imgMulti.style.display = 'none';
-      img.style.backgroundImage = "url('" + w.img + "')";
-      numEl.style.display = 'none';
-    } else {
-      img.style.display = 'flex';
-      imgMulti.style.display = 'none';
-      img.style.backgroundImage = 'none';
-      numEl.style.display = 'block';
-    }
-
-    document.getElementById('prev-btn').disabled = (i === 0);
-    document.getElementById('next-btn').disabled = (i === werke.length -
- 1);
-    currentWerk = i;
-  }
-
-  function prevWerk() { if (currentWerk > 0) showWerk(currentWerk - 
-1); }
-  function nextWerk() { if (currentWerk < werke.length - 1) 
-showWerk(currentWerk + 1); }
-
-  document.addEventListener('keydown', (e) => {
-    if 
-(document.getElementById('detailView').classList.contains('active')) {
-      if (e.key === 'ArrowLeft') prevWerk();
-      if (e.key === 'ArrowRight') nextWerk();
-    }
-  });
-
-  // ---- Ansicht wechseln: Galerie <-> Detail ----
-  function showDetail(index) {
-    showWerk(index);
-    document.getElementById('galleryView').style.display = 'none';
-    const dv = document.getElementById('detailView');
-    dv.classList.add('active');
-    dv.classList.remove('visible');
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => { dv.classList.add('visible'); });
-    });
-    window.scrollTo(0, 0);
-    const backBtn = document.getElementById('back-to-gallery');
-    if (backBtn) backBtn.focus();
-  }
-
-  function showGallery() {
-    stopWerkSound(true);
-    const dv = document.getElementById('detailView');
-    dv.classList.remove('visible');
-    setTimeout(() => {
-      dv.classList.remove('active');
-      document.getElementById('galleryView').style.display = 'block';
-      if (lastOpenedCard) lastOpenedCard.focus();
-    }, 400);
-    window.scrollTo(0, 0);
-  }
-
-  // ---- Galerie: Reihen + Karten erzeugen ----
-  const wrap = document.getElementById('galleryWrap');
-  const rowsCount = 4;
-  const rowEls = [];
-
-  for (let r = 0; r < rowsCount; r++) {
-    const row = document.createElement('div');
-    row.className = 'row';
-    row.style.position = 'sticky';
-    row.style.top = (160 + r * 260) + 'px';
-    for (let i = r; i < werke.length; i += rowsCount) {
-      const card = document.createElement('button');
-      card.type = 'button';
-      card.className = 'card';
-      card.dataset.index = i;
-      card.setAttribute('aria-label', werke[i].num + ' – ' + werke[i].title);
-      const thumbImg = werke[i].img || (werke[i].images && werke[i].images[0]);
-      if (thumbImg) {
-        const bg = document.createElement('img');
-        bg.className = 'card-bg';
-        bg.src = thumbImg;
-        bg.alt = '';
-        bg.loading = 'lazy';
-        card.appendChild(bg);
-      }
-      const numSpan = document.createElement('span');
-      numSpan.className = 'num';
-      numSpan.textContent = werke[i].num;
-      card.appendChild(numSpan);
-      const titleSpan = document.createElement('span');
-      titleSpan.className = 'card-title';
-      titleSpan.textContent = werke[i].title;
-      card.appendChild(titleSpan);
-      card.addEventListener('click', () => openWerk(card, i));
-      row.appendChild(card);
-    }
-    wrap.appendChild(row);
-    rowEls.push(row);
-  }
-
-
-  const menuToggle = document.getElementById('menu-toggle');
-  const sideMenu = document.getElementById('side-menu');
-
-  function setMenuOpen(open) {
-    document.body.classList.toggle('menu-open', open);
-    menuToggle.setAttribute('aria-expanded', String(open));
-    menuToggle.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
-    sideMenu.inert = !open;
-    if (open) {
-      const firstLink = sideMenu.querySelector('.menu-link');
-      if (firstLink) firstLink.focus();
-    } else {
-      menuToggle.focus();
-    }
-  }
-
-  menuToggle.addEventListener('click', () => {
-    setMenuOpen(!document.body.classList.contains('menu-open'));
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      if (document.body.classList.contains('menu-open')) {
-        setMenuOpen(false);
-      } else if (document.getElementById('detailView').classList.contains('active')) {
-        showGallery();
-      }
-    }
-  });
-
-  document.getElementById('back-to-gallery').addEventListener('click', showGallery);
-  document.getElementById('prev-btn').addEventListener('click', prevWerk);
-  document.getElementById('next-btn').addEventListener('click', nextWerk);
-
-  window.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-      const intro = document.getElementById('intro-screen');
-      if (intro) { intro.style.opacity = '0'; setTimeout(() => 
-intro.remove(), 600); }
-      document.body.classList.add('intro-done');
-    }, 3400);
-  });
-
-  // ---- Scroll-Velocity → unterschiedlicher Versatz je Reihe ----
-  let lastScroll = window.scrollY;
-  let lastTime = performance.now();
-  let velocity = 0;
-  let offsets = new Array(rowsCount).fill(0);
-
-  function loop(now) {
-    const dt = Math.max(now - lastTime, 1);
-    const currentScroll = window.scrollY;
-    const dy = currentScroll - lastScroll;
-    const rawVelocity = dy / dt * 16;
-    velocity += (rawVelocity - velocity) * 0.15;
-
-    rowEls.forEach((row, i) => {
-      const direction = i % 2 === 0 ? 1 : -1;
-      const speedFactor = 0.6 + i * 0.35;
-      offsets[i] += velocity * speedFactor * direction * -0.4;
-      offsets[i] = Math.max(Math.min(offsets[i], 400), -400);
-      row.style.transform = `translateX(${offsets[i]}px)`;
-    });
-
-    lastScroll = currentScroll;
-    lastTime = now;
-    requestAnimationFrame(loop);
-  }
-  requestAnimationFrame(loop);
-
-  // ---- Klick auf Kachel: direkt zur Werkseite, mit kurzer Klick-Animation ----
-  let lastOpenedCard = null;
-  function openWerk(card, index) {
-    lastOpenedCard = card;
-    card.classList.add('clicked');
-    setTimeout(() => card.classList.remove('clicked'), 500);
-    setTimeout(() => showDetail(index), 180);
-  }
-</script>
+  <script src="assets/js/navigation.js" defer></script>
+  <script src="assets/js/works-data.js" defer></script>
+  <script src="assets/js/works.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,204 @@
+/* =============================================================
+   MELODIENRAUSCH — STARTSEITE (Phase 1)
+   ============================================================= */
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr auto;
+}
+
+@media (min-width: 900px) {
+  .hero {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    grid-template-rows: 1fr;
+  }
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-md);
+  padding: var(--space-xl) var(--space-page-x) var(--space-lg);
+  position: relative;
+  z-index: 2;
+}
+
+/* ---------- Haupttitel ---------- */
+.hero-title {
+  font-family: var(--font-display);
+  font-size: var(--font-size-hero);
+  line-height: 0.86;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  animation: heroFadeUp var(--duration-slow) var(--ease-standard) 80ms forwards;
+}
+
+.hero-title__filled {
+  color: var(--color-text);
+}
+
+.hero-title__outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--color-text);
+  text-stroke: 1.5px var(--color-text);
+}
+
+/* Fallback für Browser ohne text-stroke-Unterstützung:
+   RAUSCH bleibt lesbar, gedämpft statt konturiert */
+@supports not ((-webkit-text-stroke: 1px #fff) or (text-stroke: 1px #fff)) {
+  .hero-title__outline {
+    color: var(--color-text);
+    opacity: 0.35;
+  }
+}
+
+/* ---------- Kleine Navigation im Hero ---------- */
+.hero-nav {
+  opacity: 0;
+  animation: heroFadeUp var(--duration-slow) var(--ease-standard) 520ms forwards;
+}
+.hero-nav__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+}
+.hero-nav__link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.6em;
+  font-family: var(--font-display);
+  font-size: var(--font-size-nav);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--color-text-muted);
+  border-bottom: 1px solid transparent;
+  padding-bottom: 0.15em;
+  transition: color var(--duration-fast) var(--ease-standard),
+              border-color var(--duration-fast) var(--ease-standard);
+}
+.hero-nav__link:hover,
+.hero-nav__link:focus-visible {
+  color: var(--color-text);
+  border-color: var(--color-accent);
+}
+.hero-nav__num {
+  color: var(--color-text-muted);
+  font-size: 0.85em;
+}
+
+.hero-quote {
+  opacity: 0;
+  animation: heroFadeUp var(--duration-slow) var(--ease-standard) 640ms forwards;
+  font-style: italic;
+  font-size: var(--font-size-quote);
+  color: var(--color-text-muted);
+  max-width: 32ch;
+  margin: 0;
+}
+
+/* ---------- Bildzone ---------- */
+.hero-media {
+  position: relative;
+  overflow: hidden;
+  min-height: 40vh;
+  background: var(--color-surface);
+  opacity: 0;
+  animation: heroFadeIn var(--duration-slow) var(--ease-standard) 900ms forwards;
+}
+.hero-media__image {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  object-position: center 18%;
+  filter: grayscale(1) contrast(1.16) brightness(0.72);
+}
+.hero-media__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(8,8,7,0) 40%, rgba(8,8,7,0.85) 100%),
+              linear-gradient(90deg, rgba(8,8,7,0.35) 0%, rgba(8,8,7,0) 30%);
+  pointer-events: none;
+}
+.hero-media__label {
+  position: absolute;
+  left: var(--space-md);
+  bottom: var(--space-md);
+  font-family: var(--font-display);
+  font-size: var(--font-size-small);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* ---------- Technische Angaben unten rechts ---------- */
+.hero-meta {
+  position: absolute;
+  right: var(--space-page-x);
+  bottom: var(--space-page-y);
+  z-index: 3;
+  text-align: right;
+  font-family: var(--font-display);
+  font-size: var(--font-size-small);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  opacity: 0;
+  animation: heroFadeIn var(--duration-medium) var(--ease-standard) 1100ms forwards;
+}
+.hero-meta__motif { display: block; }
+.hero-meta__scroll { display: block; color: var(--color-text); }
+.hero-meta__index { display: block; }
+
+/* ---------- Reveal-Keyframes ---------- */
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes heroFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ---------- Mobil (< 900px): eigene gestapelte Komposition ---------- */
+@media (max-width: 899px) {
+  .hero {
+    grid-template-rows: auto auto auto;
+  }
+  .hero-content {
+    padding: var(--space-lg) var(--space-page-x) var(--space-md);
+    gap: var(--space-sm);
+  }
+  .hero-title {
+    font-size: clamp(2.2rem, 1rem + 11vw, 4.6rem);
+    line-height: 0.9;
+  }
+  .hero-media {
+    min-height: 34vh;
+    order: 2;
+  }
+  .hero-media__label { display: none; }
+  .hero-quote { max-width: 40ch; }
+  .hero-meta {
+    position: static;
+    text-align: left;
+    padding: var(--space-md) var(--space-page-x) var(--space-lg);
+  }
+}
+
+/* Anmerkung: kein zusätzlicher Breakpoint für sehr kleine Screens nötig —
+   die clamp()-Formel oben skaliert bereits sicher bis 320px herunter. */

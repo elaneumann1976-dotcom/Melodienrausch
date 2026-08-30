@@ -1,334 +1,43 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+<script>document.documentElement.classList.add('js');</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MELODIENRAUSCH // TAGEBUCH</title>
+<title>Ein Gespräch ohne Uhrzeit – aber mit Wirkung — Melodienrausch Tagebuch</title>
+<meta name="theme-color" content="#080807">
+<link rel="canonical" href="https://elaneumann1976-dotcom.github.io/Melodienrausch/eintrag-001.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ein Gespräch ohne Uhrzeit – aber mit Wirkung — Melodienrausch Tagebuch">
+<meta property="og:url" content="https://elaneumann1976-dotcom.github.io/Melodienrausch/eintrag-001.html">
+<meta property="og:locale" content="de_DE">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Shadows+Into+Light&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<script src="cursor.js" defer></script>
-<style>
-  html, body { overflow-x: hidden; }
-  .main-content { min-height: 100vh; color: #000000; background:#f5f3ee; }
-  .hero-header {
-    position: fixed; top: 0; left: 0; width: 100%;
-    display: flex; justify-content: space-between; align-items: flex-end;
-    padding: 30px 40px 10px 40px; box-sizing: border-box; z-index: 100;
-  }
-  .huge-title {
-    color: #000000;
-    font-family: 'Oswald', sans-serif;
-    font-size: clamp(20px, 3.2vw, 60px); font-weight: 700; line-height: 0.8;
-    letter-spacing: -1px; text-transform: uppercase; margin: 0; white-space: nowrap;
-  }
-
-  .entry-grid {
-    display: grid;
-    grid-template-columns: minmax(120px, 200px) minmax(0, 560px);
-    gap: 70px;
-    max-width: 980px;
-    margin: 0 auto;
-    padding: clamp(300px, 26vw, 420px) 40px 140px;
-    position: relative;
-  }
-
-  .meta-block {
-    grid-column: 1;
-    font-family: 'Oswald', sans-serif; font-size: 14px;
-    line-height: 1.4; text-transform: uppercase; position: relative; z-index: 101;
-  }
-  .back-link {
-    display: inline-block; margin-top: 18px; font-family: 'Oswald', sans-serif;
-    font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px;
-    color: #000000; text-decoration: none; border-bottom: 1px solid #000000; padding-bottom: 2px;
-  }
-  .back-link:hover { opacity: 0.6; }
-
-  .entry-main { grid-column: 2; position: relative; z-index: 101; }
-  .entry-headline {
-    font-family: 'Courier New', 'Courier', monospace; font-weight: 700;
-    font-size: clamp(19px, 2.2vw, 28px); line-height: 1.4;
-    text-transform: none; margin: 0 0 36px 0; letter-spacing: 0.5px;
-  }
-  .entry-text { max-width: 560px; font-size: 17px; line-height: 1.75; font-family: Arial, Helvetica, sans-serif; }
-  .entry-text p { margin: 0 0 13px 0; min-height: 1em; }
-
-  @media (max-width: 720px) {
-    .entry-grid { grid-template-columns: 1fr; gap: 24px; padding-top: clamp(180px, 34vw, 260px); }
-    .meta-block { grid-column: 1; }
-    .entry-main { grid-column: 1; }
-  }
- 
-  /* ===== EINTRAG 001 — RUHIGE KUNSTBUCHSEITE ===== */
-  body.entry-001 .main-content {
-    background: #d9d3c7 !important;
-  }
-
-  body.entry-001 .hero-header {
-    display: none !important;
-  }
-
-  body.entry-001 .entry-grid {
-    display: grid !important;
-    grid-template-columns: minmax(140px, 180px) minmax(0, 650px) !important;
-    gap: 46px !important;
-    max-width: 980px !important;
-    padding: 250px 40px 140px !important;
-  }
-
-  body.entry-001 .entry-grid::after {
-    top: 205px !important;
-    right: 40px !important;
-  }
-
-  body.entry-001 .meta-block {
-    min-height: 240px !important;
-    padding-right: 18px !important;
-  }
-
-  body.entry-001 .entry-main {
-    max-width: 650px !important;
-    min-height: 0;
-    padding: 48px 48px 72px !important;
-    transform: rotate(.08deg) !important;
-    border-top: 2px solid #151515 !important;
-    border-bottom: 1px solid rgba(0,0,0,.4) !important;
-    box-shadow: 8px 11px 0 rgba(0,0,0,.07), inset 0 0 38px rgba(54,40,25,.1) !important;
-  }
-
-  body.entry-001 .entry-main::before {
-    top: 24px !important;
-    left: 9% !important;
-    width: 34% !important;
-    height: 3px !important;
-    background: #111 !important;
-    transform: rotate(-1.6deg) !important;
-    opacity: .72;
-  }
-
-  body.entry-001 .entry-headline {
-    display: block;
-    max-width: 540px !important;
-    margin: 10px 0 46px !important;
-    transform: none !important;
-  }
-
-  body.entry-001 .title-heavy {
-    display: block;
-    font-family: "Oswald", Arial, sans-serif;
-    font-size: clamp(32px, 3.4vw, 44px) !important;
-    line-height: .92;
-    letter-spacing: -1.5px;
-    text-transform: uppercase;
-    color: #111;
-  }
-
-  body.entry-001 .title-script {
-    display: inline-block;
-    margin: 2px 0 5px 10px;
-    font-family: "Shadows Into Light", cursive;
-    font-size: clamp(34px, 3.8vw, 48px) !important;
-    font-weight: 400;
-    line-height: 1;
-    text-transform: none;
-    letter-spacing: -1px;
-    transform: rotate(-2deg);
-    border-bottom: 3px solid #111;
-  }
-
-  body.entry-001 .title-tail {
-    display: block;
-    width: fit-content;
-    margin: 12px 0 0 auto;
-    font: 700 clamp(14px, 1.3vw, 17px)/1.3 "Courier New", monospace !important;
-    text-transform: lowercase;
-    padding-left: 13px;
-    border-left: 4px solid #111;
-    transform: rotate(.7deg);
-  }
-
-  body.entry-001 .entry-text {
-    display: block;
-    max-width: 560px !important;
-    font: 16px/1.66 "Courier New", Courier, monospace !important;
-  }
-
-  body.entry-001 .entry-text p {
-    margin: 0 0 13px !important;
-  }
-
-  body.entry-001 .entry-text p:first-child {
-    border: 0;
-    padding: 0;
-    margin-bottom: 13px !important;
-    font-size: inherit;
-    font-weight: inherit;
-    transform: none;
-  }
-
-  body.entry-001 .copy-block,
-  body.entry-001 .turning-point,
-  body.entry-001 .without-list {
-    margin: 0 0 34px;
-  }
-
-  body.entry-001 .copy-intro {
-    font-size: 17px;
-  }
-
-  body.entry-001 .question-slip {
-    max-width: 315px;
-    margin: 28px 0 34px auto !important;
-    background: #111;
-    color: #f2eee5;
-    padding: 14px 16px !important;
-    font-size: 14px;
-    line-height: 1.55;
-    transform: rotate(-.7deg);
-  }
-
-  body.entry-001 .copy-answer {
-    max-width: 500px;
-  }
-
-  body.entry-001 .quote-sticker {
-    max-width: 300px;
-    margin: 26px auto 38px !important;
-    background: #111;
-    color: #f4f0e7;
-    padding: 20px 22px !important;
-    font-size: 16px;
-    line-height: 1.45;
-    transform: rotate(.8deg);
-  }
-
-  body.entry-001 .copy-bridge {
-    max-width: 440px;
-    margin-left: auto;
-    padding-left: 18px;
-    border-left: 1px solid #111;
-  }
-
-  body.entry-001 .turning-point {
-    padding: 20px 22px 16px;
-    border: 2px solid #111;
-    transform: rotate(-.35deg);
-  }
-
-  body.entry-001 .turning-point p:first-child {
-    font-weight: 700;
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 4px;
-    margin-bottom: 18px !important;
-  }
-
-  body.entry-001 .without-list {
-    width: fit-content;
-    margin-left: auto;
-    padding: 8px 20px 6px;
-    font-family: "Shadows Into Light", cursive;
-    font-size: clamp(27px, 3vw, 38px);
-    line-height: 1.03;
-    transform: rotate(-1.5deg);
-  }
-
-  body.entry-001 .without-list p {
-    margin-bottom: 2px !important;
-  }
-
-  body.entry-001 .copy-ending {
-    max-width: 500px;
-    margin: 0 auto 30px;
-  }
-
-  body.entry-001 .final-strip {
-    display: table !important;
-    margin: 0 auto !important;
-    background: #111 !important;
-    color: #f5f0e7 !important;
-    padding: 7px 12px !important;
-    font-size: 18px;
-    transform: rotate(-.6deg);
-  }
-
-  body.entry-001.is-embedded .hero-header {
-    display: none;
-  }
-
-  body.entry-001.is-embedded .entry-grid {
-    padding-top: 54px !important;
-  }
-
-  body.entry-001.is-embedded .entry-grid::after {
-    top: 20px !important;
-  }
-
-  @media (max-width: 720px) {
-    body.entry-001 .entry-grid,
-    body.entry-001.is-embedded .entry-grid {
-      grid-template-columns: 1fr !important;
-      gap: 24px !important;
-      padding: 120px 14px 80px !important;
-    }
-
-    body.entry-001.is-embedded .entry-grid {
-      padding-top: 42px !important;
-    }
-
-    body.entry-001 .entry-grid::after,
-    body.entry-001.is-embedded .entry-grid::after {
-      top: 18px !important;
-      right: 15px !important;
-    }
-
-    body.entry-001 .meta-block {
-      min-height: 0 !important;
-    }
-
-    body.entry-001 .entry-main {
-      padding: 40px 24px 60px !important;
-    }
-
-    body.entry-001 .title-heavy {
-      font-size: clamp(38px, 13vw, 56px);
-    }
-
-    body.entry-001 .title-script {
-      font-size: clamp(38px, 13vw, 54px);
-      margin-left: 3px;
-    }
-
-    body.entry-001 .title-tail {
-      margin-left: 0;
-    }
-  }
-
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/journal.css">
+<link rel="stylesheet" href="assets/css/entry.css">
 </head>
-<body class="entry-001">
-
-  <div class="custom-cursor" id="cursor"></div>
-
-  <div class="main-content">
-    <div class="hero-header">
-      <h1 class="huge-title">MELODIENRAUSCH®</h1>
-    </div>
-
-    <div class="entry-grid">
-      <div class="meta-block">
-        <a href="register.html" class="back-link">&#9664; Zurück zum Tagebuch</a>
-      </div>
-
-      <div class="entry-main">
-        <h2 class="entry-headline">
-          <span class="title-heavy">Ein Gespräch</span>
-          <span class="title-script">ohne Uhrzeit</span>
-          <span class="title-tail">– aber mit Wirkung</span>
-        </h2>
-        <div class="entry-text">
+<body class="journal-entry">
+<a href="#main" class="skip-link">Zum Inhalt springen</a>
+<header class="site-header">
+  <a href="index.html" class="site-header__brand">MELODIENRAUSCH®</a>
+  <nav class="site-header__nav" aria-label="Hauptnavigation">
+    <button type="button" class="music-toggle" aria-pressed="false" aria-describedby="music-status" data-audio-toggle data-player-src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2331433277&amp;color=%23000000&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false&amp;show_teaser=false&amp;visual=false" data-start-ms="3300000">MUSIK</button>
+    <a href="werke.html" class="nav-link">KUNST</a>
+    <button type="button" id="menu-toggle" class="menu-toggle" aria-expanded="false" aria-controls="site-menu" aria-label="Menü öffnen">MENÜ<span class="menu-toggle__lines" aria-hidden="true"><span></span><span></span><span></span></span></button>
+  </nav>
+</header>
+<nav class="site-menu" id="site-menu" aria-label="Seitenmenü"><ol class="site-menu__list"><li><a href="index.html" class="site-menu__link"><span class="site-menu__index">01</span> Start</a></li><li><a href="werke.html" class="site-menu__link"><span class="site-menu__index">02</span> Werke</a></li><li><a href="register.html" class="site-menu__link is-active" aria-current="page"><span class="site-menu__index">03</span> Tagebuch</a></li><li><a href="ueber.html" class="site-menu__link"><span class="site-menu__index">04</span> Über mich</a></li><li><a href="kontakt.html" class="site-menu__link"><span class="site-menu__index">05</span> Kontakt</a></li></ol></nav>
+<main id="main" class="entry-main">
+  <article>
+    <p class="entry-kicker"><strong>MELODIENRAUSCH / TAGEBUCH</strong><span>AUSGABE 02</span></p>
+    <header class="entry-header">
+      <div class="entry-meta"><span class="entry-meta__number">NO. 001</span><span>ADHS &amp; Ich</span><a href="register.html">← ARCHIV</a></div>
+      <h1 class="entry-title">Ein Gespräch ohne Uhrzeit – aber mit Wirkung</h1>
+    </header>
+    <div class="entry-body-layout"><aside class="entry-code" aria-label="Archivangaben"><span>ARCHIVCODE / MR-001</span><span>SEITE / 01</span></aside><div class="entry-text">
           <section class="copy-block copy-intro">
             <p>Ich weiß nicht mehr, wie lange es gedauert hat.</p>
             <p>Vielleicht eine Stunde.</p>
@@ -383,20 +92,14 @@
           </section>
 
           <p class="final-strip">Und manchmal reicht genau das.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-<script>
-if (window.self !== window.top) {
-    document.body.classList.add('is-embedded');
-  }
-
-  // Diese Seite hat kein Intro (nur die 5 Hauptseiten haben das) — Inhalt
-  // sofort sichtbar machen, sonst bleibt .main-content dauerhaft bei opacity:0
-  // (siehe style.css: body.intro-done .main-content { opacity: 1; })
-  document.body.classList.add('intro-done');
-</script>
+        </div></div>
+    <nav class="entry-nav" aria-label="Navigation zwischen Tagebucheinträgen"><a href="register.html" class="entry-nav__item entry-nav__item--archive"><span class="entry-nav__label">ARCHIV</span><span class="entry-nav__title">ALLE EINTRÄGE</span></a><a href="eintrag-003.html" class="entry-nav__item entry-nav__item--next"><span class="entry-nav__label">NÄCHSTE SEITE</span><span class="entry-nav__title">NO. 003 / Untertitel →</span></a></nav>
+    <footer class="entry-footer"><span>MELODIENRAUSCH / NO. 001</span><span>ENDE DER ÜBERTRAGUNG</span></footer>
+  </article>
+</main>
+<div id="music-status" class="music-status" role="status" aria-live="polite"></div>
+<script src="assets/js/navigation.js" defer></script>
+<script src="assets/js/audio.js" defer></script>
+<script src="assets/js/entry.js" defer></script>
 </body>
 </html>

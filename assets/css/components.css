@@ -1,0 +1,180 @@
+/* =============================================================
+   MELODIENRAUSCH — KOMPONENTEN: Header, Navigation, Overlay-Menü
+   ============================================================= */
+
+/* ---------- Header ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: var(--header-height);
+  padding: 0 var(--space-page-x);
+  background: var(--color-background);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.site-header__brand {
+  font-family: var(--font-display);
+  font-size: var(--font-size-nav);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+.site-header__brand:hover,
+.site-header__brand:focus-visible {
+  color: var(--color-accent-text);
+}
+
+.site-header__nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 0.6rem + 1.6vw, 2rem);
+}
+
+.nav-link,
+.music-toggle,
+.menu-toggle {
+  font-family: var(--font-display);
+  font-size: var(--font-size-nav);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--color-text);
+  background: none;
+  border: none;
+  padding: 0.3rem 0;
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+.nav-link:hover,
+.nav-link:focus-visible,
+.music-toggle:hover,
+.music-toggle:focus-visible {
+  color: var(--color-accent-text);
+}
+
+.nav-link.is-active {
+  color: var(--color-accent-text);
+}
+
+.music-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+}
+.music-toggle::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-text-muted);
+  transition: background var(--duration-fast) var(--ease-standard);
+}
+.music-toggle[aria-pressed="true"]::before {
+  background: var(--color-accent);
+}
+
+/* Menü-Button: ohne JavaScript nicht vorhanden (die vollständige Navigation
+   erscheint stattdessen weiter unten immer sichtbar als normaler Block) */
+.menu-toggle { display: none; }
+html.js .menu-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+}
+.menu-toggle__lines {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 20px;
+  height: 12px;
+}
+.menu-toggle__lines span {
+  display: block;
+  height: 1.5px;
+  background: currentColor;
+}
+
+/* ---------- Overlay-Menü ---------- */
+/* Ohne JavaScript: normaler, immer sichtbarer Navigationsblock im Lesefluss */
+.site-menu {
+  border-bottom: 1px solid var(--color-line);
+  background: var(--color-surface);
+  padding: var(--space-lg) var(--space-page-x);
+}
+.site-menu__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+  max-width: var(--max-content-width);
+  margin-inline: auto;
+}
+.site-menu__link {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  font-family: var(--font-display);
+  font-size: var(--font-size-menu-item);
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--color-text);
+  padding: 0.35em 0;
+  border-bottom: 1px solid transparent;
+  transition: color var(--duration-fast) var(--ease-standard),
+              border-color var(--duration-fast) var(--ease-standard);
+}
+.site-menu__link:hover,
+.site-menu__link:focus-visible {
+  color: var(--color-accent);
+  border-color: var(--color-line);
+}
+.site-menu__link.is-active { color: var(--color-accent); }
+.site-menu__index {
+  font-family: var(--font-display);
+  font-size: 0.4em;
+  color: var(--color-text-muted);
+  letter-spacing: 0.1em;
+}
+
+/* Mit JavaScript: echtes Off-Canvas-Overlay */
+html.js .site-menu {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-menu-overlay);
+  display: flex;
+  align-items: center;
+  border-bottom: none;
+  background: var(--color-surface);
+  padding: var(--space-page-y) var(--space-page-x);
+  transform: translateX(100%);
+  transition: transform var(--duration-slow) var(--ease-standard);
+}
+html.js body.menu-open .site-menu {
+  transform: translateX(0);
+}
+html.js .site-menu__list { gap: 0.1em; }
+
+body.menu-open {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js .site-menu { transition: none; }
+}
+
+@media (max-width: 640px) {
+  .site-header__nav { gap: 1rem; }
+  html.js .site-menu__link { font-size: clamp(1.6rem, 8vw, 2.2rem); }
+}

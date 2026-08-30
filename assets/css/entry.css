@@ -1,0 +1,54 @@
+/* MELODIENRAUSCH — PHASE 2 / GEMEINSAME EINTRAGSVORLAGE */
+.entry-main { width: min(calc(100% - (2 * var(--space-page-x))), 1120px); margin-inline: auto; padding-block: clamp(2.2rem, 6vw, 5rem); }
+.entry-kicker,
+.entry-meta,
+.entry-code,
+.entry-footer,
+.entry-nav__label { font: .68rem/1.4 "Courier New", monospace; letter-spacing: .09em; text-transform: uppercase; }
+.entry-kicker { display: flex; justify-content: space-between; gap: 1.25rem; padding-block: .75rem; color: var(--color-text-muted); border-block: 1px solid var(--color-line); }
+.entry-kicker strong { color: var(--color-text); font-weight: 400; }
+.entry-header { display: grid; grid-template-columns: minmax(120px, 180px) minmax(0, 760px); gap: clamp(1.8rem, 6vw, 4.8rem); padding-block: clamp(2.2rem, 6vw, 4.5rem); border-bottom: 1px solid var(--color-line); }
+.entry-meta { color: var(--color-text-muted); }
+.entry-meta__number { display: block; margin-bottom: .9rem; color: var(--color-accent-text); font-size: .95rem; }
+.entry-meta > * { display: block; margin-bottom: .5rem; }
+.entry-title { max-width: 15ch; font-size: clamp(3rem, 8vw, 6.75rem); line-height: .9; letter-spacing: -.05em; text-transform: uppercase; overflow-wrap: anywhere; }
+.entry-title::after { content: ""; display: block; width: min(180px, 38%); height: 5px; margin-top: 1.9rem; background: var(--color-accent); transform: rotate(-1.5deg); }
+.entry-body-layout { display: grid; grid-template-columns: minmax(120px, 180px) minmax(0, 720px); gap: clamp(1.8rem, 6vw, 4.8rem); padding-block: clamp(2.5rem, 7vw, 5.2rem); }
+.entry-code { color: var(--color-text-muted); }
+.entry-code span { display: block; margin-bottom: .5rem; }
+.entry-text { max-width: 720px; font-size: 1.06rem; line-height: 1.75; }
+.entry-text p { min-height: 1em; margin: 0 0 1.12em; }
+.entry-text strong { color: #fff; }
+.entry-text em { color: var(--color-text-muted); }
+.entry-text blockquote,
+.entry-pullquote { margin: 2.4em -10% 2.4em 4%; padding-left: 1.5rem; border-left: 5px solid var(--color-accent); color: #fff; font: 700 clamp(1.7rem, 4.5vw, 3.1rem)/1.08 var(--font-display); }
+.entry-text img { width: auto; max-width: 100%; height: auto; margin-block: 2.2rem; }
+.entry-nav { display: grid; grid-template-columns: 1fr .55fr 1fr; gap: 1.25rem; padding-block: 1.9rem; border-block: 3px double var(--color-line); }
+.entry-nav__item { display: flex; min-height: 74px; flex-direction: column; justify-content: space-between; gap: .75rem; padding-block: .65rem; text-decoration: none; }
+.entry-nav__item--next { text-align: right; }
+.entry-nav__item--archive { text-align: center; }
+.entry-nav__label { color: var(--color-text-muted); }
+.entry-nav__title { font-family: var(--font-display); font-size: clamp(1.15rem, 2.5vw, 1.8rem); font-weight: 700; line-height: 1.06; text-transform: uppercase; }
+.entry-nav__item:hover .entry-nav__title,
+.entry-nav__item:focus-visible .entry-nav__title { color: var(--color-accent-text); }
+.entry-footer { display: flex; justify-content: space-between; gap: 1.5rem; padding-top: 1.4rem; color: var(--color-text-muted); }
+body.is-embedded .site-header,
+body.is-embedded .site-menu { display: none; }
+body.is-embedded .entry-main { padding-top: 1.8rem; }
+
+@media (max-width: 760px) {
+  .entry-kicker { flex-direction: column; gap: .25rem; }
+  .entry-header,
+  .entry-body-layout { grid-template-columns: 1fr; gap: 1.6rem; }
+  .entry-title { max-width: 100%; font-size: clamp(2.7rem, 14vw, 4.3rem); }
+  .entry-code { display: none; }
+  .entry-text { font-size: 1rem; line-height: 1.72; }
+  .entry-text blockquote,
+  .entry-pullquote { margin-inline: 0; padding-left: 1.1rem; }
+  .entry-nav { grid-template-columns: 1fr; }
+  .entry-nav__item,
+  .entry-nav__item--next,
+  .entry-nav__item--archive { min-height: 58px; text-align: left; border-bottom: 1px solid var(--color-line); }
+  .entry-nav__item:last-child { border-bottom: 0; }
+  .entry-footer { flex-direction: column; }
+}

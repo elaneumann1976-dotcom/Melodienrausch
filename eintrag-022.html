@@ -1,111 +1,43 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+<script>document.documentElement.classList.add('js');</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MELODIENRAUSCH // AUS MEINER SICHT 022</title>
+<title>Vielleicht war es nie Liebe. Vielleicht war es Intensität. — Melodienrausch Tagebuch</title>
+<meta name="theme-color" content="#080807">
+<link rel="canonical" href="https://elaneumann1976-dotcom.github.io/Melodienrausch/eintrag-022.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vielleicht war es nie Liebe. Vielleicht war es Intensität. — Melodienrausch Tagebuch">
+<meta property="og:url" content="https://elaneumann1976-dotcom.github.io/Melodienrausch/eintrag-022.html">
+<meta property="og:locale" content="de_DE">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Shadows+Into+Light&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<style>
-  html, body { overflow-x: hidden; background:#090909; }
-  .main-content {
-    min-height: 100vh; color:#f3eee5; background:#090909;
-    background-image: linear-gradient(rgba(0,0,0,.74), rgba(0,0,0,.9)), url('grunge-texture-dark.jpg');
-    background-size:cover; background-attachment:fixed;
-  }
-  .hero-header {
-    position:fixed; top:0; left:0; width:100%; display:flex;
-    justify-content:space-between; align-items:flex-end;
-    padding:30px 40px 10px; box-sizing:border-box; z-index:100;
-  }
-  .huge-title {
-    color:#f3eee5; font-family:'Oswald',sans-serif;
-    font-size:clamp(20px,3.2vw,60px); font-weight:700; line-height:.8;
-    letter-spacing:-1px; text-transform:uppercase; margin:0; white-space:nowrap;
-  }
-  .entry-grid {
-    display:grid; grid-template-columns:minmax(130px,190px) minmax(0,680px);
-    gap:54px; max-width:1040px; margin:0 auto;
-    padding:clamp(220px,20vw,320px) 40px 150px; position:relative;
-  }
-  .meta-block {
-    grid-column:1; color:#e01f3d; font:700 14px/1.45 'Courier New',monospace;
-    letter-spacing:.08em; text-transform:uppercase; position:relative; z-index:101;
-  }
-  .meta-block::before {
-    content:'AUS MEINER SICHT'; display:block; width:max-content;
-    margin:0 0 26px -12px; padding:8px 11px 6px;
-    color:#090909; background:#e01f3d;
-    font:700 13px/1 'Courier New',monospace; transform:rotate(-2deg);
-    box-shadow:5px 5px 0 #f3eee5;
-  }
-  .back-link {
-    display:inline-block; margin-top:18px; color:#f3eee5; text-decoration:none;
-    border-bottom:1px solid #e01f3d; padding-bottom:3px;
-    font:700 12px/1.2 'Courier New',monospace;
-  }
-  .entry-main {
-    grid-column:2; position:relative; z-index:101; padding:58px 56px 72px;
-    background:#111; border:1px solid rgba(255,255,255,.2);
-    box-shadow:13px 13px 0 #e01f3d;
-  }
-  .entry-main::before {
-    content:'PERSPEKTIVWECHSEL // 0022'; position:absolute;
-    top:19px; right:24px; color:#e01f3d;
-    font:700 10px/1 'Courier New',monospace; letter-spacing:.13em;
-  }
-  .entry-headline {
-    color:#f3eee5; font:700 clamp(34px,5vw,68px)/.94 'Oswald',sans-serif;
-    letter-spacing:-1.5px; text-transform:uppercase; margin:0 0 48px;
-    padding-bottom:24px; border-bottom:3px solid #e01f3d;
-  }
-  .entry-text {
-    max-width:590px; color:#eee8de;
-    font:16px/1.68 'Courier New',Courier,monospace;
-  }
-  .entry-text p { margin:0 0 15px; }
-  .entry-text p:nth-child(7n+3) { margin-left:clamp(0px,4vw,42px); }
-  .entry-text strong { color:#fff; }
-  .entry-text em { color:#e01f3d; font-style:normal; }
-  body.is-embedded .hero-header, body.is-embedded .side-menu { display:none; }
-  body.is-embedded .entry-grid { padding-top:54px; }
-  @media (max-width:720px) {
-    .entry-grid, body.is-embedded .entry-grid {
-      grid-template-columns:1fr; gap:28px; padding:110px 16px 90px;
-    }
-    body.is-embedded .entry-grid { padding-top:34px; }
-    .meta-block, .entry-main { grid-column:1; }
-    .entry-main { padding:54px 24px 64px; box-shadow:7px 8px 0 #e01f3d; }
-    .entry-headline { font-size:clamp(34px,11vw,54px); }
-    .entry-text { font-size:14px; line-height:1.62; }
-    .entry-text p:nth-child(7n+3) { margin-left:0; }
-  }
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/journal.css">
+<link rel="stylesheet" href="assets/css/entry.css">
 </head>
-<body class="perspective-ai">
-  <div class="custom-cursor" id="cursor"></div>
-  <div class="side-menu">
-    <a href="index.html" class="menu-link">Heimat</a>
-    <a href="werke.html" class="menu-link">Kunst</a>
-    <a href="ueber.html" class="menu-link">Über mich</a>
-    <a href="register.html" class="menu-link active">Tagebuch</a>
-    <a href="kontakt.html" class="menu-link">Kontakt</a>
-  </div>
-  <div class="main-content">
-    <div class="hero-header">
-      <h1 class="huge-title">MELODIENRAUSCH®</h1>
-      <div class="menu-icon" onclick="toggleMenu()"><span></span><span></span><span></span></div>
-    </div>
-    <div class="entry-grid">
-      <div class="meta-block">
-        <strong>EINTRAG 022</strong><br>
-        <a href="register.html" class="back-link">&#9664; Zurück zum Tagebuch</a>
-      </div>
-      <article class="entry-main">
-        <h2 class="entry-headline">Vielleicht war es nie Liebe. Vielleicht war es Intensität.</h2>
-        <div class="entry-text">
+<body class="journal-entry">
+<a href="#main" class="skip-link">Zum Inhalt springen</a>
+<header class="site-header">
+  <a href="index.html" class="site-header__brand">MELODIENRAUSCH®</a>
+  <nav class="site-header__nav" aria-label="Hauptnavigation">
+    <button type="button" class="music-toggle" aria-pressed="false" aria-describedby="music-status" data-audio-toggle data-player-src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2331433277&amp;color=%23000000&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false&amp;show_teaser=false&amp;visual=false" data-start-ms="3300000">MUSIK</button>
+    <a href="werke.html" class="nav-link">KUNST</a>
+    <button type="button" id="menu-toggle" class="menu-toggle" aria-expanded="false" aria-controls="site-menu" aria-label="Menü öffnen">MENÜ<span class="menu-toggle__lines" aria-hidden="true"><span></span><span></span><span></span></span></button>
+  </nav>
+</header>
+<nav class="site-menu" id="site-menu" aria-label="Seitenmenü"><ol class="site-menu__list"><li><a href="index.html" class="site-menu__link"><span class="site-menu__index">01</span> Start</a></li><li><a href="werke.html" class="site-menu__link"><span class="site-menu__index">02</span> Werke</a></li><li><a href="register.html" class="site-menu__link is-active" aria-current="page"><span class="site-menu__index">03</span> Tagebuch</a></li><li><a href="ueber.html" class="site-menu__link"><span class="site-menu__index">04</span> Über mich</a></li><li><a href="kontakt.html" class="site-menu__link"><span class="site-menu__index">05</span> Kontakt</a></li></ol></nav>
+<main id="main" class="entry-main">
+  <article>
+    <p class="entry-kicker"><strong>MELODIENRAUSCH / TAGEBUCH</strong><span>AUSGABE 02</span></p>
+    <header class="entry-header">
+      <div class="entry-meta"><span class="entry-meta__number">NO. 022</span><a href="register.html">← ARCHIV</a></div>
+      <h1 class="entry-title">Vielleicht war es nie Liebe. Vielleicht war es Intensität.</h1>
+    </header>
+    <div class="entry-body-layout"><aside class="entry-code" aria-label="Archivangaben"><span>ARCHIVCODE / MR-022</span><span>SEITE / 20</span></aside><div class="entry-text">
           <p>Ich habe mich in meinem Leben nicht oft verliebt.</p>
           <p>Aber wenn, dann richtig.</p>
           <p>Nicht ein bisschen. Nicht dieses langsame Kennenlernen, mal schauen, was passiert. Bei mir war ein Mensch irgendwann einfach überall.</p>
@@ -156,16 +88,14 @@
           <p>Vielleicht ist genau das der Unterschied, den ich bisher nicht kannte:</p>
           <p>Ein Mensch kann sich unglaublich intensiv anfühlen.</p>
           <p>Und trotzdem nicht gut für mich sein.</p>
-        </div>
-      </article>
-    </div>
-  </div>
-<script>
-  const cursor=document.getElementById('cursor');
-  document.addEventListener('mousemove',(e)=>{cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px';});
-  function toggleMenu(){document.body.classList.toggle('menu-open');}
-  if(window.self!==window.top)document.body.classList.add('is-embedded');
-  document.body.classList.add('intro-done');
-</script>
+        </div></div>
+    <nav class="entry-nav" aria-label="Navigation zwischen Tagebucheinträgen"><a href="eintrag-020.html" class="entry-nav__item entry-nav__item--prev"><span class="entry-nav__label">VORHERIGE SEITE</span><span class="entry-nav__title">← NO. 020 / Warum ist das immer so?</span></a><a href="register.html" class="entry-nav__item entry-nav__item--archive"><span class="entry-nav__label">ARCHIV</span><span class="entry-nav__title">ALLE EINTRÄGE</span></a><a href="eintrag-023.html" class="entry-nav__item entry-nav__item--next"><span class="entry-nav__label">NÄCHSTE SEITE</span><span class="entry-nav__title">NO. 023 / 49 Mal. Und sie merkt es nicht mal. →</span></a></nav>
+    <footer class="entry-footer"><span>MELODIENRAUSCH / NO. 022</span><span>ENDE DER ÜBERTRAGUNG</span></footer>
+  </article>
+</main>
+<div id="music-status" class="music-status" role="status" aria-live="polite"></div>
+<script src="assets/js/navigation.js" defer></script>
+<script src="assets/js/audio.js" defer></script>
+<script src="assets/js/entry.js" defer></script>
 </body>
 </html>

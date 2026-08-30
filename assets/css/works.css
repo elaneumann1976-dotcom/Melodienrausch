@@ -1,0 +1,425 @@
+/* =============================================================
+   MELODIENRAUSCH — WERKE (Phase 2)
+   Baut vollständig auf assets/css/base.css + components.css auf.
+   ============================================================= */
+
+/* ---------- Seitenkopf ---------- */
+.works-header {
+  padding: var(--space-xl) var(--space-page-x) var(--space-lg);
+  max-width: var(--max-content-width);
+  margin-inline: auto;
+  opacity: 0;
+  animation: worksFadeIn var(--duration-slow) var(--ease-standard) 60ms forwards;
+}
+
+.works-eyebrow {
+  font-family: var(--font-display);
+  font-size: var(--font-size-nav);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin: 0 0 var(--space-sm);
+}
+
+.works-title {
+  font-size: clamp(2.4rem, 1.6rem + 4.5vw, 5rem);
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  margin: 0 0 var(--space-md);
+}
+.works-title__filled { color: var(--color-text); }
+.works-title__outline {
+  color: transparent;
+  -webkit-text-stroke: 1.3px var(--color-text);
+}
+@supports not ((-webkit-text-stroke: 1px #fff) or (text-stroke: 1px #fff)) {
+  .works-title__outline { color: var(--color-text); opacity: 0.4; }
+}
+
+.works-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-md);
+  border-bottom: 1px solid var(--color-line);
+  padding-bottom: var(--space-md);
+}
+
+.works-description {
+  max-width: 46ch;
+  color: var(--color-text-muted);
+  font-style: italic;
+  font-size: var(--font-size-quote);
+  margin: 0;
+}
+
+.works-index {
+  font-family: var(--font-display);
+  font-size: var(--font-size-small);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  margin: 0;
+}
+
+@keyframes worksFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Filterzeile ---------- */
+.works-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+  padding: var(--space-md) var(--space-page-x);
+}
+
+.filter-btn {
+  font-family: var(--font-display);
+  font-size: var(--font-size-nav);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--color-text-muted);
+  padding: 0.3rem 0.1rem;
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--ease-standard),
+              border-color var(--duration-fast) var(--ease-standard);
+}
+.filter-btn:hover { color: var(--color-text); }
+.filter-btn[aria-pressed="true"] {
+  color: var(--color-accent-text);
+  border-bottom-color: var(--color-accent);
+}
+
+/* ---------- Werkraster ---------- */
+.works-grid {
+  list-style: none;
+  margin: 0;
+  padding: var(--space-md) var(--space-page-x) var(--space-xl);
+  max-width: var(--max-content-width);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.6rem, 1rem + 2vw, 3rem) clamp(1.2rem, 0.8rem + 1.5vw, 2.2rem);
+}
+
+@media (max-width: 1100px) {
+  .works-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 359px) {
+  .works-grid { grid-template-columns: 1fr; }
+}
+
+.works-grid__item {
+  transition: opacity var(--duration-medium) var(--ease-standard);
+}
+.works-grid__item[hidden] { display: none; }
+.works-grid__item.is-filtering-out {
+  opacity: 0;
+}
+
+.work-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+  text-decoration: none;
+  color: var(--color-text);
+}
+.work-card:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 6px;
+}
+
+.work-card__num {
+  font-family: var(--font-display);
+  font-size: var(--font-size-small);
+  letter-spacing: 0.12em;
+  color: var(--color-accent-text);
+  margin-bottom: 0.6em;
+}
+
+.work-card__media {
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: var(--space-sm);
+  background: var(--color-surface);
+}
+.work-card__media img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform var(--duration-medium) var(--ease-standard);
+}
+.work-card:hover .work-card__media img,
+.work-card:focus-visible .work-card__media img {
+  transform: scale(1.028);
+}
+
+.work-card__title {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 0.9rem + 0.4vw, 1.2rem);
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+.work-card:hover .work-card__title,
+.work-card:focus-visible .work-card__title {
+  color: var(--color-accent-text);
+}
+
+.work-card__meta {
+  font-size: var(--font-size-small);
+  color: var(--color-text-muted);
+  margin-top: 0.3em;
+}
+.work-card__status {
+  font-size: var(--font-size-small);
+  color: var(--color-text-muted);
+  margin-top: 0.15em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work-card__media img { transition: none; }
+  .work-card:hover .work-card__media img,
+  .work-card:focus-visible .work-card__media img { transform: none; }
+}
+
+/* ---------- Detail-Dialog ---------- */
+body.dialog-open {
+  overflow: hidden;
+}
+
+.work-dialog {
+  border: none;
+  padding: 0;
+  max-width: min(1200px, 94vw);
+  width: 100%;
+  max-height: 90vh;
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+.work-dialog::backdrop {
+  background: rgba(4, 4, 3, 0.86);
+}
+
+.work-dialog[open] {
+  animation: dialogIn var(--duration-medium) var(--ease-standard);
+}
+@keyframes dialogIn {
+  from { opacity: 0; transform: translateY(8px) scale(0.99); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .work-dialog[open] { animation: none; }
+}
+
+.work-dialog__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  max-height: 90vh;
+  overflow: auto;
+}
+
+.work-dialog__close {
+  position: sticky;
+  top: var(--space-sm);
+  left: 100%;
+  margin: var(--space-sm) var(--space-sm) 0 auto;
+  transform: translateX(-100%);
+  z-index: 5;
+  background: var(--color-background);
+  color: var(--color-text);
+  border: 1px solid var(--color-line);
+  width: 2.4rem;
+  height: 2.4rem;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.work-dialog__close:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.work-dialog__media {
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+  min-height: 40vh;
+}
+.work-dialog__no-image {
+  color: var(--color-text-muted);
+  font-family: var(--font-display);
+  font-size: var(--font-size-small);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.work-dialog__media img {
+  max-width: 100%;
+  max-height: 78vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+.work-dialog__media.has-multiple {
+  flex-direction: column;
+  gap: var(--space-sm);
+  overflow-y: auto;
+}
+.work-dialog__media.has-multiple img { max-height: 50vh; }
+
+.work-dialog__info {
+  padding: var(--space-lg) var(--space-lg) var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.work-dialog__num {
+  font-family: var(--font-display);
+  font-size: var(--font-size-small);
+  letter-spacing: 0.14em;
+  color: var(--color-accent-text);
+  margin: 0;
+}
+
+.work-dialog__title {
+  font-size: clamp(1.6rem, 1.2rem + 2vw, 2.4rem);
+  text-transform: uppercase;
+  line-height: 1.05;
+  margin: 0 0 0.2em;
+}
+
+.work-dialog__facts {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.3em 1em;
+  font-size: var(--font-size-small);
+  color: var(--color-text-muted);
+  margin: 0.4em 0;
+  border-top: 1px solid var(--color-line);
+  border-bottom: 1px solid var(--color-line);
+  padding: 0.8em 0;
+}
+.work-dialog__facts dt {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.work-dialog__facts dd {
+  margin: 0;
+  color: var(--color-text);
+}
+
+.work-dialog__description {
+  font-size: var(--font-size-body);
+  line-height: 1.65;
+  color: var(--color-text);
+  max-width: 60ch;
+}
+
+.work-dialog__manifest {
+  font-style: italic;
+  color: var(--color-text-muted);
+  border-left: 2px solid var(--color-line);
+  padding-left: 0.8em;
+  margin: 0;
+}
+
+.work-dialog__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6em;
+  margin-top: var(--space-sm);
+}
+.work-dialog__sound,
+.work-dialog__request {
+  font-family: var(--font-display);
+  font-size: var(--font-size-nav);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-line);
+  width: fit-content;
+  padding-bottom: 0.2em;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  cursor: pointer;
+}
+.work-dialog__sound:hover,
+.work-dialog__sound:focus-visible,
+.work-dialog__request:hover,
+.work-dialog__request:focus-visible {
+  color: var(--color-accent-text);
+  border-color: var(--color-accent);
+}
+
+.work-dialog__sound-player {
+  margin-top: 0.6em;
+}
+.work-dialog__sound-player iframe {
+  width: 100%;
+  height: 120px;
+  border: none;
+}
+
+.work-dialog__nav {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-lg) var(--space-lg);
+  border-top: 1px solid var(--color-line);
+  grid-column: 1 / -1;
+}
+.work-dialog__nav button {
+  font-family: var(--font-display);
+  font-size: var(--font-size-nav);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: none;
+  border: none;
+  color: var(--color-text);
+  cursor: pointer;
+  padding: 0.5em 0.2em;
+}
+.work-dialog__nav button:disabled {
+  color: var(--color-text-muted);
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.work-dialog__nav button:not(:disabled):hover,
+.work-dialog__nav button:not(:disabled):focus-visible {
+  color: var(--color-accent-text);
+}
+
+@media (max-width: 900px) {
+  .work-dialog__body {
+    grid-template-columns: 1fr;
+  }
+  .work-dialog__nav {
+    grid-column: 1;
+  }
+  .work-dialog__media { min-height: 0; padding: var(--space-sm); }
+  .work-dialog__media img { max-height: 46vh; }
+}

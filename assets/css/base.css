@@ -1,0 +1,217 @@
+/* =============================================================
+   MELODIENRAUSCH — GRUNDSYSTEM (Phase 1, überarbeitet)
+   Gilt für: index.html, werke.html, sowie zukünftig weitere neu
+   gestaltete Seiten. Wird NICHT auf ueber.html, kontakt.html oder
+   register.html eingebunden — diese behalten vorerst ihr
+   bestehendes Design über style.css.
+   ============================================================= */
+
+:root {
+  /* Farben */
+  --color-background: #080807;
+  --color-surface: #11100f;
+  --color-text: #eee8de;
+  --color-text-muted: #8f8982;
+  --color-accent: #b53434;
+  --color-accent-text: #d65454; /* aufgehellte Variante für kleinen Text — --color-accent
+                                    allein erreicht auf --color-background nur 3.3:1 und
+                                    reicht für normalgroßen Text nicht für WCAG AA (4.5:1);
+                                    für Ränder, Punkte und großen Text bleibt --color-accent
+                                    in Verwendung (dort genügen 3:1). */
+  --color-line: rgba(238, 232, 222, 0.14);
+  --color-focus: #eee8de;
+
+  /* Typografie — Oswald wird per Google Fonts im <head> jeder Seite geladen
+     (siehe index.html/werke.html), hier zusätzlich ein robuster
+     Fallback-Stack aus schmalen/condensed System-Schriften, falls
+     Oswald aus irgendeinem Grund nicht lädt. */
+  --font-display: 'Oswald', 'Arial Narrow', 'Helvetica Neue Condensed', 'Roboto Condensed', Arial, Helvetica, sans-serif;
+  --font-body: Arial, Helvetica, sans-serif;
+
+  --font-size-nav: clamp(0.7rem, 0.6rem + 0.3vw, 0.82rem);
+  --font-size-small: clamp(0.68rem, 0.6rem + 0.2vw, 0.78rem);
+  --font-size-body: clamp(0.95rem, 0.9rem + 0.2vw, 1.05rem);
+  --font-size-quote: clamp(0.95rem, 0.9rem + 0.3vw, 1.1rem);
+  --font-size-hero: clamp(3.2rem, 2rem + 9vw, 10.5rem);
+  --font-size-menu-item: clamp(1.6rem, 1.2rem + 2.5vw, 2.6rem);
+
+  /* Abstände (clamp-basiert, responsiv) */
+  --space-page-x: clamp(1.1rem, 0.7rem + 2.2vw, 3rem);
+  --space-page-y: clamp(1.1rem, 0.8rem + 1.5vw, 2rem);
+  --space-xs: 0.4rem;
+  --space-sm: 0.8rem;
+  --space-md: 1.6rem;
+  --space-lg: 2.8rem;
+  --space-xl: 4.5rem;
+
+  /* Layout */
+  --max-content-width: 1440px;
+  --header-height: clamp(56px, 6vw, 76px);
+
+  /* Übergänge */
+  --ease-standard: cubic-bezier(0.22, 0.08, 0.16, 1);
+  --duration-fast: 180ms;
+  --duration-medium: 360ms;
+  --duration-slow: 620ms;
+
+  /* Z-Index-System */
+  --z-base: 1;
+  --z-header: 500;
+  --z-menu-toggle: 600;
+  --z-menu-overlay: 550;
+  --z-skip-link: 900;
+}
+
+/* ---------- Reset & Basis ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  min-height: 100%;
+  overflow-x: clip;
+  background: var(--color-background);
+  color-scheme: dark;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100svh;
+  margin: 0;
+  padding: 0;
+  overflow-x: clip;
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+}
+
+/* Fallback für Browser ohne overflow: clip (z. B. ältere Safari-Versionen) */
+@supports not (overflow: clip) {
+  html, body {
+    overflow-x: hidden;
+  }
+}
+
+img, picture, svg, video, canvas {
+  display: block;
+  max-width: 100%;
+}
+img { height: auto; }
+
+p, figure, blockquote {
+  margin: 0;
+}
+ul, ol {
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1;
+  text-wrap: balance;
+}
+
+a {
+  color: inherit;
+}
+
+/* ---------- Formularelemente & Buttons ---------- */
+button, input, textarea, select {
+  font: inherit;
+  color: inherit;
+}
+button {
+  border: 0;
+}
+button:not(:disabled) {
+  cursor: pointer;
+}
+button:disabled {
+  cursor: not-allowed;
+}
+
+/* ---------- Textauswahl ---------- */
+::selection {
+  background: var(--color-accent);
+  color: var(--color-text);
+}
+
+/* ---------- Layout-Container ---------- */
+.site-container {
+  width: min(calc(100% - (2 * var(--space-page-x))), var(--max-content-width));
+  margin-inline: auto;
+}
+
+/* ---------- Fokuszustände ---------- */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+}
+@supports selector(:focus-visible) {
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+}
+
+/* ---------- Skip-Link ---------- */
+.skip-link {
+  position: fixed;
+  top: -60px;
+  left: var(--space-md);
+  z-index: var(--z-skip-link);
+  background: var(--color-text);
+  color: var(--color-background);
+  padding: 0.7rem 1.1rem;
+  font-family: var(--font-display);
+  font-size: var(--font-size-small);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: top var(--duration-fast) var(--ease-standard);
+}
+.skip-link:focus {
+  top: var(--space-md);
+}
+
+/* ---------- Utility: Screenreader-Text ----------
+   Nicht auf fokussierbare Bedienelemente anwenden, die beim Fokus
+   sichtbar werden sollen (z. B. den Skip-Link) — .skip-link löst
+   das bewusst separat über top-Position, nicht über diese Klasse. */
+.visually-hidden,
+.sr-only {
+  position: absolute !important;
+  width: 1px !important; height: 1px !important;
+  padding: 0 !important; margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* ---------- Reduzierte Bewegung — global durchgesetzt ----------
+   Dauer/Delay auf 0 statt auf eine winzige Restdauer gesetzt, damit
+   JavaScript, das auf transitionend/animationend wartet, weiterhin
+   zuverlässig ein Ende-Ereignis erhält (aktuell hängt keine Funktion
+   in navigation.js/works.js/home.js davon ab — geprüft). */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-delay: 0s !important;
+    animation-duration: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-delay: 0s !important;
+    transition-duration: 0s !important;
+  }
+}
