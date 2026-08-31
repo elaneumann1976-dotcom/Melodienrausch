@@ -284,8 +284,23 @@ body.photo-editorial[data-photo-layout].is-embedded .diary-portrait { top: 24px;
 }
 </style>
 
+
+<style>
+/* No repeated photo: keep the text composition without an empty image column. */
+body.photo-editorial[data-photo-layout][data-photo-free] .entry-grid {
+  grid-template-columns: minmax(0, 1fr) !important;
+  max-width: 900px !important;
+}
+body.photo-editorial[data-photo-layout][data-photo-free] .entry-main {
+  grid-column: 1 !important; grid-row: 2;
+}
+@media (max-width: 720px) {
+  body.photo-editorial[data-photo-layout][data-photo-free] .entry-text { grid-row: 3; }
+}
+</style>
+
 </head>
-<body class="diary-entry layout-a photo-editorial" data-photo-layout="left">
+<body class="diary-entry layout-a photo-editorial" data-photo-layout="left" data-photo-free>
   <div class="custom-cursor" id="cursor"></div>
 <div class="main-content">
     <div class="hero-header">
@@ -295,7 +310,7 @@ body.photo-editorial[data-photo-layout].is-embedded .diary-portrait { top: 24px;
       <div class="meta-block">
         <a href="register.html" class="back-link">&#9664; Zurück zum Tagebuch</a>
       </div>
-      <figure class="diary-portrait"><img src="profilbilld_Fotogenic.jpg" alt="Ela im hellen Anzug" width="1086" height="1448" loading="lazy" decoding="async"></figure>
+      
       <article class="entry-main">
         <h2 class="entry-headline">Ich behandle Erschöpfung wie Schulden</h2>
         <div class="entry-text">

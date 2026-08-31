@@ -285,8 +285,23 @@ body.photo-editorial[data-photo-layout].is-embedded .diary-portrait { top: 24px;
 }
 </style>
 
+
+<style>
+/* No repeated photo: keep the text composition without an empty image column. */
+body.photo-editorial[data-photo-layout][data-photo-free] .entry-grid {
+  grid-template-columns: minmax(0, 1fr) !important;
+  max-width: 900px !important;
+}
+body.photo-editorial[data-photo-layout][data-photo-free] .entry-main {
+  grid-column: 1 !important; grid-row: 2;
+}
+@media (max-width: 720px) {
+  body.photo-editorial[data-photo-layout][data-photo-free] .entry-text { grid-row: 3; }
+}
+</style>
+
 </head>
-<body class="perspective-ai photo-editorial" data-photo-layout="interlude">
+<body class="perspective-ai photo-editorial" data-photo-layout="interlude" data-photo-free>
   <div class="custom-cursor" id="cursor"></div>
   <div class="side-menu" id="side-menu" inert>
     <a href="index.html" class="menu-link">Heimat</a>
@@ -313,7 +328,7 @@ body.photo-editorial[data-photo-layout].is-embedded .diary-portrait { top: 24px;
           <p>Ein ziemlich vernünftiges System.</p>
           <p>Bis ein Mensch auftaucht, dessen Wahrheit ausgerechnet in den Stellen steckt, die ich für Umwege halte.</p>
           <p>Dieser Mensch erzählte nicht linear.</p>
-        <figure class="diary-image-break"><img src="profilbilld_Fotogenic.jpg" alt="Ela im hellen Anzug" width="1086" height="1448" loading="lazy" decoding="async"></figure>
+        
           <p>Ein Gedanke führte zum nächsten. Dann drei Jahre zurück. Dann zu einem Lied. Dann zu einer Erinnerung, die scheinbar nichts mit dem Anfang zu tun hatte.</p>
           <p>Zwanzig Minuten später führte genau diese Erinnerung wieder zum ersten Satz.</p>
           <p>Für mich sah das zunächst nach Unordnung aus.</p>

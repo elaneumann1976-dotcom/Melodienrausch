@@ -261,8 +261,23 @@ body.photo-editorial[data-photo-layout].is-embedded .diary-portrait { top: 24px;
 }
 </style>
 
+
+<style>
+/* No repeated photo: keep the text composition without an empty image column. */
+body.photo-editorial[data-photo-layout][data-photo-free] .entry-grid {
+  grid-template-columns: minmax(0, 1fr) !important;
+  max-width: 900px !important;
+}
+body.photo-editorial[data-photo-layout][data-photo-free] .entry-main {
+  grid-column: 1 !important; grid-row: 2;
+}
+@media (max-width: 720px) {
+  body.photo-editorial[data-photo-layout][data-photo-free] .entry-text { grid-row: 3; }
+}
+</style>
+
 </head>
-<body class="diary-entry layout-c photo-editorial" data-photo-layout="interlude">
+<body class="diary-entry layout-c photo-editorial" data-photo-layout="interlude" data-photo-free>
 
   <div class="custom-cursor" id="cursor"></div>
 
@@ -285,7 +300,7 @@ body.photo-editorial[data-photo-layout].is-embedded .diary-portrait { top: 24px;
         <p>Alles auf einmal.</p>
         <p>Aber dann war der Abend vorbei.</p>
         <p>Ich war draußen, habe mich wieder mit meiner Website beschäftigt und war zurück in meinem Leben.</p>
-        <figure class="diary-image-break"><img src="profilbilld_Fotogenic.jpg" alt="Ela im hellen Anzug" width="1086" height="1448" loading="lazy" decoding="async"></figure>
+        
         <p>Ein paar Tage später schreibt Carmen.</p>
         <p>Oder antwortet nicht.</p>
         <p>Und mein Kopf erzählt die komplette Geschichte noch einmal von vorne.</p>

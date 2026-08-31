@@ -285,8 +285,23 @@ body.photo-editorial[data-photo-layout].is-embedded .diary-portrait { top: 24px;
 }
 </style>
 
+
+<style>
+/* No repeated photo: keep the text composition without an empty image column. */
+body.photo-editorial[data-photo-layout][data-photo-free] .entry-grid {
+  grid-template-columns: minmax(0, 1fr) !important;
+  max-width: 900px !important;
+}
+body.photo-editorial[data-photo-layout][data-photo-free] .entry-main {
+  grid-column: 1 !important; grid-row: 2;
+}
+@media (max-width: 720px) {
+  body.photo-editorial[data-photo-layout][data-photo-free] .entry-text { grid-row: 3; }
+}
+</style>
+
 </head>
-<body class="perspective-ai photo-editorial" data-photo-layout="interlude">
+<body class="perspective-ai photo-editorial" data-photo-layout="interlude" data-photo-free>
   <div class="custom-cursor" id="cursor"></div>
   <div class="side-menu" id="side-menu" inert>
     <a href="index.html" class="menu-link">Heimat</a>
@@ -313,7 +328,7 @@ body.photo-editorial[data-photo-layout].is-embedded .diary-portrait { top: 24px;
           <p>Und der Mensch, der es gehört hatte, bemerkte es erst, als eine Statistik die Zahl anzeigte.</p>
           <p><strong>49 Mal.</strong></p>
           <p>Die Reaktion war keine Scham.</p>
-        <figure class="diary-image-break"><img src="profilbilld_Fotogenic.jpg" alt="Ela im hellen Anzug" width="1086" height="1448" loading="lazy" decoding="async"></figure>
+        
           <p>Auch keine Verteidigung.</p>
           <p>Nur ehrliches Erstaunen:</p>
           <p><em>„Heftig. Kommt mir gar nicht so vor.“</em></p>
