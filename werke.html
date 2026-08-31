@@ -58,6 +58,11 @@ transform; }
   .row:nth-child(odd)  { padding-left: 6vw; }
   .row:nth-child(even) { padding-left: 0; margin-left: -6vw; }
 
+  @media (min-width: 721px) {
+    .row { overflow-x: auto; box-sizing: border-box; scrollbar-width: thin; scrollbar-color: #888 transparent; }
+    .row:nth-child(even) { margin-left: 0; }
+  }
+
   .card {
     position: relative; flex: 0 0 auto;
     width: 320px; height: 220px;
@@ -380,7 +385,7 @@ transition:opacity 0.6s ease;">
  Galerie</button><br><br>
           <strong>INDEX 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- <span id="werk-index">01/30</span></strong>
+ <span id="werk-index">01/20</span></strong>
           <div class="werk-nav">
             <button id="prev-btn" 
 aria-label="Vorheriges Werk">◂</button>
@@ -427,8 +432,86 @@ id="werk-year">2026</span></div>
 <script src="https://w.soundcloud.com/player/api.js"></script>
 
 <script>
-  // ---- Werk-Katalog (nur #01 mit echten Daten, Rest Platzhalter) ----
+  // ---- Werk-Katalog: vorhandene Werke aus der Notion-Werkliste ----
   const werke = [
+    {
+      "num": "01",
+      "title": "Manuskript ohne Stimme",
+      "description": "Manuskript ohne Stimme erzählt von Gedanken, die einmal klar waren und mit der Zeit verblasst sind. Zwischen Schriftfragmenten, Überlagerungen und gestischen Spuren entsteht ein Bild über Erinnerung, Verlust und das, was trotzdem bleibt. Nicht alles muss lesbar sein, um Bedeutung zu tragen.",
+      "manifest": "Nicht alles, was verschwindet, ist verloren.",
+      "sound": "Sirens Monolink",
+      "trackId": "361505510",
+      "tech": "Acryl, Collage und Transferdruck auf Leinwand, Schichtaufbau mit Spachtel-, Wisch- und Übermalungstechniken",
+      "size": "70 x 100 cm",
+      "year": null,
+      "status": "Offen",
+      "img": "bilder/manuskript-ohne-stimme.jpg"
+    },
+    {
+      "num": "02",
+      "title": "Kupferwald",
+      "description": "Kupferwald erinnert an eine Landschaft zwischen Erinnerung und Traum. Kupferorange Flächen leuchten durch dunkle Grün- und Blautöne wie Licht, das durch dichtes Geäst fällt. Das Werk erzählt von Stille, Tiefe und den Spuren, die Zeit in einer Landschaft hinterlässt.",
+      "manifest": "Manche Landschaften wachsen nicht aus Erde, sondern aus Erinnerung.",
+      "sound": "Chris Robin & Saalbach - Metope [Moodmusic]",
+      "trackId": "206360905",
+      "tech": "Acryl und Strukturpaste auf Leinwand, Schichtmalerei, Spachtel- und Wischtechnik, mehrschichtiger Farbauftrag",
+      "size": "3 x 30 x 70 cm",
+      "year": null,
+      "status": "Offen",
+      "img": "bilder/kupferwald.png"
+    },
+    {
+      "num": "03",
+      "title": "Feuerstreifen im Schweigen",
+      "description": "Feuerstreifen im Schweigen lebt vom Gegensatz zwischen Ruhe und Intensität. Die leuchtend rote Mittelachse teilt das Werk und hält die kraftvollen Strukturen auf beiden Seiten zusammen. Zwischen Schwarz, Rot und Gold entsteht eine Spannung, die zugleich geordnet und ungezähmt wirkt.",
+      "manifest": "Manchmal reicht ein einziger Impuls, um die Dunkelheit zu teilen.",
+      "sound": "Laurent Garnier - Man With The Red Face (Emanuel Satie Edit)",
+      "trackId": "374272859",
+      "tech": "Acryl und Strukturpaste auf Leinwand, Spachteltechnik, Schichtmalerei und strukturierter Farbauftrag.",
+      "size": "70 x 100 cm",
+      "year": null,
+      "status": "Offen",
+      "img": "bilder/feuerstreifen-im-schweigen.jpg"
+    },
+    {
+      "num": "04",
+      "title": "Explosion der Leichtigkeit",
+      "description": "Explosion der Leichtigkeit fängt einen Moment ungefilterter Energie ein. Leuchtende Orange-, Gelb- und Grüntöne entfalten sich wie ein plötzlicher Ausbruch von Freude, Bewegung und Freiheit. Das Bild erzählt von dem Augenblick, in dem Schwere verschwindet und Raum für Lebendigkeit entsteht.",
+      "manifest": "Leichtigkeit beginnt dort, wo Kontrolle losgelassen wird.",
+      "sound": "L'Amour et La Violence (Nico Pusch Bootleg Remix)",
+      "trackId": "61762082",
+      "tech": "Acryl auf Leinwand, Strukturpaste, Spachteltechnik, Farbnebel und gestischer Farbauftrag",
+      "size": "70 x 50 cm",
+      "year": null,
+      "status": "Offen",
+      "img": "bilder/explosion-der-leichtigkeit.jpg"
+    },
+    {
+      "num": "05",
+      "title": "Oxidiertes Schweigen",
+      "description": "Oxidiertes Schweigen erzählt von Zeit, Spuren und dem, was zurückbleibt. Rostorange und gebrochene Grüntöne erinnern an verwitterte Oberflächen, die ihre Geschichte nicht verloren haben. Ein ruhiges Bild über Veränderung, Erinnerung und die Schönheit des Unperfekten.",
+      "manifest": "Manche Geschichten verschwinden nicht. Sie hinterlassen Spuren.",
+      "sound": "DAVI 'The Bay 6' (pt. 1)",
+      "trackId": "119168184",
+      "tech": "Acryl und Strukturpaste auf Leinwand, Spachtel- und Schleiftechnik, mehrschichtiger Farbauftrag.",
+      "size": "60 x 80 cm",
+      "year": null,
+      "status": "Offen",
+      "img": "bilder/oxidiertes-schweigen.jpg"
+    },
+    {
+      "num": "06",
+      "title": "Zwischen den Schichten",
+      "description": "„Zwischen den Schichten“ ist mein Bild für diesen Moment, in dem zwei Gefühle gleichzeitig da sind. Das Ocker oben fühlt sich für mich an wie warme Erde, das tiefere Rot wie etwas, das weiter unten brennt und nicht ganz ausgesprochen ist. Die dunkle Linie dazuwischen ist kein Bruch – eher ein Atenzug zwischen Ruhe und innerem Aufruhr. Die Oberfläche erinnert mich an Haut, die etwas behalten hat. In dieser Stille steckt eine leise Wucht, als würde das Bild kurz zeigen, was sonst ungesagt bleibt. Der Soundtrack passt, weil manche Spannungen nicht erklärt werden – sie vibrieren einfach.",
+      "manifest": "Das Wesentliche liegt oft zwischen den Schichten.",
+      "sound": "Bones - Oliver Koletzki (Feat. HVOB) [Rodri Ghost Remix]",
+      "trackId": "465643536",
+      "tech": "Acryl und Strukturpaste auf Leinwand, Schichtmalerei, Spachtel- und Wischtechnik, mehrschichtiger Farbauftrag",
+      "size": "40 x 50 cm",
+      "year": null,
+      "status": "Offen",
+      "img": "bilder/zwischen-den-schichten.jpg"
+    },
     {
       num: '07', title: 'Unearthed Place',
       description: '„Unearthed Place“ erinnert mich an etwas, das man in sich findet, ohne bewusst danach gesucht zu haben. Die rostigen und blauen Schichten wirken wie alte Haut – getragen, verwittert, aber voller Geschichten. Nichts daran ist glatt, und genau das fühlt sich ehrlich an. Die eingravierte Zahl taucht auf wie eine Erinnerung, die man fast vergessen hätte, die aber plötzlich wieder da ist. In den freigelegten Spuren spüre ich Zeit, Abrieb, etwas Verletzliches, das trotzdem bleibt. Und der Soundtrack passt, weil manche Orte in einem nur leise sprechen – mehr als Gefühl als Gedanke, wie etwas, das wieder ans Licht will.',
@@ -518,6 +601,58 @@ id="werk-year">2026</span></div>
       tech: 'Acryl, Strukturpaste und Lasuren auf Leinwand. Mehrschichtiger Farbauftrag mit partiellen Schleif- und Freilegungstechniken. Triptychon (dreiteilig).',
       size: '3 x 30 x 90 cm', year: null, status: 'Offen',
       images: ['bilder/drei-tore-ins-licht-1.jpg', 'bilder/drei-tore-ins-licht-2.jpg', 'bilder/drei-tore-ins-licht-3.jpg']
+    },
+    {
+      "num": "17",
+      "title": "YOU DON'T",
+      "description": "„You don’t“ ist dieser Satz, der mitten im Raum stehen bleibt. Nicht zu Ende gedacht, nicht erklärt – einfach da. Die Schichten drunter sind laut, voll von allem, was gesagt werden wollte. Und dann dieser rote Schnitt. Wie ein Abbruch. Oder eine Grenze. Für mich ist das kein klares Nein. Eher ein Punkt, an dem ich aufgehört hab, mich zu erklären.",
+      "manifest": "Ein Schnitt. Ein Ende. Ein Statement.",
+      "sound": "Frank Ocean - Lost (Gabss e Vintage Culture Edit)",
+      "trackId": "2046751176",
+      "tech": "Acryl, Papiercollage und Transferdruck auf Leinwand, Strukturpaste, Schichtaufbau, Übermalung und Kratztechnik.",
+      "size": "40 x 30 cm",
+      "year": null,
+      "status": "Offen",
+      "img": "bilder/you-dont.png"
+    },
+    {
+      "num": "18",
+      "title": "Riss im Rauschen",
+      "description": "Ich hab hier nicht gemalt, ich hab freigelegt. Schichten aus Worten, die keiner mehr liest, und mittendrin dieser rote Bruch – wie ein Beat, der plötzlich alles stoppt. Für mich ist das der Moment, in dem etwas kippt. Nicht laut. Aber endgültig.",
+      "manifest": "Wenn die Welt den Atem anhält.",
+      "sound": "Maceo Plex, Odd Parents Learn To Fly (Maceo's Flight Home)",
+      "trackId": "200243937",
+      "tech": "Acryl, Papiercollage und Transferdruck auf Leinwand, Schichtaufbau mit Übermalungen, Spachtel- und Schleiftechnik.",
+      "size": "40 x 30 cm",
+      "year": null,
+      "status": "Offen",
+      "img": "bilder/riss-im-rauschen.png"
+    },
+    {
+      "num": "19",
+      "title": "Element-Trilogie",
+      "description": "Eine Erforschung der Urkräfte. Schwarz und Weiß prallen in organischen Strukturen aufeinander und symbolisieren das Gleichgewicht zwischen Werden und Vergehen.",
+      "manifest": "Aus Spannung entsteht Gleichgewicht.",
+      "sound": "Liu Bei - Atlas World (Solomun Day Remix)",
+      "trackId": "200949310",
+      "tech": "Acryl, Strukturpaste und Mixed Media auf Leinwand, Schichtmalerei mit Spachtel- und Lasurtechnik.",
+      "size": "100 x 70 cm",
+      "year": null,
+      "status": "Offen",
+      "img": "bilder/element-trilogie.png"
+    },
+    {
+      "num": "20",
+      "title": "Zu viel Rot",
+      "description": "Zu viel Rot ist ein Bild ohne Rücksicht. Die roten Spuren schießen über die Fläche, werden unterbrochen, kreuzen sich und hinterlassen ihre Energie auf der Leinwand. Die schwarzen Linien wirken wie Versuche, das Chaos zu ordnen – oder zumindest festzuhalten. Es geht nicht um Kontrolle, sondern um den Moment kurz davor, sie zu verlieren.",
+      "manifest": "Manche Gefühle passen nicht in leise Farben.",
+      "sound": "Fox The Fox - Precious Little Diamond (AMANIC Rework // FREE DOWNLOAD since 08.05.2014)",
+      "trackId": "134074166",
+      "tech": "Acryl auf Leinwand, gestischer Farbauftrag, Tropf- und Spritztechnik, Pinsel- und Markerspuren.",
+      "size": "2 x 40 x 40 cm",
+      "year": null,
+      "status": "Offen",
+      "img": "bilder/zu-viel-rot.png"
     }
   ];
 
@@ -662,8 +797,7 @@ showWerk(currentWerk + 1); }
   for (let r = 0; r < rowsCount; r++) {
     const row = document.createElement('div');
     row.className = 'row';
-    row.style.position = 'sticky';
-    row.style.top = (160 + r * 260) + 'px';
+    row.style.position = 'relative';
     for (let i = r; i < werke.length; i += rowsCount) {
       const card = document.createElement('button');
       card.type = 'button';
@@ -754,9 +888,11 @@ intro.remove(), 600); }
     rowEls.forEach((row, i) => {
       const direction = i % 2 === 0 ? 1 : -1;
       const speedFactor = 0.6 + i * 0.35;
-      offsets[i] += velocity * speedFactor * direction * -0.4;
-      offsets[i] = Math.max(Math.min(offsets[i], 400), -400);
-      row.style.transform = `translateX(${offsets[i]}px)`;
+      if (window.innerWidth > 720 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && !row.matches(':hover') && !row.contains(document.activeElement)) {
+        const maxOffset = Math.max(0, row.scrollWidth - row.clientWidth);
+        offsets[i] = Math.max(0, Math.min(maxOffset, row.scrollLeft + velocity * speedFactor * direction * -0.4));
+        row.scrollLeft = offsets[i];
+      }
     });
 
     lastScroll = currentScroll;
