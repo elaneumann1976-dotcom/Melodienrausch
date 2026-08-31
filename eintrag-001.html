@@ -307,8 +307,208 @@
   }
 
 </style>
+
+<style>
+/* Photo-led diary composition: earlier journal portraits (93496da2)
+   and the local entry-015 editorial image break. Shared main-page CSS is untouched. */
+body.photo-editorial[data-photo-layout] {
+  --diary-paper: #f1eee7;
+  --diary-ink: #171715;
+}
+body.photo-editorial[data-photo-layout] .main-content {
+  background: var(--diary-paper) !important;
+  color: var(--diary-ink) !important;
+}
+body.photo-editorial[data-photo-layout] .entry-grid {
+  display: grid !important;
+  grid-template-columns: minmax(240px, .85fr) minmax(0, 1.2fr) !important;
+  gap: 44px clamp(40px, 6vw, 88px) !important;
+  width: auto !important;
+  max-width: 1280px !important;
+  margin: 0 auto !important;
+  padding: 64px 48px 120px !important;
+  box-sizing: border-box;
+}
+body.photo-editorial[data-photo-layout] .entry-grid::before,
+body.photo-editorial[data-photo-layout] .entry-grid::after,
+body.photo-editorial[data-photo-layout] .entry-main::before,
+body.photo-editorial[data-photo-layout] .entry-main::after,
+body.photo-editorial[data-photo-layout] .meta-block::after {
+  content: none !important;
+}
+body.photo-editorial[data-photo-layout] .meta-block {
+  grid-column: 1 / -1 !important;
+  grid-row: 1;
+  min-height: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  transform: none !important;
+  color: var(--diary-ink);
+}
+body.photo-editorial[data-photo-layout] .meta-block::before {
+  margin: 0 0 16px; padding: 0; transform: none; box-shadow: none;
+  background: transparent; color: #b3131b;
+  max-width: 100%; white-space: normal;
+}
+body.photo-editorial[data-photo-layout] .back-link {
+  margin-top: 0 !important;
+  padding: 10px 0 !important;
+  background: transparent !important;
+  color: var(--diary-ink) !important;
+  border: 0 !important;
+  border-bottom: 1px solid currentColor !important;
+  box-shadow: none; transform: none;
+}
+body.photo-editorial[data-photo-layout] .entry-main {
+  grid-column: 2 !important;
+  grid-row: 2;
+  min-width: 0;
+  max-width: none !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+body.photo-editorial[data-photo-layout] .entry-headline {
+  max-width: 100% !important;
+  margin: 0 0 48px !important;
+  padding: 0 !important;
+  color: var(--diary-ink) !important;
+  text-shadow: none !important;
+  border: 0 !important;
+  transform: none !important;
+  font-size: clamp(38px, 4.7vw, 68px) !important;
+  line-height: 1.04 !important;
+  letter-spacing: -.025em !important;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+body.photo-editorial[data-photo-layout] .entry-headline::after {
+  content: none !important;
+}
+body.photo-editorial[data-photo-layout] .entry-text {
+  max-width: 660px !important;
+  margin: 0 !important;
+  color: var(--diary-ink) !important;
+  font: 17px/1.75 Arial, Helvetica, sans-serif !important;
+}
+body.photo-editorial[data-photo-layout] .entry-text > p {
+  display: block !important;
+  width: auto !important;
+  max-width: none !important;
+  margin: 0 0 1.15em !important;
+  padding: 0 !important;
+  background: transparent !important;
+  color: inherit !important;
+  border: 0 !important;
+  font-size: inherit;
+  font-weight: inherit;
+  transform: none !important;
+}
+body.photo-editorial[data-photo-layout] .entry-text strong { color: inherit !important; }
+body.photo-editorial[data-photo-layout] .entry-text em { color: #b3131b; }
+.diary-portrait {
+  grid-column: 1; grid-row: 2; align-self: start;
+  position: sticky; top: 32px;
+  margin: 0; padding: 0; min-width: 0;
+}
+.diary-portrait img,
+.diary-image-break img {
+  display: block; width: 100%; max-width: 100%; height: auto;
+}
+.diary-image-break {
+  width: 100%; margin: 64px 0 76px; padding: 0;
+}
+body.photo-editorial[data-photo-layout="right"] .entry-grid {
+  grid-template-columns: minmax(0, 1.2fr) minmax(240px, .85fr) !important;
+}
+body.photo-editorial[data-photo-layout="right"] .entry-main { grid-column: 1 !important; }
+body.photo-editorial[data-photo-layout="right"] .diary-portrait { grid-column: 2; }
+body.photo-editorial[data-photo-layout="right"] .entry-headline {
+  font-family: "Courier New", monospace !important;
+  font-size: clamp(32px, 3.3vw, 49px) !important;
+  line-height: 1.18 !important;
+  text-transform: none !important;
+}
+body.photo-editorial[data-photo-layout="interlude"] .entry-grid {
+  grid-template-columns: minmax(100px, .35fr) minmax(0, 820px) !important;
+  max-width: 1180px !important;
+}
+body.photo-editorial[data-photo-layout="interlude"] .entry-text { max-width: 660px !important; }
+body.photo-editorial[data-photo-layout="interlude"] .diary-image-break {
+  width: min(780px, calc(100vw - 144px));
+  margin-left: -64px;
+}
+body.photo-editorial[data-photo-layout="interlude"] .diary-image-break img {
+  height: auto;
+}
+body.photo-editorial[data-photo-layout].entry-001 .entry-headline { margin-bottom: 52px !important; }
+body.photo-editorial[data-photo-layout].entry-001 .entry-text { font-family: "Courier New", monospace !important; }
+body.photo-editorial[data-photo-layout].entry-001 .title-heavy { font-size: clamp(38px, 4.8vw, 66px) !important; }
+body.photo-editorial[data-photo-layout].entry-001 .title-script { font-size: clamp(40px, 5vw, 70px) !important; }
+body.photo-editorial[data-photo-layout].entry-001 .entry-text .question-slip,
+body.photo-editorial[data-photo-layout].entry-001 .entry-text .quote-sticker {
+  margin: 44px 0 !important; padding: 0 0 0 24px !important;
+  border-left: 3px solid #b3131b !important;
+  font-size: 20px; line-height: 1.5;
+}
+body.photo-editorial[data-photo-layout].entry-001 .turning-point {
+  padding: 20px 0; border: 0; border-block: 1px solid #aaa49b; transform: none;
+}
+body.photo-editorial[data-photo-layout].entry-001 .entry-text .final-strip {
+  margin-top: 36px !important; font-weight: bold;
+}
+body.photo-editorial[data-photo-layout].perspective-ai {
+  --diary-paper: #111110; --diary-ink: #eee9df;
+}
+body.photo-editorial[data-photo-layout].perspective-ai .entry-grid {
+  padding-top: 160px !important;
+}
+body.photo-editorial[data-photo-layout].perspective-ai .diary-portrait { top: 110px; }
+body.photo-editorial[data-photo-layout].perspective-ai .entry-headline { font-family: "Oswald", sans-serif !important; }
+body.photo-editorial[data-photo-layout].perspective-ai .entry-text em,
+body.photo-editorial[data-photo-layout].perspective-ai .meta-block::before { color: #e45c64; }
+body.photo-editorial[data-photo-layout].perspective-ai .menu-icon span { background-color: #eee9df !important; }
+body.photo-editorial[data-photo-layout].is-embedded .entry-grid { padding-top: 36px !important; }
+body.photo-editorial[data-photo-layout].is-embedded .diary-portrait { top: 24px; }
+
+@media (max-width: 900px) {
+  body.photo-editorial[data-photo-layout] .entry-grid {
+    padding-inline: 28px !important; gap: 36px !important;
+  }
+  body.photo-editorial[data-photo-layout] .entry-headline { font-size: 40px !important; }
+}
+@media (max-width: 720px) {
+  body.photo-editorial[data-photo-layout] .entry-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 32px !important; padding: 30px 20px 80px !important;
+  }
+  body.photo-editorial[data-photo-layout] .entry-main { display: contents !important; }
+  body.photo-editorial[data-photo-layout] .entry-headline { grid-column: 1; grid-row: 2; }
+  body.photo-editorial[data-photo-layout] .entry-text { grid-column: 1; grid-row: 4; }
+  body.photo-editorial[data-photo-layout="interlude"] .entry-text { grid-row: 3; }
+  body.photo-editorial[data-photo-layout] .entry-main,
+  body.photo-editorial[data-photo-layout] .diary-portrait {
+    grid-column: 1 !important; grid-row: auto;
+  }
+  body.photo-editorial[data-photo-layout] .diary-portrait {
+    position: static; grid-row: 3; width: 100%; max-width: 440px; margin-inline: auto;
+  }
+  body.photo-editorial[data-photo-layout] .entry-headline {
+    font-size: clamp(32px, 9.8vw, 44px) !important; margin-bottom: 34px !important;
+  }
+  body.photo-editorial[data-photo-layout] .entry-text { font-size: 16px !important; line-height: 1.7 !important; }
+  body.photo-editorial[data-photo-layout] .diary-image-break {
+    width: 100%; margin: 44px 0 52px;
+  }
+  body.photo-editorial[data-photo-layout].perspective-ai .entry-grid { padding-top: 112px !important; }
+  body.photo-editorial[data-photo-layout].is-embedded .entry-grid { padding-top: 24px !important; }
+}
+</style>
+
 </head>
-<body class="entry-001">
+<body class="entry-001 photo-editorial" data-photo-layout="left">
 
   <div class="custom-cursor" id="cursor"></div>
 
@@ -322,6 +522,7 @@
         <a href="register.html" class="back-link">&#9664; Zurück zum Tagebuch</a>
       </div>
 
+      <figure class="diary-portrait"><img src="bild2_Fotogenic.jpg" alt="Ela auf einer Treppe" width="506" height="1024" loading="lazy" decoding="async"></figure>
       <div class="entry-main">
         <h2 class="entry-headline">
           <span class="title-heavy">Ein Gespräch</span>
