@@ -76,14 +76,10 @@
     transition: opacity 0.2s ease, transform 0.2s ease;
   }
 
-  /* ===== Fix: Text war schwarz vor dunklem Hintergrund und dadurch unlesbar.
-     Zurück auf Weiß wie auf den übrigen Seiten. Cursor/Menü-Icon nutzen
-     wieder die globale weiße Standardfarbe aus style.css. Der Menülink
-     bleibt unangetastet, da er im hellen Seitenmenü-Panel liegt. ===== */
-  body,
+  /* Dunkle Texte auf der hellen Hintergrundtextur; rote Akzente bleiben erhalten. */
   .huge-title,
   .meta-block,
-  .about-text-flow { color: #ffffff; }
+  .about-text-flow { color: #000000; }
 
   #sc-hidden-player {
     position: absolute;
