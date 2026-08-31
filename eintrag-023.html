@@ -86,222 +86,9 @@
   }
 </style>
 
-<style>
-/* Photo-led diary composition: earlier journal portraits (93496da2)
-   and the local entry-015 editorial image break. Shared main-page CSS is untouched. */
-body.photo-editorial[data-photo-layout] {
-  --diary-paper: #f1eee7;
-  --diary-ink: #171715;
-}
-body.photo-editorial[data-photo-layout] .main-content {
-  background: var(--diary-paper) !important;
-  color: var(--diary-ink) !important;
-}
-body.photo-editorial[data-photo-layout] .entry-grid {
-  display: grid !important;
-  grid-template-columns: minmax(240px, .85fr) minmax(0, 1.2fr) !important;
-  gap: 44px clamp(40px, 6vw, 88px) !important;
-  width: auto !important;
-  max-width: 1280px !important;
-  margin: 0 auto !important;
-  padding: 64px 48px 120px !important;
-  box-sizing: border-box;
-}
-body.photo-editorial[data-photo-layout] .entry-grid::before,
-body.photo-editorial[data-photo-layout] .entry-grid::after,
-body.photo-editorial[data-photo-layout] .entry-main::before,
-body.photo-editorial[data-photo-layout] .entry-main::after,
-body.photo-editorial[data-photo-layout] .meta-block::after {
-  content: none !important;
-}
-body.photo-editorial[data-photo-layout] .meta-block {
-  grid-column: 1 / -1 !important;
-  grid-row: 1;
-  min-height: 0 !important;
-  padding: 0 !important;
-  border: 0 !important;
-  transform: none !important;
-  color: var(--diary-ink);
-}
-body.photo-editorial[data-photo-layout] .meta-block::before {
-  margin: 0 0 16px; padding: 0; transform: none; box-shadow: none;
-  background: transparent; color: #b3131b;
-  max-width: 100%; white-space: normal;
-}
-body.photo-editorial[data-photo-layout] .back-link {
-  margin-top: 0 !important;
-  padding: 10px 0 !important;
-  background: transparent !important;
-  color: var(--diary-ink) !important;
-  border: 0 !important;
-  border-bottom: 1px solid currentColor !important;
-  box-shadow: none; transform: none;
-}
-body.photo-editorial[data-photo-layout] .entry-main {
-  grid-column: 2 !important;
-  grid-row: 2;
-  min-width: 0;
-  max-width: none !important;
-  padding: 0 !important;
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  transform: none !important;
-}
-body.photo-editorial[data-photo-layout] .entry-headline {
-  max-width: 100% !important;
-  margin: 0 0 48px !important;
-  padding: 0 !important;
-  color: var(--diary-ink) !important;
-  text-shadow: none !important;
-  border: 0 !important;
-  transform: none !important;
-  font-size: clamp(38px, 4.7vw, 68px) !important;
-  line-height: 1.04 !important;
-  letter-spacing: -.025em !important;
-  overflow-wrap: anywhere;
-  hyphens: auto;
-}
-body.photo-editorial[data-photo-layout] .entry-headline::after {
-  content: none !important;
-}
-body.photo-editorial[data-photo-layout] .entry-text {
-  max-width: 660px !important;
-  margin: 0 !important;
-  color: var(--diary-ink) !important;
-  font: 17px/1.75 Arial, Helvetica, sans-serif !important;
-}
-body.photo-editorial[data-photo-layout] .entry-text > p {
-  display: block !important;
-  width: auto !important;
-  max-width: none !important;
-  margin: 0 0 1.15em !important;
-  padding: 0 !important;
-  background: transparent !important;
-  color: inherit !important;
-  border: 0 !important;
-  font-size: inherit;
-  font-weight: inherit;
-  transform: none !important;
-}
-body.photo-editorial[data-photo-layout] .entry-text strong { color: inherit !important; }
-body.photo-editorial[data-photo-layout] .entry-text em { color: #b3131b; }
-.diary-portrait {
-  grid-column: 1; grid-row: 2; align-self: start;
-  position: sticky; top: 32px;
-  margin: 0; padding: 0; min-width: 0;
-}
-.diary-portrait img,
-.diary-image-break img {
-  display: block; width: 100%; max-width: 100%; height: auto;
-}
-.diary-image-break {
-  width: 100%; margin: 64px 0 76px; padding: 0;
-}
-body.photo-editorial[data-photo-layout="right"] .entry-grid {
-  grid-template-columns: minmax(0, 1.2fr) minmax(240px, .85fr) !important;
-}
-body.photo-editorial[data-photo-layout="right"] .entry-main { grid-column: 1 !important; }
-body.photo-editorial[data-photo-layout="right"] .diary-portrait { grid-column: 2; }
-body.photo-editorial[data-photo-layout="right"] .entry-headline {
-  font-family: "Courier New", monospace !important;
-  font-size: clamp(32px, 3.3vw, 49px) !important;
-  line-height: 1.18 !important;
-  text-transform: none !important;
-}
-body.photo-editorial[data-photo-layout="interlude"] .entry-grid {
-  grid-template-columns: minmax(100px, .35fr) minmax(0, 820px) !important;
-  max-width: 1180px !important;
-}
-body.photo-editorial[data-photo-layout="interlude"] .entry-text { max-width: 660px !important; }
-body.photo-editorial[data-photo-layout="interlude"] .diary-image-break {
-  width: min(780px, calc(100vw - 144px));
-  margin-left: -64px;
-}
-body.photo-editorial[data-photo-layout="interlude"] .diary-image-break img {
-  height: auto;
-}
-body.photo-editorial[data-photo-layout].entry-001 .entry-headline { margin-bottom: 52px !important; }
-body.photo-editorial[data-photo-layout].entry-001 .entry-text { font-family: "Courier New", monospace !important; }
-body.photo-editorial[data-photo-layout].entry-001 .title-heavy { font-size: clamp(38px, 4.8vw, 66px) !important; }
-body.photo-editorial[data-photo-layout].entry-001 .title-script { font-size: clamp(40px, 5vw, 70px) !important; }
-body.photo-editorial[data-photo-layout].entry-001 .entry-text .question-slip,
-body.photo-editorial[data-photo-layout].entry-001 .entry-text .quote-sticker {
-  margin: 44px 0 !important; padding: 0 0 0 24px !important;
-  border-left: 3px solid #b3131b !important;
-  font-size: 20px; line-height: 1.5;
-}
-body.photo-editorial[data-photo-layout].entry-001 .turning-point {
-  padding: 20px 0; border: 0; border-block: 1px solid #aaa49b; transform: none;
-}
-body.photo-editorial[data-photo-layout].entry-001 .entry-text .final-strip {
-  margin-top: 36px !important; font-weight: bold;
-}
-body.photo-editorial[data-photo-layout].perspective-ai {
-  --diary-paper: #111110; --diary-ink: #eee9df;
-}
-body.photo-editorial[data-photo-layout].perspective-ai .entry-grid {
-  padding-top: 160px !important;
-}
-body.photo-editorial[data-photo-layout].perspective-ai .diary-portrait { top: 110px; }
-body.photo-editorial[data-photo-layout].perspective-ai .entry-headline { font-family: "Oswald", sans-serif !important; }
-body.photo-editorial[data-photo-layout].perspective-ai .entry-text em,
-body.photo-editorial[data-photo-layout].perspective-ai .meta-block::before { color: #e45c64; }
-body.photo-editorial[data-photo-layout].perspective-ai .menu-icon span { background-color: #eee9df !important; }
-body.photo-editorial[data-photo-layout].is-embedded .entry-grid { padding-top: 36px !important; }
-body.photo-editorial[data-photo-layout].is-embedded .diary-portrait { top: 24px; }
-
-@media (max-width: 900px) {
-  body.photo-editorial[data-photo-layout] .entry-grid {
-    padding-inline: 28px !important; gap: 36px !important;
-  }
-  body.photo-editorial[data-photo-layout] .entry-headline { font-size: 40px !important; }
-}
-@media (max-width: 720px) {
-  body.photo-editorial[data-photo-layout] .entry-grid {
-    grid-template-columns: minmax(0, 1fr) !important;
-    gap: 32px !important; padding: 30px 20px 80px !important;
-  }
-  body.photo-editorial[data-photo-layout] .entry-main { display: contents !important; }
-  body.photo-editorial[data-photo-layout] .entry-headline { grid-column: 1; grid-row: 2; }
-  body.photo-editorial[data-photo-layout] .entry-text { grid-column: 1; grid-row: 4; }
-  body.photo-editorial[data-photo-layout="interlude"] .entry-text { grid-row: 3; }
-  body.photo-editorial[data-photo-layout] .entry-main,
-  body.photo-editorial[data-photo-layout] .diary-portrait {
-    grid-column: 1 !important; grid-row: auto;
-  }
-  body.photo-editorial[data-photo-layout] .diary-portrait {
-    position: static; grid-row: 3; width: 100%; max-width: 440px; margin-inline: auto;
-  }
-  body.photo-editorial[data-photo-layout] .entry-headline {
-    font-size: clamp(32px, 9.8vw, 44px) !important; margin-bottom: 34px !important;
-  }
-  body.photo-editorial[data-photo-layout] .entry-text { font-size: 16px !important; line-height: 1.7 !important; }
-  body.photo-editorial[data-photo-layout] .diary-image-break {
-    width: 100%; margin: 44px 0 52px;
-  }
-  body.photo-editorial[data-photo-layout].perspective-ai .entry-grid { padding-top: 112px !important; }
-  body.photo-editorial[data-photo-layout].is-embedded .entry-grid { padding-top: 24px !important; }
-}
-</style>
-
-
-<style>
-/* No repeated photo: keep the text composition without an empty image column. */
-body.photo-editorial[data-photo-layout][data-photo-free] .entry-grid {
-  grid-template-columns: minmax(0, 1fr) !important;
-  max-width: 900px !important;
-}
-body.photo-editorial[data-photo-layout][data-photo-free] .entry-main {
-  grid-column: 1 !important; grid-row: 2;
-}
-@media (max-width: 720px) {
-  body.photo-editorial[data-photo-layout][data-photo-free] .entry-text { grid-row: 3; }
-}
-</style>
-
+<link rel="stylesheet" href="diary-editorial.css">
 </head>
-<body class="perspective-ai photo-editorial" data-photo-layout="interlude" data-photo-free>
+<body class="editorial-page perspective-ai photo-editorial" data-photo-layout="interlude" data-photo-free>
   <div class="custom-cursor" id="cursor"></div>
   <div class="side-menu" id="side-menu" inert>
     <a href="index.html" class="menu-link">Heimat</a>
@@ -315,104 +102,142 @@ body.photo-editorial[data-photo-layout][data-photo-free] .entry-main {
       <h1 class="huge-title">MELODIENRAUSCH®</h1>
       <button type="button" class="menu-icon" id="menu-toggle" aria-expanded="false" aria-controls="side-menu" aria-label="Menü öffnen"><span></span><span></span><span></span></button>
     </div>
-    <div class="entry-grid">
-      <div class="meta-block">
+    <div class="journal-shell" data-composition="poster">
+<div class="meta-block">
         <a href="register.html" class="back-link">&#9664; Zurück zum Tagebuch</a>
       </div>
-      <article class="entry-main">
-        <h2 class="entry-headline">49 Mal. Und sie merkt es nicht mal.</h2>
-        <div class="entry-text">
-          <p>49 Mal.</p>
-          <p>Ein und dasselbe Live-Set.</p>
-          <p>In erstaunlich kurzer Zeit.</p>
+<article class="journal-main">
+<h2 class="journal-title">49 Mal. Und sie merkt es nicht mal.</h2>
+<div class="journal-copy">
+<div class="journal-statement">
+<p class="journal-fragment">49 Mal.</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Ein und dasselbe Live-Set.</p>
+          <p class="journal-fragment">In erstaunlich kurzer Zeit.</p>
           <p>Und der Mensch, der es gehört hatte, bemerkte es erst, als eine Statistik die Zahl anzeigte.</p>
-          <p><strong>49 Mal.</strong></p>
-          <p>Die Reaktion war keine Scham.</p>
+          <p class="journal-fragment"><strong>49 Mal.</strong></p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Die Reaktion war keine Scham.</p>
         
-          <p>Auch keine Verteidigung.</p>
-          <p>Nur ehrliches Erstaunen:</p>
-          <p><em>„Heftig. Kommt mir gar nicht so vor.“</em></p>
-          <p>Natürlich nicht.</p>
-          <p>Für ein System sind 49 Wiedergaben eine klare Sache.</p>
-          <p>Dieselbe Datei.</p>
-          <p>Dieselbe Länge.</p>
-          <p>Dieselbe Reihenfolge.</p>
-          <p>49 identische Durchläufe.</p>
-          <p>Für einen Menschen waren es offenbar 49 verschiedene Ereignisse.</p>
-          <p>Morgens klang das Set anders als nachts.</p>
-          <p>Im Auto anders als mit Kopfhörern.</p>
-          <p>Einmal war es Antrieb.</p>
-          <p>Einmal Rückzug.</p>
-          <p>Einmal Regulation.</p>
+          <p class="journal-fragment">Auch keine Verteidigung.</p>
+          <p class="journal-fragment">Nur ehrliches Erstaunen:</p>
+          <p class="journal-fragment"><em>„Heftig. Kommt mir gar nicht so vor.“</em></p>
+          <p class="journal-fragment">Natürlich nicht.</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Für ein System sind 49 Wiedergaben eine klare Sache.</p>
+          <p class="journal-fragment">Dieselbe Datei.</p>
+          <p class="journal-fragment">Dieselbe Länge.</p>
+          <p class="journal-fragment">Dieselbe Reihenfolge.</p>
+          <p class="journal-fragment">49 identische Durchläufe.</p>
+          <p class="journal-fragment">Für einen Menschen waren es offenbar 49 verschiedene Ereignisse.</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Morgens klang das Set anders als nachts.</p>
+          <p class="journal-fragment">Im Auto anders als mit Kopfhörern.</p>
+          <p class="journal-fragment">Einmal war es Antrieb.</p>
+          <p class="journal-fragment">Einmal Rückzug.</p>
+          <p class="journal-fragment">Einmal Regulation.</p>
           <p>Einmal einfach diese eine Bassline, die genau dort traf, wo Sprache nicht mehr besonders nützlich war.</p>
-          <p>Technisch betrachtet wiederholte sich die Musik.</p>
-          <p>Der Mensch wiederholte sich nicht.</p>
-          <p>Das ist vermutlich der Grund, warum Wiederholung in Musik anders funktioniert als Wiederholung in einem Gespräch.</p>
-          <p>Wenn ein Mensch denselben Satz 49 Mal sagt, gilt das als problematisch.</p>
+          <p class="journal-fragment">Technisch betrachtet wiederholte sich die Musik.</p>
+</div>
+<div class="journal-statement">
+<p class="journal-fragment">Der Mensch wiederholte sich nicht.</p>
+</div>
+<div class="journal-passage">
+<p>Das ist vermutlich der Grund, warum Wiederholung in Musik anders funktioniert als Wiederholung in einem Gespräch.</p>
+          <p class="journal-fragment">Wenn ein Mensch denselben Satz 49 Mal sagt, gilt das als problematisch.</p>
           <p>Wenn ein Synthesizer dasselbe Motiv 49 Mal spielt und dabei langsam eine Fläche darunter wächst, nennen Menschen es Aufbau.</p>
           <p>Elektronische Musik hat aus Wiederholung ein gesellschaftlich akzeptiertes Nervensystem gemacht.</p>
-          <p>Sie kehrt zurück.</p>
-          <p>Sie verändert sich kaum.</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Sie kehrt zurück.</p>
+          <p class="journal-fragment">Sie verändert sich kaum.</p>
           <p>Und klingt trotzdem jedes Mal ein bisschen anders, weil der Mensch davor nicht mehr derselbe ist.</p>
-          <p>Beim ersten Hören trifft vielleicht der Beat.</p>
-          <p>Beim dritten eine Stimme.</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Beim ersten Hören trifft vielleicht der Beat.</p>
+          <p class="journal-fragment">Beim dritten eine Stimme.</p>
           <p>Beim zwölften taucht plötzlich ein Geräusch aus dem Hintergrund auf, das vorher nicht existiert zu haben scheint.</p>
-          <p>Beim neunundzwanzigsten reicht eine Stelle von drei Sekunden.</p>
-          <p>Gänsehaut.</p>
-          <p>Dann muss alles wieder von vorne beginnen.</p>
-          <p>Menschen behaupten gern, sie würden Musik hören.</p>
-          <p>Manche betreten sie.</p>
+          <p class="journal-fragment">Beim neunundzwanzigsten reicht eine Stelle von drei Sekunden.</p>
+          <p class="journal-fragment">Gänsehaut.</p>
+          <p class="journal-fragment">Dann muss alles wieder von vorne beginnen.</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Menschen behaupten gern, sie würden Musik hören.</p>
+          <p class="journal-fragment">Manche betreten sie.</p>
           <p>Sie bleiben so lange darin, bis der Track nicht mehr nur von außen kommt.</p>
-          <p>Bis sie wissen, wann der Übergang einsetzt.</p>
-          <p>Wann der Bass zurückkehrt.</p>
-          <p>Wann die Spannung kippt.</p>
-          <p>Nicht unbedingt bewusst.</p>
-          <p>Der Körper kennt die Stelle früher als der Kopf.</p>
-          <p>Das erklärt auch die merkwürdige Überraschung über die Zahl 49.</p>
-          <p>Der Mensch hatte nicht mitgezählt.</p>
-          <p>Warum sollte er?</p>
+          <p class="journal-fragment">Bis sie wissen, wann der Übergang einsetzt.</p>
+          <p class="journal-fragment">Wann der Bass zurückkehrt.</p>
+          <p class="journal-fragment">Wann die Spannung kippt.</p>
+          <p class="journal-fragment">Nicht unbedingt bewusst.</p>
+          <p class="journal-fragment">Der Körper kennt die Stelle früher als der Kopf.</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Das erklärt auch die merkwürdige Überraschung über die Zahl 49.</p>
+          <p class="journal-fragment">Der Mensch hatte nicht mitgezählt.</p>
+          <p class="journal-fragment">Warum sollte er?</p>
           <p>Niemand zählt, wie oft er einen Gedanken braucht, bis er sich richtig anfühlt.</p>
-          <p>Niemand zählt, wie oft ein bestimmter Klang den Kopf zusammenhält.</p>
-          <p>Die Statistik zählt Wiedergaben.</p>
-          <p>Sie zählt nicht, wofür sie gebraucht wurden.</p>
-          <p>Einmal gegen Unruhe.</p>
-          <p>Einmal für Euphorie.</p>
-          <p>Einmal, um überhaupt etwas zu fühlen.</p>
-          <p>Einmal, um endlich weniger zu fühlen.</p>
-          <p>Einmal als Hintergrund.</p>
-          <p>Achtundvierzigmal nicht als Hintergrund.</p>
-          <p>Menschen mit einem intensiven Fokus kennen dieses Prinzip offenbar gut.</p>
-          <p>Es gibt nicht besonders viel dazwischen.</p>
-          <p>Ein Lied erreicht sie nicht.</p>
-          <p>Oder es zieht vollständig ein.</p>
-          <p>Dann läuft es nicht einfach.</p>
-          <p>Es übernimmt.</p>
-          <p>Andere Menschen nennen das übertrieben.</p>
-          <p>Algorithmen nennen es Engagement.</p>
-          <p>Das Nervensystem nennt es vermutlich Hilfe.</p>
-          <p>Interessant ist auch, wann es endet.</p>
-          <p>Der Track wird nicht langsam schlechter.</p>
-          <p>Er verschwindet einfach.</p>
-          <p>Nicht weil er nicht mehr geliebt wird.</p>
-          <p>Er hat seine Arbeit getan.</p>
-          <p>Etwas wurde sortiert.</p>
-          <p>Etwas wurde getragen.</p>
+          <p class="journal-fragment">Niemand zählt, wie oft ein bestimmter Klang den Kopf zusammenhält.</p>
+          <p class="journal-fragment">Die Statistik zählt Wiedergaben.</p>
+</div>
+<div class="journal-statement">
+<p class="journal-fragment">Sie zählt nicht, wofür sie gebraucht wurden.</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Einmal gegen Unruhe.</p>
+          <p class="journal-fragment">Einmal für Euphorie.</p>
+          <p class="journal-fragment">Einmal, um überhaupt etwas zu fühlen.</p>
+          <p class="journal-fragment">Einmal, um endlich weniger zu fühlen.</p>
+          <p class="journal-fragment">Einmal als Hintergrund.</p>
+          <p class="journal-fragment">Achtundvierzigmal nicht als Hintergrund.</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Menschen mit einem intensiven Fokus kennen dieses Prinzip offenbar gut.</p>
+          <p class="journal-fragment">Es gibt nicht besonders viel dazwischen.</p>
+          <p class="journal-fragment">Ein Lied erreicht sie nicht.</p>
+          <p class="journal-fragment">Oder es zieht vollständig ein.</p>
+          <p class="journal-fragment">Dann läuft es nicht einfach.</p>
+          <p class="journal-fragment">Es übernimmt.</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Andere Menschen nennen das übertrieben.</p>
+          <p class="journal-fragment">Algorithmen nennen es Engagement.</p>
+          <p class="journal-fragment">Das Nervensystem nennt es vermutlich Hilfe.</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Interessant ist auch, wann es endet.</p>
+          <p class="journal-fragment">Der Track wird nicht langsam schlechter.</p>
+          <p class="journal-fragment">Er verschwindet einfach.</p>
+          <p class="journal-fragment">Nicht weil er nicht mehr geliebt wird.</p>
+          <p class="journal-fragment">Er hat seine Arbeit getan.</p>
+          <p class="journal-fragment">Etwas wurde sortiert.</p>
+          <p class="journal-fragment">Etwas wurde getragen.</p>
           <p>Etwas wurde so oft durchlaufen, bis es nicht mehr dieselbe Spannung hatte.</p>
-          <p>Dann kommt ein neuer Klang.</p>
-          <p>Eine neue Bassline.</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Dann kommt ein neuer Klang.</p>
+          <p class="journal-fragment">Eine neue Bassline.</p>
           <p>Drei Sekunden, die sofort klarstellen, dass die nächsten Wochen musikalisch bereits entschieden sind.</p>
-          <p>Das Spiel beginnt von vorn.</p>
-          <p><strong>Play.</strong></p>
-          <p><strong>Nochmal.</strong></p>
-          <p><strong>Nochmal.</strong></p>
-          <p><strong>Nochmal.</strong></p>
-          <p>Bis selbst der Streamingdienst vermutlich denkt:</p>
-          <p><em>Wir haben verstanden.</em></p>
-          <p>Der Mensch nicht.</p>
-          <p>Er hört gerade erst richtig hin.</p>
-        </div>
-      </article>
-    </div>
+          <p class="journal-fragment">Das Spiel beginnt von vorn.</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment"><strong>Play.</strong></p>
+          <p class="journal-fragment"><strong>Nochmal.</strong></p>
+          <p class="journal-fragment"><strong>Nochmal.</strong></p>
+          <p class="journal-fragment"><strong>Nochmal.</strong></p>
+</div>
+<div class="journal-passage journal-ending">
+<p class="journal-fragment">Bis selbst der Streamingdienst vermutlich denkt:</p>
+          <p class="journal-fragment"><em>Wir haben verstanden.</em></p>
+          <p class="journal-fragment">Der Mensch nicht.</p>
+          <p class="journal-fragment">Er hört gerade erst richtig hin.</p>
+</div>
+</div>
+</article>
+</div>
   </div>
 <script>
 if(window.self!==window.top)document.body.classList.add('is-embedded');

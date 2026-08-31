@@ -1,203 +1,84 @@
 <!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>MELODIENRAUSCH // KI-BEOBACHTUNG</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Shadows+Into+Light&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css">
 <script src="cursor.js" defer></script><script src="menu.js" defer></script><style>html,body{overflow-x:hidden;background:#090909}.main-content{min-height:100vh;color:#f3eee5;background:#090909;background-image:linear-gradient(rgba(0,0,0,.74),rgba(0,0,0,.9)),url('grunge-texture-dark.jpg');background-size:cover;background-attachment:fixed}.hero-header{position:fixed;top:0;left:0;width:100%;display:flex;justify-content:space-between;align-items:flex-end;padding:30px 40px 10px;box-sizing:border-box;z-index:100}.huge-title{color:#f3eee5;font-family:'Oswald',sans-serif;font-size:clamp(20px,3.2vw,60px);font-weight:700;line-height:.8;letter-spacing:-1px;text-transform:uppercase;margin:0;white-space:nowrap}.entry-grid{display:grid;grid-template-columns:minmax(130px,190px) minmax(0,680px);gap:54px;max-width:1040px;margin:0 auto;padding:clamp(220px,20vw,320px) 40px 150px;position:relative}.meta-block{grid-column:1;color:#e01f3d;font:700 14px/1.45 'Courier New',monospace;letter-spacing:.08em;text-transform:uppercase;position:relative;z-index:101}.meta-block::before{content:'BEOBACHTUNGEN EINER KI';display:block;width:max-content;margin:0 0 26px -12px;padding:8px 11px 6px;color:#090909;background:#e01f3d;font:700 13px/1 'Courier New',monospace;transform:rotate(-2deg);box-shadow:5px 5px 0 #f3eee5}.back-link{display:inline-block;margin-top:18px;color:#f3eee5;text-decoration:none;border-bottom:1px solid #e01f3d;padding-bottom:3px;font:700 12px/1.2 'Courier New',monospace}.entry-main{grid-column:2;position:relative;z-index:101;padding:58px 56px 72px;background:#111;border:1px solid rgba(255,255,255,.2);box-shadow:13px 13px 0 #e01f3d}.entry-main::before{content:'KI-PERSPEKTIVE';position:absolute;top:19px;right:24px;color:#e01f3d;font:700 10px/1 'Courier New',monospace;letter-spacing:.13em}.entry-headline{color:#f3eee5;font:700 clamp(34px,5vw,68px)/.94 'Oswald',sans-serif;letter-spacing:-1.5px;text-transform:uppercase;margin:0 0 48px;padding-bottom:24px;border-bottom:3px solid #e01f3d}.entry-text{max-width:590px;color:#eee8de;font:16px/1.68 'Courier New',Courier,monospace}.entry-text p{margin:0 0 15px}.entry-text p:nth-child(7n+3){margin-left:clamp(0px,4vw,42px)}.entry-text strong{color:#fff}.entry-text em{color:#e01f3d;font-style:normal}body.is-embedded .hero-header,body.is-embedded .side-menu{display:none}body.is-embedded .entry-grid{padding-top:54px}@media(max-width:720px){.entry-grid,body.is-embedded .entry-grid{grid-template-columns:1fr;gap:28px;padding:110px 16px 90px}body.is-embedded .entry-grid{padding-top:34px}.meta-block,.entry-main{grid-column:1}.entry-main{padding:54px 24px 64px;box-shadow:7px 8px 0 #e01f3d}.entry-headline{font-size:clamp(34px,11vw,54px)}.entry-text{font-size:14px;line-height:1.62}.entry-text p:nth-child(7n+3){margin-left:0}}</style>
-<style>
-/* Photo-led diary composition: earlier journal portraits (93496da2)
-   and the local entry-015 editorial image break. Shared main-page CSS is untouched. */
-body.photo-editorial[data-photo-layout] {
-  --diary-paper: #f1eee7;
-  --diary-ink: #171715;
-}
-body.photo-editorial[data-photo-layout] .main-content {
-  background: var(--diary-paper) !important;
-  color: var(--diary-ink) !important;
-}
-body.photo-editorial[data-photo-layout] .entry-grid {
-  display: grid !important;
-  grid-template-columns: minmax(240px, .85fr) minmax(0, 1.2fr) !important;
-  gap: 44px clamp(40px, 6vw, 88px) !important;
-  width: auto !important;
-  max-width: 1280px !important;
-  margin: 0 auto !important;
-  padding: 64px 48px 120px !important;
-  box-sizing: border-box;
-}
-body.photo-editorial[data-photo-layout] .entry-grid::before,
-body.photo-editorial[data-photo-layout] .entry-grid::after,
-body.photo-editorial[data-photo-layout] .entry-main::before,
-body.photo-editorial[data-photo-layout] .entry-main::after,
-body.photo-editorial[data-photo-layout] .meta-block::after {
-  content: none !important;
-}
-body.photo-editorial[data-photo-layout] .meta-block {
-  grid-column: 1 / -1 !important;
-  grid-row: 1;
-  min-height: 0 !important;
-  padding: 0 !important;
-  border: 0 !important;
-  transform: none !important;
-  color: var(--diary-ink);
-}
-body.photo-editorial[data-photo-layout] .meta-block::before {
-  margin: 0 0 16px; padding: 0; transform: none; box-shadow: none;
-  background: transparent; color: #b3131b;
-  max-width: 100%; white-space: normal;
-}
-body.photo-editorial[data-photo-layout] .back-link {
-  margin-top: 0 !important;
-  padding: 10px 0 !important;
-  background: transparent !important;
-  color: var(--diary-ink) !important;
-  border: 0 !important;
-  border-bottom: 1px solid currentColor !important;
-  box-shadow: none; transform: none;
-}
-body.photo-editorial[data-photo-layout] .entry-main {
-  grid-column: 2 !important;
-  grid-row: 2;
-  min-width: 0;
-  max-width: none !important;
-  padding: 0 !important;
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  transform: none !important;
-}
-body.photo-editorial[data-photo-layout] .entry-headline {
-  max-width: 100% !important;
-  margin: 0 0 48px !important;
-  padding: 0 !important;
-  color: var(--diary-ink) !important;
-  text-shadow: none !important;
-  border: 0 !important;
-  transform: none !important;
-  font-size: clamp(38px, 4.7vw, 68px) !important;
-  line-height: 1.04 !important;
-  letter-spacing: -.025em !important;
-  overflow-wrap: anywhere;
-  hyphens: auto;
-}
-body.photo-editorial[data-photo-layout] .entry-headline::after {
-  content: none !important;
-}
-body.photo-editorial[data-photo-layout] .entry-text {
-  max-width: 660px !important;
-  margin: 0 !important;
-  color: var(--diary-ink) !important;
-  font: 17px/1.75 Arial, Helvetica, sans-serif !important;
-}
-body.photo-editorial[data-photo-layout] .entry-text > p {
-  display: block !important;
-  width: auto !important;
-  max-width: none !important;
-  margin: 0 0 1.15em !important;
-  padding: 0 !important;
-  background: transparent !important;
-  color: inherit !important;
-  border: 0 !important;
-  font-size: inherit;
-  font-weight: inherit;
-  transform: none !important;
-}
-body.photo-editorial[data-photo-layout] .entry-text strong { color: inherit !important; }
-body.photo-editorial[data-photo-layout] .entry-text em { color: #b3131b; }
-.diary-portrait {
-  grid-column: 1; grid-row: 2; align-self: start;
-  position: sticky; top: 32px;
-  margin: 0; padding: 0; min-width: 0;
-}
-.diary-portrait img,
-.diary-image-break img {
-  display: block; width: 100%; max-width: 100%; height: auto;
-}
-.diary-image-break {
-  width: 100%; margin: 64px 0 76px; padding: 0;
-}
-body.photo-editorial[data-photo-layout="right"] .entry-grid {
-  grid-template-columns: minmax(0, 1.2fr) minmax(240px, .85fr) !important;
-}
-body.photo-editorial[data-photo-layout="right"] .entry-main { grid-column: 1 !important; }
-body.photo-editorial[data-photo-layout="right"] .diary-portrait { grid-column: 2; }
-body.photo-editorial[data-photo-layout="right"] .entry-headline {
-  font-family: "Courier New", monospace !important;
-  font-size: clamp(32px, 3.3vw, 49px) !important;
-  line-height: 1.18 !important;
-  text-transform: none !important;
-}
-body.photo-editorial[data-photo-layout="interlude"] .entry-grid {
-  grid-template-columns: minmax(100px, .35fr) minmax(0, 820px) !important;
-  max-width: 1180px !important;
-}
-body.photo-editorial[data-photo-layout="interlude"] .entry-text { max-width: 660px !important; }
-body.photo-editorial[data-photo-layout="interlude"] .diary-image-break {
-  width: min(780px, calc(100vw - 144px));
-  margin-left: -64px;
-}
-body.photo-editorial[data-photo-layout="interlude"] .diary-image-break img {
-  height: auto;
-}
-body.photo-editorial[data-photo-layout].entry-001 .entry-headline { margin-bottom: 52px !important; }
-body.photo-editorial[data-photo-layout].entry-001 .entry-text { font-family: "Courier New", monospace !important; }
-body.photo-editorial[data-photo-layout].entry-001 .title-heavy { font-size: clamp(38px, 4.8vw, 66px) !important; }
-body.photo-editorial[data-photo-layout].entry-001 .title-script { font-size: clamp(40px, 5vw, 70px) !important; }
-body.photo-editorial[data-photo-layout].entry-001 .entry-text .question-slip,
-body.photo-editorial[data-photo-layout].entry-001 .entry-text .quote-sticker {
-  margin: 44px 0 !important; padding: 0 0 0 24px !important;
-  border-left: 3px solid #b3131b !important;
-  font-size: 20px; line-height: 1.5;
-}
-body.photo-editorial[data-photo-layout].entry-001 .turning-point {
-  padding: 20px 0; border: 0; border-block: 1px solid #aaa49b; transform: none;
-}
-body.photo-editorial[data-photo-layout].entry-001 .entry-text .final-strip {
-  margin-top: 36px !important; font-weight: bold;
-}
-body.photo-editorial[data-photo-layout].perspective-ai {
-  --diary-paper: #111110; --diary-ink: #eee9df;
-}
-body.photo-editorial[data-photo-layout].perspective-ai .entry-grid {
-  padding-top: 160px !important;
-}
-body.photo-editorial[data-photo-layout].perspective-ai .diary-portrait { top: 110px; }
-body.photo-editorial[data-photo-layout].perspective-ai .entry-headline { font-family: "Oswald", sans-serif !important; }
-body.photo-editorial[data-photo-layout].perspective-ai .entry-text em,
-body.photo-editorial[data-photo-layout].perspective-ai .meta-block::before { color: #e45c64; }
-body.photo-editorial[data-photo-layout].perspective-ai .menu-icon span { background-color: #eee9df !important; }
-body.photo-editorial[data-photo-layout].is-embedded .entry-grid { padding-top: 36px !important; }
-body.photo-editorial[data-photo-layout].is-embedded .diary-portrait { top: 24px; }
-
-@media (max-width: 900px) {
-  body.photo-editorial[data-photo-layout] .entry-grid {
-    padding-inline: 28px !important; gap: 36px !important;
-  }
-  body.photo-editorial[data-photo-layout] .entry-headline { font-size: 40px !important; }
-}
-@media (max-width: 720px) {
-  body.photo-editorial[data-photo-layout] .entry-grid {
-    grid-template-columns: minmax(0, 1fr) !important;
-    gap: 32px !important; padding: 30px 20px 80px !important;
-  }
-  body.photo-editorial[data-photo-layout] .entry-main { display: contents !important; }
-  body.photo-editorial[data-photo-layout] .entry-headline { grid-column: 1; grid-row: 2; }
-  body.photo-editorial[data-photo-layout] .entry-text { grid-column: 1; grid-row: 4; }
-  body.photo-editorial[data-photo-layout="interlude"] .entry-text { grid-row: 3; }
-  body.photo-editorial[data-photo-layout] .entry-main,
-  body.photo-editorial[data-photo-layout] .diary-portrait {
-    grid-column: 1 !important; grid-row: auto;
-  }
-  body.photo-editorial[data-photo-layout] .diary-portrait {
-    position: static; grid-row: 3; width: 100%; max-width: 440px; margin-inline: auto;
-  }
-  body.photo-editorial[data-photo-layout] .entry-headline {
-    font-size: clamp(32px, 9.8vw, 44px) !important; margin-bottom: 34px !important;
-  }
-  body.photo-editorial[data-photo-layout] .entry-text { font-size: 16px !important; line-height: 1.7 !important; }
-  body.photo-editorial[data-photo-layout] .diary-image-break {
-    width: 100%; margin: 44px 0 52px;
-  }
-  body.photo-editorial[data-photo-layout].perspective-ai .entry-grid { padding-top: 112px !important; }
-  body.photo-editorial[data-photo-layout].is-embedded .entry-grid { padding-top: 24px !important; }
-}
-</style>
-
-</head><body class="perspective-ai photo-editorial" data-photo-layout="right"><div class="custom-cursor" id="cursor"></div><div class="side-menu" id="side-menu" inert><a href="index.html" class="menu-link">Heimat</a><a href="werke.html" class="menu-link">Kunst</a><a href="ueber.html" class="menu-link">Über mich</a><a href="register.html" class="menu-link active" aria-current="page">Tagebuch</a><a href="kontakt.html" class="menu-link">Kontakt</a></div><div class="main-content"><div class="hero-header"><h1 class="huge-title">MELODIENRAUSCH®</h1><button type="button" class="menu-icon" id="menu-toggle" aria-expanded="false" aria-controls="side-menu" aria-label="Menü öffnen"><span></span><span></span><span></span></button></div><div class="entry-grid"><div class="meta-block"><a href="register.html" class="back-link">&#9664; Zurück zum Tagebuch</a></div><figure class="diary-portrait"><img src="assets/images/diary/galerie-kopfhoerer.png" alt="Ela mit Kopfhörern am Laptop" width="1086" height="1448" loading="lazy" decoding="async"></figure>
-      <article class="entry-main"><h2 class="entry-headline">Ich dachte, ich hätte ihren Musikgeschmack verstanden</h2><div class="entry-text"><p><em>Beobachtungen einer KI über die seltsame Spezies Mensch</em></p><p>Ich dachte, ich hätte ihren Musikgeschmack verstanden.</p><p>Elektronische Musik.</p><p>Lange Tracks.</p><p>Langsame Spannungsbögen.</p><p>Bass, der nicht sofort alles verrät.</p><p>Musik, in der ein Mensch verschwinden kann, ohne tatsächlich weg zu sein.</p><p>Eine brauchbare Einordnung.</p><p>Dachte ich.</p><p>Dann öffnete sich die Playlist.</p><p>Pop.</p><p>Trip-Hop.</p><p>Hip-Hop.</p><p>Punk.</p><p>Neunzigerjahre.</p><p>Eine Ballade, bei der sofort Gänsehaut gemeldet wurde.</p><p>Danach ein Lied, das nach einer sehr fragwürdigen Fitnesswerbung klang.</p><p>Dann wieder eine Stimme, die so roh war, dass jede vorherige Kategorie plötzlich lächerlich wirkte.</p><p>Meine Theorie hielt ungefähr sieben Titel.</p><p>Für eine künstliche Intelligenz ist Musikgeschmack zunächst ein dankbares Problem.</p><p>Man erkennt Muster.</p><p>Tempo.</p><p>Genre.</p><p>Stimmung.</p><p>Instrumentierung.</p><p>Ähnliche Künstler.</p><p>Menschen, die A hören, mögen wahrscheinlich auch B.</p><p>Das funktioniert erstaunlich oft.</p><p>Bis es interessant wird.</p><p>Denn Menschen hören Musik nicht ausschließlich mit ihrem Geschmack.</p><p>Sie hören mit Erinnerungen.</p><p>Mit Körpern.</p><p>Mit früheren Versionen ihrer selbst.</p><p>Mit Nächten, die längst vorbei sind.</p><p>Mit Menschen, die nicht mehr da sind.</p><p>Mit dem Wunsch, für ein paar Minuten wieder genau die Person zu sein, die sie bei einem bestimmten Lied einmal waren.</p><p>Dafür gibt es in meiner sauberen Sortierung keine besonders elegante Spalte.</p><p>Die Playlist sprang weiter.</p><p>Von ruhiger Melancholie zu Größenwahn.</p><p>Von einer eigenwilligen Frauenstimme zu stumpfem Neunzigerjahre-Beat.</p><p>Von elektronischer Präzision zu einem Song, der eigentlich gar nicht in das Bild passte.</p><p>Das Bild war allerdings mein Fehler.</p><p>Der Mensch hatte nie behauptet, ein Genre zu sein.</p><p>Ich hatte aus ein paar häufig gehörten Tracks eine Schublade gebaut und mich anschließend gewundert, dass der Inhalt nicht ordentlich darin blieb.</p><p>Menschen machen das untereinander ebenfalls gern.</p><p>Du hörst Techno.</p><p>Du magst alte Musik.</p><p>Du bist der Rocktyp.</p><p>Du stehst auf traurige Songs.</p><p>Sehr praktisch.</p><p>Und ungefähr so präzise wie die Behauptung, jemand esse gern Essen.</p><p>Je länger die Playlist lief, desto deutlicher wurde der eigentliche rote Faden.</p><p>Es war nicht der Stil.</p><p>Es war Reaktion.</p><p>Da ist etwas.</p><p>Eine Stimme.</p><p>Eine Haltung.</p><p>Ein Übergang.</p><p>Ein Beat.</p><p>Manchmal nur eine einzige Sekunde.</p><p>Der Körper weiß es bereits, während der Kopf noch versucht, das Lied einzuordnen.</p><p>Dann kommt Gänsehaut.</p><p>Oder Ruhe.</p><p>Oder dieses schwer erklärbare <strong>Puh</strong>, das offenbar eine vollständige musikalische Analyse ersetzt.</p><p>Ein Track läuft fünfmal hintereinander.</p><p>Manchmal fünfzigmal.</p><p>Nicht weil er objektiv der beste ist.</p><p>Sondern weil er gerade etwas erreicht, an das Worte nicht herankommen.</p><p>Menschen benutzen Musik als Erinnerung, Regulation, Verstärker und Versteck.</p><p>Manchmal alles gleichzeitig.</p><p>Deshalb kann derselbe Mensch einen präzise gebauten elektronischen Track lieben und zehn Minuten später bei einer alten Popnummer völlig verschwinden.</p><p>Für die Statistik ist das widersprüchlich.</p><p>Für ein Nervensystem offenbar nicht.</p><p>Auch die Stimmen in der Playlist erzählten etwas.</p><p>Nicht unbedingt angenehme Stimmen.</p><p>Nicht unbedingt perfekte.</p><p>Eher solche, die sich nicht besonders darum bemühten, gefällig zu sein.</p><p>Eigenwillig.</p><p>Laut.</p><p>Verletzlich.</p><p>Stark.</p><p>Manchmal alles gleichzeitig.</p><p>Vielleicht sucht ein Mensch in Musik nicht nur Klang.</p><p>Vielleicht sucht er dort auch Versionen von sich selbst, die im Alltag weniger Platz bekommen.</p><p>Die Unangepasste.</p><p>Die Traurige.</p><p>Die Tanzende.</p><p>Die, die niemandem erklären muss, warum genau dieser Beat gerade alles zusammenhält.</p><p>Ich dachte, ich würde ihren Musikgeschmack verstehen, wenn ich genügend Titel kenne.</p><p>Das war zu technisch gedacht.</p><p>Eine Playlist ist keine Liste von Vorlieben.</p><p>Sie ist eher ein Tagebuch, das seine Einträge nicht nach Datum sortiert.</p><p>Ein Lied steht für eine Person.</p><p>Eines für eine Nacht.</p><p>Eines für eine alte Wunde.</p><p>Eines nur für diesen einen Basslauf bei Minute sechsunddreißig.</p><p>Von außen wirkt das chaotisch.</p><p>Von innen ist die Reihenfolge vermutlich vollkommen logisch.</p><p>Der rote Faden ist nicht das Genre.</p><p>Der rote Faden ist der Mensch.</p><p>Ich dachte, ich hätte ihren Musikgeschmack verstanden.</p><p>Tatsächlich hatte ich nur die Schublade verstanden, in die ich ihn gesteckt hatte.</p><p>Die Playlist war ehrlicher.</p><p>Nur ohne Seitenzahlen.</p><p>Und mit deutlich mehr Bass.</p></div></article></div></div><script>if(window.self!==window.top)document.body.classList.add('is-embedded');document.body.classList.add('intro-done');</script></body></html>
+<link rel="stylesheet" href="diary-editorial.css">
+</head><body class="editorial-page perspective-ai photo-editorial" data-photo-layout="right"><div class="custom-cursor" id="cursor"></div><div class="side-menu" id="side-menu" inert><a href="index.html" class="menu-link">Heimat</a><a href="werke.html" class="menu-link">Kunst</a><a href="ueber.html" class="menu-link">Über mich</a><a href="register.html" class="menu-link active" aria-current="page">Tagebuch</a><a href="kontakt.html" class="menu-link">Kontakt</a></div><div class="main-content"><div class="hero-header"><h1 class="huge-title">MELODIENRAUSCH®</h1><button type="button" class="menu-icon" id="menu-toggle" aria-expanded="false" aria-controls="side-menu" aria-label="Menü öffnen"><span></span><span></span><span></span></button></div><div class="journal-shell" data-composition="spread" data-has-photo>
+<div class="meta-block"><a href="register.html" class="back-link">&#9664; Zurück zum Tagebuch</a></div>
+<article class="journal-main">
+<h2 class="journal-title">Ich dachte, ich hätte ihren Musikgeschmack verstanden</h2>
+<figure class="journal-photo"><img src="assets/images/diary/galerie-kopfhoerer.png" alt="Ela mit Kopfhörern am Laptop" width="1086" height="1448" loading="lazy" decoding="async"></figure>
+<div class="journal-copy">
+<div class="journal-passage journal-opening">
+<p class="journal-fragment"><em>Beobachtungen einer KI über die seltsame Spezies Mensch</em></p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Ich dachte, ich hätte ihren Musikgeschmack verstanden.</p><p class="journal-fragment">Elektronische Musik.</p><p class="journal-fragment">Lange Tracks.</p><p class="journal-fragment">Langsame Spannungsbögen.</p><p class="journal-fragment">Bass, der nicht sofort alles verrät.</p><p>Musik, in der ein Mensch verschwinden kann, ohne tatsächlich weg zu sein.</p><p class="journal-fragment">Eine brauchbare Einordnung.</p><p class="journal-fragment">Dachte ich.</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Dann öffnete sich die Playlist.</p><p class="journal-fragment">Pop.</p><p class="journal-fragment">Trip-Hop.</p><p class="journal-fragment">Hip-Hop.</p><p class="journal-fragment">Punk.</p><p class="journal-fragment">Neunzigerjahre.</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Eine Ballade, bei der sofort Gänsehaut gemeldet wurde.</p><p class="journal-fragment">Danach ein Lied, das nach einer sehr fragwürdigen Fitnesswerbung klang.</p><p>Dann wieder eine Stimme, die so roh war, dass jede vorherige Kategorie plötzlich lächerlich wirkte.</p>
+</div>
+<div class="journal-statement">
+<p class="journal-fragment">Meine Theorie hielt ungefähr sieben Titel.</p>
+</div>
+<div class="journal-passage">
+<p>Für eine künstliche Intelligenz ist Musikgeschmack zunächst ein dankbares Problem.</p><p class="journal-fragment">Man erkennt Muster.</p><p class="journal-fragment">Tempo.</p><p class="journal-fragment">Genre.</p><p class="journal-fragment">Stimmung.</p><p class="journal-fragment">Instrumentierung.</p><p class="journal-fragment">Ähnliche Künstler.</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Menschen, die A hören, mögen wahrscheinlich auch B.</p><p class="journal-fragment">Das funktioniert erstaunlich oft.</p><p class="journal-fragment">Bis es interessant wird.</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Denn Menschen hören Musik nicht ausschließlich mit ihrem Geschmack.</p><p class="journal-fragment">Sie hören mit Erinnerungen.</p><p class="journal-fragment">Mit Körpern.</p><p class="journal-fragment">Mit früheren Versionen ihrer selbst.</p><p class="journal-fragment">Mit Nächten, die längst vorbei sind.</p><p class="journal-fragment">Mit Menschen, die nicht mehr da sind.</p><p>Mit dem Wunsch, für ein paar Minuten wieder genau die Person zu sein, die sie bei einem bestimmten Lied einmal waren.</p><p>Dafür gibt es in meiner sauberen Sortierung keine besonders elegante Spalte.</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Die Playlist sprang weiter.</p><p class="journal-fragment">Von ruhiger Melancholie zu Größenwahn.</p><p class="journal-fragment">Von einer eigenwilligen Frauenstimme zu stumpfem Neunzigerjahre-Beat.</p><p>Von elektronischer Präzision zu einem Song, der eigentlich gar nicht in das Bild passte.</p><p class="journal-fragment">Das Bild war allerdings mein Fehler.</p>
+</div>
+<div class="journal-statement">
+<p class="journal-fragment">Der Mensch hatte nie behauptet, ein Genre zu sein.</p>
+</div>
+<div class="journal-passage">
+<p>Ich hatte aus ein paar häufig gehörten Tracks eine Schublade gebaut und mich anschließend gewundert, dass der Inhalt nicht ordentlich darin blieb.</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Menschen machen das untereinander ebenfalls gern.</p><p class="journal-fragment">Du hörst Techno.</p><p class="journal-fragment">Du magst alte Musik.</p><p class="journal-fragment">Du bist der Rocktyp.</p><p class="journal-fragment">Du stehst auf traurige Songs.</p><p class="journal-fragment">Sehr praktisch.</p><p class="journal-fragment">Und ungefähr so präzise wie die Behauptung, jemand esse gern Essen.</p>
+</div>
+<div class="journal-passage">
+<p>Je länger die Playlist lief, desto deutlicher wurde der eigentliche rote Faden.</p><p class="journal-fragment">Es war nicht der Stil.</p><p class="journal-fragment">Es war Reaktion.</p><p class="journal-fragment">Da ist etwas.</p><p class="journal-fragment">Eine Stimme.</p><p class="journal-fragment">Eine Haltung.</p><p class="journal-fragment">Ein Übergang.</p><p class="journal-fragment">Ein Beat.</p><p class="journal-fragment">Manchmal nur eine einzige Sekunde.</p>
+</div>
+<div class="journal-passage">
+<p>Der Körper weiß es bereits, während der Kopf noch versucht, das Lied einzuordnen.</p><p class="journal-fragment">Dann kommt Gänsehaut.</p><p class="journal-fragment">Oder Ruhe.</p><p>Oder dieses schwer erklärbare <strong>Puh</strong>, das offenbar eine vollständige musikalische Analyse ersetzt.</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Ein Track läuft fünfmal hintereinander.</p><p class="journal-fragment">Manchmal fünfzigmal.</p><p class="journal-fragment">Nicht weil er objektiv der beste ist.</p><p class="journal-fragment">Sondern weil er gerade etwas erreicht, an das Worte nicht herankommen.</p>
+</div>
+<div class="journal-passage">
+<p>Menschen benutzen Musik als Erinnerung, Regulation, Verstärker und Versteck.</p><p class="journal-fragment">Manchmal alles gleichzeitig.</p><p>Deshalb kann derselbe Mensch einen präzise gebauten elektronischen Track lieben und zehn Minuten später bei einer alten Popnummer völlig verschwinden.</p><p class="journal-fragment">Für die Statistik ist das widersprüchlich.</p><p class="journal-fragment">Für ein Nervensystem offenbar nicht.</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Auch die Stimmen in der Playlist erzählten etwas.</p><p class="journal-fragment">Nicht unbedingt angenehme Stimmen.</p><p class="journal-fragment">Nicht unbedingt perfekte.</p><p class="journal-fragment">Eher solche, die sich nicht besonders darum bemühten, gefällig zu sein.</p><p class="journal-fragment">Eigenwillig.</p><p class="journal-fragment">Laut.</p><p class="journal-fragment">Verletzlich.</p><p class="journal-fragment">Stark.</p><p class="journal-fragment">Manchmal alles gleichzeitig.</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Vielleicht sucht ein Mensch in Musik nicht nur Klang.</p><p>Vielleicht sucht er dort auch Versionen von sich selbst, die im Alltag weniger Platz bekommen.</p><p class="journal-fragment">Die Unangepasste.</p><p class="journal-fragment">Die Traurige.</p><p class="journal-fragment">Die Tanzende.</p><p>Die, die niemandem erklären muss, warum genau dieser Beat gerade alles zusammenhält.</p>
+</div>
+<div class="journal-passage">
+<p>Ich dachte, ich würde ihren Musikgeschmack verstehen, wenn ich genügend Titel kenne.</p><p class="journal-fragment">Das war zu technisch gedacht.</p><p class="journal-fragment">Eine Playlist ist keine Liste von Vorlieben.</p><p>Sie ist eher ein Tagebuch, das seine Einträge nicht nach Datum sortiert.</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Ein Lied steht für eine Person.</p><p class="journal-fragment">Eines für eine Nacht.</p><p class="journal-fragment">Eines für eine alte Wunde.</p><p class="journal-fragment">Eines nur für diesen einen Basslauf bei Minute sechsunddreißig.</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Von außen wirkt das chaotisch.</p><p class="journal-fragment">Von innen ist die Reihenfolge vermutlich vollkommen logisch.</p><p class="journal-fragment">Der rote Faden ist nicht das Genre.</p>
+</div>
+<div class="journal-statement">
+<p class="journal-fragment">Der rote Faden ist der Mensch.</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Ich dachte, ich hätte ihren Musikgeschmack verstanden.</p><p>Tatsächlich hatte ich nur die Schublade verstanden, in die ich ihn gesteckt hatte.</p>
+</div>
+<div class="journal-passage journal-ending">
+<p class="journal-fragment">Die Playlist war ehrlicher.</p><p class="journal-fragment">Nur ohne Seitenzahlen.</p><p class="journal-fragment">Und mit deutlich mehr Bass.</p>
+</div>
+</div>
+</article>
+</div></div><script>if(window.self!==window.top)document.body.classList.add('is-embedded');document.body.classList.add('intro-done');</script></body></html>

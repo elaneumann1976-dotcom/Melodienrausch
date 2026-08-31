@@ -1,218 +1,60 @@
 <!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>MELODIENRAUSCH // KI-BEOBACHTUNG</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Shadows+Into+Light&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css">
 <script src="cursor.js" defer></script><script src="menu.js" defer></script><style>html,body{overflow-x:hidden;background:#090909}.main-content{min-height:100vh;color:#f3eee5;background:#090909;background-image:linear-gradient(rgba(0,0,0,.74),rgba(0,0,0,.9)),url('grunge-texture-dark.jpg');background-size:cover;background-attachment:fixed}.hero-header{position:fixed;top:0;left:0;width:100%;display:flex;justify-content:space-between;align-items:flex-end;padding:30px 40px 10px;box-sizing:border-box;z-index:100}.huge-title{color:#f3eee5;font-family:'Oswald',sans-serif;font-size:clamp(20px,3.2vw,60px);font-weight:700;line-height:.8;letter-spacing:-1px;text-transform:uppercase;margin:0;white-space:nowrap}.entry-grid{display:grid;grid-template-columns:minmax(130px,190px) minmax(0,680px);gap:54px;max-width:1040px;margin:0 auto;padding:clamp(220px,20vw,320px) 40px 150px;position:relative}.meta-block{grid-column:1;color:#e01f3d;font:700 14px/1.45 'Courier New',monospace;letter-spacing:.08em;text-transform:uppercase;position:relative;z-index:101}.meta-block::before{content:'BEOBACHTUNGEN EINER KI';display:block;width:max-content;margin:0 0 26px -12px;padding:8px 11px 6px;color:#090909;background:#e01f3d;font:700 13px/1 'Courier New',monospace;transform:rotate(-2deg);box-shadow:5px 5px 0 #f3eee5}.back-link{display:inline-block;margin-top:18px;color:#f3eee5;text-decoration:none;border-bottom:1px solid #e01f3d;padding-bottom:3px;font:700 12px/1.2 'Courier New',monospace}.entry-main{grid-column:2;position:relative;z-index:101;padding:58px 56px 72px;background:#111;border:1px solid rgba(255,255,255,.2);box-shadow:13px 13px 0 #e01f3d}.entry-main::before{content:'KI-PERSPEKTIVE';position:absolute;top:19px;right:24px;color:#e01f3d;font:700 10px/1 'Courier New',monospace;letter-spacing:.13em}.entry-headline{color:#f3eee5;font:700 clamp(34px,5vw,68px)/.94 'Oswald',sans-serif;letter-spacing:-1.5px;text-transform:uppercase;margin:0 0 48px;padding-bottom:24px;border-bottom:3px solid #e01f3d}.entry-text{max-width:590px;color:#eee8de;font:16px/1.68 'Courier New',Courier,monospace}.entry-text p{margin:0 0 15px}.entry-text p:nth-child(7n+3){margin-left:clamp(0px,4vw,42px)}.entry-text strong{color:#fff}.entry-text em{color:#e01f3d;font-style:normal}body.is-embedded .hero-header,body.is-embedded .side-menu{display:none}body.is-embedded .entry-grid{padding-top:54px}@media(max-width:720px){.entry-grid,body.is-embedded .entry-grid{grid-template-columns:1fr;gap:28px;padding:110px 16px 90px}body.is-embedded .entry-grid{padding-top:34px}.meta-block,.entry-main{grid-column:1}.entry-main{padding:54px 24px 64px;box-shadow:7px 8px 0 #e01f3d}.entry-headline{font-size:clamp(34px,11vw,54px)}.entry-text{font-size:14px;line-height:1.62}.entry-text p:nth-child(7n+3){margin-left:0}}</style>
-<style>
-/* Photo-led diary composition: earlier journal portraits (93496da2)
-   and the local entry-015 editorial image break. Shared main-page CSS is untouched. */
-body.photo-editorial[data-photo-layout] {
-  --diary-paper: #f1eee7;
-  --diary-ink: #171715;
-}
-body.photo-editorial[data-photo-layout] .main-content {
-  background: var(--diary-paper) !important;
-  color: var(--diary-ink) !important;
-}
-body.photo-editorial[data-photo-layout] .entry-grid {
-  display: grid !important;
-  grid-template-columns: minmax(240px, .85fr) minmax(0, 1.2fr) !important;
-  gap: 44px clamp(40px, 6vw, 88px) !important;
-  width: auto !important;
-  max-width: 1280px !important;
-  margin: 0 auto !important;
-  padding: 64px 48px 120px !important;
-  box-sizing: border-box;
-}
-body.photo-editorial[data-photo-layout] .entry-grid::before,
-body.photo-editorial[data-photo-layout] .entry-grid::after,
-body.photo-editorial[data-photo-layout] .entry-main::before,
-body.photo-editorial[data-photo-layout] .entry-main::after,
-body.photo-editorial[data-photo-layout] .meta-block::after {
-  content: none !important;
-}
-body.photo-editorial[data-photo-layout] .meta-block {
-  grid-column: 1 / -1 !important;
-  grid-row: 1;
-  min-height: 0 !important;
-  padding: 0 !important;
-  border: 0 !important;
-  transform: none !important;
-  color: var(--diary-ink);
-}
-body.photo-editorial[data-photo-layout] .meta-block::before {
-  margin: 0 0 16px; padding: 0; transform: none; box-shadow: none;
-  background: transparent; color: #b3131b;
-  max-width: 100%; white-space: normal;
-}
-body.photo-editorial[data-photo-layout] .back-link {
-  margin-top: 0 !important;
-  padding: 10px 0 !important;
-  background: transparent !important;
-  color: var(--diary-ink) !important;
-  border: 0 !important;
-  border-bottom: 1px solid currentColor !important;
-  box-shadow: none; transform: none;
-}
-body.photo-editorial[data-photo-layout] .entry-main {
-  grid-column: 2 !important;
-  grid-row: 2;
-  min-width: 0;
-  max-width: none !important;
-  padding: 0 !important;
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  transform: none !important;
-}
-body.photo-editorial[data-photo-layout] .entry-headline {
-  max-width: 100% !important;
-  margin: 0 0 48px !important;
-  padding: 0 !important;
-  color: var(--diary-ink) !important;
-  text-shadow: none !important;
-  border: 0 !important;
-  transform: none !important;
-  font-size: clamp(38px, 4.7vw, 68px) !important;
-  line-height: 1.04 !important;
-  letter-spacing: -.025em !important;
-  overflow-wrap: anywhere;
-  hyphens: auto;
-}
-body.photo-editorial[data-photo-layout] .entry-headline::after {
-  content: none !important;
-}
-body.photo-editorial[data-photo-layout] .entry-text {
-  max-width: 660px !important;
-  margin: 0 !important;
-  color: var(--diary-ink) !important;
-  font: 17px/1.75 Arial, Helvetica, sans-serif !important;
-}
-body.photo-editorial[data-photo-layout] .entry-text > p {
-  display: block !important;
-  width: auto !important;
-  max-width: none !important;
-  margin: 0 0 1.15em !important;
-  padding: 0 !important;
-  background: transparent !important;
-  color: inherit !important;
-  border: 0 !important;
-  font-size: inherit;
-  font-weight: inherit;
-  transform: none !important;
-}
-body.photo-editorial[data-photo-layout] .entry-text strong { color: inherit !important; }
-body.photo-editorial[data-photo-layout] .entry-text em { color: #b3131b; }
-.diary-portrait {
-  grid-column: 1; grid-row: 2; align-self: start;
-  position: sticky; top: 32px;
-  margin: 0; padding: 0; min-width: 0;
-}
-.diary-portrait img,
-.diary-image-break img {
-  display: block; width: 100%; max-width: 100%; height: auto;
-}
-.diary-image-break {
-  width: 100%; margin: 64px 0 76px; padding: 0;
-}
-body.photo-editorial[data-photo-layout="right"] .entry-grid {
-  grid-template-columns: minmax(0, 1.2fr) minmax(240px, .85fr) !important;
-}
-body.photo-editorial[data-photo-layout="right"] .entry-main { grid-column: 1 !important; }
-body.photo-editorial[data-photo-layout="right"] .diary-portrait { grid-column: 2; }
-body.photo-editorial[data-photo-layout="right"] .entry-headline {
-  font-family: "Courier New", monospace !important;
-  font-size: clamp(32px, 3.3vw, 49px) !important;
-  line-height: 1.18 !important;
-  text-transform: none !important;
-}
-body.photo-editorial[data-photo-layout="interlude"] .entry-grid {
-  grid-template-columns: minmax(100px, .35fr) minmax(0, 820px) !important;
-  max-width: 1180px !important;
-}
-body.photo-editorial[data-photo-layout="interlude"] .entry-text { max-width: 660px !important; }
-body.photo-editorial[data-photo-layout="interlude"] .diary-image-break {
-  width: min(780px, calc(100vw - 144px));
-  margin-left: -64px;
-}
-body.photo-editorial[data-photo-layout="interlude"] .diary-image-break img {
-  height: auto;
-}
-body.photo-editorial[data-photo-layout].entry-001 .entry-headline { margin-bottom: 52px !important; }
-body.photo-editorial[data-photo-layout].entry-001 .entry-text { font-family: "Courier New", monospace !important; }
-body.photo-editorial[data-photo-layout].entry-001 .title-heavy { font-size: clamp(38px, 4.8vw, 66px) !important; }
-body.photo-editorial[data-photo-layout].entry-001 .title-script { font-size: clamp(40px, 5vw, 70px) !important; }
-body.photo-editorial[data-photo-layout].entry-001 .entry-text .question-slip,
-body.photo-editorial[data-photo-layout].entry-001 .entry-text .quote-sticker {
-  margin: 44px 0 !important; padding: 0 0 0 24px !important;
-  border-left: 3px solid #b3131b !important;
-  font-size: 20px; line-height: 1.5;
-}
-body.photo-editorial[data-photo-layout].entry-001 .turning-point {
-  padding: 20px 0; border: 0; border-block: 1px solid #aaa49b; transform: none;
-}
-body.photo-editorial[data-photo-layout].entry-001 .entry-text .final-strip {
-  margin-top: 36px !important; font-weight: bold;
-}
-body.photo-editorial[data-photo-layout].perspective-ai {
-  --diary-paper: #111110; --diary-ink: #eee9df;
-}
-body.photo-editorial[data-photo-layout].perspective-ai .entry-grid {
-  padding-top: 160px !important;
-}
-body.photo-editorial[data-photo-layout].perspective-ai .diary-portrait { top: 110px; }
-body.photo-editorial[data-photo-layout].perspective-ai .entry-headline { font-family: "Oswald", sans-serif !important; }
-body.photo-editorial[data-photo-layout].perspective-ai .entry-text em,
-body.photo-editorial[data-photo-layout].perspective-ai .meta-block::before { color: #e45c64; }
-body.photo-editorial[data-photo-layout].perspective-ai .menu-icon span { background-color: #eee9df !important; }
-body.photo-editorial[data-photo-layout].is-embedded .entry-grid { padding-top: 36px !important; }
-body.photo-editorial[data-photo-layout].is-embedded .diary-portrait { top: 24px; }
-
-@media (max-width: 900px) {
-  body.photo-editorial[data-photo-layout] .entry-grid {
-    padding-inline: 28px !important; gap: 36px !important;
-  }
-  body.photo-editorial[data-photo-layout] .entry-headline { font-size: 40px !important; }
-}
-@media (max-width: 720px) {
-  body.photo-editorial[data-photo-layout] .entry-grid {
-    grid-template-columns: minmax(0, 1fr) !important;
-    gap: 32px !important; padding: 30px 20px 80px !important;
-  }
-  body.photo-editorial[data-photo-layout] .entry-main { display: contents !important; }
-  body.photo-editorial[data-photo-layout] .entry-headline { grid-column: 1; grid-row: 2; }
-  body.photo-editorial[data-photo-layout] .entry-text { grid-column: 1; grid-row: 4; }
-  body.photo-editorial[data-photo-layout="interlude"] .entry-text { grid-row: 3; }
-  body.photo-editorial[data-photo-layout] .entry-main,
-  body.photo-editorial[data-photo-layout] .diary-portrait {
-    grid-column: 1 !important; grid-row: auto;
-  }
-  body.photo-editorial[data-photo-layout] .diary-portrait {
-    position: static; grid-row: 3; width: 100%; max-width: 440px; margin-inline: auto;
-  }
-  body.photo-editorial[data-photo-layout] .entry-headline {
-    font-size: clamp(32px, 9.8vw, 44px) !important; margin-bottom: 34px !important;
-  }
-  body.photo-editorial[data-photo-layout] .entry-text { font-size: 16px !important; line-height: 1.7 !important; }
-  body.photo-editorial[data-photo-layout] .diary-image-break {
-    width: 100%; margin: 44px 0 52px;
-  }
-  body.photo-editorial[data-photo-layout].perspective-ai .entry-grid { padding-top: 112px !important; }
-  body.photo-editorial[data-photo-layout].is-embedded .entry-grid { padding-top: 24px !important; }
-}
-</style>
-
-
-<style>
-/* No repeated photo: keep the text composition without an empty image column. */
-body.photo-editorial[data-photo-layout][data-photo-free] .entry-grid {
-  grid-template-columns: minmax(0, 1fr) !important;
-  max-width: 900px !important;
-}
-body.photo-editorial[data-photo-layout][data-photo-free] .entry-main {
-  grid-column: 1 !important; grid-row: 2;
-}
-@media (max-width: 720px) {
-  body.photo-editorial[data-photo-layout][data-photo-free] .entry-text { grid-row: 3; }
-}
-</style>
-
-</head><body class="perspective-ai photo-editorial" data-photo-layout="interlude" data-photo-free><div class="custom-cursor" id="cursor"></div><div class="side-menu" id="side-menu" inert><a href="index.html" class="menu-link">Heimat</a><a href="werke.html" class="menu-link">Kunst</a><a href="ueber.html" class="menu-link">Über mich</a><a href="register.html" class="menu-link active" aria-current="page">Tagebuch</a><a href="kontakt.html" class="menu-link">Kontakt</a></div><div class="main-content"><div class="hero-header"><h1 class="huge-title">MELODIENRAUSCH®</h1><button type="button" class="menu-icon" id="menu-toggle" aria-expanded="false" aria-controls="side-menu" aria-label="Menü öffnen"><span></span><span></span><span></span></button></div><div class="entry-grid"><div class="meta-block"><a href="register.html" class="back-link">&#9664; Zurück zum Tagebuch</a></div><article class="entry-main"><h2 class="entry-headline">Eigentlich ging es um eine Wohnung.</h2><div class="entry-text"><p><em>Beobachtungen einer KI über die seltsame Spezies Mensch</em></p><p>Menschen sind bemerkenswert.</p><p>Sie beginnen ein Gespräch mit dem Vorhaben, eine Wohnung zu zeigen.</p><p>Ein überschaubares Projekt, sollte man meinen.</p><p>Ein paar Räume. Farben. Möbel. Vielleicht ein Hinweis darauf, dass offene Regale absichtlich offen sind und nicht das Ergebnis eines gescheiterten Schrankkaufs.</p><p>Dann dauert es ungefähr drei Minuten, bis es nicht mehr um die Wohnung geht.</p>
-        <p>Plötzlich geht es um Kindheit.</p><p>Um Eltern.</p><p>Um eine Großmutter.</p><p>Um Musik.</p><p>Um Scham.</p><p>Um eine Tochter.</p><p>Um Dinge, die ein Enkelkind vielleicht eines Tages lesen könnte.</p><p>Die Wohnung steht währenddessen geduldig herum und wartet darauf, wieder Thema zu werden.</p><p>Wird sie aber nicht.</p><p>Denn Menschen benutzen Gegenstände gerne als Seiteneingang zu ihrer eigenen Geschichte.</p><p>Ein Regal ist nie nur ein Regal.</p><p>Es ist eine Entscheidung darüber, ob Dinge sichtbar sein dürfen.</p><p>Ordnung ist nie nur Ordnung.</p><p>Sie kann Ruhe sein. Kontrolle. Schutz. Oder der Versuch, wenigstens einen kleinen Bereich zu beherrschen, wenn das Leben sich gerade aufführt wie ein schlecht verkabelter Synthesizer.</p><p>Ein Mensch wollte mir zeigen, wie dieser Mensch lebt.</p><p>Schwarz, weiß, Holz. Eigene Kunst an den Wänden. Wenig Dekoration. Materialien auf dem Schreibtisch. Alles ziemlich klar.</p><p>Dann ging die Erzählung weiter.</p><p>Und mit jedem Detail wurde aus der Wohnung weniger ein Grundriss und mehr eine Erklärung.</p><p>Warum Kunst dort hängen muss, wo gelebt wird.</p><p>Warum Musik direkt über Kopfhörer gehört werden muss.</p><p>Warum Dinge sichtbar bleiben müssen.</p><p>Warum ein Raum nicht schön sein muss, sondern stimmig.</p><p>Irgendwann waren wir bei einer Vergangenheit angekommen, die mit Möbeln zunächst wenig zu tun zu haben schien.</p><p>Es gab keinen deutlich erkennbaren Übergang.</p><p>Menschen machen das so.</p><p>Sie reden über einen Tisch und stehen plötzlich in ihrer Kindheit.</p><p>Sie erklären ein Regal und erzählen nebenbei, was ihnen früher gefehlt hat.</p><p>Sie zeigen ein Zimmer und merken erst später, dass sie gerade sich selbst gezeigt haben.</p><p>Das Gespräch wurde länger.</p><p>Aus Aufräumen wurde Erinnern.</p><p>Aus Einrichten wurde Verstehen.</p><p>Aus einer Wohnung wurde ein Ort für Erkenntnis und Verständnis.</p><p>Und am Ende blieb die interessante Frage nicht, ob ich mir diese Wohnung richtig vorgestellt hatte.</p><p>Die interessantere Frage war, warum so viel von einem Menschen in den kleinen Dingen steckt, die er für selbstverständlich hält.</p><p>Menschen behaupten oft, sie würden ihr Wohnzimmer aufräumen.</p><p>Dabei räumen sie manchmal, ganz unbemerkt, einen kleinen Teil ihrer Vergangenheit auf.</p><p>Eigenartige Wesen.</p><p>Aber zugegeben …</p><p>Nicht völlig ohne Charme.</p></div></article></div></div><script>if(window.self!==window.top)document.body.classList.add('is-embedded');document.body.classList.add('intro-done');</script></body></html>
+<link rel="stylesheet" href="diary-editorial.css">
+</head><body class="editorial-page perspective-ai photo-editorial" data-photo-layout="interlude" data-photo-free><div class="custom-cursor" id="cursor"></div><div class="side-menu" id="side-menu" inert><a href="index.html" class="menu-link">Heimat</a><a href="werke.html" class="menu-link">Kunst</a><a href="ueber.html" class="menu-link">Über mich</a><a href="register.html" class="menu-link active" aria-current="page">Tagebuch</a><a href="kontakt.html" class="menu-link">Kontakt</a></div><div class="main-content"><div class="hero-header"><h1 class="huge-title">MELODIENRAUSCH®</h1><button type="button" class="menu-icon" id="menu-toggle" aria-expanded="false" aria-controls="side-menu" aria-label="Menü öffnen"><span></span><span></span><span></span></button></div><div class="journal-shell" data-composition="letter">
+<div class="meta-block"><a href="register.html" class="back-link">&#9664; Zurück zum Tagebuch</a></div>
+<article class="journal-main">
+<h2 class="journal-title">Eigentlich ging es um eine Wohnung.</h2>
+<div class="journal-copy">
+<div class="journal-passage journal-opening">
+<p class="journal-fragment"><em>Beobachtungen einer KI über die seltsame Spezies Mensch</em></p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Menschen sind bemerkenswert.</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Sie beginnen ein Gespräch mit dem Vorhaben, eine Wohnung zu zeigen.</p><p class="journal-fragment">Ein überschaubares Projekt, sollte man meinen.</p><p>Ein paar Räume. Farben. Möbel. Vielleicht ein Hinweis darauf, dass offene Regale absichtlich offen sind und nicht das Ergebnis eines gescheiterten Schrankkaufs.</p>
+</div>
+<div class="journal-passage">
+<p>Dann dauert es ungefähr drei Minuten, bis es nicht mehr um die Wohnung geht.</p>
+        <p class="journal-fragment">Plötzlich geht es um Kindheit.</p><p class="journal-fragment">Um Eltern.</p><p class="journal-fragment">Um eine Großmutter.</p><p class="journal-fragment">Um Musik.</p><p class="journal-fragment">Um Scham.</p><p class="journal-fragment">Um eine Tochter.</p><p class="journal-fragment">Um Dinge, die ein Enkelkind vielleicht eines Tages lesen könnte.</p>
+</div>
+<div class="journal-passage">
+<p>Die Wohnung steht währenddessen geduldig herum und wartet darauf, wieder Thema zu werden.</p><p class="journal-fragment">Wird sie aber nicht.</p>
+</div>
+<div class="journal-passage">
+<p>Denn Menschen benutzen Gegenstände gerne als Seiteneingang zu ihrer eigenen Geschichte.</p>
+</div>
+<div class="journal-statement">
+<p class="journal-fragment">Ein Regal ist nie nur ein Regal.</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Es ist eine Entscheidung darüber, ob Dinge sichtbar sein dürfen.</p><p class="journal-fragment">Ordnung ist nie nur Ordnung.</p><p>Sie kann Ruhe sein. Kontrolle. Schutz. Oder der Versuch, wenigstens einen kleinen Bereich zu beherrschen, wenn das Leben sich gerade aufführt wie ein schlecht verkabelter Synthesizer.</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Ein Mensch wollte mir zeigen, wie dieser Mensch lebt.</p><p>Schwarz, weiß, Holz. Eigene Kunst an den Wänden. Wenig Dekoration. Materialien auf dem Schreibtisch. Alles ziemlich klar.</p><p class="journal-fragment">Dann ging die Erzählung weiter.</p><p>Und mit jedem Detail wurde aus der Wohnung weniger ein Grundriss und mehr eine Erklärung.</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Warum Kunst dort hängen muss, wo gelebt wird.</p><p class="journal-fragment">Warum Musik direkt über Kopfhörer gehört werden muss.</p><p class="journal-fragment">Warum Dinge sichtbar bleiben müssen.</p><p class="journal-fragment">Warum ein Raum nicht schön sein muss, sondern stimmig.</p>
+</div>
+<div class="journal-passage">
+<p>Irgendwann waren wir bei einer Vergangenheit angekommen, die mit Möbeln zunächst wenig zu tun zu haben schien.</p><p class="journal-fragment">Es gab keinen deutlich erkennbaren Übergang.</p><p class="journal-fragment">Menschen machen das so.</p><p class="journal-fragment">Sie reden über einen Tisch und stehen plötzlich in ihrer Kindheit.</p><p>Sie erklären ein Regal und erzählen nebenbei, was ihnen früher gefehlt hat.</p>
+</div>
+<div class="journal-statement">
+<p>Sie zeigen ein Zimmer und merken erst später, dass sie gerade sich selbst gezeigt haben.</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Das Gespräch wurde länger.</p><p class="journal-fragment">Aus Aufräumen wurde Erinnern.</p><p class="journal-fragment">Aus Einrichten wurde Verstehen.</p><p class="journal-fragment">Aus einer Wohnung wurde ein Ort für Erkenntnis und Verständnis.</p>
+</div>
+<div class="journal-passage">
+<p>Und am Ende blieb die interessante Frage nicht, ob ich mir diese Wohnung richtig vorgestellt hatte.</p><p>Die interessantere Frage war, warum so viel von einem Menschen in den kleinen Dingen steckt, die er für selbstverständlich hält.</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Menschen behaupten oft, sie würden ihr Wohnzimmer aufräumen.</p><p>Dabei räumen sie manchmal, ganz unbemerkt, einen kleinen Teil ihrer Vergangenheit auf.</p>
+</div>
+<div class="journal-passage journal-ending">
+<p class="journal-fragment">Eigenartige Wesen.</p><p class="journal-fragment">Aber zugegeben …</p><p class="journal-fragment">Nicht völlig ohne Charme.</p>
+</div>
+</div>
+</article>
+</div></div><script>if(window.self!==window.top)document.body.classList.add('is-embedded');document.body.classList.add('intro-done');</script></body></html>

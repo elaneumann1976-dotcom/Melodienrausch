@@ -62,207 +62,9 @@
   }
 </style>
 
-<style>
-/* Photo-led diary composition: earlier journal portraits (93496da2)
-   and the local entry-015 editorial image break. Shared main-page CSS is untouched. */
-body.photo-editorial[data-photo-layout] {
-  --diary-paper: #f1eee7;
-  --diary-ink: #171715;
-}
-body.photo-editorial[data-photo-layout] .main-content {
-  background: var(--diary-paper) !important;
-  color: var(--diary-ink) !important;
-}
-body.photo-editorial[data-photo-layout] .entry-grid {
-  display: grid !important;
-  grid-template-columns: minmax(240px, .85fr) minmax(0, 1.2fr) !important;
-  gap: 44px clamp(40px, 6vw, 88px) !important;
-  width: auto !important;
-  max-width: 1280px !important;
-  margin: 0 auto !important;
-  padding: 64px 48px 120px !important;
-  box-sizing: border-box;
-}
-body.photo-editorial[data-photo-layout] .entry-grid::before,
-body.photo-editorial[data-photo-layout] .entry-grid::after,
-body.photo-editorial[data-photo-layout] .entry-main::before,
-body.photo-editorial[data-photo-layout] .entry-main::after,
-body.photo-editorial[data-photo-layout] .meta-block::after {
-  content: none !important;
-}
-body.photo-editorial[data-photo-layout] .meta-block {
-  grid-column: 1 / -1 !important;
-  grid-row: 1;
-  min-height: 0 !important;
-  padding: 0 !important;
-  border: 0 !important;
-  transform: none !important;
-  color: var(--diary-ink);
-}
-body.photo-editorial[data-photo-layout] .meta-block::before {
-  margin: 0 0 16px; padding: 0; transform: none; box-shadow: none;
-  background: transparent; color: #b3131b;
-  max-width: 100%; white-space: normal;
-}
-body.photo-editorial[data-photo-layout] .back-link {
-  margin-top: 0 !important;
-  padding: 10px 0 !important;
-  background: transparent !important;
-  color: var(--diary-ink) !important;
-  border: 0 !important;
-  border-bottom: 1px solid currentColor !important;
-  box-shadow: none; transform: none;
-}
-body.photo-editorial[data-photo-layout] .entry-main {
-  grid-column: 2 !important;
-  grid-row: 2;
-  min-width: 0;
-  max-width: none !important;
-  padding: 0 !important;
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  transform: none !important;
-}
-body.photo-editorial[data-photo-layout] .entry-headline {
-  max-width: 100% !important;
-  margin: 0 0 48px !important;
-  padding: 0 !important;
-  color: var(--diary-ink) !important;
-  text-shadow: none !important;
-  border: 0 !important;
-  transform: none !important;
-  font-size: clamp(38px, 4.7vw, 68px) !important;
-  line-height: 1.04 !important;
-  letter-spacing: -.025em !important;
-  overflow-wrap: anywhere;
-  hyphens: auto;
-}
-body.photo-editorial[data-photo-layout] .entry-headline::after {
-  content: none !important;
-}
-body.photo-editorial[data-photo-layout] .entry-text {
-  max-width: 660px !important;
-  margin: 0 !important;
-  color: var(--diary-ink) !important;
-  font: 17px/1.75 Arial, Helvetica, sans-serif !important;
-}
-body.photo-editorial[data-photo-layout] .entry-text > p {
-  display: block !important;
-  width: auto !important;
-  max-width: none !important;
-  margin: 0 0 1.15em !important;
-  padding: 0 !important;
-  background: transparent !important;
-  color: inherit !important;
-  border: 0 !important;
-  font-size: inherit;
-  font-weight: inherit;
-  transform: none !important;
-}
-body.photo-editorial[data-photo-layout] .entry-text strong { color: inherit !important; }
-body.photo-editorial[data-photo-layout] .entry-text em { color: #b3131b; }
-.diary-portrait {
-  grid-column: 1; grid-row: 2; align-self: start;
-  position: sticky; top: 32px;
-  margin: 0; padding: 0; min-width: 0;
-}
-.diary-portrait img,
-.diary-image-break img {
-  display: block; width: 100%; max-width: 100%; height: auto;
-}
-.diary-image-break {
-  width: 100%; margin: 64px 0 76px; padding: 0;
-}
-body.photo-editorial[data-photo-layout="right"] .entry-grid {
-  grid-template-columns: minmax(0, 1.2fr) minmax(240px, .85fr) !important;
-}
-body.photo-editorial[data-photo-layout="right"] .entry-main { grid-column: 1 !important; }
-body.photo-editorial[data-photo-layout="right"] .diary-portrait { grid-column: 2; }
-body.photo-editorial[data-photo-layout="right"] .entry-headline {
-  font-family: "Courier New", monospace !important;
-  font-size: clamp(32px, 3.3vw, 49px) !important;
-  line-height: 1.18 !important;
-  text-transform: none !important;
-}
-body.photo-editorial[data-photo-layout="interlude"] .entry-grid {
-  grid-template-columns: minmax(100px, .35fr) minmax(0, 820px) !important;
-  max-width: 1180px !important;
-}
-body.photo-editorial[data-photo-layout="interlude"] .entry-text { max-width: 660px !important; }
-body.photo-editorial[data-photo-layout="interlude"] .diary-image-break {
-  width: min(780px, calc(100vw - 144px));
-  margin-left: -64px;
-}
-body.photo-editorial[data-photo-layout="interlude"] .diary-image-break img {
-  height: auto;
-}
-body.photo-editorial[data-photo-layout].entry-001 .entry-headline { margin-bottom: 52px !important; }
-body.photo-editorial[data-photo-layout].entry-001 .entry-text { font-family: "Courier New", monospace !important; }
-body.photo-editorial[data-photo-layout].entry-001 .title-heavy { font-size: clamp(38px, 4.8vw, 66px) !important; }
-body.photo-editorial[data-photo-layout].entry-001 .title-script { font-size: clamp(40px, 5vw, 70px) !important; }
-body.photo-editorial[data-photo-layout].entry-001 .entry-text .question-slip,
-body.photo-editorial[data-photo-layout].entry-001 .entry-text .quote-sticker {
-  margin: 44px 0 !important; padding: 0 0 0 24px !important;
-  border-left: 3px solid #b3131b !important;
-  font-size: 20px; line-height: 1.5;
-}
-body.photo-editorial[data-photo-layout].entry-001 .turning-point {
-  padding: 20px 0; border: 0; border-block: 1px solid #aaa49b; transform: none;
-}
-body.photo-editorial[data-photo-layout].entry-001 .entry-text .final-strip {
-  margin-top: 36px !important; font-weight: bold;
-}
-body.photo-editorial[data-photo-layout].perspective-ai {
-  --diary-paper: #111110; --diary-ink: #eee9df;
-}
-body.photo-editorial[data-photo-layout].perspective-ai .entry-grid {
-  padding-top: 160px !important;
-}
-body.photo-editorial[data-photo-layout].perspective-ai .diary-portrait { top: 110px; }
-body.photo-editorial[data-photo-layout].perspective-ai .entry-headline { font-family: "Oswald", sans-serif !important; }
-body.photo-editorial[data-photo-layout].perspective-ai .entry-text em,
-body.photo-editorial[data-photo-layout].perspective-ai .meta-block::before { color: #e45c64; }
-body.photo-editorial[data-photo-layout].perspective-ai .menu-icon span { background-color: #eee9df !important; }
-body.photo-editorial[data-photo-layout].is-embedded .entry-grid { padding-top: 36px !important; }
-body.photo-editorial[data-photo-layout].is-embedded .diary-portrait { top: 24px; }
-
-@media (max-width: 900px) {
-  body.photo-editorial[data-photo-layout] .entry-grid {
-    padding-inline: 28px !important; gap: 36px !important;
-  }
-  body.photo-editorial[data-photo-layout] .entry-headline { font-size: 40px !important; }
-}
-@media (max-width: 720px) {
-  body.photo-editorial[data-photo-layout] .entry-grid {
-    grid-template-columns: minmax(0, 1fr) !important;
-    gap: 32px !important; padding: 30px 20px 80px !important;
-  }
-  body.photo-editorial[data-photo-layout] .entry-main { display: contents !important; }
-  body.photo-editorial[data-photo-layout] .entry-headline { grid-column: 1; grid-row: 2; }
-  body.photo-editorial[data-photo-layout] .entry-text { grid-column: 1; grid-row: 4; }
-  body.photo-editorial[data-photo-layout="interlude"] .entry-text { grid-row: 3; }
-  body.photo-editorial[data-photo-layout] .entry-main,
-  body.photo-editorial[data-photo-layout] .diary-portrait {
-    grid-column: 1 !important; grid-row: auto;
-  }
-  body.photo-editorial[data-photo-layout] .diary-portrait {
-    position: static; grid-row: 3; width: 100%; max-width: 440px; margin-inline: auto;
-  }
-  body.photo-editorial[data-photo-layout] .entry-headline {
-    font-size: clamp(32px, 9.8vw, 44px) !important; margin-bottom: 34px !important;
-  }
-  body.photo-editorial[data-photo-layout] .entry-text { font-size: 16px !important; line-height: 1.7 !important; }
-  body.photo-editorial[data-photo-layout] .diary-image-break {
-    width: 100%; margin: 44px 0 52px;
-  }
-  body.photo-editorial[data-photo-layout].perspective-ai .entry-grid { padding-top: 112px !important; }
-  body.photo-editorial[data-photo-layout].is-embedded .entry-grid { padding-top: 24px !important; }
-}
-</style>
-
+<link rel="stylesheet" href="diary-editorial.css">
 </head>
-<body class="diary-entry layout-c photo-editorial" data-photo-layout="interlude">
+<body class="editorial-page diary-entry layout-c photo-editorial" data-photo-layout="interlude">
 
   <div class="custom-cursor" id="cursor"></div>
 
@@ -271,60 +73,83 @@ body.photo-editorial[data-photo-layout].is-embedded .diary-portrait { top: 24px;
       <h1 class="huge-title">MELODIENRAUSCH®</h1>
 </div>
 
-    <div class="entry-grid">
-      <div class="meta-block">
+    <div class="journal-shell" data-composition="interlude" data-has-photo>
+<div class="meta-block">
         <a href="register.html" class="back-link">&#9664; Zurück zum Tagebuch</a>
       </div>
-
-      <div class="entry-main">
-        <h2 class="entry-headline">Warum ist das immer so?</h2>
-        <div class="entry-text">
-        <p>Warum ist das immer so?</p>
-        <p>Heute ist wieder so ein Tag.</p>
-        <p>Kein besonderer Auslöser.</p>
-        <p>Kein Drama.</p>
-        <p>Kein Weltuntergang.</p>
-        <p>Und trotzdem fühlt sich alles schwer an.</p>
-        <figure class="diary-image-break"><img src="bild1_Fotogenic.jpg" alt="Ela im Mantel an einer Wand im Flur" width="572" height="1024" loading="lazy" decoding="async"></figure>
-        <p>Das Verrückte ist, dass ich diese Tage mittlerweile kenne.</p>
+<article class="journal-main">
+<h2 class="journal-title">Warum ist das immer so?</h2>
+<div class="journal-copy">
+<div class="journal-passage journal-opening">
+<p class="journal-fragment">Warum ist das immer so?</p>
+        <p class="journal-fragment">Heute ist wieder so ein Tag.</p>
+        <p class="journal-fragment">Kein besonderer Auslöser.</p>
+        <p class="journal-fragment">Kein Drama.</p>
+        <p class="journal-fragment">Kein Weltuntergang.</p>
+        <p class="journal-fragment">Und trotzdem fühlt sich alles schwer an.</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Das Verrückte ist, dass ich diese Tage mittlerweile kenne.</p>
         <p>Früher dachte ich immer, das Tief bedeutet, dass wieder alles zusammenbricht.</p>
-        <p>Heute weiß ich eigentlich, dass das nicht stimmt.</p>
-        <p>Trotzdem nervt es.</p>
-        <p>Weil ich mich gerade erst wieder besser gefühlt habe.</p>
-        <p>Weil ich gerade erst wieder das Gefühl hatte, dass etwas vorwärtsgeht.</p>
-        <p>Und dann sitze ich da und denke:</p>
-        <p>Warum schon wieder?</p>
-        <p>Vielleicht liegt das Problem gar nicht darin, dass die Tiefs kommen.</p>
+        <p class="journal-fragment">Heute weiß ich eigentlich, dass das nicht stimmt.</p>
+        <p class="journal-fragment">Trotzdem nervt es.</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Weil ich mich gerade erst wieder besser gefühlt habe.</p>
+        <p class="journal-fragment">Weil ich gerade erst wieder das Gefühl hatte, dass etwas vorwärtsgeht.</p>
+        <p class="journal-fragment">Und dann sitze ich da und denke:</p>
+</div>
+<figure class="journal-photo-full"><img src="bild1_Fotogenic.jpg" alt="Ela im Mantel an einer Wand im Flur" width="572" height="1024" loading="lazy" decoding="async"></figure>
+<div class="journal-statement">
+<p class="journal-fragment">Warum schon wieder?</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Vielleicht liegt das Problem gar nicht darin, dass die Tiefs kommen.</p>
         <p>Vielleicht liegt das Problem darin, dass ich immer noch glaube, sie dürften nicht kommen.</p>
         <p>Als müsste Entwicklung bedeuten, dass man irgendwann nur noch gute Tage hat.</p>
-        <p>Dabei ist das wahrscheinlich Quatsch.</p>
-        <p>Ich bin kein fertiges Projekt.</p>
-        <p>Kein Vorher-Nachher-Bild.</p>
-        <p>Kein Motivationsspruch.</p>
-        <p>Ich bin ein Mensch, der gerade sein Leben neu sortiert.</p>
-        <p>Und manchmal fühlt sich das mutig an.</p>
-        <p>Und manchmal fühlt es sich einfach nur anstrengend an.</p>
-        <p>Heute ist eher anstrengend.</p>
-        <p>Was ich aber festgestellt habe:</p>
-        <p>Die Tiefs sind nicht mehr dieselben wie früher.</p>
-        <p>Früher konnte mich so ein Loch für Tage verschlucken.</p>
-        <p>Drei Tage. Vier Tage. Manchmal länger.</p>
+        <p class="journal-fragment">Dabei ist das wahrscheinlich Quatsch.</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Ich bin kein fertiges Projekt.</p>
+        <p class="journal-fragment">Kein Vorher-Nachher-Bild.</p>
+        <p class="journal-fragment">Kein Motivationsspruch.</p>
+        <p class="journal-fragment">Ich bin ein Mensch, der gerade sein Leben neu sortiert.</p>
+        <p class="journal-fragment">Und manchmal fühlt sich das mutig an.</p>
+        <p class="journal-fragment">Und manchmal fühlt es sich einfach nur anstrengend an.</p>
+        <p class="journal-fragment">Heute ist eher anstrengend.</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Was ich aber festgestellt habe:</p>
+        <p class="journal-fragment">Die Tiefs sind nicht mehr dieselben wie früher.</p>
+        <p class="journal-fragment">Früher konnte mich so ein Loch für Tage verschlucken.</p>
+        <p class="journal-fragment">Drei Tage. Vier Tage. Manchmal länger.</p>
         <p>Dann hing ich darin fest und wusste nicht, wie ich wieder rauskommen soll.</p>
-        <p>Heute falle ich zwar immer noch hinein.</p>
-        <p>Aber ich finde schneller wieder den Ausgang.</p>
-        <p>Ich erkenne früher, was gerade passiert.</p>
-        <p>Ich glaube nicht mehr jedes Mal, dass jetzt alles verloren ist.</p>
-        <p>Ich kann mich selbst wieder einsammeln.</p>
-        <p>Nicht sofort.</p>
-        <p>Nicht perfekt.</p>
-        <p>Aber deutlich schneller als früher.</p>
-        <p>Vielleicht ist genau das Fortschritt.</p>
-        <p>Nicht, dass die Tiefs verschwinden.</p>
-        <p>Sondern dass sie nicht mehr das letzte Wort haben.</p>
-        <p>Und vielleicht reicht diese Erkenntnis für heute schon aus.</p>
-      </div>
-      </div>
-    </div>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Heute falle ich zwar immer noch hinein.</p>
+</div>
+<div class="journal-statement">
+<p class="journal-fragment">Aber ich finde schneller wieder den Ausgang.</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Ich erkenne früher, was gerade passiert.</p>
+        <p class="journal-fragment">Ich glaube nicht mehr jedes Mal, dass jetzt alles verloren ist.</p>
+</div>
+<div class="journal-passage">
+<p class="journal-fragment">Ich kann mich selbst wieder einsammeln.</p>
+        <p class="journal-fragment">Nicht sofort.</p>
+        <p class="journal-fragment">Nicht perfekt.</p>
+        <p class="journal-fragment">Aber deutlich schneller als früher.</p>
+</div>
+<div class="journal-passage journal-ending">
+<p class="journal-fragment">Vielleicht ist genau das Fortschritt.</p>
+        <p class="journal-fragment">Nicht, dass die Tiefs verschwinden.</p>
+        <p class="journal-fragment">Sondern dass sie nicht mehr das letzte Wort haben.</p>
+        <p class="journal-fragment">Und vielleicht reicht diese Erkenntnis für heute schon aus.</p>
+</div>
+</div>
+</article>
+</div>
   </div>
 
 <script>
