@@ -44,7 +44,7 @@ body.editorial-page .main-content {
   background: transparent;
   box-shadow: none;
   transform: none;
-  font: 700 11px/1.5 'Courier New', monospace;
+  font: 700 11px/1.5 'Oswald', sans-serif;
   letter-spacing: .13em;
 }
 .editorial-page .journal-shell .meta-block::after { content: none; }
@@ -58,7 +58,7 @@ body.editorial-page .main-content {
   color: var(--journal-ink);
   background: transparent;
   box-shadow: none;
-  font: 700 11px/1.5 'Courier New', monospace;
+  font: 700 11px/1.5 'Oswald', sans-serif;
   letter-spacing: .08em;
   text-transform: uppercase;
   text-decoration: none;
@@ -91,7 +91,7 @@ body.editorial-page .main-content {
   grid-column: 4 / 11;
   min-width: 0;
   margin: 0 0 44px;
-  font: 20px/1.65 'Courier New', Courier, monospace;
+  font: 500 20px/1.65 'Oswald', sans-serif;
   color: var(--journal-ink);
   overflow-wrap: break-word;
   hyphens: auto;
@@ -120,7 +120,7 @@ body.editorial-page .main-content {
   margin: 12px 0 58px;
   border-block: 1px solid var(--journal-rule);
   color: var(--journal-red);
-  font: 700 clamp(30px, 4.4vw, 60px)/1.15 'Courier New', Courier, monospace;
+  font: 700 clamp(30px, 4.4vw, 60px)/1.15 'Oswald', sans-serif;
   letter-spacing: -.02em;
   overflow-wrap: anywhere;
   hyphens: auto;
@@ -154,16 +154,16 @@ body.editorial-page .main-content {
 .editorial-page [data-composition="letter"][data-has-photo] .journal-photo { grid-column: 1 / 6; }
 .editorial-page [data-composition="letter"][data-has-photo] .journal-title { grid-column: 7 / -1; font-size: clamp(42px, 4.8vw, 68px); }
 .editorial-page [data-composition="letter"][data-has-photo] .journal-opening { grid-column: 7 / -1; }
-.editorial-page [data-composition="letter"] .journal-statement { grid-column: 3 / 12; font-family: 'Courier New', Courier, monospace; font-weight: 700; font-style: normal; border-block: 0; border-left: 2px solid var(--journal-red); padding-left: 32px; font-size: clamp(30px, 3.7vw, 49px); }
+.editorial-page [data-composition="letter"] .journal-statement { grid-column: 3 / 12; font-family: 'Oswald', sans-serif; font-weight: 700; font-style: normal; border-block: 0; border-left: 2px solid var(--journal-red); padding-left: 32px; font-size: clamp(30px, 3.7vw, 49px); }
 .editorial-page [data-composition="poster"] .journal-title { max-width: 15ch; }
-.editorial-page [data-composition="poster"] .journal-opening { font-family: 'Courier New', monospace; font-size: 22px; }
+.editorial-page [data-composition="poster"] .journal-opening { font-family: 'Oswald', sans-serif; font-size: 22px; }
 .editorial-page [data-composition="interlude"] .journal-title { max-width: 17ch; }
 /* Preserve entry 001's handwritten title and original notebook groupings. */
-.editorial-page .journal-notebook { display: block; grid-column: 1 / 8; grid-row: 2; font: 18px/1.7 'Courier New', monospace; }
+.editorial-page .journal-notebook { display: block; grid-column: 1 / 8; grid-row: 2; font: 500 18px/1.7 'Oswald', sans-serif; }
 .editorial-page .journal-notebook section { max-width: none; margin: 0 0 38px; padding: 0; border: 0; transform: none; }
 .editorial-page .journal-notebook p { margin: 0 0 .4em !important; }
 .editorial-page .journal-notebook .question-slip,
-.editorial-page .journal-notebook .quote-sticker { max-width: none; margin: 42px 0 !important; padding: 20px 0 20px 22px !important; color: var(--journal-red); background: transparent; border-left: 2px solid currentColor; transform: none; font: 24px/1.45 'Courier New', Courier, monospace; }
+.editorial-page .journal-notebook .quote-sticker { max-width: none; margin: 42px 0 !important; padding: 20px 0 20px 22px !important; color: var(--journal-red); background: transparent; border-left: 2px solid currentColor; transform: none; font: 500 24px/1.45 'Oswald', sans-serif; }
 .editorial-page .journal-notebook .turning-point { border-block: 1px solid var(--journal-rule); padding: 28px 0; }
 .editorial-page .journal-notebook .without-list { color: var(--journal-red); font-size: 34px; padding: 12px 0; }
 .editorial-page .journal-notebook .final-strip { background: transparent !important; color: var(--journal-ink) !important; border-top: 2px solid var(--journal-ink); padding: 24px 0 !important; margin-top: 42px !important; transform: none; }
@@ -199,4 +199,17 @@ body.editorial-page .main-content {
   .editorial-page.entry-001 .journal-title .title-heavy,
   .editorial-page.entry-001 .journal-title .title-script { font-size: clamp(40px, 11vw, 62px) !important; }
   .editorial-page.is-embedded .journal-shell { padding-top: 24px; }
+}
+
+/* Use the confirmed Melodienrausch typeface, Oswald, throughout every diary entry.
+   These rules also cover legacy spans, notebook sections and browser-default italics. */
+body.editorial-page .journal-copy,
+body.editorial-page .journal-copy * {
+  font-family: 'Oswald', sans-serif !important;
+  font-style: normal !important;
+}
+body.editorial-page .journal-title,
+body.editorial-page .journal-title * {
+  font-family: "Oswald", "Arial Narrow", sans-serif !important;
+  font-style: normal !important;
 }
