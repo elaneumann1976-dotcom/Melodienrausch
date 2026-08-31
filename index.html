@@ -103,27 +103,23 @@
     background: #000000 !important;
   }
 
-  /* Three original pen notes, using words already present in the main text. */
-  .home-scribble-layer {
-    position: absolute; inset: 0; overflow: hidden;
-    pointer-events: none; z-index: 90;
-    clip-path: inset(var(--header-clearance, 0px) 0 0 0);
-  }
-  .home-scribble-item { position: absolute; pointer-events: none; }
-  .home-scribble-item svg { width: 100%; height: auto; display: block; overflow: visible; }
-  .home-scribble-item path {
-    fill: none; stroke: #b2222d; stroke-width: 3.8;
-    stroke-linecap: round; stroke-linejoin: round;
-  }
-  .home-scribble-item path:nth-child(3n) { stroke-width: 3.2; }
-  .home-note-chaos { width: 146px; transform: rotate(-7deg); }
-  .home-note-bilder { width: 124px; transform: rotate(4deg); }
-  .home-note-musik { width: 138px; transform: rotate(-5deg); }
-  @media (max-width:720px) {
-    .home-note-chaos { width: 118px; transform: rotate(-5deg); }
-    .home-note-bilder,.home-note-musik { display: none; }
-  }
 
+  /* Sparse pen marks; placement keeps the portrait and content clear. */
+  .home-scribble-layer { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 90; }
+  .home-scribble-item { position: absolute; pointer-events: none; visibility: hidden; }
+  .home-scribble-item svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .home-scribble-item path { fill: none; stroke: #b2222d; stroke-width: 3.8; stroke-linecap: round; stroke-linejoin: round; }
+  .home-scribble-item path:nth-child(3n) { stroke-width: 3.2; }
+  .home-note-chaos { width: 134px; transform: rotate(-7deg); }
+  .home-note-bilder { width: 116px; transform: rotate(4deg); }
+  .home-note-musik { width: 126px; transform: rotate(-5deg); }
+  .home-note-line { width: 86px; transform: rotate(-4deg); }
+  .home-note-rhythm { width: 32px; transform: rotate(7deg); }
+  @media (max-width: 720px) {
+    .home-note-chaos { width: 88px; }
+    .home-note-bilder, .home-note-musik, .home-note-rhythm { display: none; }
+    .home-note-line { width: 64px; }
+  }
   @keyframes introFromBehind {
     0%   { transform: scale(0.1); filter: blur(18px); opacity: 0; }
     60%  { filter: blur(2px); opacity: 1; }
@@ -276,6 +272,7 @@
       svg.setAttribute('aria-hidden', 'true');
       wrap.appendChild(svg);
       layer.appendChild(wrap);
+      const visibleAtLoad = getComputedStyle(wrap).display !== 'none';
 
       cfg.paths.forEach(line => {
         const path = document.createElementNS(svgNS, 'path');
@@ -284,52 +281,109 @@
         const length = path.getTotalLength();
         const duration = Math.min(1050, Math.max(220, length * 5));
         path.style.strokeDasharray = String(length);
-        path.style.strokeDashoffset = reducedMotion ? '0' : String(length);
-        if (!reducedMotion) {
+        path.style.strokeDashoffset = reducedMotion || !visibleAtLoad ? '0' : String(length);
+        if (!reducedMotion && visibleAtLoad) {
           setTimeout(() => {
             path.style.transition = 'stroke-dashoffset ' + duration + 'ms linear';
             requestAnimationFrame(() => { path.style.strokeDashoffset = '0'; });
           }, nextWordDelay);
         }
-        nextWordDelay += duration + 95;
+        if (visibleAtLoad) nextWordDelay += duration + 95;
       });
-      nextWordDelay += 900;
+      if (visibleAtLoad) nextWordDelay += 900;
     });
 
-    const leftText = document.querySelector('.section-grid .meta-block');
-    const rightText = document.querySelector('.section-grid .desc-block');
+
     const header = document.querySelector('.hero-header');
+    const hero = document.getElementById('zoomImage');
+    const portrait = new Image();
+    // Outline in source-image coordinates, including head, body and shoes.
+    const silhouette = [[.59,.07],[.71,.08],[.74,.17],[.70,.205],[.77,.26],
+      [.82,.50],[.87,.78],[.73,.79],[.73,.94],[.58,.94],[.57,1.03],
+      [-.04,1.03],[-.04,.78],[.08,.68],[.16,.61],[.11,.555],
+      [.37,.34],[.40,.26],[.49,.16],[.58,.17]];
+    function inside(point, polygon) {
+      let hit = false;
+      for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+        const a = polygon[i], b = polygon[j];
+        if ((a[1] > point[1]) !== (b[1] > point[1]) &&
+            point[0] < (b[0] - a[0]) * (point[1] - a[1]) / (b[1] - a[1]) + a[0]) hit = !hit;
+      }
+      return hit;
+    }
+    function crosses(a, b, c, d) {
+      const side = (p, q, r) => (q[0]-p[0])*(r[1]-p[1]) - (q[1]-p[1])*(r[0]-p[0]);
+      return side(a,b,c)*side(a,b,d) <= 0 && side(c,d,a)*side(c,d,b) <= 0 &&
+        Math.max(a[0],b[0]) >= Math.min(c[0],d[0]) && Math.max(c[0],d[0]) >= Math.min(a[0],b[0]) &&
+        Math.max(a[1],b[1]) >= Math.min(c[1],d[1]) && Math.max(c[1],d[1]) >= Math.min(a[1],b[1]);
+    }
+    function touchesPortrait(r, polygon) {
+      const corners = [[r.left,r.top],[r.right,r.top],[r.right,r.bottom],[r.left,r.bottom]];
+      return corners.some(p => inside(p, polygon)) ||
+        polygon.some(p => p[0]>=r.left && p[0]<=r.right && p[1]>=r.top && p[1]<=r.bottom) ||
+        corners.some((p,i) => polygon.some((q,j) => crosses(p,corners[(i+1)%4],q,polygon[(j+1)%polygon.length])));
+    }
+    const overlaps = (a,b) => a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
     function positionNotes() {
-      const box = layer.getBoundingClientRect();
-      const left = leftText.getBoundingClientRect();
-      const right = rightText.getBoundingClientRect();
-      const mobile = window.matchMedia('(max-width:720px)').matches;
-      const chaos = layer.querySelector('.home-note-chaos');
-      const bilder = layer.querySelector('.home-note-bilder');
-      const musik = layer.querySelector('.home-note-musik');
-      chaos.style.left = (left.left - box.left + (mobile ? 4 : 12)) + 'px';
-      chaos.style.top = (left.bottom - box.top + (mobile ? 26 : 34)) + 'px';
-      bilder.style.left = (right.left - box.left + 14) + 'px';
-      bilder.style.top = (right.bottom - box.top + 36) + 'px';
-      musik.style.left = (box.width * 0.64) + 'px';
-      musik.style.top = Math.max(left.bottom - box.top + 180, right.bottom - box.top + 160, window.innerHeight * 0.58) + 'px';
-      updateHeaderClearance();
-    }
-    function updateHeaderClearance() {
-      const clearance = Math.max(0, header.getBoundingClientRect().bottom + 12 - layer.getBoundingClientRect().top);
-      layer.style.setProperty('--header-clearance', clearance + 'px');
-    }
-    let scrollFrame = null;
-    window.addEventListener('scroll', () => {
-      if (scrollFrame !== null) return;
-      scrollFrame = requestAnimationFrame(() => {
-        updateHeaderClearance();
-        scrollFrame = null;
+      if (!portrait.naturalWidth) return; // Fail closed if the portrait cannot be measured.
+      const viewportWidth = document.documentElement.clientWidth;
+      const mobile = viewportWidth <= 720;
+      const safetyGap = mobile ? 10 : 14;
+      const viewportHeight = window.innerHeight;
+      const heroBox = hero.getBoundingClientRect();
+      const scale = Math.max(heroBox.width / portrait.naturalWidth, heroBox.height / portrait.naturalHeight);
+      const imageWidth = portrait.naturalWidth * scale, imageHeight = portrait.naturalHeight * scale;
+      const imageY = Number.parseFloat(getComputedStyle(hero).backgroundPositionY) / 100;
+      const polygon = silhouette.map(([x,y]) => [
+        heroBox.left + (heroBox.width-imageWidth)/2 + x*imageWidth,
+        heroBox.top + (heroBox.height-imageHeight)*imageY + y*imageHeight
+      ]);
+      const left = document.querySelector('.section-grid .meta-block').getBoundingClientRect();
+      const right = document.querySelector('.section-grid .desc-block').getBoundingClientRect();
+      const headerBottom = header.getBoundingClientRect().bottom + 18;
+      const occupied = [left,right].map(r => ({left:r.left-16,right:r.right+16,top:r.top-16,bottom:r.bottom+16}));
+      const anchors = [
+        [left.left+10,left.bottom+38], [right.left+8,right.bottom+42],
+        [viewportWidth-180,viewportHeight*.76], [left.left+12,left.top-42],
+        [viewportWidth-66,viewportHeight*.56]
+      ];
+      Array.from(layer.children).forEach((note,index) => {
+        if (getComputedStyle(note).display === 'none') return;
+        const bounds = note.getBoundingClientRect();
+        const width = bounds.width, height = bounds.height;
+        const preferred = anchors[index];
+        const candidates = [preferred];
+        // Only use open margins. Keep a generous gap between individual marks.
+        for (let y=headerBottom+18; y<viewportHeight-height-24; y+=(mobile ? 16 : 32)) {
+          for (const x of [mobile ? 22 : 28,viewportWidth-width-28,viewportWidth*.16,viewportWidth*.78-width])
+            candidates.push([x,y]);
+        }
+        candidates.sort((a,b) => Math.hypot(a[0]-preferred[0],a[1]-preferred[1]) -
+          Math.hypot(b[0]-preferred[0],b[1]-preferred[1]));
+        const chosen = candidates.find(([x,y]) => {
+          const r = {left:x-safetyGap,top:y-safetyGap,right:x+width+safetyGap,bottom:y+height+safetyGap};
+          return r.left>=8 && r.right<=viewportWidth-8 && r.top>=headerBottom &&
+            r.bottom<=viewportHeight-12 && !touchesPortrait(r,polygon) && !occupied.some(o=>overlaps(r,o));
+        });
+        note.style.visibility = chosen ? 'visible' : 'hidden';
+        if (chosen) {
+          // Bounds include rotation; this offset keeps the actual ink inside the tested rectangle.
+          note.style.left = (chosen[0] + (width-note.offsetWidth)/2) + 'px';
+          note.style.top = (chosen[1] + (height-note.offsetHeight)/2) + 'px';
+          occupied.push({left:chosen[0]-32,right:chosen[0]+width+32,top:chosen[1]-38,bottom:chosen[1]+height+38});
+        }
       });
-    }, { passive: true });
-    window.addEventListener('resize', positionNotes);
-    if (document.fonts) document.fonts.ready.then(positionNotes);
-    positionNotes();
+    }
+    let frame = null;
+    function queuePlacement() {
+      if (frame !== null) return;
+      frame = requestAnimationFrame(() => { frame = null; positionNotes(); });
+    }
+    portrait.onload = queuePlacement;
+    portrait.src = 'profilbilld_Fotogenic.jpg';
+    window.addEventListener('scroll', queuePlacement, {passive:true});
+    window.addEventListener('resize', queuePlacement);
+    if (document.fonts) document.fonts.ready.then(queuePlacement);
   }
 
   const homeScribbles = [
@@ -368,6 +422,22 @@
       "M154 24 Q139 14 130 29 L129 40 L151 54 Q163 69 143 78 L130 72",
       "M178 27 L172 48 L168 75",
       "M207 13 L200 43 L193 79 M200 50 L236 24 M202 49 L225 76"
+    ]
+  },
+  {
+    "key": "line",
+    "viewBox": "0 0 220 45",
+    "paths": [
+      "M8 22 C36 17 61 27 88 21 C116 15 139 26 165 20 C184 16 199 18 212 21"
+    ]
+  },
+  {
+    "key": "rhythm",
+    "viewBox": "0 0 46 48",
+    "paths": [
+      "M8 34 L10 20 L9 11",
+      "M22 40 L25 22 L24 5",
+      "M36 32 L38 18"
     ]
   }
 ];

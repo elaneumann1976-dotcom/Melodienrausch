@@ -55,22 +55,20 @@
   }
   .mail-block a:hover { text-decoration: underline; }
   .desc-block { grid-column: 10 / 13; font-family: Arial, Helvetica, sans-serif; font-size: 13px; line-height: 1.6; position: relative; z-index: 101; }
-  .contact-collage-layer {
-    position: absolute; inset: 0; overflow: hidden;
-    pointer-events: none; z-index: 102;
-  }
-  .contact-collage-strip {
-    position: absolute; inset: 0;
-    background: url('assets/scribbles/generated/contact-collage-v2.webp') center / 100% 100% no-repeat;
-    opacity: 0;
-    clip-path: inset(var(--top) 100% var(--bottom) 0);
-  }
-  body.intro-done .contact-collage-strip {
-    animation: contactCollageRowReveal 1.15s steps(10, end) var(--delay) forwards;
-  }
-  @keyframes contactCollageRowReveal {
-    0% { opacity: 1; clip-path: inset(var(--top) 100% var(--bottom) 0); }
-    100% { opacity: 0.92; clip-path: inset(var(--top) 0 var(--bottom) 0); }
+
+  /* Three quiet, hand-drawn accents instead of the full-page collage. */
+  .contact-notes { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 90;
+    clip-path: inset(var(--header-clearance, 0px) 0 0 0); }
+  .contact-note { position: absolute; visibility: hidden; }
+  .contact-note svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .contact-note path { fill: none; stroke: #b2222d; stroke-width: 3.8; stroke-linecap: round; stroke-linejoin: round; }
+  .contact-note-mail { width: 120px; transform: rotate(-7deg); }
+  .contact-note-line { width: 104px; transform: rotate(-2deg); }
+  .contact-note-arrow { width: 62px; transform: rotate(7deg); }
+  @media (max-width:720px) {
+    .contact-note-mail { width: 82px; }
+    .contact-note-line { width: 76px; }
+    .contact-note-arrow { display: none; }
   }
   @keyframes introFromBehind {
     0%   { transform: scale(0.1); filter: blur(18px); opacity: 0; }
@@ -187,16 +185,7 @@
     </div>
 
     <div class="section-grid" id="doodleTarget">
-      <div class="contact-collage-layer" aria-hidden="true">
-        <span class="contact-collage-strip" style="--top:0%;--bottom:87.5%;--delay:.2s"></span>
-        <span class="contact-collage-strip" style="--top:12.5%;--bottom:75%;--delay:1.15s"></span>
-        <span class="contact-collage-strip" style="--top:25%;--bottom:62.5%;--delay:2.1s"></span>
-        <span class="contact-collage-strip" style="--top:37.5%;--bottom:50%;--delay:3.05s"></span>
-        <span class="contact-collage-strip" style="--top:50%;--bottom:37.5%;--delay:4s"></span>
-        <span class="contact-collage-strip" style="--top:62.5%;--bottom:25%;--delay:4.95s"></span>
-        <span class="contact-collage-strip" style="--top:75%;--bottom:12.5%;--delay:5.9s"></span>
-        <span class="contact-collage-strip" style="--top:87.5%;--bottom:0%;--delay:6.85s"></span>
-      </div>
+      <div class="contact-notes" id="contactNotes" aria-hidden="true"></div>
       <div class="meta-block">
         KONTAKT <br><br><br><br>
         <strong>INDEX &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5/5</strong>
@@ -229,8 +218,80 @@ window.addEventListener('DOMContentLoaded', () => {
       const intro = document.getElementById('intro-screen');
       if(intro) { intro.style.opacity = '0'; setTimeout(() => intro.remove(), 600); }
       document.body.classList.add('intro-done');
+      initContactNotes();
     }, 3400);
   });
+
+
+  function initContactNotes() {
+    const layer = document.getElementById('contactNotes');
+    if (!layer || layer.children.length) return;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    const items = [
+      {key:'line', viewBox:'0 0 220 45', paths:['M8 22 C36 17 61 27 88 21 C116 15 139 26 165 20 C184 16 199 18 212 21']},
+      {key:'mail', viewBox:'0 0 220 94', paths:[
+        'M14 77 L20 48 L27 17 L37 50 L43 61 L65 16 L60 46 L55 78',
+        'M80 77 L93 44 L108 14 L114 43 L125 74 M89 57 L118 53',
+        'M150 26 L148 47 L142 74',
+        'M186 15 L180 44 L175 77 L207 72'
+      ]},
+      {key:'arrow', viewBox:'0 0 100 72', paths:[
+        'M89 12 Q92 37 71 42 L15 47',
+        'M33 30 L13 48 L35 60'
+      ]}
+    ];
+    let delay = 650;
+    items.forEach(item => {
+      const note = document.createElement('div');
+      note.className = 'contact-note contact-note-' + item.key;
+      const svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+      svg.setAttribute('viewBox',item.viewBox);
+      note.appendChild(svg);
+      layer.appendChild(note);
+      item.paths.forEach(line => {
+        const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+        path.setAttribute('d',line);
+        svg.appendChild(path);
+        const length = path.getTotalLength();
+        const duration = Math.min(1100,Math.max(260,length*5));
+        path.style.strokeDasharray = String(length);
+        path.style.strokeDashoffset = reducedMotion ? '0' : String(length);
+        if (!reducedMotion) setTimeout(() => {
+          path.style.transition = 'stroke-dashoffset '+duration+'ms linear';
+          requestAnimationFrame(() => { path.style.strokeDashoffset = '0'; });
+        },delay);
+        delay += duration + 100;
+      });
+      delay += 800;
+    });
+    function place() {
+      const box = layer.getBoundingClientRect();
+      const headline = document.querySelector('.kontakt-headline').getBoundingClientRect();
+      const sidebar = document.querySelector('.section-grid .desc-block').getBoundingClientRect();
+      const mail = document.querySelector('.mail-block').getBoundingClientRect();
+      const mobile = window.matchMedia('(max-width:720px)').matches;
+      const positions = {
+        line:[headline.left+3,headline.bottom+(mobile ? 1 : 6)],
+        mail:[sidebar.left+8,sidebar.bottom+18],
+        arrow:[mail.right+14,mail.top+24]
+      };
+      items.forEach(item => {
+        const note = layer.querySelector('.contact-note-'+item.key);
+        note.style.left = (positions[item.key][0]-box.left)+'px';
+        note.style.top = (positions[item.key][1]-box.top)+'px';
+        note.style.visibility = 'visible';
+      });
+      clearHeader();
+    }
+    function clearHeader() {
+      layer.style.setProperty('--header-clearance',Math.max(0,
+        document.querySelector('.hero-header').getBoundingClientRect().bottom+12-layer.getBoundingClientRect().top)+'px');
+    }
+    window.addEventListener('resize',place);
+    window.addEventListener('scroll',clearHeader,{passive:true});
+    if (document.fonts) document.fonts.ready.then(place);
+    place();
+  }
 
   // Kontaktseite: Fedele x Ora Curated ab 1:29:00.
   const CONTACT_START_MS = 5340000;
