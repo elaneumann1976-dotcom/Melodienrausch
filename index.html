@@ -103,24 +103,20 @@
     background: #000000 !important;
   }
 
-  .home-collage-layer {
-    position: fixed; inset: 0; overflow: hidden;
-    pointer-events: none; z-index: 90;
+  .home-scribble-layer {
+    position: absolute; inset: 0; overflow: visible;
+    pointer-events: none; z-index: 102;
   }
-  .home-collage-strip {
-    position: absolute; inset: 0;
-    background: url('assets/scribbles/generated/start-collage-v2.webp') center top / 100% 100% no-repeat;
-    filter: contrast(1.2) saturate(1.25);
-    opacity: 0;
-    clip-path: inset(var(--top) 100% var(--bottom) 0);
+  .home-scribble-item { position: absolute; pointer-events: none; }
+  .home-scribble-item svg { overflow: visible; display: block; }
+  .home-scribble-item path {
+    fill: none;
+    stroke: #a30000;
+    stroke-width: 2.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
-  body.intro-done .home-collage-strip {
-    animation: homeCollageRowReveal 1.15s steps(10, end) var(--delay) forwards;
-  }
-  @keyframes homeCollageRowReveal {
-    0% { opacity: 1; clip-path: inset(var(--top) 100% var(--bottom) 0); }
-    100% { opacity: 0.92; clip-path: inset(var(--top) 0 var(--bottom) 0); }
-  }
+  .home-scribble-item path.sc-alt { stroke: #c00000; stroke-width: 2.2; }
 
   @keyframes introFromBehind {
     0%   { transform: scale(0.1); filter: blur(18px); opacity: 0; }
@@ -182,9 +178,6 @@
       background-position: center bottom;
     }
 
-    .home-collage-strip {
-      background-size: auto 100%;
-    }
   }
 
 </style>
@@ -215,16 +208,7 @@
     </div>
 
     <main class="section-grid">
-      <div class="home-collage-layer" aria-hidden="true">
-        <span class="home-collage-strip" style="--top:0%;--bottom:87.5%;--delay:.2s"></span>
-        <span class="home-collage-strip" style="--top:12.5%;--bottom:75%;--delay:1.15s"></span>
-        <span class="home-collage-strip" style="--top:25%;--bottom:62.5%;--delay:2.1s"></span>
-        <span class="home-collage-strip" style="--top:37.5%;--bottom:50%;--delay:3.05s"></span>
-        <span class="home-collage-strip" style="--top:50%;--bottom:37.5%;--delay:4s"></span>
-        <span class="home-collage-strip" style="--top:62.5%;--bottom:25%;--delay:4.95s"></span>
-        <span class="home-collage-strip" style="--top:75%;--bottom:12.5%;--delay:5.9s"></span>
-        <span class="home-collage-strip" style="--top:87.5%;--bottom:0%;--delay:6.85s"></span>
-      </div>
+      <div class="home-scribble-layer" id="homeScribbleLayer" aria-hidden="true"></div>
 
       <div class="meta-block">
         <p>Ich male, was in meinem Kopf keinen Platz findet. Ich schreibe, was danach übrig bleibt. Und irgendwo läuft immer Musik.</p>
@@ -260,6 +244,7 @@
       const intro = document.getElementById('intro-screen');
       if(intro) { intro.style.opacity = '0'; setTimeout(() => intro.remove(), 600); }
       document.body.classList.add('intro-done');
+      initHomeScribbles('homeScribbleLayer', homeScribbles);
     }, 3400);
   });
 
@@ -269,6 +254,64 @@
     window.scrollTo(0, 0);
     if (typeof updateHeroScroll === 'function') updateHeroScroll();
   });
+
+  async function initHomeScribbles(layerId, items) {
+    const layer = document.getElementById(layerId);
+    if (!layer) return;
+
+    const loadedItems = await Promise.all(items.map(async (cfg) => {
+      try {
+        const res = await fetch(cfg.src);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return { cfg, svgMarkup: await res.text() };
+      } catch (err) {
+        console.warn('Startseiten-Kritzelei konnte nicht geladen werden:', cfg.src, err);
+        return null;
+      }
+    }));
+
+    loadedItems.filter(Boolean).forEach(({ cfg, svgMarkup }) => {
+      const wrap = document.createElement('div');
+      wrap.className = 'home-scribble-item';
+      wrap.style.top = cfg.top;
+      wrap.style.left = cfg.left;
+      wrap.style.width = cfg.width;
+      wrap.style.transform = 'rotate(' + cfg.rotate + 'deg)';
+
+      wrap.innerHTML = svgMarkup;
+      layer.appendChild(wrap);
+
+      const paths = Array.from(wrap.querySelectorAll('path'));
+      const pathDuration = cfg.pathDuration || 0.55;
+      const pathGap = cfg.pathGap || 70;
+
+      paths.forEach((path) => {
+        const len = path.getTotalLength();
+        path.style.strokeDasharray = len;
+        path.style.strokeDashoffset = len;
+        path.style.transition = 'none';
+      });
+
+      setTimeout(() => {
+        paths.forEach((path, pathIndex) => {
+          setTimeout(() => {
+            path.style.transition = 'stroke-dashoffset ' + pathDuration + 's linear';
+            requestAnimationFrame(() => {
+              path.style.strokeDashoffset = '0';
+            });
+          }, pathIndex * (pathDuration * 1000 + pathGap));
+        });
+      }, cfg.delay);
+    });
+  }
+
+  const homeScribbles = [
+    { top: '8%',  left: '3%',  width: '180px', src: 'assets/scribbles/chaos.svg', delay: 150, rotate: -7, pathDuration: 0.45 },
+    { top: '3%',  left: '65%', width: '260px', src: 'assets/scribbles/hand-thread.svg', delay: 2900, rotate: 2, pathDuration: 1.0, pathGap: 100 },
+    { top: '53%', left: '4%',  width: '120px', src: 'assets/scribbles/organic-face.svg', delay: 7900, rotate: -8, pathDuration: 0.65 },
+    { top: '69%', left: '68%', width: '165px', src: 'assets/scribbles/tangle.svg', delay: 10800, rotate: 6, pathDuration: 0.8 }
+  ];
+
 
 const musicToggle = document.getElementById('music-toggle');
   const musicStatus = document.getElementById('music-status');
