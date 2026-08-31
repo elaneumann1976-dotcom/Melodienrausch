@@ -11,7 +11,7 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Melodienrausch – Kunst, Texte und Musik">
 <meta property="og:description" content="Eine persönliche, poetische digitale Galerie aus Musik, Kunst und Tagebuchtexten.">
-<meta property="og:image" content="https://elaneumann1976-dotcom.github.io/Melodienrausch/profilbilld_Fotogenic.jpg">
+<meta property="og:image" content="https://elaneumann1976-dotcom.github.io/Melodienrausch/assets/images/diary/galerie-kopfhoerer.png">
 <meta property="og:locale" content="de_DE">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,8 +56,9 @@
 
   .hero-img {
     position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    background-image: url('profilbilld_Fotogenic.jpg'); background-size: cover;
-    background-position: center 100%; background-repeat: no-repeat;
+    background-image: url('assets/images/diary/galerie-kopfhoerer.png'); background-size: cover;
+    background-position: center top; background-repeat: no-repeat;
+    background-color: #e8e5e0;
     filter: grayscale(1) contrast(1.08);
     z-index: 50; transform-origin: center center;
     will-change: transform, width, height, position, background-position, background-size;
@@ -300,11 +301,10 @@
     const header = document.querySelector('.hero-header');
     const hero = document.getElementById('zoomImage');
     const portrait = new Image();
-    // Outline in source-image coordinates, including head, body and shoes.
-    const silhouette = [[.59,.07],[.71,.08],[.74,.17],[.70,.205],[.77,.26],
-      [.82,.50],[.87,.78],[.73,.79],[.73,.94],[.58,.94],[.57,1.03],
-      [-.04,1.03],[-.04,.78],[.08,.68],[.16,.61],[.11,.555],
-      [.37,.34],[.40,.26],[.49,.16],[.58,.17]];
+    // Protected outline for the laptop portrait, including headphones and laptop.
+    const silhouette = [[.25,.07],[.48,.08],[.56,.17],[.56,.33],[.66,.47],
+      [.82,.54],[.84,.42],[1.03,.42],[1.03,.70],[.85,.80],[.82,1.03],
+      [-.03,1.03],[-.03,.65],[.08,.48],[.10,.32],[.26,.30],[.25,.21]];
     function inside(point, polygon) {
       let hit = false;
       for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
@@ -334,12 +334,17 @@
       const safetyGap = mobile ? 10 : 14;
       const viewportHeight = window.innerHeight;
       const heroBox = hero.getBoundingClientRect();
-      const scale = Math.max(heroBox.width / portrait.naturalWidth, heroBox.height / portrait.naturalHeight);
+      const sizing = getComputedStyle(hero).backgroundSize.split(' ');
+      const fittedHeight = sizing[0] === 'auto' ? Number.parseFloat(sizing[1]) : NaN;
+      const scale = Number.isFinite(fittedHeight) ? fittedHeight / portrait.naturalHeight :
+        Math.max(heroBox.width / portrait.naturalWidth, heroBox.height / portrait.naturalHeight);
       const imageWidth = portrait.naturalWidth * scale, imageHeight = portrait.naturalHeight * scale;
-      const imageY = Number.parseFloat(getComputedStyle(hero).backgroundPositionY) / 100;
+      const positionY = getComputedStyle(hero).backgroundPositionY;
+      const imageOffsetY = positionY.endsWith('%') ?
+        (heroBox.height-imageHeight)*Number.parseFloat(positionY)/100 : Number.parseFloat(positionY);
       const polygon = silhouette.map(([x,y]) => [
         heroBox.left + (heroBox.width-imageWidth)/2 + x*imageWidth,
-        heroBox.top + (heroBox.height-imageHeight)*imageY + y*imageHeight
+        heroBox.top + imageOffsetY + y*imageHeight
       ]);
       const left = document.querySelector('.section-grid .meta-block').getBoundingClientRect();
       const right = document.querySelector('.section-grid .desc-block').getBoundingClientRect();
@@ -383,7 +388,7 @@
       frame = requestAnimationFrame(() => { frame = null; positionNotes(); });
     }
     portrait.onload = queuePlacement;
-    portrait.src = 'profilbilld_Fotogenic.jpg';
+    portrait.src = 'assets/images/diary/galerie-kopfhoerer.png';
     window.addEventListener('scroll', queuePlacement, {passive:true});
     window.addEventListener('resize', queuePlacement);
     if (document.fonts) document.fonts.ready.then(queuePlacement);
@@ -583,7 +588,17 @@ const musicToggle = document.getElementById('music-toggle');
     const scrollPos = window.scrollY;
     const travel = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
     const progress = Math.min(1, Math.max(0, scrollPos / travel));
-    const imageY = 100 - (progress * 100);
+    const mobilePortrait = window.innerWidth <= 720;
+    // Frame the full-width laptop photo below the copy on phones; no inset photo card.
+    const copyBottom = Math.max(...Array.from(document.querySelectorAll('.section-grid .meta-block p, .section-grid .desc-block p'))
+      .map(node => node.getBoundingClientRect().bottom + scrollPos));
+    const headerBottom = document.querySelector('.hero-header').getBoundingClientRect().bottom;
+    const portraitHeight = Math.max(window.innerWidth * 4 / 3, window.innerHeight - copyBottom - 18);
+    const mobileOffset = Math.max(window.innerHeight - portraitHeight, copyBottom + 16 - portraitHeight * .075);
+    const coverHeight = Math.max(window.innerHeight, window.innerWidth * 4 / 3);
+    const tabletOffset = Math.max(0, headerBottom + 16 - coverHeight * .075);
+    const imagePosition = mobilePortrait ? `center ${mobileOffset}px` :
+      window.innerWidth <= 1000 ? `center ${tabletOffset}px` : `center ${progress * 100}%`;
     const zoomFactor = 1;
 
     zoomImage.style.position = 'fixed';
@@ -591,8 +606,8 @@ const musicToggle = document.getElementById('music-toggle');
     zoomImage.style.left = '0';
     zoomImage.style.width = '100vw';
     zoomImage.style.height = '100vh';
-    zoomImage.style.backgroundSize = 'cover';
-    zoomImage.style.backgroundPosition = `center ${imageY}%`;
+    zoomImage.style.backgroundSize = mobilePortrait ? `auto ${portraitHeight}px` : 'cover';
+    zoomImage.style.backgroundPosition = imagePosition;
     zoomImage.style.transform = `scale(${zoomFactor})`;
   }
 
