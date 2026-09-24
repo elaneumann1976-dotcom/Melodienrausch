@@ -338,7 +338,7 @@ window.addEventListener('DOMContentLoaded', () => {
     showStatusMessage('Musik konnte nicht geladen werden.');
   }
 
-  window.addEventListener('load', () => {
+  {
     const scIframe = document.getElementById('sc-hidden-player');
     if (window.SC && scIframe) {
       scWidget = SC.Widget(scIframe);
@@ -389,7 +389,7 @@ window.addEventListener('DOMContentLoaded', () => {
       // SoundCloud-Skript selbst konnte nicht geladen werden (z.B. blockiert)
       markSoundcloudFailed();
     }
-  });
+  }
 
   function playContactFromCue() {
     if (!widgetReady || soundStarted) return;
