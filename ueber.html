@@ -326,7 +326,7 @@ const musicToggle = document.getElementById('music-toggle');
     updateToggleLabel();
   }
 
-  window.addEventListener('load', () => {
+  {
     const scIframe = document.getElementById('sc-hidden-player');
     if (window.SC && scIframe) {
       scWidget = SC.Widget(scIframe);
@@ -361,7 +361,7 @@ const musicToggle = document.getElementById('music-toggle');
       // SoundCloud-Skript selbst konnte nicht geladen werden (z.B. blockiert)
       markSoundcloudFailed();
     }
-  });
+  }
 
   musicToggle.addEventListener('click', () => {
     if (isPlaying) { pauseMusic(); } else { requestPlay(); }
