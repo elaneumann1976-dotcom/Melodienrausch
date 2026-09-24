@@ -1000,6 +1000,13 @@ intro.remove(), window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 
   let rowFrame = null;
 
   function loop(now) {
+    if (document.hidden || window.innerWidth <= 720 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      rowFrame = null;
+      velocity = 0;
+      lastScroll = window.scrollY;
+      lastTime = now;
+      return;
+    }
     const dt = Math.max(now - lastTime, 1);
     const currentScroll = window.scrollY;
     const dy = currentScroll - lastScroll;
@@ -1026,8 +1033,20 @@ intro.remove(), window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 
     }
   }
   window.addEventListener('scroll', () => {
+    if (document.hidden || window.innerWidth <= 720 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      lastScroll = window.scrollY;
+      lastTime = performance.now();
+      return;
+    }
     if (rowFrame === null) rowFrame = requestAnimationFrame(loop);
   }, { passive: true });
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && rowFrame !== null) cancelAnimationFrame(rowFrame);
+    rowFrame = null;
+    velocity = 0;
+    lastScroll = window.scrollY;
+    lastTime = performance.now();
+  });
 
   // ---- Klick auf Kachel: direkt zur Werkseite, mit kurzer Klick-Animation ----
   let lastOpenedCard = null;

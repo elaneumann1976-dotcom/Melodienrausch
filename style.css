@@ -629,3 +629,15 @@ body.diary-entry.layout-c .entry-text > p:nth-child(3) {
     padding-left: 14px;
   }
 }
+
+@media (max-width: 430px) {
+  .hero-header:has(.header-controls) { flex-wrap: wrap; }
+  .hero-header:has(.header-controls) .huge-title {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .hero-header .header-controls {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
