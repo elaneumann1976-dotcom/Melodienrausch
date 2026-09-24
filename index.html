@@ -61,7 +61,7 @@
 
   .hero-img {
     position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    background-image: url('assets/images/diary/galerie-kopfhoerer.png'); background-size: cover;
+    background-image: url('assets/images/diary/galerie-kopfhoerer-high-quality.webp'); background-size: cover;
     background-position: center top; background-repeat: no-repeat;
     background-color: #e8e5e0;
     filter: grayscale(1) contrast(1.08);
@@ -397,7 +397,7 @@
       frame = requestAnimationFrame(() => { frame = null; positionNotes(); });
     }
     portrait.onload = queuePlacement;
-    portrait.src = 'assets/images/diary/galerie-kopfhoerer.png';
+    portrait.src = 'assets/images/diary/galerie-kopfhoerer-high-quality.webp';
     window.addEventListener('scroll', queuePlacement, {passive:true});
     window.addEventListener('resize', queuePlacement);
     if (document.fonts) document.fonts.ready.then(queuePlacement);
