@@ -11,6 +11,7 @@
 <meta property="og:title" content="Kontakt – Melodienrausch">
 <meta property="og:description" content="Schreib eine Nachricht, wenn dich ein Text, ein Bild oder ein Sound-Schnipsel beschäftigt hat.">
 <meta property="og:image" content="https://elaneumann1976-dotcom.github.io/Melodienrausch/profilbilld_Fotogenic.jpg">
+<meta property="og:url" content="https://elaneumann1976-dotcom.github.io/Melodienrausch/kontakt.html">
 <meta property="og:locale" content="de_DE">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -216,10 +217,10 @@
 window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       const intro = document.getElementById('intro-screen');
-      if(intro) { intro.style.opacity = '0'; setTimeout(() => intro.remove(), 600); }
+      if(intro) { intro.style.opacity = '0'; setTimeout(() => intro.remove(), window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 600); }
       document.body.classList.add('intro-done');
       initContactNotes();
-    }, 3400);
+    }, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 3400);
   });
 
 
