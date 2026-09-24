@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://elaneumann1976-dotcom.github.io/Melodienrausch/sitemap.xml

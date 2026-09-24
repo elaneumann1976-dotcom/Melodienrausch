@@ -12,6 +12,7 @@
 <meta property="og:title" content="Melodienrausch – Kunst, Texte und Musik">
 <meta property="og:description" content="Eine persönliche, poetische digitale Galerie aus Musik, Kunst und Tagebuchtexten.">
 <meta property="og:image" content="https://elaneumann1976-dotcom.github.io/Melodienrausch/assets/images/diary/galerie-kopfhoerer.png">
+<meta property="og:url" content="https://elaneumann1976-dotcom.github.io/Melodienrausch/">
 <meta property="og:locale" content="de_DE">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -252,10 +253,10 @@
   window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       const intro = document.getElementById('intro-screen');
-      if(intro) { intro.style.opacity = '0'; setTimeout(() => intro.remove(), 600); }
+      if(intro) { intro.style.opacity = '0'; setTimeout(() => intro.remove(), window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 600); }
       document.body.classList.add('intro-done');
       initHomeScribbles('homeScribbleLayer', homeScribbles);
-    }, 3400);
+    }, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 3400);
   });
 
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';

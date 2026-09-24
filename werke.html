@@ -13,6 +13,7 @@ initial-scale=1.0">
 <meta property="og:title" content="Werke – Melodienrausch">
 <meta property="og:description" content="Eine Galerie mit Kunstwerken, Werktiteln und Hintergrundtexten von Melodienrausch.">
 <meta property="og:image" content="https://elaneumann1976-dotcom.github.io/Melodienrausch/profilbilld_Fotogenic.jpg">
+<meta property="og:url" content="https://elaneumann1976-dotcom.github.io/Melodienrausch/werke.html">
 <meta property="og:locale" content="de_DE">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" 
@@ -53,8 +54,7 @@ flex-end;
     position: relative;
   }
 
-  .row { display: flex; gap: 24px; padding: 12px 0; will-change: 
-transform; }
+  .row { display: flex; gap: 24px; padding: 12px 0; }
   .row:nth-child(odd)  { padding-left: 6vw; }
   .row:nth-child(even) { padding-left: 0; margin-left: -6vw; }
 
@@ -396,7 +396,7 @@ aria-label="Nächstes Werk">▸</button>
         </div>
 
         <div class="media-box">
-          <div class="hero-img" id="zoomImage">
+          <div class="hero-img" id="zoomImage" role="img" aria-label="">
             <span class="werk-num-big" id="werk-num-big">01</span>
           </div>
           <div class="hero-img-multi" id="zoomImageMulti" style="display:none;"></div>
@@ -582,7 +582,7 @@ id="werk-year">2026</span></div>
       sound: 'Leo Kane - Epic (Original Mix)', trackId: '81184764',
       tech: 'Acryl, Strukturpaste und Pigmentfarbe auf Leinwand, Spachteltechnik, gestische Linienführung und mehrschichtiger Farbauftrag.',
       size: '50 x 70, 30 x 70 cm', year: null, status: 'Offen',
-      img: ['bilder/linie-im-blau.jpg']
+      img: 'bilder/linie-im-blau.jpg'
     },
     {
       num: '15', title: 'Unter Strom',
@@ -852,6 +852,7 @@ id="werk-year">2026</span></div>
       img.style.display = 'flex';
       imgMulti.style.display = 'none';
       img.style.backgroundImage = "url('" + w.img + "')";
+      img.setAttribute('aria-label', w.title);
       numEl.style.display = 'none';
     } else {
       img.style.display = 'flex';
@@ -894,15 +895,17 @@ showWerk(currentWerk + 1); }
     if (backBtn) backBtn.focus();
   }
 
+  let galleryReturnTimer;
   function showGallery() {
     stopWerkSound(true);
     const dv = document.getElementById('detailView');
     dv.classList.remove('visible');
-    setTimeout(() => {
+    clearTimeout(galleryReturnTimer);
+    galleryReturnTimer = setTimeout(() => {
       dv.classList.remove('active');
       document.getElementById('galleryView').style.display = 'block';
       if (lastOpenedCard) lastOpenedCard.focus();
-    }, 400);
+    }, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 400);
     window.scrollTo(0, 0);
   }
 
@@ -983,10 +986,10 @@ showWerk(currentWerk + 1); }
   window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       const intro = document.getElementById('intro-screen');
-      if (intro) { intro.style.opacity = '0'; setTimeout(() => 
-intro.remove(), 600); }
+      if (intro) { intro.style.opacity = '0'; setTimeout(() =>
+intro.remove(), window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 600); }
       document.body.classList.add('intro-done');
-    }, 3400);
+    }, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 3400);
   });
 
   // ---- Scroll-Velocity → unterschiedlicher Versatz je Reihe ----
@@ -994,6 +997,7 @@ intro.remove(), 600); }
   let lastTime = performance.now();
   let velocity = 0;
   let offsets = new Array(rowsCount).fill(0);
+  let rowFrame = null;
 
   function loop(now) {
     const dt = Math.max(now - lastTime, 1);
@@ -1014,9 +1018,16 @@ intro.remove(), 600); }
 
     lastScroll = currentScroll;
     lastTime = now;
-    requestAnimationFrame(loop);
+    if (Math.abs(velocity) > 0.02 || Math.abs(dy) > 0) {
+      rowFrame = requestAnimationFrame(loop);
+    } else {
+      rowFrame = null;
+      velocity = 0;
+    }
   }
-  requestAnimationFrame(loop);
+  window.addEventListener('scroll', () => {
+    if (rowFrame === null) rowFrame = requestAnimationFrame(loop);
+  }, { passive: true });
 
   // ---- Klick auf Kachel: direkt zur Werkseite, mit kurzer Klick-Animation ----
   let lastOpenedCard = null;
@@ -1024,7 +1035,7 @@ intro.remove(), 600); }
     lastOpenedCard = card;
     card.classList.add('clicked');
     setTimeout(() => card.classList.remove('clicked'), 500);
-    setTimeout(() => showDetail(index), 180);
+    setTimeout(() => showDetail(index), window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 180);
   }
 </script>
 </body>
